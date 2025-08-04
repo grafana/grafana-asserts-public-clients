@@ -1,6 +1,7 @@
 name: Generate Clients
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
@@ -25,5 +26,5 @@ jobs:
         uses: grafana/shared-workflows/actions/generate-openapi-clients@da511b720bc646fe01a29ddaf37e92df2c4bacb3
         with:
           package-name: gcom
-          spec-path: openapi.json
+          spec-path: openapi.yaml
           modify-spec-script: .github/workflows/modify-spec.sh
