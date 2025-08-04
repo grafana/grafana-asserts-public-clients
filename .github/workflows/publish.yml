@@ -23,24 +23,9 @@ jobs:
         with:
           go-version: 1.23
 
-      - name: Make modify script executable
-        run: chmod +x .github/workflows/modify-spec.sh
-
       - name: Generate Client
         uses: grafana/shared-workflows/actions/generate-openapi-clients@da511b720bc646fe01a29ddaf37e92df2c4bacb3
         with:
           package-name: gcom
           spec-path: openapi.yaml
           modify-spec-script: .github/workflows/modify-spec.sh
-
-      - name: Commit and push generated client
-        run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add .
-          if ! git diff --staged --quiet; then
-            git commit -m "feat(gcom): Regenerate Go client"
-            git push
-          else
-            echo "No changes to commit in the generated client."
-          fi
