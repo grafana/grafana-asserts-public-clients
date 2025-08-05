@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 1.0.1
+API version: 1.0.4
 Contact: support@asserts.ai
 */
 
@@ -17,7 +17,7 @@ import (
 )
 
 // HttpStatus the model 'HttpStatus'
-type HttpStatus HttpStatusCode
+type HttpStatus string
 
 // List of HttpStatus
 const (
@@ -166,7 +166,7 @@ var AllowedHttpStatusEnumValues = []HttpStatus{
 }
 
 func (v *HttpStatus) UnmarshalJSON(src []byte) error {
-	var value HttpStatusCode
+	var value string
 	err := json.Unmarshal(src, &value)
 	if err != nil {
 		return err
@@ -184,7 +184,7 @@ func (v *HttpStatus) UnmarshalJSON(src []byte) error {
 
 // NewHttpStatusFromValue returns a pointer to a valid HttpStatus
 // for the value passed as argument, or an error if the value passed is not allowed by the enum
-func NewHttpStatusFromValue(v HttpStatusCode) (*HttpStatus, error) {
+func NewHttpStatusFromValue(v string) (*HttpStatus, error) {
 	ev := HttpStatus(v)
 	if ev.IsValid() {
 		return &ev, nil

@@ -7,7 +7,7 @@ info:
   description: Asserts Public API
   termsOfService: https://www.asserts.ai/terms-of-service
   title: "Asserts, Inc"
-  version: 1.0.1
+  version: 1.0.4
 servers:
 - description: Generated server url
   url: http://localhost:8030/asserts/api-server
@@ -8564,8 +8564,6 @@ components:
         is3xxRedirection: true
         is1xxInformational: true
     HttpStatus:
-      allOf:
-      - $ref: '#/components/schemas/HttpStatusCode'
       enum:
       - 100 CONTINUE
       - 101 SWITCHING_PROTOCOLS
@@ -8636,6 +8634,7 @@ components:
       - 509 BANDWIDTH_LIMIT_EXCEEDED
       - 510 NOT_EXTENDED
       - 511 NETWORK_AUTHENTICATION_REQUIRED
+      type: string
     HttpStatusCode:
       properties:
         error:
