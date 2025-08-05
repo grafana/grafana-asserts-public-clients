@@ -29,4 +29,4 @@ in_httpstatus && /enum:/ {
 
 # Print all other lines
 { print }
-' wm
+'
