@@ -28,3 +28,4 @@ jobs:
         with:
           package-name: gcom
           spec-path: openapi.yaml
+          modify-spec-script: .github/workflows/modify-spec.sh
