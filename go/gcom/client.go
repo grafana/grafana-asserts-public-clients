@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 1.0.4
+API version: 2025.08.07-125604
 Contact: support@asserts.ai
 */
 
@@ -41,7 +41,7 @@ var (
 	queryDescape    = strings.NewReplacer("%5B", "[", "%5D", "]")
 )
 
-// APIClient manages communication with the Asserts, Inc API v1.0.4
+// APIClient manages communication with the Asserts, Inc API v2025.08.07-125604
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration
