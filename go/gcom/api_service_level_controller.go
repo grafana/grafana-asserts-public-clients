@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2025.08.11-055054
+API version: 2025.08.11-062139
 Contact: support@asserts.ai
 */
 
