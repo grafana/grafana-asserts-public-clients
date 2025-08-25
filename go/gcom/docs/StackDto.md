@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **GcomToken** | Pointer to **string** |  | [optional] 
 **MimirToken** | Pointer to **string** |  | [optional] 
 **AssertionDetectorToken** | Pointer to **string** |  | [optional] 
+**GrafanaToken** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -101,6 +102,31 @@ SetAssertionDetectorToken sets AssertionDetectorToken field to given value.
 `func (o *StackDto) HasAssertionDetectorToken() bool`
 
 HasAssertionDetectorToken returns a boolean if a field has been set.
+
+### GetGrafanaToken
+
+`func (o *StackDto) GetGrafanaToken() string`
+
+GetGrafanaToken returns the GrafanaToken field if non-nil, zero value otherwise.
+
+### GetGrafanaTokenOk
+
+`func (o *StackDto) GetGrafanaTokenOk() (*string, bool)`
+
+GetGrafanaTokenOk returns a tuple with the GrafanaToken field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetGrafanaToken
+
+`func (o *StackDto) SetGrafanaToken(v string)`
+
+SetGrafanaToken sets GrafanaToken field to given value.
+
+### HasGrafanaToken
+
+`func (o *StackDto) HasGrafanaToken() bool`
+
+HasGrafanaToken returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

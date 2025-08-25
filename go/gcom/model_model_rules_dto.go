@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2025.08.11-161538
+API version: 2025.08.25-143403
 Contact: support@asserts.ai
 */
 
@@ -18,7 +18,7 @@ import (
 // checks if the ModelRulesDto type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ModelRulesDto{}
 
-// ModelRulesDto struct for ModelRulesDto
+// ModelRulesDto The model rules configuration to create or update
 type ModelRulesDto struct {
 	Name                 *string           `json:"name,omitempty"`
 	Entities             []EntityRuleDto   `json:"entities,omitempty"`

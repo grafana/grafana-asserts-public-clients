@@ -36,11 +36,72 @@ func Test_gcom_AlertConfigurationAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test AlertConfigurationAPIService DeleteDisabledAlertConfig", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		var name string
+
+		httpRes, err := apiClient.AlertConfigurationAPI.DeleteDisabledAlertConfig(context.Background(), name).Execute()
+
+		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test AlertConfigurationAPIService GetAllAlertConfigs", func(t *testing.T) {
 
 		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.AlertConfigurationAPI.GetAllAlertConfigs(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test AlertConfigurationAPIService GetAllDisabledAlertConfigs", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		resp, httpRes, err := apiClient.AlertConfigurationAPI.GetAllDisabledAlertConfigs(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test AlertConfigurationAPIService GetDisabledHealthAlertConfigs", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		resp, httpRes, err := apiClient.AlertConfigurationAPI.GetDisabledHealthAlertConfigs(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test AlertConfigurationAPIService GetDisabledRequestAlertConfigs", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		resp, httpRes, err := apiClient.AlertConfigurationAPI.GetDisabledRequestAlertConfigs(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test AlertConfigurationAPIService GetDisabledResourceAlertConfigs", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		resp, httpRes, err := apiClient.AlertConfigurationAPI.GetDisabledResourceAlertConfigs(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -124,6 +185,28 @@ func Test_gcom_AlertConfigurationAPIService(t *testing.T) {
 		t.Skip("skip test") // remove to run test
 
 		httpRes, err := apiClient.AlertConfigurationAPI.PutAlertConfigs(context.Background()).Execute()
+
+		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test AlertConfigurationAPIService PutDisabledAlertConfig", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		httpRes, err := apiClient.AlertConfigurationAPI.PutDisabledAlertConfig(context.Background()).Execute()
+
+		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test AlertConfigurationAPIService PutDisabledAlertConfigs", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		httpRes, err := apiClient.AlertConfigurationAPI.PutDisabledAlertConfigs(context.Background()).Execute()
 
 		require.Nil(t, err)
 		assert.Equal(t, 200, httpRes.StatusCode)

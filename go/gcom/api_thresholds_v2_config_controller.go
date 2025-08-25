@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2025.08.11-161538
+API version: 2025.08.25-143403
 Contact: support@asserts.ai
 */
 
@@ -17,162 +17,57 @@ import (
 	"io"
 	"net/http"
 	"net/url"
-	"strings"
 )
 
-// CustomModelRulesControllerAPIService CustomModelRulesControllerAPI service
-type CustomModelRulesControllerAPIService service
+// ThresholdsV2ConfigControllerAPIService ThresholdsV2ConfigControllerAPI service
+type ThresholdsV2ConfigControllerAPIService service
 
-type ApiDeleteModelRulesRequest struct {
+type ApiGetThresholdsRequest struct {
 	ctx         context.Context
-	ApiService  *CustomModelRulesControllerAPIService
-	name        string
+	ApiService  *ThresholdsV2ConfigControllerAPIService
 	xScopeOrgID *string
 }
 
 // Grafana Tenant/Stack ID
-func (r ApiDeleteModelRulesRequest) XScopeOrgID(xScopeOrgID string) ApiDeleteModelRulesRequest {
+func (r ApiGetThresholdsRequest) XScopeOrgID(xScopeOrgID string) ApiGetThresholdsRequest {
 	r.xScopeOrgID = &xScopeOrgID
 	return r
 }
 
-func (r ApiDeleteModelRulesRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteModelRulesExecute(r)
+func (r ApiGetThresholdsRequest) Execute() (*ThresholdsV2Dto, *http.Response, error) {
+	return r.ApiService.GetThresholdsExecute(r)
 }
 
 /*
-DeleteModelRules Method for DeleteModelRules
+GetThresholds Method for GetThresholds
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param name
-	@return ApiDeleteModelRulesRequest
+	@return ApiGetThresholdsRequest
 */
-func (a *CustomModelRulesControllerAPIService) DeleteModelRules(ctx context.Context, name string) ApiDeleteModelRulesRequest {
-	return ApiDeleteModelRulesRequest{
+func (a *ThresholdsV2ConfigControllerAPIService) GetThresholds(ctx context.Context) ApiGetThresholdsRequest {
+	return ApiGetThresholdsRequest{
 		ApiService: a,
 		ctx:        ctx,
-		name:       name,
-	}
-}
-
-// Execute executes the request
-func (a *CustomModelRulesControllerAPIService) DeleteModelRulesExecute(r ApiDeleteModelRulesRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomModelRulesControllerAPIService.DeleteModelRules")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/config/model-rules/{name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	if r.xScopeOrgID != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Scope-OrgID", r.xScopeOrgID, "")
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
-type ApiGetModelRulesRequest struct {
-	ctx         context.Context
-	ApiService  *CustomModelRulesControllerAPIService
-	name        string
-	xScopeOrgID *string
-}
-
-// Grafana Tenant/Stack ID
-func (r ApiGetModelRulesRequest) XScopeOrgID(xScopeOrgID string) ApiGetModelRulesRequest {
-	r.xScopeOrgID = &xScopeOrgID
-	return r
-}
-
-func (r ApiGetModelRulesRequest) Execute() (*ModelRulesDto, *http.Response, error) {
-	return r.ApiService.GetModelRulesExecute(r)
-}
-
-/*
-GetModelRules Method for GetModelRules
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param name
-	@return ApiGetModelRulesRequest
-*/
-func (a *CustomModelRulesControllerAPIService) GetModelRules(ctx context.Context, name string) ApiGetModelRulesRequest {
-	return ApiGetModelRulesRequest{
-		ApiService: a,
-		ctx:        ctx,
-		name:       name,
 	}
 }
 
 // Execute executes the request
 //
-//	@return ModelRulesDto
-func (a *CustomModelRulesControllerAPIService) GetModelRulesExecute(r ApiGetModelRulesRequest) (*ModelRulesDto, *http.Response, error) {
+//	@return ThresholdsV2Dto
+func (a *ThresholdsV2ConfigControllerAPIService) GetThresholdsExecute(r ApiGetThresholdsRequest) (*ThresholdsV2Dto, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ModelRulesDto
+		localVarReturnValue *ThresholdsV2Dto
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomModelRulesControllerAPIService.GetModelRules")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ThresholdsV2ConfigControllerAPIService.GetThresholds")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/model-rules/{name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
+	localVarPath := localBasePath + "/v2/config/thresholds"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -188,7 +83,7 @@ func (a *CustomModelRulesControllerAPIService) GetModelRulesExecute(r ApiGetMode
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "application/x-yml", "application/x-yaml"}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -235,280 +130,61 @@ func (a *CustomModelRulesControllerAPIService) GetModelRulesExecute(r ApiGetMode
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiListModelRulesRequest struct {
-	ctx         context.Context
-	ApiService  *CustomModelRulesControllerAPIService
-	xScopeOrgID *string
+type ApiUpdateAllThresholdsRequest struct {
+	ctx             context.Context
+	ApiService      *ThresholdsV2ConfigControllerAPIService
+	thresholdsV2Dto *ThresholdsV2Dto
+	xScopeOrgID     *string
+}
+
+func (r ApiUpdateAllThresholdsRequest) ThresholdsV2Dto(thresholdsV2Dto ThresholdsV2Dto) ApiUpdateAllThresholdsRequest {
+	r.thresholdsV2Dto = &thresholdsV2Dto
+	return r
 }
 
 // Grafana Tenant/Stack ID
-func (r ApiListModelRulesRequest) XScopeOrgID(xScopeOrgID string) ApiListModelRulesRequest {
+func (r ApiUpdateAllThresholdsRequest) XScopeOrgID(xScopeOrgID string) ApiUpdateAllThresholdsRequest {
 	r.xScopeOrgID = &xScopeOrgID
 	return r
 }
 
-func (r ApiListModelRulesRequest) Execute() (*ModelRuleNamesDto, *http.Response, error) {
-	return r.ApiService.ListModelRulesExecute(r)
+func (r ApiUpdateAllThresholdsRequest) Execute() (*http.Response, error) {
+	return r.ApiService.UpdateAllThresholdsExecute(r)
 }
 
 /*
-ListModelRules Method for ListModelRules
+UpdateAllThresholds Method for UpdateAllThresholds
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListModelRulesRequest
+	@return ApiUpdateAllThresholdsRequest
 */
-func (a *CustomModelRulesControllerAPIService) ListModelRules(ctx context.Context) ApiListModelRulesRequest {
-	return ApiListModelRulesRequest{
+func (a *ThresholdsV2ConfigControllerAPIService) UpdateAllThresholds(ctx context.Context) ApiUpdateAllThresholdsRequest {
+	return ApiUpdateAllThresholdsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//
-//	@return ModelRuleNamesDto
-func (a *CustomModelRulesControllerAPIService) ListModelRulesExecute(r ApiListModelRulesRequest) (*ModelRuleNamesDto, *http.Response, error) {
+func (a *ThresholdsV2ConfigControllerAPIService) UpdateAllThresholdsExecute(r ApiUpdateAllThresholdsRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ModelRuleNamesDto
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomModelRulesControllerAPIService.ListModelRules")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/config/model-rules"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "application/x-yml", "application/x-yaml"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	if r.xScopeOrgID != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Scope-OrgID", r.xScopeOrgID, "")
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiPutModelRulesRequest struct {
-	ctx           context.Context
-	ApiService    *CustomModelRulesControllerAPIService
-	modelRulesDto *ModelRulesDto
-	xScopeOrgID   *string
-}
-
-func (r ApiPutModelRulesRequest) ModelRulesDto(modelRulesDto ModelRulesDto) ApiPutModelRulesRequest {
-	r.modelRulesDto = &modelRulesDto
-	return r
-}
-
-// Grafana Tenant/Stack ID
-func (r ApiPutModelRulesRequest) XScopeOrgID(xScopeOrgID string) ApiPutModelRulesRequest {
-	r.xScopeOrgID = &xScopeOrgID
-	return r
-}
-
-func (r ApiPutModelRulesRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PutModelRulesExecute(r)
-}
-
-/*
-PutModelRules Method for PutModelRules
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiPutModelRulesRequest
-*/
-func (a *CustomModelRulesControllerAPIService) PutModelRules(ctx context.Context) ApiPutModelRulesRequest {
-	return ApiPutModelRulesRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-func (a *CustomModelRulesControllerAPIService) PutModelRulesExecute(r ApiPutModelRulesRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodPut
+		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomModelRulesControllerAPIService.PutModelRules")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ThresholdsV2ConfigControllerAPIService.UpdateAllThresholds")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/model-rules"
+	localVarPath := localBasePath + "/v2/config/thresholds"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.modelRulesDto == nil {
-		return nil, reportError("modelRulesDto is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json", "application/x-yml", "application/x-yaml"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	if r.xScopeOrgID != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Scope-OrgID", r.xScopeOrgID, "")
-	}
-	// body params
-	localVarPostBody = r.modelRulesDto
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
-type ApiPutModelRules1Request struct {
-	ctx           context.Context
-	ApiService    *CustomModelRulesControllerAPIService
-	name          string
-	modelRulesDto *ModelRulesDto
-	xScopeOrgID   *string
-}
-
-func (r ApiPutModelRules1Request) ModelRulesDto(modelRulesDto ModelRulesDto) ApiPutModelRules1Request {
-	r.modelRulesDto = &modelRulesDto
-	return r
-}
-
-// Grafana Tenant/Stack ID
-func (r ApiPutModelRules1Request) XScopeOrgID(xScopeOrgID string) ApiPutModelRules1Request {
-	r.xScopeOrgID = &xScopeOrgID
-	return r
-}
-
-func (r ApiPutModelRules1Request) Execute() (*http.Response, error) {
-	return r.ApiService.PutModelRules1Execute(r)
-}
-
-/*
-PutModelRules1 Method for PutModelRules1
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param name
-	@return ApiPutModelRules1Request
-*/
-func (a *CustomModelRulesControllerAPIService) PutModelRules1(ctx context.Context, name string) ApiPutModelRules1Request {
-	return ApiPutModelRules1Request{
-		ApiService: a,
-		ctx:        ctx,
-		name:       name,
-	}
-}
-
-// Execute executes the request
-func (a *CustomModelRulesControllerAPIService) PutModelRules1Execute(r ApiPutModelRules1Request) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodPut
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomModelRulesControllerAPIService.PutModelRules1")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/config/model-rules/{name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.modelRulesDto == nil {
-		return nil, reportError("modelRulesDto is required and must be specified")
+	if r.thresholdsV2Dto == nil {
+		return nil, reportError("thresholdsV2Dto is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -532,7 +208,328 @@ func (a *CustomModelRulesControllerAPIService) PutModelRules1Execute(r ApiPutMod
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Scope-OrgID", r.xScopeOrgID, "")
 	}
 	// body params
-	localVarPostBody = r.modelRulesDto
+	localVarPostBody = r.thresholdsV2Dto
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type ApiUpdateHealthThresholdsRequest struct {
+	ctx                  context.Context
+	ApiService           *ThresholdsV2ConfigControllerAPIService
+	healthThresholdV2Dto *[]HealthThresholdV2Dto
+	xScopeOrgID          *string
+}
+
+func (r ApiUpdateHealthThresholdsRequest) HealthThresholdV2Dto(healthThresholdV2Dto []HealthThresholdV2Dto) ApiUpdateHealthThresholdsRequest {
+	r.healthThresholdV2Dto = &healthThresholdV2Dto
+	return r
+}
+
+// Grafana Tenant/Stack ID
+func (r ApiUpdateHealthThresholdsRequest) XScopeOrgID(xScopeOrgID string) ApiUpdateHealthThresholdsRequest {
+	r.xScopeOrgID = &xScopeOrgID
+	return r
+}
+
+func (r ApiUpdateHealthThresholdsRequest) Execute() (*http.Response, error) {
+	return r.ApiService.UpdateHealthThresholdsExecute(r)
+}
+
+/*
+UpdateHealthThresholds Method for UpdateHealthThresholds
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiUpdateHealthThresholdsRequest
+*/
+func (a *ThresholdsV2ConfigControllerAPIService) UpdateHealthThresholds(ctx context.Context) ApiUpdateHealthThresholdsRequest {
+	return ApiUpdateHealthThresholdsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *ThresholdsV2ConfigControllerAPIService) UpdateHealthThresholdsExecute(r ApiUpdateHealthThresholdsRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ThresholdsV2ConfigControllerAPIService.UpdateHealthThresholds")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v2/config/thresholds/health"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.healthThresholdV2Dto == nil {
+		return nil, reportError("healthThresholdV2Dto is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.xScopeOrgID != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Scope-OrgID", r.xScopeOrgID, "")
+	}
+	// body params
+	localVarPostBody = r.healthThresholdV2Dto
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type ApiUpdateRequestThresholdsRequest struct {
+	ctx                   context.Context
+	ApiService            *ThresholdsV2ConfigControllerAPIService
+	requestThresholdV2Dto *[]RequestThresholdV2Dto
+	xScopeOrgID           *string
+}
+
+func (r ApiUpdateRequestThresholdsRequest) RequestThresholdV2Dto(requestThresholdV2Dto []RequestThresholdV2Dto) ApiUpdateRequestThresholdsRequest {
+	r.requestThresholdV2Dto = &requestThresholdV2Dto
+	return r
+}
+
+// Grafana Tenant/Stack ID
+func (r ApiUpdateRequestThresholdsRequest) XScopeOrgID(xScopeOrgID string) ApiUpdateRequestThresholdsRequest {
+	r.xScopeOrgID = &xScopeOrgID
+	return r
+}
+
+func (r ApiUpdateRequestThresholdsRequest) Execute() (*http.Response, error) {
+	return r.ApiService.UpdateRequestThresholdsExecute(r)
+}
+
+/*
+UpdateRequestThresholds Method for UpdateRequestThresholds
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiUpdateRequestThresholdsRequest
+*/
+func (a *ThresholdsV2ConfigControllerAPIService) UpdateRequestThresholds(ctx context.Context) ApiUpdateRequestThresholdsRequest {
+	return ApiUpdateRequestThresholdsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *ThresholdsV2ConfigControllerAPIService) UpdateRequestThresholdsExecute(r ApiUpdateRequestThresholdsRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ThresholdsV2ConfigControllerAPIService.UpdateRequestThresholds")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v2/config/thresholds/request"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.requestThresholdV2Dto == nil {
+		return nil, reportError("requestThresholdV2Dto is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.xScopeOrgID != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Scope-OrgID", r.xScopeOrgID, "")
+	}
+	// body params
+	localVarPostBody = r.requestThresholdV2Dto
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type ApiUpdateResourceThresholdsRequest struct {
+	ctx                    context.Context
+	ApiService             *ThresholdsV2ConfigControllerAPIService
+	resourceThresholdV2Dto *[]ResourceThresholdV2Dto
+	xScopeOrgID            *string
+}
+
+func (r ApiUpdateResourceThresholdsRequest) ResourceThresholdV2Dto(resourceThresholdV2Dto []ResourceThresholdV2Dto) ApiUpdateResourceThresholdsRequest {
+	r.resourceThresholdV2Dto = &resourceThresholdV2Dto
+	return r
+}
+
+// Grafana Tenant/Stack ID
+func (r ApiUpdateResourceThresholdsRequest) XScopeOrgID(xScopeOrgID string) ApiUpdateResourceThresholdsRequest {
+	r.xScopeOrgID = &xScopeOrgID
+	return r
+}
+
+func (r ApiUpdateResourceThresholdsRequest) Execute() (*http.Response, error) {
+	return r.ApiService.UpdateResourceThresholdsExecute(r)
+}
+
+/*
+UpdateResourceThresholds Method for UpdateResourceThresholds
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiUpdateResourceThresholdsRequest
+*/
+func (a *ThresholdsV2ConfigControllerAPIService) UpdateResourceThresholds(ctx context.Context) ApiUpdateResourceThresholdsRequest {
+	return ApiUpdateResourceThresholdsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *ThresholdsV2ConfigControllerAPIService) UpdateResourceThresholdsExecute(r ApiUpdateResourceThresholdsRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ThresholdsV2ConfigControllerAPIService.UpdateResourceThresholds")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v2/config/thresholds/resource"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.resourceThresholdV2Dto == nil {
+		return nil, reportError("resourceThresholdV2Dto is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.xScopeOrgID != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Scope-OrgID", r.xScopeOrgID, "")
+	}
+	// body params
+	localVarPostBody = r.resourceThresholdV2Dto
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err

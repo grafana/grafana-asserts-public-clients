@@ -13,10 +13,9 @@ api_assertion_search_controller.go
 api_auto_complete_controller.go
 api_config_export_import_controller.go
 api_custom_dash_config_controller.go
-api_custom_model_rules_controller.go
+api_custom_model_rules_configuration.go
 api_customer_metric_controller.go
 api_data_sources_config_controller.go
-api_disabled_alert_config_controller.go
 api_entity_assertions_controller.go
 api_entity_controller.go
 api_entity_kpi_controller.go
@@ -29,10 +28,12 @@ api_kpi_display_config_controller.go
 api_latency_threshold_controller.go
 api_llm_rca_controller.go
 api_log_config_controller.go
+api_log_drilldown_config_controller.go
 api_mimir_relabel_rules_config_controller.go
 api_model_mapping_controller.go
 api_monitoring_status_controller.go
 api_otel_config_controller.go
+api_product_activation_controller.go
 api_prom_ql_validation_controller.go
 api_prom_rules_config_controller.go
 api_rca_pattern_controller.go
@@ -45,6 +46,7 @@ api_slo_config_controller.go
 api_stack_controller.go
 api_stack_info_controller.go
 api_threshold_rules_config_controller.go
+api_thresholds_v2_config_controller.go
 api_trace_config_controller.go
 api_trace_controller.go
 api_version_controller.go
@@ -88,9 +90,6 @@ docs/AlertManagerTls.md
 docs/AlertManagerVersionedConfigControllerAPI.md
 docs/AllRulesDto.md
 docs/ApiError.md
-docs/ApiErrorException.md
-docs/ApiErrorExceptionCause.md
-docs/ApiErrorExceptionCauseStackTraceInner.md
 docs/ApiErrorStatus.md
 docs/ApiErrorSubErrorsInner.md
 docs/ApiSubError.md
@@ -121,7 +120,7 @@ docs/CustomDashConfigControllerAPI.md
 docs/CustomDashConfigDto.md
 docs/CustomDashConfigsDto.md
 docs/CustomKpiDashConfigDto.md
-docs/CustomModelRulesControllerAPI.md
+docs/CustomModelRulesConfigurationAPI.md
 docs/CustomerMetricControllerAPI.md
 docs/CustomerMetricRequestDto.md
 docs/CustomerMetricResponseDto.md
@@ -139,7 +138,6 @@ docs/DefaultHttpStatusCode.md
 docs/DefinedByDto.md
 docs/DefinedByMetricsDto.md
 docs/DefinedByPropertyMatchDto.md
-docs/DisabledAlertConfigControllerAPI.md
 docs/DisabledAlertConfigDto.md
 docs/DisabledAlertConfigsDto.md
 docs/DisabledRulesDto.md
@@ -180,6 +178,7 @@ docs/GraphDisplayConfigDto.md
 docs/GraphEntity.md
 docs/GraphEntityKpiValue.md
 docs/GraphEntityScope.md
+docs/HealthThresholdV2Dto.md
 docs/HttpStatus.md
 docs/HttpStatusCode.md
 docs/IncidentControllerAPI.md
@@ -213,6 +212,8 @@ docs/LlmRcaSummaryReqDto.md
 docs/LlmRcaSummarySearchReqDto.md
 docs/LogConfigControllerAPI.md
 docs/LogConfigDto.md
+docs/LogDrilldownConfigControllerAPI.md
+docs/LogDrilldownConfigDto.md
 docs/MetricDto.md
 docs/MetricSanityCheckDto.md
 docs/MetricSanityCheckResult.md
@@ -244,6 +245,8 @@ docs/MonitoringStatusResponseDto.md
 docs/OccurrenceSliConfigDto.md
 docs/OtelCollectorConfigDto.md
 docs/OtelConfigControllerAPI.md
+docs/ProductActivationControllerAPI.md
+docs/ProductActivationDto.md
 docs/PromQlValidationControllerAPI.md
 docs/PromRulesConfigControllerAPI.md
 docs/PrometheusRule.md
@@ -253,6 +256,7 @@ docs/PrometheusRuleGroup.md
 docs/PrometheusRuleGroupDto.md
 docs/PrometheusRules.md
 docs/PrometheusRulesDto.md
+docs/PropertyMatchEntryDto.md
 docs/PropertyMatcherDto.md
 docs/PropertyRuleDto.md
 docs/RcaPatternControllerAPI.md
@@ -263,6 +267,8 @@ docs/RecordingRuleControllerAPI.md
 docs/RelationRuleDto.md
 docs/RelationRuleDtoDefinedBy.md
 docs/RequestSliConfigDto.md
+docs/RequestThresholdV2Dto.md
+docs/ResourceThresholdV2Dto.md
 docs/RuleCreationSpecDto.md
 docs/RuleDto.md
 docs/RuleGenerationRequestDto.md
@@ -313,6 +319,7 @@ docs/StackInfosDto.md
 docs/StackStatusDto.md
 docs/StackUpdateBucketDto.md
 docs/TenantEnvConfigResponseDto.md
+docs/TenantLogConfigResponseDto.md
 docs/ThresholdDto.md
 docs/ThresholdMinMaxDto.md
 docs/ThresholdRulesConfigControllerAPI.md
@@ -320,6 +327,8 @@ docs/ThresholdRulesDto.md
 docs/ThresholdSingleDto.md
 docs/ThresholdValueMinMaxDto.md
 docs/ThresholdValueSingleDto.md
+docs/ThresholdsV2ConfigControllerAPI.md
+docs/ThresholdsV2Dto.md
 docs/TimeCriteriaDto.md
 docs/TimeWindowDto.md
 docs/TraceConfigControllerAPI.md
@@ -375,9 +384,6 @@ model_am_receiver_sns_sig_v4.go
 model_am_receiver_victor_ops.go
 model_am_receiver_webhook.go
 model_api_error.go
-model_api_error_exception.go
-model_api_error_exception_cause.go
-model_api_error_exception_cause_stack_trace_inner.go
 model_api_error_status.go
 model_api_error_sub_errors_inner.go
 model_api_sub_error.go
@@ -450,6 +456,7 @@ model_graph_display_config_dto.go
 model_graph_entity.go
 model_graph_entity_kpi_value.go
 model_graph_entity_scope.go
+model_health_threshold_v2_dto.go
 model_http_status.go
 model_http_status_code.go
 model_incident_dto.go
@@ -478,6 +485,7 @@ model_llm_rca_summaries_dto.go
 model_llm_rca_summary_req_dto.go
 model_llm_rca_summary_search_req_dto.go
 model_log_config_dto.go
+model_log_drilldown_config_dto.go
 model_metric_dto.go
 model_metric_sanity_check_dto.go
 model_metric_sanity_check_result.go
@@ -505,6 +513,7 @@ model_monitoring_status_request_dto.go
 model_monitoring_status_response_dto.go
 model_occurrence_sli_config_dto.go
 model_otel_collector_config_dto.go
+model_product_activation_dto.go
 model_prometheus_rule.go
 model_prometheus_rule_annotations.go
 model_prometheus_rule_dto.go
@@ -512,6 +521,7 @@ model_prometheus_rule_group.go
 model_prometheus_rule_group_dto.go
 model_prometheus_rules.go
 model_prometheus_rules_dto.go
+model_property_match_entry_dto.go
 model_property_matcher_dto.go
 model_property_rule_dto.go
 model_rca_pattern_list_request_dto.go
@@ -520,6 +530,8 @@ model_rca_pattern_search_response_dto.go
 model_relation_rule_dto.go
 model_relation_rule_dto_defined_by.go
 model_request_sli_config_dto.go
+model_request_threshold_v2_dto.go
+model_resource_threshold_v2_dto.go
 model_rule_creation_spec_dto.go
 model_rule_dto.go
 model_rule_generation_request_dto.go
@@ -563,12 +575,14 @@ model_stack_infos_dto.go
 model_stack_status_dto.go
 model_stack_update_bucket_dto.go
 model_tenant_env_config_response_dto.go
+model_tenant_log_config_response_dto.go
 model_threshold_dto.go
 model_threshold_min_max_dto.go
 model_threshold_rules_dto.go
 model_threshold_single_dto.go
 model_threshold_value_min_max_dto.go
 model_threshold_value_single_dto.go
+model_thresholds_v2_dto.go
 model_time_criteria_dto.go
 model_time_window_dto.go
 model_trace_config_dto.go
@@ -595,10 +609,9 @@ test/api_assertion_search_controller_test.go
 test/api_auto_complete_controller_test.go
 test/api_config_export_import_controller_test.go
 test/api_custom_dash_config_controller_test.go
-test/api_custom_model_rules_controller_test.go
+test/api_custom_model_rules_configuration_test.go
 test/api_customer_metric_controller_test.go
 test/api_data_sources_config_controller_test.go
-test/api_disabled_alert_config_controller_test.go
 test/api_entity_assertions_controller_test.go
 test/api_entity_controller_test.go
 test/api_entity_kpi_controller_test.go
@@ -611,10 +624,12 @@ test/api_kpi_display_config_controller_test.go
 test/api_latency_threshold_controller_test.go
 test/api_llm_rca_controller_test.go
 test/api_log_config_controller_test.go
+test/api_log_drilldown_config_controller_test.go
 test/api_mimir_relabel_rules_config_controller_test.go
 test/api_model_mapping_controller_test.go
 test/api_monitoring_status_controller_test.go
 test/api_otel_config_controller_test.go
+test/api_product_activation_controller_test.go
 test/api_prom_ql_validation_controller_test.go
 test/api_prom_rules_config_controller_test.go
 test/api_rca_pattern_controller_test.go
@@ -627,6 +642,7 @@ test/api_slo_config_controller_test.go
 test/api_stack_controller_test.go
 test/api_stack_info_controller_test.go
 test/api_threshold_rules_config_controller_test.go
+test/api_thresholds_v2_config_controller_test.go
 test/api_trace_config_controller_test.go
 test/api_trace_controller_test.go
 test/api_version_controller_test.go

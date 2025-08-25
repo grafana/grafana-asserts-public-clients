@@ -11,11 +11,15 @@ Name | Type | Description | Notes
 **GcomToken** | Pointer to **string** |  | [optional] 
 **MimirToken** | Pointer to **string** |  | [optional] 
 **AssertionDetectorToken** | Pointer to **string** |  | [optional] 
+**GrafanaToken** | Pointer to **string** |  | [optional] 
 **Enabled** | Pointer to **bool** |  | [optional] 
 **AlertManagerConfigured** | Pointer to **bool** |  | [optional] 
 **GraphInstanceCreated** | Pointer to **bool** |  | [optional] 
+**UseGrafanaManagedAlerts** | Pointer to **bool** |  | [optional] 
+**ProcessAlertsInEnrichment** | Pointer to **bool** |  | [optional] 
 **Status** | Pointer to **string** |  | [optional] 
 **DisabledTime** | Pointer to **time.Time** |  | [optional] 
+**Version** | Pointer to **int32** |  | [optional] 
 
 ## Methods
 
@@ -211,6 +215,31 @@ SetAssertionDetectorToken sets AssertionDetectorToken field to given value.
 
 HasAssertionDetectorToken returns a boolean if a field has been set.
 
+### GetGrafanaToken
+
+`func (o *StackDetailDto) GetGrafanaToken() string`
+
+GetGrafanaToken returns the GrafanaToken field if non-nil, zero value otherwise.
+
+### GetGrafanaTokenOk
+
+`func (o *StackDetailDto) GetGrafanaTokenOk() (*string, bool)`
+
+GetGrafanaTokenOk returns a tuple with the GrafanaToken field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetGrafanaToken
+
+`func (o *StackDetailDto) SetGrafanaToken(v string)`
+
+SetGrafanaToken sets GrafanaToken field to given value.
+
+### HasGrafanaToken
+
+`func (o *StackDetailDto) HasGrafanaToken() bool`
+
+HasGrafanaToken returns a boolean if a field has been set.
+
 ### GetEnabled
 
 `func (o *StackDetailDto) GetEnabled() bool`
@@ -286,6 +315,56 @@ SetGraphInstanceCreated sets GraphInstanceCreated field to given value.
 
 HasGraphInstanceCreated returns a boolean if a field has been set.
 
+### GetUseGrafanaManagedAlerts
+
+`func (o *StackDetailDto) GetUseGrafanaManagedAlerts() bool`
+
+GetUseGrafanaManagedAlerts returns the UseGrafanaManagedAlerts field if non-nil, zero value otherwise.
+
+### GetUseGrafanaManagedAlertsOk
+
+`func (o *StackDetailDto) GetUseGrafanaManagedAlertsOk() (*bool, bool)`
+
+GetUseGrafanaManagedAlertsOk returns a tuple with the UseGrafanaManagedAlerts field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUseGrafanaManagedAlerts
+
+`func (o *StackDetailDto) SetUseGrafanaManagedAlerts(v bool)`
+
+SetUseGrafanaManagedAlerts sets UseGrafanaManagedAlerts field to given value.
+
+### HasUseGrafanaManagedAlerts
+
+`func (o *StackDetailDto) HasUseGrafanaManagedAlerts() bool`
+
+HasUseGrafanaManagedAlerts returns a boolean if a field has been set.
+
+### GetProcessAlertsInEnrichment
+
+`func (o *StackDetailDto) GetProcessAlertsInEnrichment() bool`
+
+GetProcessAlertsInEnrichment returns the ProcessAlertsInEnrichment field if non-nil, zero value otherwise.
+
+### GetProcessAlertsInEnrichmentOk
+
+`func (o *StackDetailDto) GetProcessAlertsInEnrichmentOk() (*bool, bool)`
+
+GetProcessAlertsInEnrichmentOk returns a tuple with the ProcessAlertsInEnrichment field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetProcessAlertsInEnrichment
+
+`func (o *StackDetailDto) SetProcessAlertsInEnrichment(v bool)`
+
+SetProcessAlertsInEnrichment sets ProcessAlertsInEnrichment field to given value.
+
+### HasProcessAlertsInEnrichment
+
+`func (o *StackDetailDto) HasProcessAlertsInEnrichment() bool`
+
+HasProcessAlertsInEnrichment returns a boolean if a field has been set.
+
 ### GetStatus
 
 `func (o *StackDetailDto) GetStatus() string`
@@ -335,6 +414,31 @@ SetDisabledTime sets DisabledTime field to given value.
 `func (o *StackDetailDto) HasDisabledTime() bool`
 
 HasDisabledTime returns a boolean if a field has been set.
+
+### GetVersion
+
+`func (o *StackDetailDto) GetVersion() int32`
+
+GetVersion returns the Version field if non-nil, zero value otherwise.
+
+### GetVersionOk
+
+`func (o *StackDetailDto) GetVersionOk() (*int32, bool)`
+
+GetVersionOk returns a tuple with the Version field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetVersion
+
+`func (o *StackDetailDto) SetVersion(v int32)`
+
+SetVersion sets Version field to given value.
+
+### HasVersion
+
+`func (o *StackDetailDto) HasVersion() bool`
+
+HasVersion returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
