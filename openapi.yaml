@@ -7,11 +7,13 @@ info:
     name: Support
     url: "https://www.grafana.com"
     email: support@asserts.ai
-  version: 2025.08.11-161538
+  version: 2025.08.25-143624
 servers:
   - url: http://localhost:8030/asserts/api-server
     description: Generated server url
 tags:
+  - name: Custom Model Rules Configuration
+    description: APIs for managing custom model rule configurations
   - name: Alert Configuration
     description: APIs for managing alert configurations
 paths:
@@ -268,6 +270,23 @@ paths:
       responses:
         "200":
           description: OK
+  /v1/product/activation:
+    put:
+      tags:
+        - product-activation-controller
+      operationId: upsertProductActivation
+      parameters:
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProductActivationDto"
+        required: true
+      responses:
+        "200":
+          description: OK
   /v1/config/prom-rules:
     get:
       tags:
@@ -314,14 +333,16 @@ paths:
   /v1/config/model-rules:
     get:
       tags:
-        - custom-model-rules-controller
+        - Custom Model Rules Configuration
+      summary: List all model rule names
+      description: Retrieves a list of all available model rule configuration names for the current tenant.
       operationId: listModelRules
       parameters:
         - in: header
           $ref: "#/components/parameters/TenantId"
       responses:
         "200":
-          description: OK
+          description: Successfully retrieved list of model rule names
           content:
             application/json:
               schema:
@@ -334,7 +355,9 @@ paths:
                 $ref: "#/components/schemas/ModelRuleNamesDto"
     put:
       tags:
-        - custom-model-rules-controller
+        - Custom Model Rules Configuration
+      summary: Create or update model rules
+      description: Creates or updates model rules using the name specified in the request body.
       operationId: putModelRules
       parameters:
         - in: header
@@ -353,15 +376,42 @@ paths:
         required: true
       responses:
         "200":
-          description: OK
+          description: Successfully created or updated model rules
+        "422":
+          description: Invalid request data or validation failed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+            application/x-yml:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+            application/x-yaml:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+            application/x-yml:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+            application/x-yaml:
+              schema:
+                $ref: "#/components/schemas/ApiError"
   /v1/config/model-rules/{name}:
     get:
       tags:
-        - custom-model-rules-controller
+        - Custom Model Rules Configuration
+      summary: Get model rules by name
+      description: Retrieves a specific model rules configuration by its name.
       operationId: getModelRules
       parameters:
         - name: name
           in: path
+          description: The name of the model rules configuration to retrieve
           required: true
           schema:
             type: string
@@ -369,7 +419,19 @@ paths:
           $ref: "#/components/parameters/TenantId"
       responses:
         "200":
-          description: OK
+          description: Successfully retrieved model rules
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ModelRulesDto"
+            application/x-yml:
+              schema:
+                $ref: "#/components/schemas/ModelRulesDto"
+            application/x-yaml:
+              schema:
+                $ref: "#/components/schemas/ModelRulesDto"
+        "404":
+          description: Model rules not found
           content:
             application/json:
               schema:
@@ -382,11 +444,14 @@ paths:
                 $ref: "#/components/schemas/ModelRulesDto"
     put:
       tags:
-        - custom-model-rules-controller
+        - Custom Model Rules Configuration
+      summary: Create or update model rules by name
+      description: "Creates or updates model rules with a specific name. If the dto also contains a name, it will be used instead (save as operation)."
       operationId: putModelRules_1
       parameters:
         - name: name
           in: path
+          description: The name of the model rules configuration
           required: true
           schema:
             type: string
@@ -400,22 +465,49 @@ paths:
         required: true
       responses:
         "200":
-          description: OK
+          description: Successfully created or updated model rules
+        "422":
+          description: Invalid request data or validation failed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+            application/x-yml:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+            application/x-yaml:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+            application/x-yml:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+            application/x-yaml:
+              schema:
+                $ref: "#/components/schemas/ApiError"
     delete:
       tags:
-        - custom-model-rules-controller
+        - Custom Model Rules Configuration
+      summary: Delete model rules by name
+      description: Permanently deletes a specific model rules configuration by its name.
       operationId: deleteModelRules
       parameters:
         - name: name
           in: path
+          description: The name of the model rules configuration to delete
           required: true
           schema:
             type: string
         - in: header
           $ref: "#/components/parameters/TenantId"
       responses:
-        "200":
-          description: OK
+        "204":
+          description: Successfully deleted model rules
   /v1/config/model-mapping/{name}:
     get:
       tags:
@@ -554,6 +646,147 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/LatencyThresholdsDto"
+  /v2/config/thresholds:
+    get:
+      tags:
+        - thresholds-v-2-config-controller
+      operationId: getThresholds
+      parameters:
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ThresholdsV2Dto"
+    post:
+      tags:
+        - thresholds-v-2-config-controller
+      operationId: updateAllThresholds
+      parameters:
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ThresholdsV2Dto"
+        required: true
+      responses:
+        "200":
+          description: OK
+  /v2/config/thresholds/resource:
+    post:
+      tags:
+        - thresholds-v-2-config-controller
+      operationId: updateResourceThresholds
+      parameters:
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/ResourceThresholdV2Dto"
+        required: true
+      responses:
+        "200":
+          description: OK
+  /v2/config/thresholds/request:
+    post:
+      tags:
+        - thresholds-v-2-config-controller
+      operationId: updateRequestThresholds
+      parameters:
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/RequestThresholdV2Dto"
+        required: true
+      responses:
+        "200":
+          description: OK
+  /v2/config/thresholds/health:
+    post:
+      tags:
+        - thresholds-v-2-config-controller
+      operationId: updateHealthThresholds
+      parameters:
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/HealthThresholdV2Dto"
+        required: true
+      responses:
+        "200":
+          description: OK
+  /v2/config/log:
+    get:
+      tags:
+        - log-drilldown-config-controller
+      summary: Get tenant log configuration
+      description: Retrieves all the log drilldown configuration entries for the tenant
+      operationId: getTenantLogConfig
+      parameters:
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      responses:
+        "200":
+          description: Successfully retrieved log configuration
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TenantLogConfigResponseDto"
+    post:
+      tags:
+        - log-drilldown-config-controller
+      summary: Upsert log drilldown configuration
+      description: Creates or updates the log drilldown configuration entry for the tenant
+      operationId: upsertLogDrilldownConfig
+      parameters:
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LogDrilldownConfigDto"
+          application/x-yml:
+            schema:
+              $ref: "#/components/schemas/LogDrilldownConfigDto"
+          application/x-yaml:
+            schema:
+              $ref: "#/components/schemas/LogDrilldownConfigDto"
+        required: true
+      responses:
+        "200":
+          description: Configuration upserted successfully
+        "422":
+          description: Invalid configuration data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+            application/x-yml:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+            application/x-yaml:
+              schema:
+                $ref: "#/components/schemas/ApiError"
   /v1/validate/prometheus-query:
     post:
       tags:
@@ -1862,27 +2095,37 @@ paths:
   /v1/config/disabled-alerts:
     get:
       tags:
-        - disabled-alert-config-controller
+        - Alert Configuration
+      summary: Get all disabled alert configurations
+      description: Retrieves a list of all currently disabled alert configurations for the tenant.
       operationId: getAllDisabledAlertConfigs
       parameters:
         - in: header
           $ref: "#/components/parameters/TenantId"
       responses:
         "200":
-          description: OK
+          description: Successfully retrieved configurations
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/DisabledAlertConfigsDto"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
             application/x-yml:
               schema:
-                $ref: "#/components/schemas/DisabledAlertConfigsDto"
+                $ref: "#/components/schemas/ApiError"
             application/x-yaml:
               schema:
-                $ref: "#/components/schemas/DisabledAlertConfigsDto"
+                $ref: "#/components/schemas/ApiError"
     post:
       tags:
-        - disabled-alert-config-controller
+        - Alert Configuration
+      summary: Disable multiple alert configurations
+      description: Creates or updates a batch of disabled alert configurations.
       operationId: putDisabledAlertConfigs
       parameters:
         - in: header
@@ -1901,11 +2144,37 @@ paths:
         required: true
       responses:
         "200":
-          description: OK
+          description: Alerts disabled successfully
+        "422":
+          description: Invalid configuration file provided
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+            application/x-yml:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+            application/x-yaml:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+            application/x-yml:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+            application/x-yaml:
+              schema:
+                $ref: "#/components/schemas/ApiError"
   /v1/config/disabled-alert:
     post:
       tags:
-        - disabled-alert-config-controller
+        - Alert Configuration
+      summary: Disable a single alert configuration
+      description: "Creates a new disabled alert configuration, effectively silencing it."
       operationId: putDisabledAlertConfig
       parameters:
         - in: header
@@ -1924,7 +2193,31 @@ paths:
         required: true
       responses:
         "200":
-          description: OK
+          description: Alert disabled successfully
+        "422":
+          description: Invalid configuration provided
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+            application/x-yml:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+            application/x-yaml:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+            application/x-yml:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+            application/x-yaml:
+              schema:
+                $ref: "#/components/schemas/ApiError"
   /v1/config/dashboard/{entity_type}:
     get:
       tags:
@@ -2010,13 +2303,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ApiErrorException"
+                $ref: "#/components/schemas/ApiError"
             application/x-yml:
               schema:
-                $ref: "#/components/schemas/ApiErrorException"
+                $ref: "#/components/schemas/ApiError"
             application/x-yaml:
               schema:
-                $ref: "#/components/schemas/ApiErrorException"
+                $ref: "#/components/schemas/ApiError"
     post:
       tags:
         - Alert Configuration
@@ -2041,30 +2334,30 @@ paths:
       responses:
         "200":
           description: Alert configurations saved successfully
-        "400":
+        "422":
           description: Invalid alert configuration file provided
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ApiErrorException"
+                $ref: "#/components/schemas/ApiError"
             application/x-yml:
               schema:
-                $ref: "#/components/schemas/ApiErrorException"
+                $ref: "#/components/schemas/ApiError"
             application/x-yaml:
               schema:
-                $ref: "#/components/schemas/ApiErrorException"
+                $ref: "#/components/schemas/ApiError"
         "500":
           description: Internal server error
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ApiErrorException"
+                $ref: "#/components/schemas/ApiError"
             application/x-yml:
               schema:
-                $ref: "#/components/schemas/ApiErrorException"
+                $ref: "#/components/schemas/ApiError"
             application/x-yaml:
               schema:
-                $ref: "#/components/schemas/ApiErrorException"
+                $ref: "#/components/schemas/ApiError"
   /v1/config/alertmanager:
     get:
       tags:
@@ -2153,30 +2446,30 @@ paths:
       responses:
         "200":
           description: Alert configuration saved successfully
-        "400":
+        "422":
           description: Invalid alert configuration provided
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ApiErrorException"
+                $ref: "#/components/schemas/ApiError"
             application/x-yml:
               schema:
-                $ref: "#/components/schemas/ApiErrorException"
+                $ref: "#/components/schemas/ApiError"
             application/x-yaml:
               schema:
-                $ref: "#/components/schemas/ApiErrorException"
+                $ref: "#/components/schemas/ApiError"
         "500":
           description: Internal server error
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ApiErrorException"
+                $ref: "#/components/schemas/ApiError"
             application/x-yml:
               schema:
-                $ref: "#/components/schemas/ApiErrorException"
+                $ref: "#/components/schemas/ApiError"
             application/x-yaml:
               schema:
-                $ref: "#/components/schemas/ApiErrorException"
+                $ref: "#/components/schemas/ApiError"
   /v1/assertions:
     post:
       tags:
@@ -3190,7 +3483,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ApiErrorException"
+                $ref: "#/components/schemas/ApiError"
   /v1/config/export:
     get:
       tags:
@@ -3220,48 +3513,72 @@ paths:
   /v1/config/disabled-alerts/resource:
     get:
       tags:
-        - disabled-alert-config-controller
+        - Alert Configuration
+      summary: Get disabled resource-based alert configurations
+      description: Retrieves disabled alert configurations specifically for resources.
       operationId: getDisabledResourceAlertConfigs
       parameters:
         - in: header
           $ref: "#/components/parameters/TenantId"
       responses:
         "200":
-          description: OK
+          description: Successfully retrieved configurations
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/DisabledAlertConfigsDto"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
   /v1/config/disabled-alerts/request:
     get:
       tags:
-        - disabled-alert-config-controller
+        - Alert Configuration
+      summary: Get disabled request-based alert configurations
+      description: Retrieves disabled alert configurations specifically for requests.
       operationId: getDisabledRequestAlertConfigs
       parameters:
         - in: header
           $ref: "#/components/parameters/TenantId"
       responses:
         "200":
-          description: OK
+          description: Successfully retrieved configurations
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/DisabledAlertConfigsDto"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
   /v1/config/disabled-alerts/health:
     get:
       tags:
-        - disabled-alert-config-controller
+        - Alert Configuration
+      summary: Get disabled health-based alert configurations
+      description: Retrieves disabled alert configurations related to system health.
       operationId: getDisabledHealthAlertConfigs
       parameters:
         - in: header
           $ref: "#/components/parameters/TenantId"
       responses:
         "200":
-          description: OK
+          description: Successfully retrieved configurations
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/DisabledAlertConfigsDto"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
   /v1/config/datasource/prometheus:
     get:
       tags:
@@ -3320,7 +3637,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ApiErrorException"
+                $ref: "#/components/schemas/ApiError"
   /v1/config/alerts/resource:
     get:
       tags:
@@ -3343,7 +3660,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ApiErrorException"
+                $ref: "#/components/schemas/ApiError"
   /v1/config/alerts/request:
     get:
       tags:
@@ -3366,7 +3683,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ApiErrorException"
+                $ref: "#/components/schemas/ApiError"
   /v1/config/alerts/health:
     get:
       tags:
@@ -3389,7 +3706,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ApiErrorException"
+                $ref: "#/components/schemas/ApiError"
   /v1/assertion/alert-affected-entity:
     get:
       tags:
@@ -3412,6 +3729,25 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/GraphEntity"
+  /v2/config/log/{name}:
+    delete:
+      tags:
+        - log-drilldown-config-controller
+      summary: Delete log drilldown configuration
+      description: Deletes the specified log drilldown configuration entry for the tenant
+      operationId: deleteConfig
+      parameters:
+        - name: name
+          in: path
+          description: Name of the log configuration to delete
+          required: true
+          schema:
+            type: string
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      responses:
+        "200":
+          description: Configuration deleted successfully
   /v1/config/trace/{name}:
     delete:
       tags:
@@ -3432,7 +3768,7 @@ paths:
     delete:
       tags:
         - log-config-controller
-      operationId: deleteConfig
+      operationId: deleteConfig_1
       parameters:
         - name: name
           in: path
@@ -3479,11 +3815,14 @@ paths:
   /v1/config/disabled-alert/{name}:
     delete:
       tags:
-        - disabled-alert-config-controller
+        - Alert Configuration
+      summary: Re-enable an alert configuration by name
+      description: "Deletes a 'disabled' configuration, which re-enables the alert."
       operationId: deleteDisabledAlertConfig
       parameters:
         - name: name
           in: path
+          description: The name of the disabled alert to re-enable
           required: true
           schema:
             type: string
@@ -3491,7 +3830,19 @@ paths:
           $ref: "#/components/parameters/TenantId"
       responses:
         "200":
-          description: OK
+          description: Alert enabled successfully
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+            application/x-yml:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+            application/x-yaml:
+              schema:
+                $ref: "#/components/schemas/ApiError"
   /v1/config/alert/{name}:
     delete:
       tags:
@@ -3516,13 +3867,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ApiErrorException"
+                $ref: "#/components/schemas/ApiError"
             application/x-yml:
               schema:
-                $ref: "#/components/schemas/ApiErrorException"
+                $ref: "#/components/schemas/ApiError"
             application/x-yaml:
               schema:
-                $ref: "#/components/schemas/ApiErrorException"
+                $ref: "#/components/schemas/ApiError"
 components:
   schemas:
     StackDto:
@@ -3533,6 +3884,8 @@ components:
         mimirToken:
           type: string
         assertionDetectorToken:
+          type: string
+        grafanaToken:
           type: string
     StackDatasetDto:
       type: object
@@ -3734,6 +4087,19 @@ components:
       properties:
         type:
           type: string
+    ProductActivationDto:
+      type: object
+      properties:
+        product:
+          type: string
+          enum:
+            - appo11y
+            - k8so11y
+        enabled:
+          type: boolean
+      required:
+        - enabled
+        - product
     PrometheusRuleDto:
       type: object
       properties:
@@ -3781,6 +4147,136 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/PrometheusRuleGroupDto"
+    ApiError:
+      type: object
+      properties:
+        status:
+          oneOf:
+            - $ref: "#/components/schemas/DefaultHttpStatusCode"
+            - $ref: "#/components/schemas/HttpStatus"
+        requestId:
+          type: string
+        timestamp:
+          type: integer
+          format: int64
+        message:
+          type: string
+        debugMessage:
+          type: string
+        subErrors:
+          type: array
+          items:
+            oneOf:
+              - $ref: "#/components/schemas/ApiSubError"
+              - $ref: "#/components/schemas/ApiValidationError"
+        trace_id:
+          type: string
+        span_id:
+          type: string
+    ApiSubError:
+      type: object
+      properties:
+        message:
+          type: string
+    ApiValidationError:
+      allOf:
+        - $ref: "#/components/schemas/ApiSubError"
+        - type: object
+          properties:
+            field:
+              type: string
+            rejectedValue: {}
+    DefaultHttpStatusCode:
+      allOf:
+        - $ref: "#/components/schemas/HttpStatusCode"
+    HttpStatus:
+      allOf:
+        - $ref: "#/components/schemas/HttpStatusCode"
+      enum:
+        - 100 CONTINUE
+        - 101 SWITCHING_PROTOCOLS
+        - 102 PROCESSING
+        - 103 EARLY_HINTS
+        - 103 CHECKPOINT
+        - 200 OK
+        - 201 CREATED
+        - 202 ACCEPTED
+        - 203 NON_AUTHORITATIVE_INFORMATION
+        - 204 NO_CONTENT
+        - 205 RESET_CONTENT
+        - 206 PARTIAL_CONTENT
+        - 207 MULTI_STATUS
+        - 208 ALREADY_REPORTED
+        - 226 IM_USED
+        - 300 MULTIPLE_CHOICES
+        - 301 MOVED_PERMANENTLY
+        - 302 FOUND
+        - 302 MOVED_TEMPORARILY
+        - 303 SEE_OTHER
+        - 304 NOT_MODIFIED
+        - 305 USE_PROXY
+        - 307 TEMPORARY_REDIRECT
+        - 308 PERMANENT_REDIRECT
+        - 400 BAD_REQUEST
+        - 401 UNAUTHORIZED
+        - 402 PAYMENT_REQUIRED
+        - 403 FORBIDDEN
+        - 404 NOT_FOUND
+        - 405 METHOD_NOT_ALLOWED
+        - 406 NOT_ACCEPTABLE
+        - 407 PROXY_AUTHENTICATION_REQUIRED
+        - 408 REQUEST_TIMEOUT
+        - 409 CONFLICT
+        - 410 GONE
+        - 411 LENGTH_REQUIRED
+        - 412 PRECONDITION_FAILED
+        - 413 PAYLOAD_TOO_LARGE
+        - 413 REQUEST_ENTITY_TOO_LARGE
+        - 414 URI_TOO_LONG
+        - 414 REQUEST_URI_TOO_LONG
+        - 415 UNSUPPORTED_MEDIA_TYPE
+        - 416 REQUESTED_RANGE_NOT_SATISFIABLE
+        - 417 EXPECTATION_FAILED
+        - 418 I_AM_A_TEAPOT
+        - 419 INSUFFICIENT_SPACE_ON_RESOURCE
+        - 420 METHOD_FAILURE
+        - 421 DESTINATION_LOCKED
+        - 422 UNPROCESSABLE_ENTITY
+        - 423 LOCKED
+        - 424 FAILED_DEPENDENCY
+        - 425 TOO_EARLY
+        - 426 UPGRADE_REQUIRED
+        - 428 PRECONDITION_REQUIRED
+        - 429 TOO_MANY_REQUESTS
+        - 431 REQUEST_HEADER_FIELDS_TOO_LARGE
+        - 451 UNAVAILABLE_FOR_LEGAL_REASONS
+        - 500 INTERNAL_SERVER_ERROR
+        - 501 NOT_IMPLEMENTED
+        - 502 BAD_GATEWAY
+        - 503 SERVICE_UNAVAILABLE
+        - 504 GATEWAY_TIMEOUT
+        - 505 HTTP_VERSION_NOT_SUPPORTED
+        - 506 VARIANT_ALSO_NEGOTIATES
+        - 507 INSUFFICIENT_STORAGE
+        - 508 LOOP_DETECTED
+        - 509 BANDWIDTH_LIMIT_EXCEEDED
+        - 510 NOT_EXTENDED
+        - 511 NETWORK_AUTHENTICATION_REQUIRED
+    HttpStatusCode:
+      type: object
+      properties:
+        error:
+          type: boolean
+        is4xxClientError:
+          type: boolean
+        is5xxServerError:
+          type: boolean
+        is2xxSuccessful:
+          type: boolean
+        is1xxInformational:
+          type: boolean
+        is3xxRedirection:
+          type: boolean
     DefinedByDto:
       type: object
       discriminator:
@@ -3848,6 +4344,7 @@ components:
           type: boolean
     ModelRulesDto:
       type: object
+      description: The model rules configuration to create or update
       properties:
         name:
           type: string
@@ -4139,6 +4636,132 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/LatencyThresholdDto"
+    HealthThresholdV2Dto:
+      type: object
+      properties:
+        assertionName:
+          type: string
+          minLength: 1
+        expression:
+          type: string
+          minLength: 1
+      required:
+        - assertionName
+        - expression
+    RequestThresholdV2Dto:
+      type: object
+      properties:
+        entityName:
+          type: string
+          minLength: 1
+        assertionName:
+          type: string
+          minLength: 1
+        requestType:
+          type: string
+          minLength: 1
+        requestContext:
+          type: string
+          minLength: 1
+        value:
+          type: number
+          format: double
+        validAssertionName:
+          type: boolean
+      required:
+        - assertionName
+        - entityName
+        - requestContext
+        - requestType
+        - value
+    ResourceThresholdV2Dto:
+      type: object
+      properties:
+        assertionName:
+          type: string
+          minLength: 1
+        resourceType:
+          type: string
+          minLength: 1
+        containerName:
+          type: string
+          minLength: 1
+        source:
+          type: string
+          minLength: 1
+        severity:
+          type: string
+          minLength: 1
+        value:
+          type: number
+          format: double
+        validAssertionName:
+          type: boolean
+        validSeverity:
+          type: boolean
+      required:
+        - assertionName
+        - containerName
+        - resourceType
+        - severity
+        - source
+        - value
+    ThresholdsV2Dto:
+      type: object
+      properties:
+        requestThresholds:
+          type: array
+          items:
+            $ref: "#/components/schemas/RequestThresholdV2Dto"
+        resourceThresholds:
+          type: array
+          items:
+            $ref: "#/components/schemas/ResourceThresholdV2Dto"
+        healthThresholds:
+          type: array
+          items:
+            $ref: "#/components/schemas/HealthThresholdV2Dto"
+    LogDrilldownConfigDto:
+      type: object
+      properties:
+        name:
+          type: string
+        match:
+          type: array
+          items:
+            $ref: "#/components/schemas/PropertyMatchEntryDto"
+        defaultConfig:
+          type: boolean
+        dataSourceUid:
+          type: string
+        errorLabel:
+          type: string
+        entityPropertyToLogLabelMapping:
+          type: object
+          additionalProperties:
+            type: string
+        filterBySpanId:
+          type: boolean
+        filterByTraceId:
+          type: boolean
+    PropertyMatchEntryDto:
+      type: object
+      properties:
+        property:
+          type: string
+        op:
+          type: string
+          enum:
+            - EQUALS
+            - NOT_EQUALS
+            - CONTAINS
+            - DOES_NOT_CONTAIN
+            - IS_NULL
+            - IS_NOT_NULL
+        values:
+          type: array
+          items:
+            type: string
     MetricSanityCheckResult:
       type: object
       properties:
@@ -4186,6 +4809,10 @@ components:
         version:
           type: integer
           format: int32
+        useGrafanaManagedAlerts:
+          type: boolean
+        processAlertsInEnrichment:
+          type: boolean
     StackEnableDto:
       type: object
       properties:
@@ -4226,6 +4853,8 @@ components:
         graphInstanceCreated:
           type: boolean
         useGrafanaManagedAlerts:
+          type: boolean
+        processAlertsInEnrichment:
           type: boolean
     ScopeCriteriaDto:
       type: object
@@ -5694,227 +6323,6 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/PropertyMatcherDto"
-    ApiError:
-      type: object
-      properties:
-        status:
-          oneOf:
-            - $ref: "#/components/schemas/DefaultHttpStatusCode"
-            - $ref: "#/components/schemas/HttpStatus"
-        requestId:
-          type: string
-        timestamp:
-          type: integer
-          format: int64
-        message:
-          type: string
-        debugMessage:
-          type: string
-        subErrors:
-          type: array
-          items:
-            oneOf:
-              - $ref: "#/components/schemas/ApiSubError"
-              - $ref: "#/components/schemas/ApiValidationError"
-        trace_id:
-          type: string
-        span_id:
-          type: string
-    ApiErrorException:
-      type: object
-      properties:
-        cause:
-          type: object
-          properties:
-            stackTrace:
-              type: array
-              items:
-                type: object
-                properties:
-                  classLoaderName:
-                    type: string
-                  moduleName:
-                    type: string
-                  moduleVersion:
-                    type: string
-                  methodName:
-                    type: string
-                  fileName:
-                    type: string
-                  lineNumber:
-                    type: integer
-                    format: int32
-                  className:
-                    type: string
-                  nativeMethod:
-                    type: boolean
-            message:
-              type: string
-            localizedMessage:
-              type: string
-        stackTrace:
-          type: array
-          items:
-            type: object
-            properties:
-              classLoaderName:
-                type: string
-              moduleName:
-                type: string
-              moduleVersion:
-                type: string
-              methodName:
-                type: string
-              fileName:
-                type: string
-              lineNumber:
-                type: integer
-                format: int32
-              className:
-                type: string
-              nativeMethod:
-                type: boolean
-        apiError:
-          $ref: "#/components/schemas/ApiError"
-        message:
-          type: string
-        suppressed:
-          type: array
-          items:
-            type: object
-            properties:
-              stackTrace:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    classLoaderName:
-                      type: string
-                    moduleName:
-                      type: string
-                    moduleVersion:
-                      type: string
-                    methodName:
-                      type: string
-                    fileName:
-                      type: string
-                    lineNumber:
-                      type: integer
-                      format: int32
-                    className:
-                      type: string
-                    nativeMethod:
-                      type: boolean
-              message:
-                type: string
-              localizedMessage:
-                type: string
-        localizedMessage:
-          type: string
-    ApiSubError:
-      type: object
-      properties:
-        message:
-          type: string
-    ApiValidationError:
-      allOf:
-        - $ref: "#/components/schemas/ApiSubError"
-        - type: object
-          properties:
-            field:
-              type: string
-            rejectedValue: {}
-    DefaultHttpStatusCode:
-      allOf:
-        - $ref: "#/components/schemas/HttpStatusCode"
-    HttpStatus:
-      allOf:
-        - $ref: "#/components/schemas/HttpStatusCode"
-      enum:
-        - 100 CONTINUE
-        - 101 SWITCHING_PROTOCOLS
-        - 102 PROCESSING
-        - 103 EARLY_HINTS
-        - 103 CHECKPOINT
-        - 200 OK
-        - 201 CREATED
-        - 202 ACCEPTED
-        - 203 NON_AUTHORITATIVE_INFORMATION
-        - 204 NO_CONTENT
-        - 205 RESET_CONTENT
-        - 206 PARTIAL_CONTENT
-        - 207 MULTI_STATUS
-        - 208 ALREADY_REPORTED
-        - 226 IM_USED
-        - 300 MULTIPLE_CHOICES
-        - 301 MOVED_PERMANENTLY
-        - 302 FOUND
-        - 302 MOVED_TEMPORARILY
-        - 303 SEE_OTHER
-        - 304 NOT_MODIFIED
-        - 305 USE_PROXY
-        - 307 TEMPORARY_REDIRECT
-        - 308 PERMANENT_REDIRECT
-        - 400 BAD_REQUEST
-        - 401 UNAUTHORIZED
-        - 402 PAYMENT_REQUIRED
-        - 403 FORBIDDEN
-        - 404 NOT_FOUND
-        - 405 METHOD_NOT_ALLOWED
-        - 406 NOT_ACCEPTABLE
-        - 407 PROXY_AUTHENTICATION_REQUIRED
-        - 408 REQUEST_TIMEOUT
-        - 409 CONFLICT
-        - 410 GONE
-        - 411 LENGTH_REQUIRED
-        - 412 PRECONDITION_FAILED
-        - 413 PAYLOAD_TOO_LARGE
-        - 413 REQUEST_ENTITY_TOO_LARGE
-        - 414 URI_TOO_LONG
-        - 414 REQUEST_URI_TOO_LONG
-        - 415 UNSUPPORTED_MEDIA_TYPE
-        - 416 REQUESTED_RANGE_NOT_SATISFIABLE
-        - 417 EXPECTATION_FAILED
-        - 418 I_AM_A_TEAPOT
-        - 419 INSUFFICIENT_SPACE_ON_RESOURCE
-        - 420 METHOD_FAILURE
-        - 421 DESTINATION_LOCKED
-        - 422 UNPROCESSABLE_ENTITY
-        - 423 LOCKED
-        - 424 FAILED_DEPENDENCY
-        - 425 TOO_EARLY
-        - 426 UPGRADE_REQUIRED
-        - 428 PRECONDITION_REQUIRED
-        - 429 TOO_MANY_REQUESTS
-        - 431 REQUEST_HEADER_FIELDS_TOO_LARGE
-        - 451 UNAVAILABLE_FOR_LEGAL_REASONS
-        - 500 INTERNAL_SERVER_ERROR
-        - 501 NOT_IMPLEMENTED
-        - 502 BAD_GATEWAY
-        - 503 SERVICE_UNAVAILABLE
-        - 504 GATEWAY_TIMEOUT
-        - 505 HTTP_VERSION_NOT_SUPPORTED
-        - 506 VARIANT_ALSO_NEGOTIATES
-        - 507 INSUFFICIENT_STORAGE
-        - 508 LOOP_DETECTED
-        - 509 BANDWIDTH_LIMIT_EXCEEDED
-        - 510 NOT_EXTENDED
-        - 511 NETWORK_AUTHENTICATION_REQUIRED
-    HttpStatusCode:
-      type: object
-      properties:
-        error:
-          type: boolean
-        is4xxClientError:
-          type: boolean
-        is5xxServerError:
-          type: boolean
-        is2xxSuccessful:
-          type: boolean
-        is1xxInformational:
-          type: boolean
-        is3xxRedirection:
-          type: boolean
     AlertConfigDto:
       type: object
       properties:
@@ -7082,6 +7490,13 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/DatasetVendorDto"
+    TenantLogConfigResponseDto:
+      type: object
+      properties:
+        logDrilldownConfigs:
+          type: array
+          items:
+            $ref: "#/components/schemas/LogDrilldownConfigDto"
     VersionDto:
       type: object
       properties:
@@ -7113,17 +7528,26 @@ components:
           type: string
         assertionDetectorToken:
           type: string
+        grafanaToken:
+          type: string
         enabled:
           type: boolean
         alertManagerConfigured:
           type: boolean
         graphInstanceCreated:
           type: boolean
+        useGrafanaManagedAlerts:
+          type: boolean
+        processAlertsInEnrichment:
+          type: boolean
         status:
           type: string
         disabledTime:
           type: string
           format: date-time
+        version:
+          type: integer
+          format: int32
     VendorIntegrationDto:
       type: object
       properties:
