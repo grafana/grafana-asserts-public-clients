@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2025.08.11-161538
+API version: 2025.08.25-143624
 Contact: support@asserts.ai
 */
 
@@ -23,6 +23,7 @@ type StackDto struct {
 	GcomToken              *string `json:"gcomToken,omitempty"`
 	MimirToken             *string `json:"mimirToken,omitempty"`
 	AssertionDetectorToken *string `json:"assertionDetectorToken,omitempty"`
+	GrafanaToken           *string `json:"grafanaToken,omitempty"`
 	AdditionalProperties   map[string]interface{}
 }
 
@@ -141,6 +142,38 @@ func (o *StackDto) SetAssertionDetectorToken(v string) {
 	o.AssertionDetectorToken = &v
 }
 
+// GetGrafanaToken returns the GrafanaToken field value if set, zero value otherwise.
+func (o *StackDto) GetGrafanaToken() string {
+	if o == nil || IsNil(o.GrafanaToken) {
+		var ret string
+		return ret
+	}
+	return *o.GrafanaToken
+}
+
+// GetGrafanaTokenOk returns a tuple with the GrafanaToken field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *StackDto) GetGrafanaTokenOk() (*string, bool) {
+	if o == nil || IsNil(o.GrafanaToken) {
+		return nil, false
+	}
+	return o.GrafanaToken, true
+}
+
+// HasGrafanaToken returns a boolean if a field has been set.
+func (o *StackDto) HasGrafanaToken() bool {
+	if o != nil && !IsNil(o.GrafanaToken) {
+		return true
+	}
+
+	return false
+}
+
+// SetGrafanaToken gets a reference to the given string and assigns it to the GrafanaToken field.
+func (o *StackDto) SetGrafanaToken(v string) {
+	o.GrafanaToken = &v
+}
+
 func (o StackDto) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -159,6 +192,9 @@ func (o StackDto) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.AssertionDetectorToken) {
 		toSerialize["assertionDetectorToken"] = o.AssertionDetectorToken
+	}
+	if !IsNil(o.GrafanaToken) {
+		toSerialize["grafanaToken"] = o.GrafanaToken
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -185,6 +221,7 @@ func (o *StackDto) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "gcomToken")
 		delete(additionalProperties, "mimirToken")
 		delete(additionalProperties, "assertionDetectorToken")
+		delete(additionalProperties, "grafanaToken")
 		o.AdditionalProperties = additionalProperties
 	}
 

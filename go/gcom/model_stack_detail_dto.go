@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2025.08.11-161538
+API version: 2025.08.25-143624
 Contact: support@asserts.ai
 */
 
@@ -21,19 +21,23 @@ var _ MappedNullable = &StackDetailDto{}
 
 // StackDetailDto struct for StackDetailDto
 type StackDetailDto struct {
-	StackId                *int32     `json:"stackId,omitempty"`
-	Slug                   *string    `json:"slug,omitempty"`
-	OrgId                  *int32     `json:"orgId,omitempty"`
-	OrgSlug                *string    `json:"orgSlug,omitempty"`
-	GcomToken              *string    `json:"gcomToken,omitempty"`
-	MimirToken             *string    `json:"mimirToken,omitempty"`
-	AssertionDetectorToken *string    `json:"assertionDetectorToken,omitempty"`
-	Enabled                *bool      `json:"enabled,omitempty"`
-	AlertManagerConfigured *bool      `json:"alertManagerConfigured,omitempty"`
-	GraphInstanceCreated   *bool      `json:"graphInstanceCreated,omitempty"`
-	Status                 *string    `json:"status,omitempty"`
-	DisabledTime           *time.Time `json:"disabledTime,omitempty"`
-	AdditionalProperties   map[string]interface{}
+	StackId                   *int32     `json:"stackId,omitempty"`
+	Slug                      *string    `json:"slug,omitempty"`
+	OrgId                     *int32     `json:"orgId,omitempty"`
+	OrgSlug                   *string    `json:"orgSlug,omitempty"`
+	GcomToken                 *string    `json:"gcomToken,omitempty"`
+	MimirToken                *string    `json:"mimirToken,omitempty"`
+	AssertionDetectorToken    *string    `json:"assertionDetectorToken,omitempty"`
+	GrafanaToken              *string    `json:"grafanaToken,omitempty"`
+	Enabled                   *bool      `json:"enabled,omitempty"`
+	AlertManagerConfigured    *bool      `json:"alertManagerConfigured,omitempty"`
+	GraphInstanceCreated      *bool      `json:"graphInstanceCreated,omitempty"`
+	UseGrafanaManagedAlerts   *bool      `json:"useGrafanaManagedAlerts,omitempty"`
+	ProcessAlertsInEnrichment *bool      `json:"processAlertsInEnrichment,omitempty"`
+	Status                    *string    `json:"status,omitempty"`
+	DisabledTime              *time.Time `json:"disabledTime,omitempty"`
+	Version                   *int32     `json:"version,omitempty"`
+	AdditionalProperties      map[string]interface{}
 }
 
 type _StackDetailDto StackDetailDto
@@ -279,6 +283,38 @@ func (o *StackDetailDto) SetAssertionDetectorToken(v string) {
 	o.AssertionDetectorToken = &v
 }
 
+// GetGrafanaToken returns the GrafanaToken field value if set, zero value otherwise.
+func (o *StackDetailDto) GetGrafanaToken() string {
+	if o == nil || IsNil(o.GrafanaToken) {
+		var ret string
+		return ret
+	}
+	return *o.GrafanaToken
+}
+
+// GetGrafanaTokenOk returns a tuple with the GrafanaToken field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *StackDetailDto) GetGrafanaTokenOk() (*string, bool) {
+	if o == nil || IsNil(o.GrafanaToken) {
+		return nil, false
+	}
+	return o.GrafanaToken, true
+}
+
+// HasGrafanaToken returns a boolean if a field has been set.
+func (o *StackDetailDto) HasGrafanaToken() bool {
+	if o != nil && !IsNil(o.GrafanaToken) {
+		return true
+	}
+
+	return false
+}
+
+// SetGrafanaToken gets a reference to the given string and assigns it to the GrafanaToken field.
+func (o *StackDetailDto) SetGrafanaToken(v string) {
+	o.GrafanaToken = &v
+}
+
 // GetEnabled returns the Enabled field value if set, zero value otherwise.
 func (o *StackDetailDto) GetEnabled() bool {
 	if o == nil || IsNil(o.Enabled) {
@@ -375,6 +411,70 @@ func (o *StackDetailDto) SetGraphInstanceCreated(v bool) {
 	o.GraphInstanceCreated = &v
 }
 
+// GetUseGrafanaManagedAlerts returns the UseGrafanaManagedAlerts field value if set, zero value otherwise.
+func (o *StackDetailDto) GetUseGrafanaManagedAlerts() bool {
+	if o == nil || IsNil(o.UseGrafanaManagedAlerts) {
+		var ret bool
+		return ret
+	}
+	return *o.UseGrafanaManagedAlerts
+}
+
+// GetUseGrafanaManagedAlertsOk returns a tuple with the UseGrafanaManagedAlerts field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *StackDetailDto) GetUseGrafanaManagedAlertsOk() (*bool, bool) {
+	if o == nil || IsNil(o.UseGrafanaManagedAlerts) {
+		return nil, false
+	}
+	return o.UseGrafanaManagedAlerts, true
+}
+
+// HasUseGrafanaManagedAlerts returns a boolean if a field has been set.
+func (o *StackDetailDto) HasUseGrafanaManagedAlerts() bool {
+	if o != nil && !IsNil(o.UseGrafanaManagedAlerts) {
+		return true
+	}
+
+	return false
+}
+
+// SetUseGrafanaManagedAlerts gets a reference to the given bool and assigns it to the UseGrafanaManagedAlerts field.
+func (o *StackDetailDto) SetUseGrafanaManagedAlerts(v bool) {
+	o.UseGrafanaManagedAlerts = &v
+}
+
+// GetProcessAlertsInEnrichment returns the ProcessAlertsInEnrichment field value if set, zero value otherwise.
+func (o *StackDetailDto) GetProcessAlertsInEnrichment() bool {
+	if o == nil || IsNil(o.ProcessAlertsInEnrichment) {
+		var ret bool
+		return ret
+	}
+	return *o.ProcessAlertsInEnrichment
+}
+
+// GetProcessAlertsInEnrichmentOk returns a tuple with the ProcessAlertsInEnrichment field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *StackDetailDto) GetProcessAlertsInEnrichmentOk() (*bool, bool) {
+	if o == nil || IsNil(o.ProcessAlertsInEnrichment) {
+		return nil, false
+	}
+	return o.ProcessAlertsInEnrichment, true
+}
+
+// HasProcessAlertsInEnrichment returns a boolean if a field has been set.
+func (o *StackDetailDto) HasProcessAlertsInEnrichment() bool {
+	if o != nil && !IsNil(o.ProcessAlertsInEnrichment) {
+		return true
+	}
+
+	return false
+}
+
+// SetProcessAlertsInEnrichment gets a reference to the given bool and assigns it to the ProcessAlertsInEnrichment field.
+func (o *StackDetailDto) SetProcessAlertsInEnrichment(v bool) {
+	o.ProcessAlertsInEnrichment = &v
+}
+
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *StackDetailDto) GetStatus() string {
 	if o == nil || IsNil(o.Status) {
@@ -439,6 +539,38 @@ func (o *StackDetailDto) SetDisabledTime(v time.Time) {
 	o.DisabledTime = &v
 }
 
+// GetVersion returns the Version field value if set, zero value otherwise.
+func (o *StackDetailDto) GetVersion() int32 {
+	if o == nil || IsNil(o.Version) {
+		var ret int32
+		return ret
+	}
+	return *o.Version
+}
+
+// GetVersionOk returns a tuple with the Version field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *StackDetailDto) GetVersionOk() (*int32, bool) {
+	if o == nil || IsNil(o.Version) {
+		return nil, false
+	}
+	return o.Version, true
+}
+
+// HasVersion returns a boolean if a field has been set.
+func (o *StackDetailDto) HasVersion() bool {
+	if o != nil && !IsNil(o.Version) {
+		return true
+	}
+
+	return false
+}
+
+// SetVersion gets a reference to the given int32 and assigns it to the Version field.
+func (o *StackDetailDto) SetVersion(v int32) {
+	o.Version = &v
+}
+
 func (o StackDetailDto) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -470,6 +602,9 @@ func (o StackDetailDto) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.AssertionDetectorToken) {
 		toSerialize["assertionDetectorToken"] = o.AssertionDetectorToken
 	}
+	if !IsNil(o.GrafanaToken) {
+		toSerialize["grafanaToken"] = o.GrafanaToken
+	}
 	if !IsNil(o.Enabled) {
 		toSerialize["enabled"] = o.Enabled
 	}
@@ -479,11 +614,20 @@ func (o StackDetailDto) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.GraphInstanceCreated) {
 		toSerialize["graphInstanceCreated"] = o.GraphInstanceCreated
 	}
+	if !IsNil(o.UseGrafanaManagedAlerts) {
+		toSerialize["useGrafanaManagedAlerts"] = o.UseGrafanaManagedAlerts
+	}
+	if !IsNil(o.ProcessAlertsInEnrichment) {
+		toSerialize["processAlertsInEnrichment"] = o.ProcessAlertsInEnrichment
+	}
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
 	if !IsNil(o.DisabledTime) {
 		toSerialize["disabledTime"] = o.DisabledTime
+	}
+	if !IsNil(o.Version) {
+		toSerialize["version"] = o.Version
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -514,11 +658,15 @@ func (o *StackDetailDto) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "gcomToken")
 		delete(additionalProperties, "mimirToken")
 		delete(additionalProperties, "assertionDetectorToken")
+		delete(additionalProperties, "grafanaToken")
 		delete(additionalProperties, "enabled")
 		delete(additionalProperties, "alertManagerConfigured")
 		delete(additionalProperties, "graphInstanceCreated")
+		delete(additionalProperties, "useGrafanaManagedAlerts")
+		delete(additionalProperties, "processAlertsInEnrichment")
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "disabledTime")
+		delete(additionalProperties, "version")
 		o.AdditionalProperties = additionalProperties
 	}
 

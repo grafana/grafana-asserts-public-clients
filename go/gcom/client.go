@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2025.08.11-161538
+API version: 2025.08.25-143624
 Contact: support@asserts.ai
 */
 
@@ -41,7 +41,7 @@ var (
 	queryDescape    = strings.NewReplacer("%5B", "[", "%5D", "]")
 )
 
-// APIClient manages communication with the Asserts, Inc API v2025.08.11-161538
+// APIClient manages communication with the Asserts, Inc API v2025.08.25-143624
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration
@@ -69,13 +69,11 @@ type APIClient struct {
 
 	CustomDashConfigControllerAPI *CustomDashConfigControllerAPIService
 
-	CustomModelRulesControllerAPI *CustomModelRulesControllerAPIService
+	CustomModelRulesConfigurationAPI *CustomModelRulesConfigurationAPIService
 
 	CustomerMetricControllerAPI *CustomerMetricControllerAPIService
 
 	DataSourcesConfigControllerAPI *DataSourcesConfigControllerAPIService
-
-	DisabledAlertConfigControllerAPI *DisabledAlertConfigControllerAPIService
 
 	EntityAssertionsControllerAPI *EntityAssertionsControllerAPIService
 
@@ -101,6 +99,8 @@ type APIClient struct {
 
 	LogConfigControllerAPI *LogConfigControllerAPIService
 
+	LogDrilldownConfigControllerAPI *LogDrilldownConfigControllerAPIService
+
 	MimirRelabelRulesConfigControllerAPI *MimirRelabelRulesConfigControllerAPIService
 
 	ModelMappingControllerAPI *ModelMappingControllerAPIService
@@ -108,6 +108,8 @@ type APIClient struct {
 	MonitoringStatusControllerAPI *MonitoringStatusControllerAPIService
 
 	OtelConfigControllerAPI *OtelConfigControllerAPIService
+
+	ProductActivationControllerAPI *ProductActivationControllerAPIService
 
 	PromQlValidationControllerAPI *PromQlValidationControllerAPIService
 
@@ -132,6 +134,8 @@ type APIClient struct {
 	StackInfoControllerAPI *StackInfoControllerAPIService
 
 	ThresholdRulesConfigControllerAPI *ThresholdRulesConfigControllerAPIService
+
+	ThresholdsV2ConfigControllerAPI *ThresholdsV2ConfigControllerAPIService
 
 	TraceConfigControllerAPI *TraceConfigControllerAPIService
 
@@ -166,10 +170,9 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.AutoCompleteControllerAPI = (*AutoCompleteControllerAPIService)(&c.common)
 	c.ConfigExportImportControllerAPI = (*ConfigExportImportControllerAPIService)(&c.common)
 	c.CustomDashConfigControllerAPI = (*CustomDashConfigControllerAPIService)(&c.common)
-	c.CustomModelRulesControllerAPI = (*CustomModelRulesControllerAPIService)(&c.common)
+	c.CustomModelRulesConfigurationAPI = (*CustomModelRulesConfigurationAPIService)(&c.common)
 	c.CustomerMetricControllerAPI = (*CustomerMetricControllerAPIService)(&c.common)
 	c.DataSourcesConfigControllerAPI = (*DataSourcesConfigControllerAPIService)(&c.common)
-	c.DisabledAlertConfigControllerAPI = (*DisabledAlertConfigControllerAPIService)(&c.common)
 	c.EntityAssertionsControllerAPI = (*EntityAssertionsControllerAPIService)(&c.common)
 	c.EntityControllerAPI = (*EntityControllerAPIService)(&c.common)
 	c.EntityKpiControllerAPI = (*EntityKpiControllerAPIService)(&c.common)
@@ -182,10 +185,12 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.LatencyThresholdControllerAPI = (*LatencyThresholdControllerAPIService)(&c.common)
 	c.LlmRcaControllerAPI = (*LlmRcaControllerAPIService)(&c.common)
 	c.LogConfigControllerAPI = (*LogConfigControllerAPIService)(&c.common)
+	c.LogDrilldownConfigControllerAPI = (*LogDrilldownConfigControllerAPIService)(&c.common)
 	c.MimirRelabelRulesConfigControllerAPI = (*MimirRelabelRulesConfigControllerAPIService)(&c.common)
 	c.ModelMappingControllerAPI = (*ModelMappingControllerAPIService)(&c.common)
 	c.MonitoringStatusControllerAPI = (*MonitoringStatusControllerAPIService)(&c.common)
 	c.OtelConfigControllerAPI = (*OtelConfigControllerAPIService)(&c.common)
+	c.ProductActivationControllerAPI = (*ProductActivationControllerAPIService)(&c.common)
 	c.PromQlValidationControllerAPI = (*PromQlValidationControllerAPIService)(&c.common)
 	c.PromRulesConfigControllerAPI = (*PromRulesConfigControllerAPIService)(&c.common)
 	c.RcaPatternControllerAPI = (*RcaPatternControllerAPIService)(&c.common)
@@ -198,6 +203,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.StackControllerAPI = (*StackControllerAPIService)(&c.common)
 	c.StackInfoControllerAPI = (*StackInfoControllerAPIService)(&c.common)
 	c.ThresholdRulesConfigControllerAPI = (*ThresholdRulesConfigControllerAPIService)(&c.common)
+	c.ThresholdsV2ConfigControllerAPI = (*ThresholdsV2ConfigControllerAPIService)(&c.common)
 	c.TraceConfigControllerAPI = (*TraceConfigControllerAPIService)(&c.common)
 	c.TraceControllerAPI = (*TraceControllerAPIService)(&c.common)
 	c.VersionControllerAPI = (*VersionControllerAPIService)(&c.common)

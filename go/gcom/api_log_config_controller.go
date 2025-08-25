@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2025.08.11-161538
+API version: 2025.08.25-143624
 Contact: support@asserts.ai
 */
 
@@ -23,7 +23,7 @@ import (
 // LogConfigControllerAPIService LogConfigControllerAPI service
 type LogConfigControllerAPIService service
 
-type ApiDeleteConfigRequest struct {
+type ApiDeleteConfig1Request struct {
 	ctx         context.Context
 	ApiService  *LogConfigControllerAPIService
 	name        string
@@ -31,24 +31,24 @@ type ApiDeleteConfigRequest struct {
 }
 
 // Grafana Tenant/Stack ID
-func (r ApiDeleteConfigRequest) XScopeOrgID(xScopeOrgID string) ApiDeleteConfigRequest {
+func (r ApiDeleteConfig1Request) XScopeOrgID(xScopeOrgID string) ApiDeleteConfig1Request {
 	r.xScopeOrgID = &xScopeOrgID
 	return r
 }
 
-func (r ApiDeleteConfigRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteConfigExecute(r)
+func (r ApiDeleteConfig1Request) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteConfig1Execute(r)
 }
 
 /*
-DeleteConfig Method for DeleteConfig
+DeleteConfig1 Method for DeleteConfig1
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param name
-	@return ApiDeleteConfigRequest
+	@return ApiDeleteConfig1Request
 */
-func (a *LogConfigControllerAPIService) DeleteConfig(ctx context.Context, name string) ApiDeleteConfigRequest {
-	return ApiDeleteConfigRequest{
+func (a *LogConfigControllerAPIService) DeleteConfig1(ctx context.Context, name string) ApiDeleteConfig1Request {
+	return ApiDeleteConfig1Request{
 		ApiService: a,
 		ctx:        ctx,
 		name:       name,
@@ -56,14 +56,14 @@ func (a *LogConfigControllerAPIService) DeleteConfig(ctx context.Context, name s
 }
 
 // Execute executes the request
-func (a *LogConfigControllerAPIService) DeleteConfigExecute(r ApiDeleteConfigRequest) (*http.Response, error) {
+func (a *LogConfigControllerAPIService) DeleteConfig1Execute(r ApiDeleteConfig1Request) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LogConfigControllerAPIService.DeleteConfig")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LogConfigControllerAPIService.DeleteConfig1")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}

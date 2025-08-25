@@ -11,6 +11,8 @@ Name | Type | Description | Notes
 **GraphInstanceCreated** | Pointer to **bool** |  | [optional] 
 **SanityCheckResults** | Pointer to [**[]MetricSanityCheckResult**](MetricSanityCheckResult.md) |  | [optional] 
 **Version** | Pointer to **int32** |  | [optional] 
+**UseGrafanaManagedAlerts** | Pointer to **bool** |  | [optional] 
+**ProcessAlertsInEnrichment** | Pointer to **bool** |  | [optional] 
 
 ## Methods
 
@@ -205,6 +207,56 @@ SetVersion sets Version field to given value.
 `func (o *StackStatusDto) HasVersion() bool`
 
 HasVersion returns a boolean if a field has been set.
+
+### GetUseGrafanaManagedAlerts
+
+`func (o *StackStatusDto) GetUseGrafanaManagedAlerts() bool`
+
+GetUseGrafanaManagedAlerts returns the UseGrafanaManagedAlerts field if non-nil, zero value otherwise.
+
+### GetUseGrafanaManagedAlertsOk
+
+`func (o *StackStatusDto) GetUseGrafanaManagedAlertsOk() (*bool, bool)`
+
+GetUseGrafanaManagedAlertsOk returns a tuple with the UseGrafanaManagedAlerts field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUseGrafanaManagedAlerts
+
+`func (o *StackStatusDto) SetUseGrafanaManagedAlerts(v bool)`
+
+SetUseGrafanaManagedAlerts sets UseGrafanaManagedAlerts field to given value.
+
+### HasUseGrafanaManagedAlerts
+
+`func (o *StackStatusDto) HasUseGrafanaManagedAlerts() bool`
+
+HasUseGrafanaManagedAlerts returns a boolean if a field has been set.
+
+### GetProcessAlertsInEnrichment
+
+`func (o *StackStatusDto) GetProcessAlertsInEnrichment() bool`
+
+GetProcessAlertsInEnrichment returns the ProcessAlertsInEnrichment field if non-nil, zero value otherwise.
+
+### GetProcessAlertsInEnrichmentOk
+
+`func (o *StackStatusDto) GetProcessAlertsInEnrichmentOk() (*bool, bool)`
+
+GetProcessAlertsInEnrichmentOk returns a tuple with the ProcessAlertsInEnrichment field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetProcessAlertsInEnrichment
+
+`func (o *StackStatusDto) SetProcessAlertsInEnrichment(v bool)`
+
+SetProcessAlertsInEnrichment sets ProcessAlertsInEnrichment field to given value.
+
+### HasProcessAlertsInEnrichment
+
+`func (o *StackStatusDto) HasProcessAlertsInEnrichment() bool`
+
+HasProcessAlertsInEnrichment returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

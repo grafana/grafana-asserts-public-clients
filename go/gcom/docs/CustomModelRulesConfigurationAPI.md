@@ -1,20 +1,22 @@
-# \CustomModelRulesControllerAPI
+# \CustomModelRulesConfigurationAPI
 
 All URIs are relative to *http://localhost:8030/asserts/api-server*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteModelRules**](CustomModelRulesControllerAPI.md#DeleteModelRules) | **Delete** /v1/config/model-rules/{name} | 
-[**GetModelRules**](CustomModelRulesControllerAPI.md#GetModelRules) | **Get** /v1/config/model-rules/{name} | 
-[**ListModelRules**](CustomModelRulesControllerAPI.md#ListModelRules) | **Get** /v1/config/model-rules | 
-[**PutModelRules**](CustomModelRulesControllerAPI.md#PutModelRules) | **Put** /v1/config/model-rules | 
-[**PutModelRules1**](CustomModelRulesControllerAPI.md#PutModelRules1) | **Put** /v1/config/model-rules/{name} | 
+[**DeleteModelRules**](CustomModelRulesConfigurationAPI.md#DeleteModelRules) | **Delete** /v1/config/model-rules/{name} | Delete model rules by name
+[**GetModelRules**](CustomModelRulesConfigurationAPI.md#GetModelRules) | **Get** /v1/config/model-rules/{name} | Get model rules by name
+[**ListModelRules**](CustomModelRulesConfigurationAPI.md#ListModelRules) | **Get** /v1/config/model-rules | List all model rule names
+[**PutModelRules**](CustomModelRulesConfigurationAPI.md#PutModelRules) | **Put** /v1/config/model-rules | Create or update model rules
+[**PutModelRules1**](CustomModelRulesConfigurationAPI.md#PutModelRules1) | **Put** /v1/config/model-rules/{name} | Create or update model rules by name
 
 
 
 ## DeleteModelRules
 
 > DeleteModelRules(ctx, name).XScopeOrgID(xScopeOrgID).Execute()
+
+Delete model rules by name
 
 
 
@@ -31,14 +33,14 @@ import (
 )
 
 func main() {
-	name := "name_example" // string | 
+	name := "name_example" // string | The name of the model rules configuration to delete
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CustomModelRulesControllerAPI.DeleteModelRules(context.Background(), name).XScopeOrgID(xScopeOrgID).Execute()
+	r, err := apiClient.CustomModelRulesConfigurationAPI.DeleteModelRules(context.Background(), name).XScopeOrgID(xScopeOrgID).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CustomModelRulesControllerAPI.DeleteModelRules``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CustomModelRulesConfigurationAPI.DeleteModelRules``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -50,7 +52,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**name** | **string** |  | 
+**name** | **string** | The name of the model rules configuration to delete | 
 
 ### Other Parameters
 
@@ -84,6 +86,8 @@ No authorization required
 
 > ModelRulesDto GetModelRules(ctx, name).XScopeOrgID(xScopeOrgID).Execute()
 
+Get model rules by name
+
 
 
 ### Example
@@ -99,18 +103,18 @@ import (
 )
 
 func main() {
-	name := "name_example" // string | 
+	name := "name_example" // string | The name of the model rules configuration to retrieve
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CustomModelRulesControllerAPI.GetModelRules(context.Background(), name).XScopeOrgID(xScopeOrgID).Execute()
+	resp, r, err := apiClient.CustomModelRulesConfigurationAPI.GetModelRules(context.Background(), name).XScopeOrgID(xScopeOrgID).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CustomModelRulesControllerAPI.GetModelRules``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CustomModelRulesConfigurationAPI.GetModelRules``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 	// response from `GetModelRules`: ModelRulesDto
-	fmt.Fprintf(os.Stdout, "Response from `CustomModelRulesControllerAPI.GetModelRules`: %v\n", resp)
+	fmt.Fprintf(os.Stdout, "Response from `CustomModelRulesConfigurationAPI.GetModelRules`: %v\n", resp)
 }
 ```
 
@@ -120,7 +124,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**name** | **string** |  | 
+**name** | **string** | The name of the model rules configuration to retrieve | 
 
 ### Other Parameters
 
@@ -154,6 +158,8 @@ No authorization required
 
 > ModelRuleNamesDto ListModelRules(ctx).XScopeOrgID(xScopeOrgID).Execute()
 
+List all model rule names
+
 
 
 ### Example
@@ -173,13 +179,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CustomModelRulesControllerAPI.ListModelRules(context.Background()).XScopeOrgID(xScopeOrgID).Execute()
+	resp, r, err := apiClient.CustomModelRulesConfigurationAPI.ListModelRules(context.Background()).XScopeOrgID(xScopeOrgID).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CustomModelRulesControllerAPI.ListModelRules``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CustomModelRulesConfigurationAPI.ListModelRules``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 	// response from `ListModelRules`: ModelRuleNamesDto
-	fmt.Fprintf(os.Stdout, "Response from `CustomModelRulesControllerAPI.ListModelRules`: %v\n", resp)
+	fmt.Fprintf(os.Stdout, "Response from `CustomModelRulesConfigurationAPI.ListModelRules`: %v\n", resp)
 }
 ```
 
@@ -218,6 +224,8 @@ No authorization required
 
 > PutModelRules(ctx).ModelRulesDto(modelRulesDto).XScopeOrgID(xScopeOrgID).Execute()
 
+Create or update model rules
+
 
 
 ### Example
@@ -238,9 +246,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CustomModelRulesControllerAPI.PutModelRules(context.Background()).ModelRulesDto(modelRulesDto).XScopeOrgID(xScopeOrgID).Execute()
+	r, err := apiClient.CustomModelRulesConfigurationAPI.PutModelRules(context.Background()).ModelRulesDto(modelRulesDto).XScopeOrgID(xScopeOrgID).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CustomModelRulesControllerAPI.PutModelRules``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CustomModelRulesConfigurationAPI.PutModelRules``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -271,7 +279,7 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: application/json, application/x-yml, application/x-yaml
-- **Accept**: Not defined
+- **Accept**: application/json, application/x-yml, application/x-yaml
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -281,6 +289,8 @@ No authorization required
 ## PutModelRules1
 
 > PutModelRules1(ctx, name).ModelRulesDto(modelRulesDto).XScopeOrgID(xScopeOrgID).Execute()
+
+Create or update model rules by name
 
 
 
@@ -297,15 +307,15 @@ import (
 )
 
 func main() {
-	name := "name_example" // string | 
+	name := "name_example" // string | The name of the model rules configuration
 	modelRulesDto := *openapiclient.NewModelRulesDto() // ModelRulesDto | 
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CustomModelRulesControllerAPI.PutModelRules1(context.Background(), name).ModelRulesDto(modelRulesDto).XScopeOrgID(xScopeOrgID).Execute()
+	r, err := apiClient.CustomModelRulesConfigurationAPI.PutModelRules1(context.Background(), name).ModelRulesDto(modelRulesDto).XScopeOrgID(xScopeOrgID).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CustomModelRulesControllerAPI.PutModelRules1``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CustomModelRulesConfigurationAPI.PutModelRules1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -317,7 +327,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**name** | **string** |  | 
+**name** | **string** | The name of the model rules configuration | 
 
 ### Other Parameters
 
@@ -341,7 +351,7 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: Not defined
+- **Accept**: application/json, application/x-yml, application/x-yaml
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
