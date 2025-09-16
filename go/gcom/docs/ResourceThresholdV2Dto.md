@@ -4,20 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AssertionName** | **string** |  | 
-**ResourceType** | **string** |  | 
-**ContainerName** | **string** |  | 
-**Source** | **string** |  | 
-**Severity** | **string** |  | 
-**Value** | **float64** |  | 
-**ValidAssertionName** | Pointer to **bool** |  | [optional] 
-**ValidSeverity** | Pointer to **bool** |  | [optional] 
+**AssertionName** | Pointer to **string** |  | [optional] 
+**ResourceType** | Pointer to **string** |  | [optional] 
+**ContainerName** | Pointer to **string** |  | [optional] 
+**Source** | Pointer to **string** |  | [optional] 
+**Severity** | Pointer to **string** |  | [optional] 
+**Value** | Pointer to **float64** |  | [optional] 
 
 ## Methods
 
 ### NewResourceThresholdV2Dto
 
-`func NewResourceThresholdV2Dto(assertionName string, resourceType string, containerName string, source string, severity string, value float64, ) *ResourceThresholdV2Dto`
+`func NewResourceThresholdV2Dto() *ResourceThresholdV2Dto`
 
 NewResourceThresholdV2Dto instantiates a new ResourceThresholdV2Dto object
 This constructor will assign default values to properties that have it defined,
@@ -51,6 +49,11 @@ and a boolean to check if the value has been set.
 
 SetAssertionName sets AssertionName field to given value.
 
+### HasAssertionName
+
+`func (o *ResourceThresholdV2Dto) HasAssertionName() bool`
+
+HasAssertionName returns a boolean if a field has been set.
 
 ### GetResourceType
 
@@ -71,6 +74,11 @@ and a boolean to check if the value has been set.
 
 SetResourceType sets ResourceType field to given value.
 
+### HasResourceType
+
+`func (o *ResourceThresholdV2Dto) HasResourceType() bool`
+
+HasResourceType returns a boolean if a field has been set.
 
 ### GetContainerName
 
@@ -91,6 +99,11 @@ and a boolean to check if the value has been set.
 
 SetContainerName sets ContainerName field to given value.
 
+### HasContainerName
+
+`func (o *ResourceThresholdV2Dto) HasContainerName() bool`
+
+HasContainerName returns a boolean if a field has been set.
 
 ### GetSource
 
@@ -111,6 +124,11 @@ and a boolean to check if the value has been set.
 
 SetSource sets Source field to given value.
 
+### HasSource
+
+`func (o *ResourceThresholdV2Dto) HasSource() bool`
+
+HasSource returns a boolean if a field has been set.
 
 ### GetSeverity
 
@@ -131,6 +149,11 @@ and a boolean to check if the value has been set.
 
 SetSeverity sets Severity field to given value.
 
+### HasSeverity
+
+`func (o *ResourceThresholdV2Dto) HasSeverity() bool`
+
+HasSeverity returns a boolean if a field has been set.
 
 ### GetValue
 
@@ -151,56 +174,11 @@ and a boolean to check if the value has been set.
 
 SetValue sets Value field to given value.
 
+### HasValue
 
-### GetValidAssertionName
+`func (o *ResourceThresholdV2Dto) HasValue() bool`
 
-`func (o *ResourceThresholdV2Dto) GetValidAssertionName() bool`
-
-GetValidAssertionName returns the ValidAssertionName field if non-nil, zero value otherwise.
-
-### GetValidAssertionNameOk
-
-`func (o *ResourceThresholdV2Dto) GetValidAssertionNameOk() (*bool, bool)`
-
-GetValidAssertionNameOk returns a tuple with the ValidAssertionName field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetValidAssertionName
-
-`func (o *ResourceThresholdV2Dto) SetValidAssertionName(v bool)`
-
-SetValidAssertionName sets ValidAssertionName field to given value.
-
-### HasValidAssertionName
-
-`func (o *ResourceThresholdV2Dto) HasValidAssertionName() bool`
-
-HasValidAssertionName returns a boolean if a field has been set.
-
-### GetValidSeverity
-
-`func (o *ResourceThresholdV2Dto) GetValidSeverity() bool`
-
-GetValidSeverity returns the ValidSeverity field if non-nil, zero value otherwise.
-
-### GetValidSeverityOk
-
-`func (o *ResourceThresholdV2Dto) GetValidSeverityOk() (*bool, bool)`
-
-GetValidSeverityOk returns a tuple with the ValidSeverity field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetValidSeverity
-
-`func (o *ResourceThresholdV2Dto) SetValidSeverity(v bool)`
-
-SetValidSeverity sets ValidSeverity field to given value.
-
-### HasValidSeverity
-
-`func (o *ResourceThresholdV2Dto) HasValidSeverity() bool`
-
-HasValidSeverity returns a boolean if a field has been set.
+HasValue returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

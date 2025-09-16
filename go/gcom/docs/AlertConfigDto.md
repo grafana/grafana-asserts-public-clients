@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Name** | Pointer to **string** |  | [optional] 
 **MatchLabels** | Pointer to **map[string]string** |  | [optional] 
 **AlertLabels** | Pointer to **map[string]string** |  | [optional] 
+**Annotations** | Pointer to **map[string]string** |  | [optional] 
 **Silenced** | Pointer to **bool** |  | [optional] 
 **For** | Pointer to **string** |  | [optional] 
 
@@ -103,6 +104,31 @@ SetAlertLabels sets AlertLabels field to given value.
 `func (o *AlertConfigDto) HasAlertLabels() bool`
 
 HasAlertLabels returns a boolean if a field has been set.
+
+### GetAnnotations
+
+`func (o *AlertConfigDto) GetAnnotations() map[string]string`
+
+GetAnnotations returns the Annotations field if non-nil, zero value otherwise.
+
+### GetAnnotationsOk
+
+`func (o *AlertConfigDto) GetAnnotationsOk() (*map[string]string, bool)`
+
+GetAnnotationsOk returns a tuple with the Annotations field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAnnotations
+
+`func (o *AlertConfigDto) SetAnnotations(v map[string]string)`
+
+SetAnnotations sets Annotations field to given value.
+
+### HasAnnotations
+
+`func (o *AlertConfigDto) HasAnnotations() bool`
+
+HasAnnotations returns a boolean if a field has been set.
 
 ### GetSilenced
 

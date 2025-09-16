@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2025.09.16-084942
+API version: 2025.09.16-112305
 Contact: support@asserts.ai
 */
 
@@ -21,9 +21,9 @@ var _ MappedNullable = &DefaultHttpStatusCode{}
 // DefaultHttpStatusCode struct for DefaultHttpStatusCode
 type DefaultHttpStatusCode struct {
 	Error                *bool `json:"error,omitempty"`
-	Is4xxClientError     *bool `json:"is4xxClientError,omitempty"`
 	Is5xxServerError     *bool `json:"is5xxServerError,omitempty"`
 	Is2xxSuccessful      *bool `json:"is2xxSuccessful,omitempty"`
+	Is4xxClientError     *bool `json:"is4xxClientError,omitempty"`
 	Is1xxInformational   *bool `json:"is1xxInformational,omitempty"`
 	Is3xxRedirection     *bool `json:"is3xxRedirection,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -78,38 +78,6 @@ func (o *DefaultHttpStatusCode) HasError() bool {
 // SetError gets a reference to the given bool and assigns it to the Error field.
 func (o *DefaultHttpStatusCode) SetError(v bool) {
 	o.Error = &v
-}
-
-// GetIs4xxClientError returns the Is4xxClientError field value if set, zero value otherwise.
-func (o *DefaultHttpStatusCode) GetIs4xxClientError() bool {
-	if o == nil || IsNil(o.Is4xxClientError) {
-		var ret bool
-		return ret
-	}
-	return *o.Is4xxClientError
-}
-
-// GetIs4xxClientErrorOk returns a tuple with the Is4xxClientError field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *DefaultHttpStatusCode) GetIs4xxClientErrorOk() (*bool, bool) {
-	if o == nil || IsNil(o.Is4xxClientError) {
-		return nil, false
-	}
-	return o.Is4xxClientError, true
-}
-
-// HasIs4xxClientError returns a boolean if a field has been set.
-func (o *DefaultHttpStatusCode) HasIs4xxClientError() bool {
-	if o != nil && !IsNil(o.Is4xxClientError) {
-		return true
-	}
-
-	return false
-}
-
-// SetIs4xxClientError gets a reference to the given bool and assigns it to the Is4xxClientError field.
-func (o *DefaultHttpStatusCode) SetIs4xxClientError(v bool) {
-	o.Is4xxClientError = &v
 }
 
 // GetIs5xxServerError returns the Is5xxServerError field value if set, zero value otherwise.
@@ -174,6 +142,38 @@ func (o *DefaultHttpStatusCode) HasIs2xxSuccessful() bool {
 // SetIs2xxSuccessful gets a reference to the given bool and assigns it to the Is2xxSuccessful field.
 func (o *DefaultHttpStatusCode) SetIs2xxSuccessful(v bool) {
 	o.Is2xxSuccessful = &v
+}
+
+// GetIs4xxClientError returns the Is4xxClientError field value if set, zero value otherwise.
+func (o *DefaultHttpStatusCode) GetIs4xxClientError() bool {
+	if o == nil || IsNil(o.Is4xxClientError) {
+		var ret bool
+		return ret
+	}
+	return *o.Is4xxClientError
+}
+
+// GetIs4xxClientErrorOk returns a tuple with the Is4xxClientError field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DefaultHttpStatusCode) GetIs4xxClientErrorOk() (*bool, bool) {
+	if o == nil || IsNil(o.Is4xxClientError) {
+		return nil, false
+	}
+	return o.Is4xxClientError, true
+}
+
+// HasIs4xxClientError returns a boolean if a field has been set.
+func (o *DefaultHttpStatusCode) HasIs4xxClientError() bool {
+	if o != nil && !IsNil(o.Is4xxClientError) {
+		return true
+	}
+
+	return false
+}
+
+// SetIs4xxClientError gets a reference to the given bool and assigns it to the Is4xxClientError field.
+func (o *DefaultHttpStatusCode) SetIs4xxClientError(v bool) {
+	o.Is4xxClientError = &v
 }
 
 // GetIs1xxInformational returns the Is1xxInformational field value if set, zero value otherwise.
@@ -253,14 +253,14 @@ func (o DefaultHttpStatusCode) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Error) {
 		toSerialize["error"] = o.Error
 	}
-	if !IsNil(o.Is4xxClientError) {
-		toSerialize["is4xxClientError"] = o.Is4xxClientError
-	}
 	if !IsNil(o.Is5xxServerError) {
 		toSerialize["is5xxServerError"] = o.Is5xxServerError
 	}
 	if !IsNil(o.Is2xxSuccessful) {
 		toSerialize["is2xxSuccessful"] = o.Is2xxSuccessful
+	}
+	if !IsNil(o.Is4xxClientError) {
+		toSerialize["is4xxClientError"] = o.Is4xxClientError
 	}
 	if !IsNil(o.Is1xxInformational) {
 		toSerialize["is1xxInformational"] = o.Is1xxInformational
@@ -291,9 +291,9 @@ func (o *DefaultHttpStatusCode) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "error")
-		delete(additionalProperties, "is4xxClientError")
 		delete(additionalProperties, "is5xxServerError")
 		delete(additionalProperties, "is2xxSuccessful")
+		delete(additionalProperties, "is4xxClientError")
 		delete(additionalProperties, "is1xxInformational")
 		delete(additionalProperties, "is3xxRedirection")
 		o.AdditionalProperties = additionalProperties

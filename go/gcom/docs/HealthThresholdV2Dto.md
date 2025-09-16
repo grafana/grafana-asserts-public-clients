@@ -4,14 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AssertionName** | **string** |  | 
-**Expression** | **string** |  | 
+**AssertionName** | Pointer to **string** |  | [optional] 
+**Expression** | Pointer to **string** |  | [optional] 
+**AlertCategory** | Pointer to **string** |  | [optional] 
+**EntityType** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
 ### NewHealthThresholdV2Dto
 
-`func NewHealthThresholdV2Dto(assertionName string, expression string, ) *HealthThresholdV2Dto`
+`func NewHealthThresholdV2Dto() *HealthThresholdV2Dto`
 
 NewHealthThresholdV2Dto instantiates a new HealthThresholdV2Dto object
 This constructor will assign default values to properties that have it defined,
@@ -45,6 +47,11 @@ and a boolean to check if the value has been set.
 
 SetAssertionName sets AssertionName field to given value.
 
+### HasAssertionName
+
+`func (o *HealthThresholdV2Dto) HasAssertionName() bool`
+
+HasAssertionName returns a boolean if a field has been set.
 
 ### GetExpression
 
@@ -65,6 +72,61 @@ and a boolean to check if the value has been set.
 
 SetExpression sets Expression field to given value.
 
+### HasExpression
+
+`func (o *HealthThresholdV2Dto) HasExpression() bool`
+
+HasExpression returns a boolean if a field has been set.
+
+### GetAlertCategory
+
+`func (o *HealthThresholdV2Dto) GetAlertCategory() string`
+
+GetAlertCategory returns the AlertCategory field if non-nil, zero value otherwise.
+
+### GetAlertCategoryOk
+
+`func (o *HealthThresholdV2Dto) GetAlertCategoryOk() (*string, bool)`
+
+GetAlertCategoryOk returns a tuple with the AlertCategory field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAlertCategory
+
+`func (o *HealthThresholdV2Dto) SetAlertCategory(v string)`
+
+SetAlertCategory sets AlertCategory field to given value.
+
+### HasAlertCategory
+
+`func (o *HealthThresholdV2Dto) HasAlertCategory() bool`
+
+HasAlertCategory returns a boolean if a field has been set.
+
+### GetEntityType
+
+`func (o *HealthThresholdV2Dto) GetEntityType() string`
+
+GetEntityType returns the EntityType field if non-nil, zero value otherwise.
+
+### GetEntityTypeOk
+
+`func (o *HealthThresholdV2Dto) GetEntityTypeOk() (*string, bool)`
+
+GetEntityTypeOk returns a tuple with the EntityType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEntityType
+
+`func (o *HealthThresholdV2Dto) SetEntityType(v string)`
+
+SetEntityType sets EntityType field to given value.
+
+### HasEntityType
+
+`func (o *HealthThresholdV2Dto) HasEntityType() bool`
+
+HasEntityType returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

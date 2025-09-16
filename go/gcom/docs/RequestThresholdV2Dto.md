@@ -4,18 +4,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**EntityName** | **string** |  | 
-**AssertionName** | **string** |  | 
-**RequestType** | **string** |  | 
-**RequestContext** | **string** |  | 
-**Value** | **float64** |  | 
-**ValidAssertionName** | Pointer to **bool** |  | [optional] 
+**EntityName** | Pointer to **string** |  | [optional] 
+**AssertionName** | Pointer to **string** |  | [optional] 
+**RequestType** | Pointer to **string** |  | [optional] 
+**RequestContext** | Pointer to **string** |  | [optional] 
+**Value** | Pointer to **float64** |  | [optional] 
 
 ## Methods
 
 ### NewRequestThresholdV2Dto
 
-`func NewRequestThresholdV2Dto(entityName string, assertionName string, requestType string, requestContext string, value float64, ) *RequestThresholdV2Dto`
+`func NewRequestThresholdV2Dto() *RequestThresholdV2Dto`
 
 NewRequestThresholdV2Dto instantiates a new RequestThresholdV2Dto object
 This constructor will assign default values to properties that have it defined,
@@ -49,6 +48,11 @@ and a boolean to check if the value has been set.
 
 SetEntityName sets EntityName field to given value.
 
+### HasEntityName
+
+`func (o *RequestThresholdV2Dto) HasEntityName() bool`
+
+HasEntityName returns a boolean if a field has been set.
 
 ### GetAssertionName
 
@@ -69,6 +73,11 @@ and a boolean to check if the value has been set.
 
 SetAssertionName sets AssertionName field to given value.
 
+### HasAssertionName
+
+`func (o *RequestThresholdV2Dto) HasAssertionName() bool`
+
+HasAssertionName returns a boolean if a field has been set.
 
 ### GetRequestType
 
@@ -89,6 +98,11 @@ and a boolean to check if the value has been set.
 
 SetRequestType sets RequestType field to given value.
 
+### HasRequestType
+
+`func (o *RequestThresholdV2Dto) HasRequestType() bool`
+
+HasRequestType returns a boolean if a field has been set.
 
 ### GetRequestContext
 
@@ -109,6 +123,11 @@ and a boolean to check if the value has been set.
 
 SetRequestContext sets RequestContext field to given value.
 
+### HasRequestContext
+
+`func (o *RequestThresholdV2Dto) HasRequestContext() bool`
+
+HasRequestContext returns a boolean if a field has been set.
 
 ### GetValue
 
@@ -129,31 +148,11 @@ and a boolean to check if the value has been set.
 
 SetValue sets Value field to given value.
 
+### HasValue
 
-### GetValidAssertionName
+`func (o *RequestThresholdV2Dto) HasValue() bool`
 
-`func (o *RequestThresholdV2Dto) GetValidAssertionName() bool`
-
-GetValidAssertionName returns the ValidAssertionName field if non-nil, zero value otherwise.
-
-### GetValidAssertionNameOk
-
-`func (o *RequestThresholdV2Dto) GetValidAssertionNameOk() (*bool, bool)`
-
-GetValidAssertionNameOk returns a tuple with the ValidAssertionName field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetValidAssertionName
-
-`func (o *RequestThresholdV2Dto) SetValidAssertionName(v bool)`
-
-SetValidAssertionName sets ValidAssertionName field to given value.
-
-### HasValidAssertionName
-
-`func (o *RequestThresholdV2Dto) HasValidAssertionName() bool`
-
-HasValidAssertionName returns a boolean if a field has been set.
+HasValue returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

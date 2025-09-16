@@ -7,7 +7,7 @@ info:
   description: Asserts Public API
   termsOfService: https://www.asserts.ai/terms-of-service
   title: "Asserts, Inc"
-  version: 2025.09.16-084942
+  version: 2025.09.16-112305
 servers:
 - description: Generated server url
   url: http://localhost:8030/asserts/api-server
@@ -642,7 +642,7 @@ paths:
           description: OK
       tags:
       - latency-threshold-controller
-  /v2/config/thresholds:
+  /v2/config/threshold:
     get:
       operationId: getThresholds
       parameters:
@@ -671,7 +671,7 @@ paths:
           description: OK
       tags:
       - thresholds-v-2-config-controller
-  /v2/config/thresholds/resource:
+  /v2/config/threshold/resource:
     post:
       operationId: updateResourceThresholds
       parameters:
@@ -689,7 +689,7 @@ paths:
           description: OK
       tags:
       - thresholds-v-2-config-controller
-  /v2/config/thresholds/request:
+  /v2/config/threshold/request:
     post:
       operationId: updateRequestThresholds
       parameters:
@@ -707,7 +707,7 @@ paths:
           description: OK
       tags:
       - thresholds-v-2-config-controller
-  /v2/config/thresholds/health:
+  /v2/config/threshold/health:
     post:
       operationId: updateHealthThresholds
       parameters:
@@ -3046,6 +3046,30 @@ paths:
           description: OK
       tags:
       - alert-manager-versioned-config-controller
+  /v1/product/activation/{product}:
+    get:
+      operationId: getProductActivation
+      parameters:
+      - explode: false
+        in: path
+        name: product
+        required: true
+        schema:
+          enum:
+          - appo11y
+          - k8so11y
+          type: string
+        style: simple
+      - $ref: '#/components/parameters/TenantId'
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProductActivationDto'
+          description: OK
+      tags:
+      - product-activation-controller
   /v1/kpi/list:
     get:
       operationId: getKpisByEntityType
@@ -4621,11 +4645,11 @@ components:
       properties:
         error:
           type: boolean
-        is4xxClientError:
-          type: boolean
         is5xxServerError:
           type: boolean
         is2xxSuccessful:
+          type: boolean
+        is4xxClientError:
           type: boolean
         is1xxInformational:
           type: boolean
@@ -5450,89 +5474,59 @@ components:
     HealthThresholdV2Dto:
       example:
         expression: expression
+        entityType: entityType
         assertionName: assertionName
+        alertCategory: alertCategory
       properties:
         assertionName:
-          minLength: 1
           type: string
         expression:
-          minLength: 1
           type: string
-      required:
-      - assertionName
-      - expression
+        alertCategory:
+          type: string
+        entityType:
+          type: string
     RequestThresholdV2Dto:
       example:
         requestType: requestType
         requestContext: requestContext
         entityName: entityName
         assertionName: assertionName
-        validAssertionName: true
         value: 0.8008281904610115
       properties:
         entityName:
-          minLength: 1
           type: string
         assertionName:
-          minLength: 1
           type: string
         requestType:
-          minLength: 1
           type: string
         requestContext:
-          minLength: 1
           type: string
         value:
           format: double
           type: number
-        validAssertionName:
-          type: boolean
-      required:
-      - assertionName
-      - entityName
-      - requestContext
-      - requestType
-      - value
     ResourceThresholdV2Dto:
       example:
         severity: severity
         containerName: containerName
         assertionName: assertionName
-        validAssertionName: true
         source: source
-        validSeverity: true
         value: 6.027456183070403
         resourceType: resourceType
       properties:
         assertionName:
-          minLength: 1
           type: string
         resourceType:
-          minLength: 1
           type: string
         containerName:
-          minLength: 1
           type: string
         source:
-          minLength: 1
           type: string
         severity:
-          minLength: 1
           type: string
         value:
           format: double
           type: number
-        validAssertionName:
-          type: boolean
-        validSeverity:
-          type: boolean
-      required:
-      - assertionName
-      - containerName
-      - resourceType
-      - severity
-      - source
-      - value
     ThresholdsV2Dto:
       example:
         requestThresholds:
@@ -5540,36 +5534,34 @@ components:
           requestContext: requestContext
           entityName: entityName
           assertionName: assertionName
-          validAssertionName: true
           value: 0.8008281904610115
         - requestType: requestType
           requestContext: requestContext
           entityName: entityName
           assertionName: assertionName
-          validAssertionName: true
           value: 0.8008281904610115
         resourceThresholds:
         - severity: severity
           containerName: containerName
           assertionName: assertionName
-          validAssertionName: true
           source: source
-          validSeverity: true
           value: 6.027456183070403
           resourceType: resourceType
         - severity: severity
           containerName: containerName
           assertionName: assertionName
-          validAssertionName: true
           source: source
-          validSeverity: true
           value: 6.027456183070403
           resourceType: resourceType
         healthThresholds:
         - expression: expression
+          entityType: entityType
           assertionName: assertionName
+          alertCategory: alertCategory
         - expression: expression
+          entityType: entityType
           assertionName: assertionName
+          alertCategory: alertCategory
       properties:
         requestThresholds:
           items:
@@ -5602,11 +5594,15 @@ components:
           property: property
         entityPropertyToLogLabelMapping:
           key: entityPropertyToLogLabelMapping
+        priority: 0
         errorLabel: errorLabel
         filterBySpanId: true
       properties:
         name:
           type: string
+        priority:
+          format: int32
+          type: integer
         match:
           items:
             $ref: '#/components/schemas/PropertyMatchEntryDto'
@@ -9122,6 +9118,8 @@ components:
           key: matchLabels
         name: name
         for: for
+        annotations:
+          key: annotations
         alertLabels:
           key: alertLabels
       properties:
@@ -9131,6 +9129,9 @@ components:
           additionalProperties:
             type: string
         alertLabels:
+          additionalProperties:
+            type: string
+        annotations:
           additionalProperties:
             type: string
         silenced:
@@ -9145,6 +9146,8 @@ components:
             key: matchLabels
           name: name
           for: for
+          annotations:
+            key: annotations
           alertLabels:
             key: alertLabels
         - silenced: true
@@ -9152,6 +9155,8 @@ components:
             key: matchLabels
           name: name
           for: for
+          annotations:
+            key: annotations
           alertLabels:
             key: alertLabels
       properties:
@@ -16114,6 +16119,7 @@ components:
             property: property
           entityPropertyToLogLabelMapping:
             key: entityPropertyToLogLabelMapping
+          priority: 0
           errorLabel: errorLabel
           filterBySpanId: true
         - dataSourceUid: dataSourceUid
@@ -16133,6 +16139,7 @@ components:
             property: property
           entityPropertyToLogLabelMapping:
             key: entityPropertyToLogLabelMapping
+          priority: 0
           errorLabel: errorLabel
           filterBySpanId: true
       properties:

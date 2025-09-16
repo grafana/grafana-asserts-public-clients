@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | Pointer to **string** |  | [optional] 
+**Priority** | Pointer to **int32** |  | [optional] 
 **Match** | Pointer to [**[]PropertyMatchEntryDto**](PropertyMatchEntryDto.md) |  | [optional] 
 **DefaultConfig** | Pointer to **bool** |  | [optional] 
 **DataSourceUid** | Pointer to **string** |  | [optional] 
@@ -56,6 +57,31 @@ SetName sets Name field to given value.
 `func (o *LogDrilldownConfigDto) HasName() bool`
 
 HasName returns a boolean if a field has been set.
+
+### GetPriority
+
+`func (o *LogDrilldownConfigDto) GetPriority() int32`
+
+GetPriority returns the Priority field if non-nil, zero value otherwise.
+
+### GetPriorityOk
+
+`func (o *LogDrilldownConfigDto) GetPriorityOk() (*int32, bool)`
+
+GetPriorityOk returns a tuple with the Priority field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPriority
+
+`func (o *LogDrilldownConfigDto) SetPriority(v int32)`
+
+SetPriority sets Priority field to given value.
+
+### HasPriority
+
+`func (o *LogDrilldownConfigDto) HasPriority() bool`
+
+HasPriority returns a boolean if a field has been set.
 
 ### GetMatch
 

@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2025.09.16-084942
+API version: 2025.09.16-112305
 Contact: support@asserts.ai
 */
 
@@ -20,14 +20,12 @@ var _ MappedNullable = &ResourceThresholdV2Dto{}
 
 // ResourceThresholdV2Dto struct for ResourceThresholdV2Dto
 type ResourceThresholdV2Dto struct {
-	AssertionName        string  `json:"assertionName"`
-	ResourceType         string  `json:"resourceType"`
-	ContainerName        string  `json:"containerName"`
-	Source               string  `json:"source"`
-	Severity             string  `json:"severity"`
-	Value                float64 `json:"value"`
-	ValidAssertionName   *bool   `json:"validAssertionName,omitempty"`
-	ValidSeverity        *bool   `json:"validSeverity,omitempty"`
+	AssertionName        *string  `json:"assertionName,omitempty"`
+	ResourceType         *string  `json:"resourceType,omitempty"`
+	ContainerName        *string  `json:"containerName,omitempty"`
+	Source               *string  `json:"source,omitempty"`
+	Severity             *string  `json:"severity,omitempty"`
+	Value                *float64 `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -37,14 +35,8 @@ type _ResourceThresholdV2Dto ResourceThresholdV2Dto
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewResourceThresholdV2Dto(assertionName string, resourceType string, containerName string, source string, severity string, value float64) *ResourceThresholdV2Dto {
+func NewResourceThresholdV2Dto() *ResourceThresholdV2Dto {
 	this := ResourceThresholdV2Dto{}
-	this.AssertionName = assertionName
-	this.ResourceType = resourceType
-	this.ContainerName = containerName
-	this.Source = source
-	this.Severity = severity
-	this.Value = value
 	return &this
 }
 
@@ -56,212 +48,196 @@ func NewResourceThresholdV2DtoWithDefaults() *ResourceThresholdV2Dto {
 	return &this
 }
 
-// GetAssertionName returns the AssertionName field value
+// GetAssertionName returns the AssertionName field value if set, zero value otherwise.
 func (o *ResourceThresholdV2Dto) GetAssertionName() string {
-	if o == nil {
+	if o == nil || IsNil(o.AssertionName) {
 		var ret string
 		return ret
 	}
-
-	return o.AssertionName
+	return *o.AssertionName
 }
 
-// GetAssertionNameOk returns a tuple with the AssertionName field value
+// GetAssertionNameOk returns a tuple with the AssertionName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceThresholdV2Dto) GetAssertionNameOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.AssertionName) {
 		return nil, false
 	}
-	return &o.AssertionName, true
+	return o.AssertionName, true
 }
 
-// SetAssertionName sets field value
+// HasAssertionName returns a boolean if a field has been set.
+func (o *ResourceThresholdV2Dto) HasAssertionName() bool {
+	if o != nil && !IsNil(o.AssertionName) {
+		return true
+	}
+
+	return false
+}
+
+// SetAssertionName gets a reference to the given string and assigns it to the AssertionName field.
 func (o *ResourceThresholdV2Dto) SetAssertionName(v string) {
-	o.AssertionName = v
+	o.AssertionName = &v
 }
 
-// GetResourceType returns the ResourceType field value
+// GetResourceType returns the ResourceType field value if set, zero value otherwise.
 func (o *ResourceThresholdV2Dto) GetResourceType() string {
-	if o == nil {
+	if o == nil || IsNil(o.ResourceType) {
 		var ret string
 		return ret
 	}
-
-	return o.ResourceType
+	return *o.ResourceType
 }
 
-// GetResourceTypeOk returns a tuple with the ResourceType field value
+// GetResourceTypeOk returns a tuple with the ResourceType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceThresholdV2Dto) GetResourceTypeOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.ResourceType) {
 		return nil, false
 	}
-	return &o.ResourceType, true
+	return o.ResourceType, true
 }
 
-// SetResourceType sets field value
+// HasResourceType returns a boolean if a field has been set.
+func (o *ResourceThresholdV2Dto) HasResourceType() bool {
+	if o != nil && !IsNil(o.ResourceType) {
+		return true
+	}
+
+	return false
+}
+
+// SetResourceType gets a reference to the given string and assigns it to the ResourceType field.
 func (o *ResourceThresholdV2Dto) SetResourceType(v string) {
-	o.ResourceType = v
+	o.ResourceType = &v
 }
 
-// GetContainerName returns the ContainerName field value
+// GetContainerName returns the ContainerName field value if set, zero value otherwise.
 func (o *ResourceThresholdV2Dto) GetContainerName() string {
-	if o == nil {
+	if o == nil || IsNil(o.ContainerName) {
 		var ret string
 		return ret
 	}
-
-	return o.ContainerName
+	return *o.ContainerName
 }
 
-// GetContainerNameOk returns a tuple with the ContainerName field value
+// GetContainerNameOk returns a tuple with the ContainerName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceThresholdV2Dto) GetContainerNameOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.ContainerName) {
 		return nil, false
 	}
-	return &o.ContainerName, true
+	return o.ContainerName, true
 }
 
-// SetContainerName sets field value
+// HasContainerName returns a boolean if a field has been set.
+func (o *ResourceThresholdV2Dto) HasContainerName() bool {
+	if o != nil && !IsNil(o.ContainerName) {
+		return true
+	}
+
+	return false
+}
+
+// SetContainerName gets a reference to the given string and assigns it to the ContainerName field.
 func (o *ResourceThresholdV2Dto) SetContainerName(v string) {
-	o.ContainerName = v
+	o.ContainerName = &v
 }
 
-// GetSource returns the Source field value
+// GetSource returns the Source field value if set, zero value otherwise.
 func (o *ResourceThresholdV2Dto) GetSource() string {
-	if o == nil {
+	if o == nil || IsNil(o.Source) {
 		var ret string
 		return ret
 	}
-
-	return o.Source
+	return *o.Source
 }
 
-// GetSourceOk returns a tuple with the Source field value
+// GetSourceOk returns a tuple with the Source field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceThresholdV2Dto) GetSourceOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Source) {
 		return nil, false
 	}
-	return &o.Source, true
+	return o.Source, true
 }
 
-// SetSource sets field value
+// HasSource returns a boolean if a field has been set.
+func (o *ResourceThresholdV2Dto) HasSource() bool {
+	if o != nil && !IsNil(o.Source) {
+		return true
+	}
+
+	return false
+}
+
+// SetSource gets a reference to the given string and assigns it to the Source field.
 func (o *ResourceThresholdV2Dto) SetSource(v string) {
-	o.Source = v
+	o.Source = &v
 }
 
-// GetSeverity returns the Severity field value
+// GetSeverity returns the Severity field value if set, zero value otherwise.
 func (o *ResourceThresholdV2Dto) GetSeverity() string {
-	if o == nil {
+	if o == nil || IsNil(o.Severity) {
 		var ret string
 		return ret
 	}
-
-	return o.Severity
+	return *o.Severity
 }
 
-// GetSeverityOk returns a tuple with the Severity field value
+// GetSeverityOk returns a tuple with the Severity field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceThresholdV2Dto) GetSeverityOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Severity) {
 		return nil, false
 	}
-	return &o.Severity, true
+	return o.Severity, true
 }
 
-// SetSeverity sets field value
+// HasSeverity returns a boolean if a field has been set.
+func (o *ResourceThresholdV2Dto) HasSeverity() bool {
+	if o != nil && !IsNil(o.Severity) {
+		return true
+	}
+
+	return false
+}
+
+// SetSeverity gets a reference to the given string and assigns it to the Severity field.
 func (o *ResourceThresholdV2Dto) SetSeverity(v string) {
-	o.Severity = v
+	o.Severity = &v
 }
 
-// GetValue returns the Value field value
+// GetValue returns the Value field value if set, zero value otherwise.
 func (o *ResourceThresholdV2Dto) GetValue() float64 {
-	if o == nil {
+	if o == nil || IsNil(o.Value) {
 		var ret float64
 		return ret
 	}
-
-	return o.Value
+	return *o.Value
 }
 
-// GetValueOk returns a tuple with the Value field value
+// GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceThresholdV2Dto) GetValueOk() (*float64, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Value) {
 		return nil, false
 	}
-	return &o.Value, true
+	return o.Value, true
 }
 
-// SetValue sets field value
+// HasValue returns a boolean if a field has been set.
+func (o *ResourceThresholdV2Dto) HasValue() bool {
+	if o != nil && !IsNil(o.Value) {
+		return true
+	}
+
+	return false
+}
+
+// SetValue gets a reference to the given float64 and assigns it to the Value field.
 func (o *ResourceThresholdV2Dto) SetValue(v float64) {
-	o.Value = v
-}
-
-// GetValidAssertionName returns the ValidAssertionName field value if set, zero value otherwise.
-func (o *ResourceThresholdV2Dto) GetValidAssertionName() bool {
-	if o == nil || IsNil(o.ValidAssertionName) {
-		var ret bool
-		return ret
-	}
-	return *o.ValidAssertionName
-}
-
-// GetValidAssertionNameOk returns a tuple with the ValidAssertionName field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ResourceThresholdV2Dto) GetValidAssertionNameOk() (*bool, bool) {
-	if o == nil || IsNil(o.ValidAssertionName) {
-		return nil, false
-	}
-	return o.ValidAssertionName, true
-}
-
-// HasValidAssertionName returns a boolean if a field has been set.
-func (o *ResourceThresholdV2Dto) HasValidAssertionName() bool {
-	if o != nil && !IsNil(o.ValidAssertionName) {
-		return true
-	}
-
-	return false
-}
-
-// SetValidAssertionName gets a reference to the given bool and assigns it to the ValidAssertionName field.
-func (o *ResourceThresholdV2Dto) SetValidAssertionName(v bool) {
-	o.ValidAssertionName = &v
-}
-
-// GetValidSeverity returns the ValidSeverity field value if set, zero value otherwise.
-func (o *ResourceThresholdV2Dto) GetValidSeverity() bool {
-	if o == nil || IsNil(o.ValidSeverity) {
-		var ret bool
-		return ret
-	}
-	return *o.ValidSeverity
-}
-
-// GetValidSeverityOk returns a tuple with the ValidSeverity field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ResourceThresholdV2Dto) GetValidSeverityOk() (*bool, bool) {
-	if o == nil || IsNil(o.ValidSeverity) {
-		return nil, false
-	}
-	return o.ValidSeverity, true
-}
-
-// HasValidSeverity returns a boolean if a field has been set.
-func (o *ResourceThresholdV2Dto) HasValidSeverity() bool {
-	if o != nil && !IsNil(o.ValidSeverity) {
-		return true
-	}
-
-	return false
-}
-
-// SetValidSeverity gets a reference to the given bool and assigns it to the ValidSeverity field.
-func (o *ResourceThresholdV2Dto) SetValidSeverity(v bool) {
-	o.ValidSeverity = &v
+	o.Value = &v
 }
 
 func (o ResourceThresholdV2Dto) MarshalJSON() ([]byte, error) {
@@ -274,17 +250,23 @@ func (o ResourceThresholdV2Dto) MarshalJSON() ([]byte, error) {
 
 func (o ResourceThresholdV2Dto) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["assertionName"] = o.AssertionName
-	toSerialize["resourceType"] = o.ResourceType
-	toSerialize["containerName"] = o.ContainerName
-	toSerialize["source"] = o.Source
-	toSerialize["severity"] = o.Severity
-	toSerialize["value"] = o.Value
-	if !IsNil(o.ValidAssertionName) {
-		toSerialize["validAssertionName"] = o.ValidAssertionName
+	if !IsNil(o.AssertionName) {
+		toSerialize["assertionName"] = o.AssertionName
 	}
-	if !IsNil(o.ValidSeverity) {
-		toSerialize["validSeverity"] = o.ValidSeverity
+	if !IsNil(o.ResourceType) {
+		toSerialize["resourceType"] = o.ResourceType
+	}
+	if !IsNil(o.ContainerName) {
+		toSerialize["containerName"] = o.ContainerName
+	}
+	if !IsNil(o.Source) {
+		toSerialize["source"] = o.Source
+	}
+	if !IsNil(o.Severity) {
+		toSerialize["severity"] = o.Severity
+	}
+	if !IsNil(o.Value) {
+		toSerialize["value"] = o.Value
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -295,14 +277,6 @@ func (o ResourceThresholdV2Dto) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *ResourceThresholdV2Dto) UnmarshalJSON(data []byte) (err error) {
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
 	varResourceThresholdV2Dto := _ResourceThresholdV2Dto{}
 
 	err = json.Unmarshal(data, &varResourceThresholdV2Dto)
@@ -322,8 +296,6 @@ func (o *ResourceThresholdV2Dto) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "source")
 		delete(additionalProperties, "severity")
 		delete(additionalProperties, "value")
-		delete(additionalProperties, "validAssertionName")
-		delete(additionalProperties, "validSeverity")
 		o.AdditionalProperties = additionalProperties
 	}
 

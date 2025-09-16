@@ -4,11 +4,11 @@ All URIs are relative to *http://localhost:8030/asserts/api-server*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetThresholds**](ThresholdsV2ConfigControllerAPI.md#GetThresholds) | **Get** /v2/config/thresholds | 
-[**UpdateAllThresholds**](ThresholdsV2ConfigControllerAPI.md#UpdateAllThresholds) | **Post** /v2/config/thresholds | 
-[**UpdateHealthThresholds**](ThresholdsV2ConfigControllerAPI.md#UpdateHealthThresholds) | **Post** /v2/config/thresholds/health | 
-[**UpdateRequestThresholds**](ThresholdsV2ConfigControllerAPI.md#UpdateRequestThresholds) | **Post** /v2/config/thresholds/request | 
-[**UpdateResourceThresholds**](ThresholdsV2ConfigControllerAPI.md#UpdateResourceThresholds) | **Post** /v2/config/thresholds/resource | 
+[**GetThresholds**](ThresholdsV2ConfigControllerAPI.md#GetThresholds) | **Get** /v2/config/threshold | 
+[**UpdateAllThresholds**](ThresholdsV2ConfigControllerAPI.md#UpdateAllThresholds) | **Post** /v2/config/threshold | 
+[**UpdateHealthThresholds**](ThresholdsV2ConfigControllerAPI.md#UpdateHealthThresholds) | **Post** /v2/config/threshold/health | 
+[**UpdateRequestThresholds**](ThresholdsV2ConfigControllerAPI.md#UpdateRequestThresholds) | **Post** /v2/config/threshold/request | 
+[**UpdateResourceThresholds**](ThresholdsV2ConfigControllerAPI.md#UpdateResourceThresholds) | **Post** /v2/config/threshold/resource | 
 
 
 
@@ -159,7 +159,7 @@ import (
 )
 
 func main() {
-	healthThresholdV2Dto := []openapiclient.HealthThresholdV2Dto{*openapiclient.NewHealthThresholdV2Dto("AssertionName_example", "Expression_example")} // []HealthThresholdV2Dto | 
+	healthThresholdV2Dto := []openapiclient.HealthThresholdV2Dto{*openapiclient.NewHealthThresholdV2Dto()} // []HealthThresholdV2Dto | 
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -223,7 +223,7 @@ import (
 )
 
 func main() {
-	requestThresholdV2Dto := []openapiclient.RequestThresholdV2Dto{*openapiclient.NewRequestThresholdV2Dto("EntityName_example", "AssertionName_example", "RequestType_example", "RequestContext_example", float64(123))} // []RequestThresholdV2Dto | 
+	requestThresholdV2Dto := []openapiclient.RequestThresholdV2Dto{*openapiclient.NewRequestThresholdV2Dto()} // []RequestThresholdV2Dto | 
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -287,7 +287,7 @@ import (
 )
 
 func main() {
-	resourceThresholdV2Dto := []openapiclient.ResourceThresholdV2Dto{*openapiclient.NewResourceThresholdV2Dto("AssertionName_example", "ResourceType_example", "ContainerName_example", "Source_example", "Severity_example", float64(123))} // []ResourceThresholdV2Dto | 
+	resourceThresholdV2Dto := []openapiclient.ResourceThresholdV2Dto{*openapiclient.NewResourceThresholdV2Dto()} // []ResourceThresholdV2Dto | 
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
 	configuration := openapiclient.NewConfiguration()
