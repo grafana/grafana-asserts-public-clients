@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2025.09.16-084942
+API version: 2025.09.16-112305
 Contact: support@asserts.ai
 */
 
@@ -67,7 +67,7 @@ func (a *ThresholdsV2ConfigControllerAPIService) GetThresholdsExecute(r ApiGetTh
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v2/config/thresholds"
+	localVarPath := localBasePath + "/v2/config/threshold"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -178,7 +178,7 @@ func (a *ThresholdsV2ConfigControllerAPIService) UpdateAllThresholdsExecute(r Ap
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v2/config/thresholds"
+	localVarPath := localBasePath + "/v2/config/threshold"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -285,7 +285,7 @@ func (a *ThresholdsV2ConfigControllerAPIService) UpdateHealthThresholdsExecute(r
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v2/config/thresholds/health"
+	localVarPath := localBasePath + "/v2/config/threshold/health"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -392,7 +392,7 @@ func (a *ThresholdsV2ConfigControllerAPIService) UpdateRequestThresholdsExecute(
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v2/config/thresholds/request"
+	localVarPath := localBasePath + "/v2/config/threshold/request"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -499,7 +499,7 @@ func (a *ThresholdsV2ConfigControllerAPIService) UpdateResourceThresholdsExecute
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v2/config/thresholds/resource"
+	localVarPath := localBasePath + "/v2/config/threshold/resource"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

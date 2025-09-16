@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2025.09.16-084942
+API version: 2025.09.16-112305
 Contact: support@asserts.ai
 */
 
@@ -20,12 +20,11 @@ var _ MappedNullable = &RequestThresholdV2Dto{}
 
 // RequestThresholdV2Dto struct for RequestThresholdV2Dto
 type RequestThresholdV2Dto struct {
-	EntityName           string  `json:"entityName"`
-	AssertionName        string  `json:"assertionName"`
-	RequestType          string  `json:"requestType"`
-	RequestContext       string  `json:"requestContext"`
-	Value                float64 `json:"value"`
-	ValidAssertionName   *bool   `json:"validAssertionName,omitempty"`
+	EntityName           *string  `json:"entityName,omitempty"`
+	AssertionName        *string  `json:"assertionName,omitempty"`
+	RequestType          *string  `json:"requestType,omitempty"`
+	RequestContext       *string  `json:"requestContext,omitempty"`
+	Value                *float64 `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -35,13 +34,8 @@ type _RequestThresholdV2Dto RequestThresholdV2Dto
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewRequestThresholdV2Dto(entityName string, assertionName string, requestType string, requestContext string, value float64) *RequestThresholdV2Dto {
+func NewRequestThresholdV2Dto() *RequestThresholdV2Dto {
 	this := RequestThresholdV2Dto{}
-	this.EntityName = entityName
-	this.AssertionName = assertionName
-	this.RequestType = requestType
-	this.RequestContext = requestContext
-	this.Value = value
 	return &this
 }
 
@@ -53,156 +47,164 @@ func NewRequestThresholdV2DtoWithDefaults() *RequestThresholdV2Dto {
 	return &this
 }
 
-// GetEntityName returns the EntityName field value
+// GetEntityName returns the EntityName field value if set, zero value otherwise.
 func (o *RequestThresholdV2Dto) GetEntityName() string {
-	if o == nil {
+	if o == nil || IsNil(o.EntityName) {
 		var ret string
 		return ret
 	}
-
-	return o.EntityName
+	return *o.EntityName
 }
 
-// GetEntityNameOk returns a tuple with the EntityName field value
+// GetEntityNameOk returns a tuple with the EntityName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestThresholdV2Dto) GetEntityNameOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.EntityName) {
 		return nil, false
 	}
-	return &o.EntityName, true
+	return o.EntityName, true
 }
 
-// SetEntityName sets field value
-func (o *RequestThresholdV2Dto) SetEntityName(v string) {
-	o.EntityName = v
-}
-
-// GetAssertionName returns the AssertionName field value
-func (o *RequestThresholdV2Dto) GetAssertionName() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.AssertionName
-}
-
-// GetAssertionNameOk returns a tuple with the AssertionName field value
-// and a boolean to check if the value has been set.
-func (o *RequestThresholdV2Dto) GetAssertionNameOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.AssertionName, true
-}
-
-// SetAssertionName sets field value
-func (o *RequestThresholdV2Dto) SetAssertionName(v string) {
-	o.AssertionName = v
-}
-
-// GetRequestType returns the RequestType field value
-func (o *RequestThresholdV2Dto) GetRequestType() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.RequestType
-}
-
-// GetRequestTypeOk returns a tuple with the RequestType field value
-// and a boolean to check if the value has been set.
-func (o *RequestThresholdV2Dto) GetRequestTypeOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.RequestType, true
-}
-
-// SetRequestType sets field value
-func (o *RequestThresholdV2Dto) SetRequestType(v string) {
-	o.RequestType = v
-}
-
-// GetRequestContext returns the RequestContext field value
-func (o *RequestThresholdV2Dto) GetRequestContext() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.RequestContext
-}
-
-// GetRequestContextOk returns a tuple with the RequestContext field value
-// and a boolean to check if the value has been set.
-func (o *RequestThresholdV2Dto) GetRequestContextOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.RequestContext, true
-}
-
-// SetRequestContext sets field value
-func (o *RequestThresholdV2Dto) SetRequestContext(v string) {
-	o.RequestContext = v
-}
-
-// GetValue returns the Value field value
-func (o *RequestThresholdV2Dto) GetValue() float64 {
-	if o == nil {
-		var ret float64
-		return ret
-	}
-
-	return o.Value
-}
-
-// GetValueOk returns a tuple with the Value field value
-// and a boolean to check if the value has been set.
-func (o *RequestThresholdV2Dto) GetValueOk() (*float64, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Value, true
-}
-
-// SetValue sets field value
-func (o *RequestThresholdV2Dto) SetValue(v float64) {
-	o.Value = v
-}
-
-// GetValidAssertionName returns the ValidAssertionName field value if set, zero value otherwise.
-func (o *RequestThresholdV2Dto) GetValidAssertionName() bool {
-	if o == nil || IsNil(o.ValidAssertionName) {
-		var ret bool
-		return ret
-	}
-	return *o.ValidAssertionName
-}
-
-// GetValidAssertionNameOk returns a tuple with the ValidAssertionName field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *RequestThresholdV2Dto) GetValidAssertionNameOk() (*bool, bool) {
-	if o == nil || IsNil(o.ValidAssertionName) {
-		return nil, false
-	}
-	return o.ValidAssertionName, true
-}
-
-// HasValidAssertionName returns a boolean if a field has been set.
-func (o *RequestThresholdV2Dto) HasValidAssertionName() bool {
-	if o != nil && !IsNil(o.ValidAssertionName) {
+// HasEntityName returns a boolean if a field has been set.
+func (o *RequestThresholdV2Dto) HasEntityName() bool {
+	if o != nil && !IsNil(o.EntityName) {
 		return true
 	}
 
 	return false
 }
 
-// SetValidAssertionName gets a reference to the given bool and assigns it to the ValidAssertionName field.
-func (o *RequestThresholdV2Dto) SetValidAssertionName(v bool) {
-	o.ValidAssertionName = &v
+// SetEntityName gets a reference to the given string and assigns it to the EntityName field.
+func (o *RequestThresholdV2Dto) SetEntityName(v string) {
+	o.EntityName = &v
+}
+
+// GetAssertionName returns the AssertionName field value if set, zero value otherwise.
+func (o *RequestThresholdV2Dto) GetAssertionName() string {
+	if o == nil || IsNil(o.AssertionName) {
+		var ret string
+		return ret
+	}
+	return *o.AssertionName
+}
+
+// GetAssertionNameOk returns a tuple with the AssertionName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RequestThresholdV2Dto) GetAssertionNameOk() (*string, bool) {
+	if o == nil || IsNil(o.AssertionName) {
+		return nil, false
+	}
+	return o.AssertionName, true
+}
+
+// HasAssertionName returns a boolean if a field has been set.
+func (o *RequestThresholdV2Dto) HasAssertionName() bool {
+	if o != nil && !IsNil(o.AssertionName) {
+		return true
+	}
+
+	return false
+}
+
+// SetAssertionName gets a reference to the given string and assigns it to the AssertionName field.
+func (o *RequestThresholdV2Dto) SetAssertionName(v string) {
+	o.AssertionName = &v
+}
+
+// GetRequestType returns the RequestType field value if set, zero value otherwise.
+func (o *RequestThresholdV2Dto) GetRequestType() string {
+	if o == nil || IsNil(o.RequestType) {
+		var ret string
+		return ret
+	}
+	return *o.RequestType
+}
+
+// GetRequestTypeOk returns a tuple with the RequestType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RequestThresholdV2Dto) GetRequestTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.RequestType) {
+		return nil, false
+	}
+	return o.RequestType, true
+}
+
+// HasRequestType returns a boolean if a field has been set.
+func (o *RequestThresholdV2Dto) HasRequestType() bool {
+	if o != nil && !IsNil(o.RequestType) {
+		return true
+	}
+
+	return false
+}
+
+// SetRequestType gets a reference to the given string and assigns it to the RequestType field.
+func (o *RequestThresholdV2Dto) SetRequestType(v string) {
+	o.RequestType = &v
+}
+
+// GetRequestContext returns the RequestContext field value if set, zero value otherwise.
+func (o *RequestThresholdV2Dto) GetRequestContext() string {
+	if o == nil || IsNil(o.RequestContext) {
+		var ret string
+		return ret
+	}
+	return *o.RequestContext
+}
+
+// GetRequestContextOk returns a tuple with the RequestContext field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RequestThresholdV2Dto) GetRequestContextOk() (*string, bool) {
+	if o == nil || IsNil(o.RequestContext) {
+		return nil, false
+	}
+	return o.RequestContext, true
+}
+
+// HasRequestContext returns a boolean if a field has been set.
+func (o *RequestThresholdV2Dto) HasRequestContext() bool {
+	if o != nil && !IsNil(o.RequestContext) {
+		return true
+	}
+
+	return false
+}
+
+// SetRequestContext gets a reference to the given string and assigns it to the RequestContext field.
+func (o *RequestThresholdV2Dto) SetRequestContext(v string) {
+	o.RequestContext = &v
+}
+
+// GetValue returns the Value field value if set, zero value otherwise.
+func (o *RequestThresholdV2Dto) GetValue() float64 {
+	if o == nil || IsNil(o.Value) {
+		var ret float64
+		return ret
+	}
+	return *o.Value
+}
+
+// GetValueOk returns a tuple with the Value field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RequestThresholdV2Dto) GetValueOk() (*float64, bool) {
+	if o == nil || IsNil(o.Value) {
+		return nil, false
+	}
+	return o.Value, true
+}
+
+// HasValue returns a boolean if a field has been set.
+func (o *RequestThresholdV2Dto) HasValue() bool {
+	if o != nil && !IsNil(o.Value) {
+		return true
+	}
+
+	return false
+}
+
+// SetValue gets a reference to the given float64 and assigns it to the Value field.
+func (o *RequestThresholdV2Dto) SetValue(v float64) {
+	o.Value = &v
 }
 
 func (o RequestThresholdV2Dto) MarshalJSON() ([]byte, error) {
@@ -215,13 +217,20 @@ func (o RequestThresholdV2Dto) MarshalJSON() ([]byte, error) {
 
 func (o RequestThresholdV2Dto) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["entityName"] = o.EntityName
-	toSerialize["assertionName"] = o.AssertionName
-	toSerialize["requestType"] = o.RequestType
-	toSerialize["requestContext"] = o.RequestContext
-	toSerialize["value"] = o.Value
-	if !IsNil(o.ValidAssertionName) {
-		toSerialize["validAssertionName"] = o.ValidAssertionName
+	if !IsNil(o.EntityName) {
+		toSerialize["entityName"] = o.EntityName
+	}
+	if !IsNil(o.AssertionName) {
+		toSerialize["assertionName"] = o.AssertionName
+	}
+	if !IsNil(o.RequestType) {
+		toSerialize["requestType"] = o.RequestType
+	}
+	if !IsNil(o.RequestContext) {
+		toSerialize["requestContext"] = o.RequestContext
+	}
+	if !IsNil(o.Value) {
+		toSerialize["value"] = o.Value
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -232,14 +241,6 @@ func (o RequestThresholdV2Dto) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *RequestThresholdV2Dto) UnmarshalJSON(data []byte) (err error) {
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
 	varRequestThresholdV2Dto := _RequestThresholdV2Dto{}
 
 	err = json.Unmarshal(data, &varRequestThresholdV2Dto)
@@ -258,7 +259,6 @@ func (o *RequestThresholdV2Dto) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "requestType")
 		delete(additionalProperties, "requestContext")
 		delete(additionalProperties, "value")
-		delete(additionalProperties, "validAssertionName")
 		o.AdditionalProperties = additionalProperties
 	}
 

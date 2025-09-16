@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2025.09.16-084942
+API version: 2025.09.16-112305
 Contact: support@asserts.ai
 */
 
@@ -23,6 +23,7 @@ type AlertConfigDto struct {
 	Name                 *string           `json:"name,omitempty"`
 	MatchLabels          map[string]string `json:"matchLabels,omitempty"`
 	AlertLabels          map[string]string `json:"alertLabels,omitempty"`
+	Annotations          map[string]string `json:"annotations,omitempty"`
 	Silenced             *bool             `json:"silenced,omitempty"`
 	For                  *string           `json:"for,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -143,6 +144,38 @@ func (o *AlertConfigDto) SetAlertLabels(v map[string]string) {
 	o.AlertLabels = v
 }
 
+// GetAnnotations returns the Annotations field value if set, zero value otherwise.
+func (o *AlertConfigDto) GetAnnotations() map[string]string {
+	if o == nil || IsNil(o.Annotations) {
+		var ret map[string]string
+		return ret
+	}
+	return o.Annotations
+}
+
+// GetAnnotationsOk returns a tuple with the Annotations field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AlertConfigDto) GetAnnotationsOk() (map[string]string, bool) {
+	if o == nil || IsNil(o.Annotations) {
+		return map[string]string{}, false
+	}
+	return o.Annotations, true
+}
+
+// HasAnnotations returns a boolean if a field has been set.
+func (o *AlertConfigDto) HasAnnotations() bool {
+	if o != nil && !IsNil(o.Annotations) {
+		return true
+	}
+
+	return false
+}
+
+// SetAnnotations gets a reference to the given map[string]string and assigns it to the Annotations field.
+func (o *AlertConfigDto) SetAnnotations(v map[string]string) {
+	o.Annotations = v
+}
+
 // GetSilenced returns the Silenced field value if set, zero value otherwise.
 func (o *AlertConfigDto) GetSilenced() bool {
 	if o == nil || IsNil(o.Silenced) {
@@ -226,6 +259,9 @@ func (o AlertConfigDto) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.AlertLabels) {
 		toSerialize["alertLabels"] = o.AlertLabels
 	}
+	if !IsNil(o.Annotations) {
+		toSerialize["annotations"] = o.Annotations
+	}
 	if !IsNil(o.Silenced) {
 		toSerialize["silenced"] = o.Silenced
 	}
@@ -257,6 +293,7 @@ func (o *AlertConfigDto) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "matchLabels")
 		delete(additionalProperties, "alertLabels")
+		delete(additionalProperties, "annotations")
 		delete(additionalProperties, "silenced")
 		delete(additionalProperties, "for")
 		o.AdditionalProperties = additionalProperties

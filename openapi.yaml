@@ -7,7 +7,7 @@ info:
     name: Support
     url: "https://www.grafana.com"
     email: support@asserts.ai
-  version: 2025.09.16-084942
+  version: 2025.09.16-112305
 servers:
   - url: http://localhost:8030/asserts/api-server
     description: Generated server url
@@ -646,7 +646,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/LatencyThresholdsDto"
-  /v2/config/thresholds:
+  /v2/config/threshold:
     get:
       tags:
         - thresholds-v-2-config-controller
@@ -677,7 +677,7 @@ paths:
       responses:
         "200":
           description: OK
-  /v2/config/thresholds/resource:
+  /v2/config/threshold/resource:
     post:
       tags:
         - thresholds-v-2-config-controller
@@ -696,7 +696,7 @@ paths:
       responses:
         "200":
           description: OK
-  /v2/config/thresholds/request:
+  /v2/config/threshold/request:
     post:
       tags:
         - thresholds-v-2-config-controller
@@ -715,7 +715,7 @@ paths:
       responses:
         "200":
           description: OK
-  /v2/config/thresholds/health:
+  /v2/config/threshold/health:
     post:
       tags:
         - thresholds-v-2-config-controller
@@ -3089,6 +3089,29 @@ paths:
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/VersionedAlertManagerPayload"
+  /v1/product/activation/{product}:
+    get:
+      tags:
+        - product-activation-controller
+      operationId: getProductActivation
+      parameters:
+        - name: product
+          in: path
+          required: true
+          schema:
+            type: string
+            enum:
+              - appo11y
+              - k8so11y
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProductActivationDto"
   /v1/kpi/list:
     get:
       tags:
@@ -4267,11 +4290,11 @@ components:
       properties:
         error:
           type: boolean
-        is4xxClientError:
-          type: boolean
         is5xxServerError:
           type: boolean
         is2xxSuccessful:
+          type: boolean
+        is4xxClientError:
           type: boolean
         is1xxInformational:
           type: boolean
@@ -4641,71 +4664,42 @@ components:
       properties:
         assertionName:
           type: string
-          minLength: 1
         expression:
           type: string
-          minLength: 1
-      required:
-        - assertionName
-        - expression
+        alertCategory:
+          type: string
+        entityType:
+          type: string
     RequestThresholdV2Dto:
       type: object
       properties:
         entityName:
           type: string
-          minLength: 1
         assertionName:
           type: string
-          minLength: 1
         requestType:
           type: string
-          minLength: 1
         requestContext:
           type: string
-          minLength: 1
         value:
           type: number
           format: double
-        validAssertionName:
-          type: boolean
-      required:
-        - assertionName
-        - entityName
-        - requestContext
-        - requestType
-        - value
     ResourceThresholdV2Dto:
       type: object
       properties:
         assertionName:
           type: string
-          minLength: 1
         resourceType:
           type: string
-          minLength: 1
         containerName:
           type: string
-          minLength: 1
         source:
           type: string
-          minLength: 1
         severity:
           type: string
-          minLength: 1
         value:
           type: number
           format: double
-        validAssertionName:
-          type: boolean
-        validSeverity:
-          type: boolean
-      required:
-        - assertionName
-        - containerName
-        - resourceType
-        - severity
-        - source
-        - value
     ThresholdsV2Dto:
       type: object
       properties:
@@ -4726,6 +4720,9 @@ components:
       properties:
         name:
           type: string
+        priority:
+          type: integer
+          format: int32
         match:
           type: array
           items:
@@ -6333,6 +6330,10 @@ components:
           additionalProperties:
             type: string
         alertLabels:
+          type: object
+          additionalProperties:
+            type: string
+        annotations:
           type: object
           additionalProperties:
             type: string

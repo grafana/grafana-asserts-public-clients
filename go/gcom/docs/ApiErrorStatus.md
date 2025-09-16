@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Error** | Pointer to **bool** |  | [optional] 
-**Is4xxClientError** | Pointer to **bool** |  | [optional] 
 **Is5xxServerError** | Pointer to **bool** |  | [optional] 
 **Is2xxSuccessful** | Pointer to **bool** |  | [optional] 
+**Is4xxClientError** | Pointer to **bool** |  | [optional] 
 **Is1xxInformational** | Pointer to **bool** |  | [optional] 
 **Is3xxRedirection** | Pointer to **bool** |  | [optional] 
 
@@ -54,31 +54,6 @@ SetError sets Error field to given value.
 `func (o *ApiErrorStatus) HasError() bool`
 
 HasError returns a boolean if a field has been set.
-
-### GetIs4xxClientError
-
-`func (o *ApiErrorStatus) GetIs4xxClientError() bool`
-
-GetIs4xxClientError returns the Is4xxClientError field if non-nil, zero value otherwise.
-
-### GetIs4xxClientErrorOk
-
-`func (o *ApiErrorStatus) GetIs4xxClientErrorOk() (*bool, bool)`
-
-GetIs4xxClientErrorOk returns a tuple with the Is4xxClientError field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetIs4xxClientError
-
-`func (o *ApiErrorStatus) SetIs4xxClientError(v bool)`
-
-SetIs4xxClientError sets Is4xxClientError field to given value.
-
-### HasIs4xxClientError
-
-`func (o *ApiErrorStatus) HasIs4xxClientError() bool`
-
-HasIs4xxClientError returns a boolean if a field has been set.
 
 ### GetIs5xxServerError
 
@@ -129,6 +104,31 @@ SetIs2xxSuccessful sets Is2xxSuccessful field to given value.
 `func (o *ApiErrorStatus) HasIs2xxSuccessful() bool`
 
 HasIs2xxSuccessful returns a boolean if a field has been set.
+
+### GetIs4xxClientError
+
+`func (o *ApiErrorStatus) GetIs4xxClientError() bool`
+
+GetIs4xxClientError returns the Is4xxClientError field if non-nil, zero value otherwise.
+
+### GetIs4xxClientErrorOk
+
+`func (o *ApiErrorStatus) GetIs4xxClientErrorOk() (*bool, bool)`
+
+GetIs4xxClientErrorOk returns a tuple with the Is4xxClientError field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIs4xxClientError
+
+`func (o *ApiErrorStatus) SetIs4xxClientError(v bool)`
+
+SetIs4xxClientError sets Is4xxClientError field to given value.
+
+### HasIs4xxClientError
+
+`func (o *ApiErrorStatus) HasIs4xxClientError() bool`
+
+HasIs4xxClientError returns a boolean if a field has been set.
 
 ### GetIs1xxInformational
 

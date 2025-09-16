@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2025.09.16-084942
+API version: 2025.09.16-112305
 Contact: support@asserts.ai
 */
 
@@ -20,8 +20,10 @@ var _ MappedNullable = &HealthThresholdV2Dto{}
 
 // HealthThresholdV2Dto struct for HealthThresholdV2Dto
 type HealthThresholdV2Dto struct {
-	AssertionName        string `json:"assertionName"`
-	Expression           string `json:"expression"`
+	AssertionName        *string `json:"assertionName,omitempty"`
+	Expression           *string `json:"expression,omitempty"`
+	AlertCategory        *string `json:"alertCategory,omitempty"`
+	EntityType           *string `json:"entityType,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -31,10 +33,8 @@ type _HealthThresholdV2Dto HealthThresholdV2Dto
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewHealthThresholdV2Dto(assertionName string, expression string) *HealthThresholdV2Dto {
+func NewHealthThresholdV2Dto() *HealthThresholdV2Dto {
 	this := HealthThresholdV2Dto{}
-	this.AssertionName = assertionName
-	this.Expression = expression
 	return &this
 }
 
@@ -46,52 +46,132 @@ func NewHealthThresholdV2DtoWithDefaults() *HealthThresholdV2Dto {
 	return &this
 }
 
-// GetAssertionName returns the AssertionName field value
+// GetAssertionName returns the AssertionName field value if set, zero value otherwise.
 func (o *HealthThresholdV2Dto) GetAssertionName() string {
-	if o == nil {
+	if o == nil || IsNil(o.AssertionName) {
 		var ret string
 		return ret
 	}
-
-	return o.AssertionName
+	return *o.AssertionName
 }
 
-// GetAssertionNameOk returns a tuple with the AssertionName field value
+// GetAssertionNameOk returns a tuple with the AssertionName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *HealthThresholdV2Dto) GetAssertionNameOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.AssertionName) {
 		return nil, false
 	}
-	return &o.AssertionName, true
+	return o.AssertionName, true
 }
 
-// SetAssertionName sets field value
+// HasAssertionName returns a boolean if a field has been set.
+func (o *HealthThresholdV2Dto) HasAssertionName() bool {
+	if o != nil && !IsNil(o.AssertionName) {
+		return true
+	}
+
+	return false
+}
+
+// SetAssertionName gets a reference to the given string and assigns it to the AssertionName field.
 func (o *HealthThresholdV2Dto) SetAssertionName(v string) {
-	o.AssertionName = v
+	o.AssertionName = &v
 }
 
-// GetExpression returns the Expression field value
+// GetExpression returns the Expression field value if set, zero value otherwise.
 func (o *HealthThresholdV2Dto) GetExpression() string {
-	if o == nil {
+	if o == nil || IsNil(o.Expression) {
 		var ret string
 		return ret
 	}
-
-	return o.Expression
+	return *o.Expression
 }
 
-// GetExpressionOk returns a tuple with the Expression field value
+// GetExpressionOk returns a tuple with the Expression field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *HealthThresholdV2Dto) GetExpressionOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Expression) {
 		return nil, false
 	}
-	return &o.Expression, true
+	return o.Expression, true
 }
 
-// SetExpression sets field value
+// HasExpression returns a boolean if a field has been set.
+func (o *HealthThresholdV2Dto) HasExpression() bool {
+	if o != nil && !IsNil(o.Expression) {
+		return true
+	}
+
+	return false
+}
+
+// SetExpression gets a reference to the given string and assigns it to the Expression field.
 func (o *HealthThresholdV2Dto) SetExpression(v string) {
-	o.Expression = v
+	o.Expression = &v
+}
+
+// GetAlertCategory returns the AlertCategory field value if set, zero value otherwise.
+func (o *HealthThresholdV2Dto) GetAlertCategory() string {
+	if o == nil || IsNil(o.AlertCategory) {
+		var ret string
+		return ret
+	}
+	return *o.AlertCategory
+}
+
+// GetAlertCategoryOk returns a tuple with the AlertCategory field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *HealthThresholdV2Dto) GetAlertCategoryOk() (*string, bool) {
+	if o == nil || IsNil(o.AlertCategory) {
+		return nil, false
+	}
+	return o.AlertCategory, true
+}
+
+// HasAlertCategory returns a boolean if a field has been set.
+func (o *HealthThresholdV2Dto) HasAlertCategory() bool {
+	if o != nil && !IsNil(o.AlertCategory) {
+		return true
+	}
+
+	return false
+}
+
+// SetAlertCategory gets a reference to the given string and assigns it to the AlertCategory field.
+func (o *HealthThresholdV2Dto) SetAlertCategory(v string) {
+	o.AlertCategory = &v
+}
+
+// GetEntityType returns the EntityType field value if set, zero value otherwise.
+func (o *HealthThresholdV2Dto) GetEntityType() string {
+	if o == nil || IsNil(o.EntityType) {
+		var ret string
+		return ret
+	}
+	return *o.EntityType
+}
+
+// GetEntityTypeOk returns a tuple with the EntityType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *HealthThresholdV2Dto) GetEntityTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.EntityType) {
+		return nil, false
+	}
+	return o.EntityType, true
+}
+
+// HasEntityType returns a boolean if a field has been set.
+func (o *HealthThresholdV2Dto) HasEntityType() bool {
+	if o != nil && !IsNil(o.EntityType) {
+		return true
+	}
+
+	return false
+}
+
+// SetEntityType gets a reference to the given string and assigns it to the EntityType field.
+func (o *HealthThresholdV2Dto) SetEntityType(v string) {
+	o.EntityType = &v
 }
 
 func (o HealthThresholdV2Dto) MarshalJSON() ([]byte, error) {
@@ -104,8 +184,18 @@ func (o HealthThresholdV2Dto) MarshalJSON() ([]byte, error) {
 
 func (o HealthThresholdV2Dto) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["assertionName"] = o.AssertionName
-	toSerialize["expression"] = o.Expression
+	if !IsNil(o.AssertionName) {
+		toSerialize["assertionName"] = o.AssertionName
+	}
+	if !IsNil(o.Expression) {
+		toSerialize["expression"] = o.Expression
+	}
+	if !IsNil(o.AlertCategory) {
+		toSerialize["alertCategory"] = o.AlertCategory
+	}
+	if !IsNil(o.EntityType) {
+		toSerialize["entityType"] = o.EntityType
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -115,14 +205,6 @@ func (o HealthThresholdV2Dto) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *HealthThresholdV2Dto) UnmarshalJSON(data []byte) (err error) {
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
 	varHealthThresholdV2Dto := _HealthThresholdV2Dto{}
 
 	err = json.Unmarshal(data, &varHealthThresholdV2Dto)
@@ -138,6 +220,8 @@ func (o *HealthThresholdV2Dto) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "assertionName")
 		delete(additionalProperties, "expression")
+		delete(additionalProperties, "alertCategory")
+		delete(additionalProperties, "entityType")
 		o.AdditionalProperties = additionalProperties
 	}
 

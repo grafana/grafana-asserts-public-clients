@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2025.09.16-084942
+API version: 2025.09.16-112305
 Contact: support@asserts.ai
 */
 
@@ -21,6 +21,7 @@ var _ MappedNullable = &LogDrilldownConfigDto{}
 // LogDrilldownConfigDto struct for LogDrilldownConfigDto
 type LogDrilldownConfigDto struct {
 	Name                            *string                 `json:"name,omitempty"`
+	Priority                        *int32                  `json:"priority,omitempty"`
 	Match                           []PropertyMatchEntryDto `json:"match,omitempty"`
 	DefaultConfig                   *bool                   `json:"defaultConfig,omitempty"`
 	DataSourceUid                   *string                 `json:"dataSourceUid,omitempty"`
@@ -80,6 +81,38 @@ func (o *LogDrilldownConfigDto) HasName() bool {
 // SetName gets a reference to the given string and assigns it to the Name field.
 func (o *LogDrilldownConfigDto) SetName(v string) {
 	o.Name = &v
+}
+
+// GetPriority returns the Priority field value if set, zero value otherwise.
+func (o *LogDrilldownConfigDto) GetPriority() int32 {
+	if o == nil || IsNil(o.Priority) {
+		var ret int32
+		return ret
+	}
+	return *o.Priority
+}
+
+// GetPriorityOk returns a tuple with the Priority field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LogDrilldownConfigDto) GetPriorityOk() (*int32, bool) {
+	if o == nil || IsNil(o.Priority) {
+		return nil, false
+	}
+	return o.Priority, true
+}
+
+// HasPriority returns a boolean if a field has been set.
+func (o *LogDrilldownConfigDto) HasPriority() bool {
+	if o != nil && !IsNil(o.Priority) {
+		return true
+	}
+
+	return false
+}
+
+// SetPriority gets a reference to the given int32 and assigns it to the Priority field.
+func (o *LogDrilldownConfigDto) SetPriority(v int32) {
+	o.Priority = &v
 }
 
 // GetMatch returns the Match field value if set, zero value otherwise.
@@ -319,6 +352,9 @@ func (o LogDrilldownConfigDto) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
+	if !IsNil(o.Priority) {
+		toSerialize["priority"] = o.Priority
+	}
 	if !IsNil(o.Match) {
 		toSerialize["match"] = o.Match
 	}
@@ -363,6 +399,7 @@ func (o *LogDrilldownConfigDto) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "name")
+		delete(additionalProperties, "priority")
 		delete(additionalProperties, "match")
 		delete(additionalProperties, "defaultConfig")
 		delete(additionalProperties, "dataSourceUid")
