@@ -83,6 +83,18 @@ func Test_gcom_EntityAssertionsControllerAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test EntityAssertionsControllerAPIService GetEntityAssertionSourceMetrics", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		resp, httpRes, err := apiClient.EntityAssertionsControllerAPI.GetEntityAssertionSourceMetrics(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test EntityAssertionsControllerAPIService GetEntityAssertionsGraph", func(t *testing.T) {
 
 		t.Skip("skip test") // remove to run test

@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2025.09.16-112305
+API version: 2025.10.14-114207
 Contact: support@asserts.ai
 */
 
@@ -598,6 +598,125 @@ func (a *EntityAssertionsControllerAPIService) GetAssertionsSummaryExecute(r Api
 	}
 	// body params
 	localVarPostBody = r.assertionsRequestDto
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetEntityAssertionSourceMetricsRequest struct {
+	ctx                             context.Context
+	ApiService                      *EntityAssertionsControllerAPIService
+	assertionSourceMetricRequestDto *AssertionSourceMetricRequestDto
+	xScopeOrgID                     *string
+}
+
+func (r ApiGetEntityAssertionSourceMetricsRequest) AssertionSourceMetricRequestDto(assertionSourceMetricRequestDto AssertionSourceMetricRequestDto) ApiGetEntityAssertionSourceMetricsRequest {
+	r.assertionSourceMetricRequestDto = &assertionSourceMetricRequestDto
+	return r
+}
+
+// Grafana Tenant/Stack ID
+func (r ApiGetEntityAssertionSourceMetricsRequest) XScopeOrgID(xScopeOrgID string) ApiGetEntityAssertionSourceMetricsRequest {
+	r.xScopeOrgID = &xScopeOrgID
+	return r
+}
+
+func (r ApiGetEntityAssertionSourceMetricsRequest) Execute() ([]AssertionSourceMetricResponseDto, *http.Response, error) {
+	return r.ApiService.GetEntityAssertionSourceMetricsExecute(r)
+}
+
+/*
+GetEntityAssertionSourceMetrics Method for GetEntityAssertionSourceMetrics
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetEntityAssertionSourceMetricsRequest
+*/
+func (a *EntityAssertionsControllerAPIService) GetEntityAssertionSourceMetrics(ctx context.Context) ApiGetEntityAssertionSourceMetricsRequest {
+	return ApiGetEntityAssertionSourceMetricsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return []AssertionSourceMetricResponseDto
+func (a *EntityAssertionsControllerAPIService) GetEntityAssertionSourceMetricsExecute(r ApiGetEntityAssertionSourceMetricsRequest) ([]AssertionSourceMetricResponseDto, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []AssertionSourceMetricResponseDto
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EntityAssertionsControllerAPIService.GetEntityAssertionSourceMetrics")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/assertion/source-metrics"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.assertionSourceMetricRequestDto == nil {
+		return localVarReturnValue, nil, reportError("assertionSourceMetricRequestDto is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.xScopeOrgID != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Scope-OrgID", r.xScopeOrgID, "")
+	}
+	// body params
+	localVarPostBody = r.assertionSourceMetricRequestDto
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

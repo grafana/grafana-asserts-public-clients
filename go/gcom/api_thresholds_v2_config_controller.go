@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2025.09.16-112305
+API version: 2025.10.14-114207
 Contact: support@asserts.ai
 */
 
@@ -21,6 +21,110 @@ import (
 
 // ThresholdsV2ConfigControllerAPIService ThresholdsV2ConfigControllerAPI service
 type ThresholdsV2ConfigControllerAPIService service
+
+type ApiDeleteThresholdsRequest struct {
+	ctx             context.Context
+	ApiService      *ThresholdsV2ConfigControllerAPIService
+	xScopeOrgID     *string
+	thresholdsV2Dto *ThresholdsV2Dto
+}
+
+// Grafana Tenant/Stack ID
+func (r ApiDeleteThresholdsRequest) XScopeOrgID(xScopeOrgID string) ApiDeleteThresholdsRequest {
+	r.xScopeOrgID = &xScopeOrgID
+	return r
+}
+
+func (r ApiDeleteThresholdsRequest) ThresholdsV2Dto(thresholdsV2Dto ThresholdsV2Dto) ApiDeleteThresholdsRequest {
+	r.thresholdsV2Dto = &thresholdsV2Dto
+	return r
+}
+
+func (r ApiDeleteThresholdsRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteThresholdsExecute(r)
+}
+
+/*
+DeleteThresholds Method for DeleteThresholds
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiDeleteThresholdsRequest
+*/
+func (a *ThresholdsV2ConfigControllerAPIService) DeleteThresholds(ctx context.Context) ApiDeleteThresholdsRequest {
+	return ApiDeleteThresholdsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *ThresholdsV2ConfigControllerAPIService) DeleteThresholdsExecute(r ApiDeleteThresholdsRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ThresholdsV2ConfigControllerAPIService.DeleteThresholds")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v2/config/threshold"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.xScopeOrgID != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Scope-OrgID", r.xScopeOrgID, "")
+	}
+	// body params
+	localVarPostBody = r.thresholdsV2Dto
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
 
 type ApiGetThresholdsRequest struct {
 	ctx         context.Context

@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2025.09.16-112305
+API version: 2025.10.14-114207
 Contact: support@asserts.ai
 */
 
@@ -23,7 +23,7 @@ import (
 // LogDrilldownConfigControllerAPIService LogDrilldownConfigControllerAPI service
 type LogDrilldownConfigControllerAPIService service
 
-type ApiDeleteConfigRequest struct {
+type ApiDeleteConfig2Request struct {
 	ctx         context.Context
 	ApiService  *LogDrilldownConfigControllerAPIService
 	name        string
@@ -31,26 +31,26 @@ type ApiDeleteConfigRequest struct {
 }
 
 // Grafana Tenant/Stack ID
-func (r ApiDeleteConfigRequest) XScopeOrgID(xScopeOrgID string) ApiDeleteConfigRequest {
+func (r ApiDeleteConfig2Request) XScopeOrgID(xScopeOrgID string) ApiDeleteConfig2Request {
 	r.xScopeOrgID = &xScopeOrgID
 	return r
 }
 
-func (r ApiDeleteConfigRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteConfigExecute(r)
+func (r ApiDeleteConfig2Request) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteConfig2Execute(r)
 }
 
 /*
-DeleteConfig Delete log drilldown configuration
+DeleteConfig2 Delete log drilldown configuration
 
 Deletes the specified log drilldown configuration entry for the tenant
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param name Name of the log configuration to delete
-	@return ApiDeleteConfigRequest
+	@return ApiDeleteConfig2Request
 */
-func (a *LogDrilldownConfigControllerAPIService) DeleteConfig(ctx context.Context, name string) ApiDeleteConfigRequest {
-	return ApiDeleteConfigRequest{
+func (a *LogDrilldownConfigControllerAPIService) DeleteConfig2(ctx context.Context, name string) ApiDeleteConfig2Request {
+	return ApiDeleteConfig2Request{
 		ApiService: a,
 		ctx:        ctx,
 		name:       name,
@@ -58,14 +58,14 @@ func (a *LogDrilldownConfigControllerAPIService) DeleteConfig(ctx context.Contex
 }
 
 // Execute executes the request
-func (a *LogDrilldownConfigControllerAPIService) DeleteConfigExecute(r ApiDeleteConfigRequest) (*http.Response, error) {
+func (a *LogDrilldownConfigControllerAPIService) DeleteConfig2Execute(r ApiDeleteConfig2Request) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LogDrilldownConfigControllerAPIService.DeleteConfig")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LogDrilldownConfigControllerAPIService.DeleteConfig2")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}

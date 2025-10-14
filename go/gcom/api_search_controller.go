@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2025.09.16-112305
+API version: 2025.10.14-114207
 Contact: support@asserts.ai
 */
 
@@ -92,7 +92,7 @@ func (a *SearchControllerAPIService) SearchExecute(r ApiSearchRequest) (*SearchR
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/x-yml", "application/x-yaml"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)

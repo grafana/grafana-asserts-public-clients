@@ -23,13 +23,13 @@ func Test_gcom_LogDrilldownConfigControllerAPIService(t *testing.T) {
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
-	t.Run("Test LogDrilldownConfigControllerAPIService DeleteConfig", func(t *testing.T) {
+	t.Run("Test LogDrilldownConfigControllerAPIService DeleteConfig2", func(t *testing.T) {
 
 		t.Skip("skip test") // remove to run test
 
 		var name string
 
-		httpRes, err := apiClient.LogDrilldownConfigControllerAPI.DeleteConfig(context.Background(), name).Execute()
+		httpRes, err := apiClient.LogDrilldownConfigControllerAPI.DeleteConfig2(context.Background(), name).Execute()
 
 		require.Nil(t, err)
 		assert.Equal(t, 200, httpRes.StatusCode)
