@@ -4,12 +4,77 @@ All URIs are relative to *http://localhost:8030/asserts/api-server*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**DeleteThresholds**](ThresholdsV2ConfigControllerAPI.md#DeleteThresholds) | **Delete** /v2/config/threshold | 
 [**GetThresholds**](ThresholdsV2ConfigControllerAPI.md#GetThresholds) | **Get** /v2/config/threshold | 
 [**UpdateAllThresholds**](ThresholdsV2ConfigControllerAPI.md#UpdateAllThresholds) | **Post** /v2/config/threshold | 
 [**UpdateHealthThresholds**](ThresholdsV2ConfigControllerAPI.md#UpdateHealthThresholds) | **Post** /v2/config/threshold/health | 
 [**UpdateRequestThresholds**](ThresholdsV2ConfigControllerAPI.md#UpdateRequestThresholds) | **Post** /v2/config/threshold/request | 
 [**UpdateResourceThresholds**](ThresholdsV2ConfigControllerAPI.md#UpdateResourceThresholds) | **Post** /v2/config/threshold/resource | 
 
+
+
+## DeleteThresholds
+
+> DeleteThresholds(ctx).XScopeOrgID(xScopeOrgID).ThresholdsV2Dto(thresholdsV2Dto).Execute()
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/grafana/grafana-asserts-public-clients/go/gcom"
+)
+
+func main() {
+	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
+	thresholdsV2Dto := *openapiclient.NewThresholdsV2Dto() // ThresholdsV2Dto |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.ThresholdsV2ConfigControllerAPI.DeleteThresholds(context.Background()).XScopeOrgID(xScopeOrgID).ThresholdsV2Dto(thresholdsV2Dto).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ThresholdsV2ConfigControllerAPI.DeleteThresholds``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteThresholdsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
+ **thresholdsV2Dto** | [**ThresholdsV2Dto**](ThresholdsV2Dto.md) |  | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## GetThresholds

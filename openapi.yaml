@@ -7,7 +7,7 @@ info:
     name: Support
     url: "https://www.grafana.com"
     email: support@asserts.ai
-  version: 2025.09.16-112305
+  version: 2025.10.14-114207
 servers:
   - url: http://localhost:8030/asserts/api-server
     description: Generated server url
@@ -646,6 +646,59 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/LatencyThresholdsDto"
+  /v2/config/trace:
+    get:
+      tags:
+        - trace-drilldown-config-controller
+      summary: Get tenant trace configuration
+      description: Retrieves all the trace drilldown configuration entries for the tenant
+      operationId: getTenantTraceConfig
+      parameters:
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      responses:
+        "200":
+          description: Successfully retrieved trace configuration
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TenantTraceConfigResponseDto"
+    post:
+      tags:
+        - trace-drilldown-config-controller
+      summary: Upsert trace drilldown configuration
+      description: Creates or updates the trace drilldown configuration entry for the tenant
+      operationId: upsertTraceDrilldownConfig
+      parameters:
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TraceDrilldownConfigDto"
+          application/x-yml:
+            schema:
+              $ref: "#/components/schemas/TraceDrilldownConfigDto"
+          application/yaml:
+            schema:
+              $ref: "#/components/schemas/TraceDrilldownConfigDto"
+        required: true
+      responses:
+        "200":
+          description: Configuration upserted successfully
+        "422":
+          description: Invalid configuration data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+            application/x-yml:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+            application/yaml:
+              schema:
+                $ref: "#/components/schemas/ApiError"
   /v2/config/threshold:
     get:
       tags:
@@ -674,6 +727,21 @@ paths:
             schema:
               $ref: "#/components/schemas/ThresholdsV2Dto"
         required: true
+      responses:
+        "200":
+          description: OK
+    delete:
+      tags:
+        - thresholds-v-2-config-controller
+      operationId: deleteThresholds
+      parameters:
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ThresholdsV2Dto"
       responses:
         "200":
           description: OK
@@ -734,6 +802,59 @@ paths:
       responses:
         "200":
           description: OK
+  /v2/config/profile:
+    get:
+      tags:
+        - profile-drilldown-config-controller
+      summary: Get tenant profile configuration
+      description: Retrieves all the profile drilldown configuration entries for the tenant
+      operationId: getTenantProfileConfig
+      parameters:
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      responses:
+        "200":
+          description: Successfully retrieved profile configuration
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TenantProfileConfigResponseDto"
+    post:
+      tags:
+        - profile-drilldown-config-controller
+      summary: Upsert profile drilldown configuration
+      description: Creates or updates the profile drilldown configuration entry for the tenant
+      operationId: upsertProfileDrilldownConfig
+      parameters:
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProfileDrilldownConfigDto"
+          application/x-yml:
+            schema:
+              $ref: "#/components/schemas/ProfileDrilldownConfigDto"
+          application/yaml:
+            schema:
+              $ref: "#/components/schemas/ProfileDrilldownConfigDto"
+        required: true
+      responses:
+        "200":
+          description: Configuration upserted successfully
+        "422":
+          description: Invalid configuration data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+            application/x-yml:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+            application/yaml:
+              schema:
+                $ref: "#/components/schemas/ApiError"
   /v2/config/log:
     get:
       tags:
@@ -828,6 +949,23 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/StackStatusDto"
+  /v1/stack/migrate:
+    post:
+      tags:
+        - stack-migration-controller
+      operationId: migrateStack
+      parameters:
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/StackMigrationDto"
+        required: true
+      responses:
+        "200":
+          description: OK
   /v1/stack/enable:
     get:
       tags:
@@ -1052,6 +1190,39 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/SearchResponseDto"
+            application/x-yml:
+              schema:
+                $ref: "#/components/schemas/SearchResponseDto"
+            application/x-yaml:
+              schema:
+                $ref: "#/components/schemas/SearchResponseDto"
+  /v1/search/sample:
+    post:
+      tags:
+        - sample-search-controller
+      operationId: searchSample
+      parameters:
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SampleSearchRequestDto"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SampleSearchResponseDto"
+            application/x-yml:
+              schema:
+                $ref: "#/components/schemas/SampleSearchResponseDto"
+            application/x-yaml:
+              schema:
+                $ref: "#/components/schemas/SampleSearchResponseDto"
   /v1/search/definition:
     get:
       tags:
@@ -1183,6 +1354,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/LlmRcaSummariesDto"
+            application/x-yml:
+              schema:
+                $ref: "#/components/schemas/LlmRcaSummariesDto"
+            application/x-yaml:
+              schema:
+                $ref: "#/components/schemas/LlmRcaSummariesDto"
   /v1/patterns/search:
     post:
       tags:
@@ -1204,6 +1381,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/RcaPatternSearchResponseDto"
+            application/x-yml:
+              schema:
+                $ref: "#/components/schemas/RcaPatternSearchResponseDto"
+            application/x-yaml:
+              schema:
+                $ref: "#/components/schemas/RcaPatternSearchResponseDto"
   /v1/patterns/list:
     post:
       tags:
@@ -1223,6 +1406,16 @@ paths:
           description: OK
           content:
             application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+            application/x-yml:
+              schema:
+                type: array
+                items:
+                  type: string
+            application/x-yaml:
               schema:
                 type: array
                 items:
@@ -2566,6 +2759,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/LlmRcaSummariesDto"
+            application/x-yml:
+              schema:
+                $ref: "#/components/schemas/LlmRcaSummariesDto"
+            application/x-yaml:
+              schema:
+                $ref: "#/components/schemas/LlmRcaSummariesDto"
   /v1/assertions/graph:
     post:
       tags:
@@ -2714,6 +2913,29 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AssertionInfoDto"
+  /v1/assertion/source-metrics:
+    post:
+      tags:
+        - entity-assertions-controller
+      operationId: getEntityAssertionSourceMetrics
+      parameters:
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AssertionSourceMetricRequestDto"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AssertionSourceMetricResponseDto"
   /v1/assertion/affected-entity-names:
     post:
       tags:
@@ -3752,13 +3974,51 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/GraphEntity"
+  /v2/config/trace/{name}:
+    delete:
+      tags:
+        - trace-drilldown-config-controller
+      summary: Delete trace drilldown configuration
+      description: Deletes the specified trace drilldown configuration entry for the tenant
+      operationId: deleteConfig
+      parameters:
+        - name: name
+          in: path
+          description: Name of the trace configuration to delete
+          required: true
+          schema:
+            type: string
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      responses:
+        "200":
+          description: Configuration deleted successfully
+  /v2/config/profile/{name}:
+    delete:
+      tags:
+        - profile-drilldown-config-controller
+      summary: Delete profile drilldown configuration
+      description: Deletes the specified profile drilldown configuration entry for the tenant
+      operationId: deleteConfig_1
+      parameters:
+        - name: name
+          in: path
+          description: Name of the profile configuration to delete
+          required: true
+          schema:
+            type: string
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      responses:
+        "200":
+          description: Configuration deleted successfully
   /v2/config/log/{name}:
     delete:
       tags:
         - log-drilldown-config-controller
       summary: Delete log drilldown configuration
       description: Deletes the specified log drilldown configuration entry for the tenant
-      operationId: deleteConfig
+      operationId: deleteConfig_2
       parameters:
         - name: name
           in: path
@@ -3791,7 +4051,7 @@ paths:
     delete:
       tags:
         - log-config-controller
-      operationId: deleteConfig_1
+      operationId: deleteConfig_3
       parameters:
         - name: name
           in: path
@@ -4659,6 +4919,44 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/LatencyThresholdDto"
+    PropertyMatchEntryDto:
+      type: object
+      properties:
+        property:
+          type: string
+        op:
+          type: string
+          enum:
+            - EQUALS
+            - NOT_EQUALS
+            - CONTAINS
+            - DOES_NOT_CONTAIN
+            - IS_NULL
+            - IS_NOT_NULL
+        values:
+          type: array
+          items:
+            type: string
+    TraceDrilldownConfigDto:
+      type: object
+      properties:
+        name:
+          type: string
+        priority:
+          type: integer
+          format: int32
+        match:
+          type: array
+          items:
+            $ref: "#/components/schemas/PropertyMatchEntryDto"
+        defaultConfig:
+          type: boolean
+        dataSourceUid:
+          type: string
+        entityPropertyToTraceLabelMapping:
+          type: object
+          additionalProperties:
+            type: string
     HealthThresholdV2Dto:
       type: object
       properties:
@@ -4715,6 +5013,26 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/HealthThresholdV2Dto"
+    ProfileDrilldownConfigDto:
+      type: object
+      properties:
+        name:
+          type: string
+        priority:
+          type: integer
+          format: int32
+        match:
+          type: array
+          items:
+            $ref: "#/components/schemas/PropertyMatchEntryDto"
+        defaultConfig:
+          type: boolean
+        dataSourceUid:
+          type: string
+        entityPropertyToProfileLabelMapping:
+          type: object
+          additionalProperties:
+            type: string
     LogDrilldownConfigDto:
       type: object
       properties:
@@ -4741,24 +5059,6 @@ components:
           type: boolean
         filterByTraceId:
           type: boolean
-    PropertyMatchEntryDto:
-      type: object
-      properties:
-        property:
-          type: string
-        op:
-          type: string
-          enum:
-            - EQUALS
-            - NOT_EQUALS
-            - CONTAINS
-            - DOES_NOT_CONTAIN
-            - IS_NULL
-            - IS_NOT_NULL
-        values:
-          type: array
-          items:
-            type: string
     MetricSanityCheckResult:
       type: object
       properties:
@@ -4809,6 +5109,11 @@ components:
         useGrafanaManagedAlerts:
           type: boolean
         processAlertsInEnrichment:
+          type: boolean
+    StackMigrationDto:
+      type: object
+      properties:
+        dryRun:
           type: boolean
     StackEnableDto:
       type: object
@@ -5163,6 +5468,44 @@ components:
         data: {}
         adjustedTimeCriteria:
           type: boolean
+    SampleSearchRequestDto:
+      type: object
+      properties:
+        timeCriteria:
+          $ref: "#/components/schemas/TimeCriteriaDto"
+        scopeCriteria:
+          $ref: "#/components/schemas/ScopeCriteriaDto"
+        filterCriteria:
+          type: array
+          items:
+            $ref: "#/components/schemas/EntityMatcherDto"
+          minItems: 1
+        sampleSize:
+          type: integer
+          format: int32
+          minimum: 1
+      required:
+        - filterCriteria
+    SampleEntityDto:
+      type: object
+      properties:
+        type:
+          type: string
+        name:
+          type: string
+        scope:
+          type: object
+          additionalProperties: {}
+        properties:
+          type: object
+          additionalProperties: {}
+    SampleSearchResponseDto:
+      type: object
+      properties:
+        entities:
+          type: array
+          items:
+            $ref: "#/components/schemas/SampleEntityDto"
     AssertionSearchRequestDto:
       type: object
       properties:
@@ -5445,6 +5788,9 @@ components:
         name:
           type: string
         scope:
+          type: object
+          additionalProperties: {}
+        properties:
           type: object
           additionalProperties: {}
         reason:
@@ -7274,6 +7620,28 @@ components:
           type: string
         unit:
           type: string
+    AssertionSourceMetricRequestDto:
+      type: object
+      properties:
+        startTime:
+          type: integer
+          format: int64
+        endTime:
+          type: integer
+          format: int64
+        labels:
+          type: object
+          additionalProperties:
+            type: string
+    AssertionSourceMetricResponseDto:
+      type: object
+      properties:
+        metricName:
+          type: string
+        labels:
+          type: object
+          additionalProperties:
+            type: string
     AffectedEntityNamesDto:
       type: object
       properties:
@@ -7491,6 +7859,20 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/DatasetVendorDto"
+    TenantTraceConfigResponseDto:
+      type: object
+      properties:
+        traceDrilldownConfigs:
+          type: array
+          items:
+            $ref: "#/components/schemas/TraceDrilldownConfigDto"
+    TenantProfileConfigResponseDto:
+      type: object
+      properties:
+        profileDrilldownConfigs:
+          type: array
+          items:
+            $ref: "#/components/schemas/ProfileDrilldownConfigDto"
     TenantLogConfigResponseDto:
       type: object
       properties:

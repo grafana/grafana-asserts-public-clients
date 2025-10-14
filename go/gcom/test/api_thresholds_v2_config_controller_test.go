@@ -23,6 +23,17 @@ func Test_gcom_ThresholdsV2ConfigControllerAPIService(t *testing.T) {
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
+	t.Run("Test ThresholdsV2ConfigControllerAPIService DeleteThresholds", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		httpRes, err := apiClient.ThresholdsV2ConfigControllerAPI.DeleteThresholds(context.Background()).Execute()
+
+		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test ThresholdsV2ConfigControllerAPIService GetThresholds", func(t *testing.T) {
 
 		t.Skip("skip test") // remove to run test

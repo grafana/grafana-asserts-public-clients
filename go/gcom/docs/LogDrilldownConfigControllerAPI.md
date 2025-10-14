@@ -4,15 +4,15 @@ All URIs are relative to *http://localhost:8030/asserts/api-server*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteConfig**](LogDrilldownConfigControllerAPI.md#DeleteConfig) | **Delete** /v2/config/log/{name} | Delete log drilldown configuration
+[**DeleteConfig2**](LogDrilldownConfigControllerAPI.md#DeleteConfig2) | **Delete** /v2/config/log/{name} | Delete log drilldown configuration
 [**GetTenantLogConfig**](LogDrilldownConfigControllerAPI.md#GetTenantLogConfig) | **Get** /v2/config/log | Get tenant log configuration
 [**UpsertLogDrilldownConfig**](LogDrilldownConfigControllerAPI.md#UpsertLogDrilldownConfig) | **Post** /v2/config/log | Upsert log drilldown configuration
 
 
 
-## DeleteConfig
+## DeleteConfig2
 
-> DeleteConfig(ctx, name).XScopeOrgID(xScopeOrgID).Execute()
+> DeleteConfig2(ctx, name).XScopeOrgID(xScopeOrgID).Execute()
 
 Delete log drilldown configuration
 
@@ -36,9 +36,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.LogDrilldownConfigControllerAPI.DeleteConfig(context.Background(), name).XScopeOrgID(xScopeOrgID).Execute()
+	r, err := apiClient.LogDrilldownConfigControllerAPI.DeleteConfig2(context.Background(), name).XScopeOrgID(xScopeOrgID).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `LogDrilldownConfigControllerAPI.DeleteConfig``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `LogDrilldownConfigControllerAPI.DeleteConfig2``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -54,7 +54,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDeleteConfigRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteConfig2Request struct via the builder pattern
 
 
 Name | Type | Description  | Notes

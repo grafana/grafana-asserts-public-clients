@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2025.09.16-112305
+API version: 2025.10.14-114207
 Contact: support@asserts.ai
 */
 
@@ -23,6 +23,7 @@ type LlmRcaSuggestionDto struct {
 	Type                 *string                `json:"type,omitempty"`
 	Name                 *string                `json:"name,omitempty"`
 	Scope                map[string]interface{} `json:"scope,omitempty"`
+	Properties           map[string]interface{} `json:"properties,omitempty"`
 	Reason               *string                `json:"reason,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -142,6 +143,38 @@ func (o *LlmRcaSuggestionDto) SetScope(v map[string]interface{}) {
 	o.Scope = v
 }
 
+// GetProperties returns the Properties field value if set, zero value otherwise.
+func (o *LlmRcaSuggestionDto) GetProperties() map[string]interface{} {
+	if o == nil || IsNil(o.Properties) {
+		var ret map[string]interface{}
+		return ret
+	}
+	return o.Properties
+}
+
+// GetPropertiesOk returns a tuple with the Properties field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LlmRcaSuggestionDto) GetPropertiesOk() (map[string]interface{}, bool) {
+	if o == nil || IsNil(o.Properties) {
+		return map[string]interface{}{}, false
+	}
+	return o.Properties, true
+}
+
+// HasProperties returns a boolean if a field has been set.
+func (o *LlmRcaSuggestionDto) HasProperties() bool {
+	if o != nil && !IsNil(o.Properties) {
+		return true
+	}
+
+	return false
+}
+
+// SetProperties gets a reference to the given map[string]interface{} and assigns it to the Properties field.
+func (o *LlmRcaSuggestionDto) SetProperties(v map[string]interface{}) {
+	o.Properties = v
+}
+
 // GetReason returns the Reason field value if set, zero value otherwise.
 func (o *LlmRcaSuggestionDto) GetReason() string {
 	if o == nil || IsNil(o.Reason) {
@@ -193,6 +226,9 @@ func (o LlmRcaSuggestionDto) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Scope) {
 		toSerialize["scope"] = o.Scope
 	}
+	if !IsNil(o.Properties) {
+		toSerialize["properties"] = o.Properties
+	}
 	if !IsNil(o.Reason) {
 		toSerialize["reason"] = o.Reason
 	}
@@ -221,6 +257,7 @@ func (o *LlmRcaSuggestionDto) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "scope")
+		delete(additionalProperties, "properties")
 		delete(additionalProperties, "reason")
 		o.AdditionalProperties = additionalProperties
 	}

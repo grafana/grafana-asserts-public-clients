@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**GetAssertionEntityNames**](EntityAssertionsControllerAPI.md#GetAssertionEntityNames) | **Post** /v1/assertion/affected-entity-names | 
 [**GetAssertions**](EntityAssertionsControllerAPI.md#GetAssertions) | **Post** /v1/assertions | 
 [**GetAssertionsSummary**](EntityAssertionsControllerAPI.md#GetAssertionsSummary) | **Post** /v1/assertions/summary | 
+[**GetEntityAssertionSourceMetrics**](EntityAssertionsControllerAPI.md#GetEntityAssertionSourceMetrics) | **Post** /v1/assertion/source-metrics | 
 [**GetEntityAssertionsGraph**](EntityAssertionsControllerAPI.md#GetEntityAssertionsGraph) | **Post** /v1/assertions/graph | 
 [**SearchAssertions**](EntityAssertionsControllerAPI.md#SearchAssertions) | **Post** /v1/search/assertions | 
 [**SearchAssertionsSummary**](EntityAssertionsControllerAPI.md#SearchAssertionsSummary) | **Post** /v1/search/assertions/summary | 
@@ -334,6 +335,72 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**EntityAssertionSummariesDto**](EntityAssertionSummariesDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetEntityAssertionSourceMetrics
+
+> []AssertionSourceMetricResponseDto GetEntityAssertionSourceMetrics(ctx).AssertionSourceMetricRequestDto(assertionSourceMetricRequestDto).XScopeOrgID(xScopeOrgID).Execute()
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/grafana/grafana-asserts-public-clients/go/gcom"
+)
+
+func main() {
+	assertionSourceMetricRequestDto := *openapiclient.NewAssertionSourceMetricRequestDto() // AssertionSourceMetricRequestDto | 
+	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.EntityAssertionsControllerAPI.GetEntityAssertionSourceMetrics(context.Background()).AssertionSourceMetricRequestDto(assertionSourceMetricRequestDto).XScopeOrgID(xScopeOrgID).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `EntityAssertionsControllerAPI.GetEntityAssertionSourceMetrics``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetEntityAssertionSourceMetrics`: []AssertionSourceMetricResponseDto
+	fmt.Fprintf(os.Stdout, "Response from `EntityAssertionsControllerAPI.GetEntityAssertionSourceMetrics`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetEntityAssertionSourceMetricsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **assertionSourceMetricRequestDto** | [**AssertionSourceMetricRequestDto**](AssertionSourceMetricRequestDto.md) |  | 
+ **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
+
+### Return type
+
+[**[]AssertionSourceMetricResponseDto**](AssertionSourceMetricResponseDto.md)
 
 ### Authorization
 
