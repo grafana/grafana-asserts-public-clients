@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **Expression** | Pointer to **string** |  | [optional] 
 **AlertCategory** | Pointer to **string** |  | [optional] 
 **EntityType** | Pointer to **string** |  | [optional] 
+**ManagedBy** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -127,6 +128,31 @@ SetEntityType sets EntityType field to given value.
 `func (o *HealthThresholdV2Dto) HasEntityType() bool`
 
 HasEntityType returns a boolean if a field has been set.
+
+### GetManagedBy
+
+`func (o *HealthThresholdV2Dto) GetManagedBy() string`
+
+GetManagedBy returns the ManagedBy field if non-nil, zero value otherwise.
+
+### GetManagedByOk
+
+`func (o *HealthThresholdV2Dto) GetManagedByOk() (*string, bool)`
+
+GetManagedByOk returns a tuple with the ManagedBy field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetManagedBy
+
+`func (o *HealthThresholdV2Dto) SetManagedBy(v string)`
+
+SetManagedBy sets ManagedBy field to given value.
+
+### HasManagedBy
+
+`func (o *HealthThresholdV2Dto) HasManagedBy() bool`
+
+HasManagedBy returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

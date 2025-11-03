@@ -17,6 +17,7 @@ Name | Type | Description | Notes
 **GraphInstanceCreated** | Pointer to **bool** |  | [optional] 
 **UseGrafanaManagedAlerts** | Pointer to **bool** |  | [optional] 
 **ProcessAlertsInEnrichment** | Pointer to **bool** |  | [optional] 
+**ContactPointUID** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -361,6 +362,31 @@ SetProcessAlertsInEnrichment sets ProcessAlertsInEnrichment field to given value
 `func (o *StackInfoDto) HasProcessAlertsInEnrichment() bool`
 
 HasProcessAlertsInEnrichment returns a boolean if a field has been set.
+
+### GetContactPointUID
+
+`func (o *StackInfoDto) GetContactPointUID() string`
+
+GetContactPointUID returns the ContactPointUID field if non-nil, zero value otherwise.
+
+### GetContactPointUIDOk
+
+`func (o *StackInfoDto) GetContactPointUIDOk() (*string, bool)`
+
+GetContactPointUIDOk returns a tuple with the ContactPointUID field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetContactPointUID
+
+`func (o *StackInfoDto) SetContactPointUID(v string)`
+
+SetContactPointUID sets ContactPointUID field to given value.
+
+### HasContactPointUID
+
+`func (o *StackInfoDto) HasContactPointUID() bool`
+
+HasContactPointUID returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

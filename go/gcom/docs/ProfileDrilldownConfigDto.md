@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **DefaultConfig** | Pointer to **bool** |  | [optional] 
 **DataSourceUid** | Pointer to **string** |  | [optional] 
 **EntityPropertyToProfileLabelMapping** | Pointer to **map[string]string** |  | [optional] 
+**ManagedBy** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -179,6 +180,31 @@ SetEntityPropertyToProfileLabelMapping sets EntityPropertyToProfileLabelMapping 
 `func (o *ProfileDrilldownConfigDto) HasEntityPropertyToProfileLabelMapping() bool`
 
 HasEntityPropertyToProfileLabelMapping returns a boolean if a field has been set.
+
+### GetManagedBy
+
+`func (o *ProfileDrilldownConfigDto) GetManagedBy() string`
+
+GetManagedBy returns the ManagedBy field if non-nil, zero value otherwise.
+
+### GetManagedByOk
+
+`func (o *ProfileDrilldownConfigDto) GetManagedByOk() (*string, bool)`
+
+GetManagedByOk returns a tuple with the ManagedBy field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetManagedBy
+
+`func (o *ProfileDrilldownConfigDto) SetManagedBy(v string)`
+
+SetManagedBy sets ManagedBy field to given value.
+
+### HasManagedBy
+
+`func (o *ProfileDrilldownConfigDto) HasManagedBy() bool`
+
+HasManagedBy returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
