@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**CreateStack**](StackControllerAPI.md#CreateStack) | **Post** /v1/stack | 
 [**DetectAndAutoConfigureDatasets**](StackControllerAPI.md#DetectAndAutoConfigureDatasets) | **Post** /v2/stack/datasets/auto-setup | 
 [**DisableStack**](StackControllerAPI.md#DisableStack) | **Post** /v1/stack/disable | 
+[**DisableV2Stack**](StackControllerAPI.md#DisableV2Stack) | **Post** /v2/stack/disable | 
 [**DiscoverVendorsForCurrentTenant**](StackControllerAPI.md#DiscoverVendorsForCurrentTenant) | **Get** /v1/stack/vendor-integration | 
 [**EnableStack**](StackControllerAPI.md#EnableStack) | **Post** /v1/stack/enable | 
 [**EnableV2Stack**](StackControllerAPI.md#EnableV2Stack) | **Post** /v2/stack/enable | 
@@ -192,6 +193,68 @@ func main() {
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiDisableStackRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DisableV2Stack
+
+> DisableV2Stack(ctx).XScopeOrgID(xScopeOrgID).Execute()
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/grafana/grafana-asserts-public-clients/go/gcom"
+)
+
+func main() {
+	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.StackControllerAPI.DisableV2Stack(context.Background()).XScopeOrgID(xScopeOrgID).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `StackControllerAPI.DisableV2Stack``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDisableV2StackRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

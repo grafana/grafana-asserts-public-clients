@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2025.10.14-114207
+API version: 2025.11.03-031316
 Contact: support@asserts.ai
 */
 
@@ -26,6 +26,7 @@ type ProfileDrilldownConfigDto struct {
 	DefaultConfig                       *bool                   `json:"defaultConfig,omitempty"`
 	DataSourceUid                       *string                 `json:"dataSourceUid,omitempty"`
 	EntityPropertyToProfileLabelMapping map[string]string       `json:"entityPropertyToProfileLabelMapping,omitempty"`
+	ManagedBy                           *string                 `json:"managedBy,omitempty"`
 	AdditionalProperties                map[string]interface{}
 }
 
@@ -240,6 +241,38 @@ func (o *ProfileDrilldownConfigDto) SetEntityPropertyToProfileLabelMapping(v map
 	o.EntityPropertyToProfileLabelMapping = v
 }
 
+// GetManagedBy returns the ManagedBy field value if set, zero value otherwise.
+func (o *ProfileDrilldownConfigDto) GetManagedBy() string {
+	if o == nil || IsNil(o.ManagedBy) {
+		var ret string
+		return ret
+	}
+	return *o.ManagedBy
+}
+
+// GetManagedByOk returns a tuple with the ManagedBy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ProfileDrilldownConfigDto) GetManagedByOk() (*string, bool) {
+	if o == nil || IsNil(o.ManagedBy) {
+		return nil, false
+	}
+	return o.ManagedBy, true
+}
+
+// HasManagedBy returns a boolean if a field has been set.
+func (o *ProfileDrilldownConfigDto) HasManagedBy() bool {
+	if o != nil && !IsNil(o.ManagedBy) {
+		return true
+	}
+
+	return false
+}
+
+// SetManagedBy gets a reference to the given string and assigns it to the ManagedBy field.
+func (o *ProfileDrilldownConfigDto) SetManagedBy(v string) {
+	o.ManagedBy = &v
+}
+
 func (o ProfileDrilldownConfigDto) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -267,6 +300,9 @@ func (o ProfileDrilldownConfigDto) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.EntityPropertyToProfileLabelMapping) {
 		toSerialize["entityPropertyToProfileLabelMapping"] = o.EntityPropertyToProfileLabelMapping
+	}
+	if !IsNil(o.ManagedBy) {
+		toSerialize["managedBy"] = o.ManagedBy
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -296,6 +332,7 @@ func (o *ProfileDrilldownConfigDto) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "defaultConfig")
 		delete(additionalProperties, "dataSourceUid")
 		delete(additionalProperties, "entityPropertyToProfileLabelMapping")
+		delete(additionalProperties, "managedBy")
 		o.AdditionalProperties = additionalProperties
 	}
 

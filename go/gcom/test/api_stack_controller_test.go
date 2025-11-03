@@ -57,6 +57,17 @@ func Test_gcom_StackControllerAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test StackControllerAPIService DisableV2Stack", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		httpRes, err := apiClient.StackControllerAPI.DisableV2Stack(context.Background()).Execute()
+
+		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test StackControllerAPIService DiscoverVendorsForCurrentTenant", func(t *testing.T) {
 
 		t.Skip("skip test") // remove to run test

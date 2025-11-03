@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **RequestType** | Pointer to **string** |  | [optional] 
 **RequestContext** | Pointer to **string** |  | [optional] 
 **Value** | Pointer to **float64** |  | [optional] 
+**ManagedBy** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -153,6 +154,31 @@ SetValue sets Value field to given value.
 `func (o *RequestThresholdV2Dto) HasValue() bool`
 
 HasValue returns a boolean if a field has been set.
+
+### GetManagedBy
+
+`func (o *RequestThresholdV2Dto) GetManagedBy() string`
+
+GetManagedBy returns the ManagedBy field if non-nil, zero value otherwise.
+
+### GetManagedByOk
+
+`func (o *RequestThresholdV2Dto) GetManagedByOk() (*string, bool)`
+
+GetManagedByOk returns a tuple with the ManagedBy field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetManagedBy
+
+`func (o *RequestThresholdV2Dto) SetManagedBy(v string)`
+
+SetManagedBy sets ManagedBy field to given value.
+
+### HasManagedBy
+
+`func (o *RequestThresholdV2Dto) HasManagedBy() bool`
+
+HasManagedBy returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
