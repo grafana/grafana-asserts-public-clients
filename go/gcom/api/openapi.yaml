@@ -7,7 +7,7 @@ info:
   description: Asserts Public API
   termsOfService: https://www.asserts.ai/terms-of-service
   title: "Asserts, Inc"
-  version: 2025.11.03-031316
+  version: 2025.11.04-120413
 servers:
 - description: Generated server url
   url: http://localhost:8030/asserts/api-server
@@ -4712,6 +4712,7 @@ components:
           type: array
     PrometheusRulesDto:
       example:
+        managedBy: managedBy
         name: name
         active: true
         groups:
@@ -4778,6 +4779,8 @@ components:
           items:
             $ref: '#/components/schemas/PrometheusRuleGroupDto'
           type: array
+        managedBy:
+          type: string
     ApiError:
       example:
         trace_id: trace_id
@@ -5106,6 +5109,7 @@ components:
             disabled: true
           disabled: true
           type: type
+        managedBy: managedBy
         name: name
         relations:
         - startEntityType: startEntityType
@@ -5143,6 +5147,8 @@ components:
           items:
             $ref: '#/components/schemas/RelationRuleDto'
           type: array
+        managedBy:
+          type: string
     PropertyRuleDto:
       example:
         labelValues:
@@ -8943,6 +8949,7 @@ components:
           type: array
     PrometheusRules:
       example:
+        managedBy: managedBy
         groups:
         - name: name
           interval: interval
@@ -8999,6 +9006,8 @@ components:
           items:
             $ref: '#/components/schemas/PrometheusRuleGroup'
           type: array
+        managedBy:
+          type: string
     RuleGenerationResponseDto:
       properties:
         prometheusRules:
@@ -15375,7 +15384,8 @@ components:
       example:
         all:
           rules:
-          - groups:
+          - managedBy: managedBy
+            groups:
             - name: name
               interval: interval
               rules:
@@ -15426,7 +15436,8 @@ components:
                 expr: expr
                 labels:
                   empty: true
-          - groups:
+          - managedBy: managedBy
+            groups:
             - name: name
               interval: interval
               rules:
@@ -16443,7 +16454,8 @@ components:
     VersionedRulesPayload:
       example:
         rules:
-        - groups:
+        - managedBy: managedBy
+          groups:
           - name: name
             interval: interval
             rules:
@@ -16494,7 +16506,8 @@ components:
               expr: expr
               labels:
                 empty: true
-        - groups:
+        - managedBy: managedBy
+          groups:
           - name: name
             interval: interval
             rules:
