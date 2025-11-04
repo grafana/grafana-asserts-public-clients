@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2025.11.03-031316
+API version: 2025.11.04-114613
 Contact: support@asserts.ai
 */
 
@@ -21,6 +21,7 @@ var _ MappedNullable = &PrometheusRules{}
 // PrometheusRules struct for PrometheusRules
 type PrometheusRules struct {
 	Groups               []PrometheusRuleGroup `json:"groups,omitempty"`
+	ManagedBy            *string               `json:"managedBy,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -75,6 +76,38 @@ func (o *PrometheusRules) SetGroups(v []PrometheusRuleGroup) {
 	o.Groups = v
 }
 
+// GetManagedBy returns the ManagedBy field value if set, zero value otherwise.
+func (o *PrometheusRules) GetManagedBy() string {
+	if o == nil || IsNil(o.ManagedBy) {
+		var ret string
+		return ret
+	}
+	return *o.ManagedBy
+}
+
+// GetManagedByOk returns a tuple with the ManagedBy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PrometheusRules) GetManagedByOk() (*string, bool) {
+	if o == nil || IsNil(o.ManagedBy) {
+		return nil, false
+	}
+	return o.ManagedBy, true
+}
+
+// HasManagedBy returns a boolean if a field has been set.
+func (o *PrometheusRules) HasManagedBy() bool {
+	if o != nil && !IsNil(o.ManagedBy) {
+		return true
+	}
+
+	return false
+}
+
+// SetManagedBy gets a reference to the given string and assigns it to the ManagedBy field.
+func (o *PrometheusRules) SetManagedBy(v string) {
+	o.ManagedBy = &v
+}
+
 func (o PrometheusRules) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -87,6 +120,9 @@ func (o PrometheusRules) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Groups) {
 		toSerialize["groups"] = o.Groups
+	}
+	if !IsNil(o.ManagedBy) {
+		toSerialize["managedBy"] = o.ManagedBy
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -111,6 +147,7 @@ func (o *PrometheusRules) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "groups")
+		delete(additionalProperties, "managedBy")
 		o.AdditionalProperties = additionalProperties
 	}
 
