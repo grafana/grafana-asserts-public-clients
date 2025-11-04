@@ -7,7 +7,7 @@ info:
     name: Support
     url: "https://www.grafana.com"
     email: support@asserts.ai
-  version: 2025.11.03-031316
+  version: 2025.11.04-113341
 servers:
   - url: http://localhost:8030/asserts/api-server
     description: Generated server url
@@ -4441,6 +4441,8 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/PrometheusRuleGroupDto"
+        managedBy:
+          type: string
     ApiError:
       type: object
       properties:
@@ -4650,6 +4652,8 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/RelationRuleDto"
+        managedBy:
+          type: string
     PropertyRuleDto:
       type: object
       properties:
@@ -6400,6 +6404,8 @@ components:
               $ref: "#/components/schemas/PrometheusRuleGroup"
             last:
               $ref: "#/components/schemas/PrometheusRuleGroup"
+        managedBy:
+          type: string
     RuleGenerationResponseDto:
       type: object
       properties:
