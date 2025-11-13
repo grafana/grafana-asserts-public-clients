@@ -7,7 +7,7 @@ info:
   description: Asserts Public API
   termsOfService: https://www.asserts.ai/terms-of-service
   title: "Asserts, Inc"
-  version: 2025.11.10-094020
+  version: 2025.11.13-101646
 servers:
 - description: Generated server url
   url: http://localhost:8030/asserts/api-server
@@ -9455,16 +9455,17 @@ components:
     KpiDisplayConfigDto:
       example:
         tracesView: true
-        metricsView: true
-        frontendO11yAppView: true
         runtimeDashboard: true
         logsView: true
-        k8sAppView: true
-        awsAppView: true
-        frameworkDashboard: true
         defaultDashboard: true
         additionalDashboard: true
         propertiesView: true
+        profilesView: true
+        metricsView: true
+        frontendO11yAppView: true
+        k8sAppView: true
+        awsAppView: true
+        frameworkDashboard: true
         appO11yAppView: true
       properties:
         defaultDashboard:
@@ -9486,6 +9487,8 @@ components:
         logsView:
           type: boolean
         tracesView:
+          type: boolean
+        profilesView:
           type: boolean
         propertiesView:
           type: boolean
