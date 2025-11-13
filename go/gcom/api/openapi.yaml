@@ -7,7 +7,7 @@ info:
   description: Asserts Public API
   termsOfService: https://www.asserts.ai/terms-of-service
   title: "Asserts, Inc"
-  version: 2025.10.14-114207
+  version: 2025.11.13-101646
 servers:
 - description: Generated server url
   url: http://localhost:8030/asserts/api-server
@@ -592,6 +592,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DatasetsSanityChecksDto'
+          description: OK
+      tags:
+      - stack-controller
+  /v2/stack/disable:
+    post:
+      operationId: disableV2Stack
+      parameters:
+      - $ref: '#/components/parameters/TenantId'
+      responses:
+        "200":
           description: OK
       tags:
       - stack-controller
@@ -4702,6 +4712,7 @@ components:
           type: array
     PrometheusRulesDto:
       example:
+        managedBy: managedBy
         name: name
         active: true
         groups:
@@ -4768,6 +4779,8 @@ components:
           items:
             $ref: '#/components/schemas/PrometheusRuleGroupDto'
           type: array
+        managedBy:
+          type: string
     ApiError:
       example:
         trace_id: trace_id
@@ -5096,6 +5109,7 @@ components:
             disabled: true
           disabled: true
           type: type
+        managedBy: managedBy
         name: name
         relations:
         - startEntityType: startEntityType
@@ -5133,6 +5147,8 @@ components:
           items:
             $ref: '#/components/schemas/RelationRuleDto'
           type: array
+        managedBy:
+          type: string
     PropertyRuleDto:
       example:
         labelValues:
@@ -5733,7 +5749,7 @@ components:
           type: array
     PropertyMatchEntryDto:
       example:
-        op: EQUALS
+        op: op
         values:
         - values
         - values
@@ -5742,13 +5758,6 @@ components:
         property:
           type: string
         op:
-          enum:
-          - EQUALS
-          - NOT_EQUALS
-          - CONTAINS
-          - DOES_NOT_CONTAIN
-          - IS_NULL
-          - IS_NOT_NULL
           type: string
         values:
           items:
@@ -5759,15 +5768,16 @@ components:
         dataSourceUid: dataSourceUid
         entityPropertyToTraceLabelMapping:
           key: entityPropertyToTraceLabelMapping
+        managedBy: managedBy
         defaultConfig: true
         name: name
         match:
-        - op: EQUALS
+        - op: op
           values:
           - values
           - values
           property: property
-        - op: EQUALS
+        - op: op
           values:
           - values
           - values
@@ -5790,9 +5800,12 @@ components:
         entityPropertyToTraceLabelMapping:
           additionalProperties:
             type: string
+        managedBy:
+          type: string
     HealthThresholdV2Dto:
       example:
         expression: expression
+        managedBy: managedBy
         entityType: entityType
         assertionName: assertionName
         alertCategory: alertCategory
@@ -5805,10 +5818,13 @@ components:
           type: string
         entityType:
           type: string
+        managedBy:
+          type: string
     RequestThresholdV2Dto:
       example:
         requestType: requestType
         requestContext: requestContext
+        managedBy: managedBy
         entityName: entityName
         assertionName: assertionName
         value: 0.8008281904610115
@@ -5824,9 +5840,12 @@ components:
         value:
           format: double
           type: number
+        managedBy:
+          type: string
     ResourceThresholdV2Dto:
       example:
         severity: severity
+        managedBy: managedBy
         containerName: containerName
         assertionName: assertionName
         source: source
@@ -5846,27 +5865,33 @@ components:
         value:
           format: double
           type: number
+        managedBy:
+          type: string
     ThresholdsV2Dto:
       example:
         requestThresholds:
         - requestType: requestType
           requestContext: requestContext
+          managedBy: managedBy
           entityName: entityName
           assertionName: assertionName
           value: 0.8008281904610115
         - requestType: requestType
           requestContext: requestContext
+          managedBy: managedBy
           entityName: entityName
           assertionName: assertionName
           value: 0.8008281904610115
         resourceThresholds:
         - severity: severity
+          managedBy: managedBy
           containerName: containerName
           assertionName: assertionName
           source: source
           value: 6.027456183070403
           resourceType: resourceType
         - severity: severity
+          managedBy: managedBy
           containerName: containerName
           assertionName: assertionName
           source: source
@@ -5874,10 +5899,12 @@ components:
           resourceType: resourceType
         healthThresholds:
         - expression: expression
+          managedBy: managedBy
           entityType: entityType
           assertionName: assertionName
           alertCategory: alertCategory
         - expression: expression
+          managedBy: managedBy
           entityType: entityType
           assertionName: assertionName
           alertCategory: alertCategory
@@ -5899,15 +5926,16 @@ components:
         entityPropertyToProfileLabelMapping:
           key: entityPropertyToProfileLabelMapping
         dataSourceUid: dataSourceUid
+        managedBy: managedBy
         defaultConfig: true
         name: name
         match:
-        - op: EQUALS
+        - op: op
           values:
           - values
           - values
           property: property
-        - op: EQUALS
+        - op: op
           values:
           - values
           - values
@@ -5930,19 +5958,22 @@ components:
         entityPropertyToProfileLabelMapping:
           additionalProperties:
             type: string
+        managedBy:
+          type: string
     LogDrilldownConfigDto:
       example:
         dataSourceUid: dataSourceUid
         filterByTraceId: true
+        managedBy: managedBy
         defaultConfig: true
         name: name
         match:
-        - op: EQUALS
+        - op: op
           values:
           - values
           - values
           property: property
-        - op: EQUALS
+        - op: op
           values:
           - values
           - values
@@ -5975,6 +6006,8 @@ components:
           type: boolean
         filterByTraceId:
           type: boolean
+        managedBy:
+          type: string
     MetricSanityCheckResult:
       example:
         stepResults:
@@ -6165,6 +6198,7 @@ components:
     StackInfoDto:
       example:
         orgSlug: orgSlug
+        contactPointUID: contactPointUID
         alertManagerConfigured: true
         stackId: 0
         useGrafanaManagedAlerts: true
@@ -6206,6 +6240,8 @@ components:
           type: boolean
         processAlertsInEnrichment:
           type: boolean
+        contactPointUID:
+          type: string
     ScopeCriteriaDto:
       example:
         scopeCriteriaMap:
@@ -8913,6 +8949,7 @@ components:
           type: array
     PrometheusRules:
       example:
+        managedBy: managedBy
         groups:
         - name: name
           interval: interval
@@ -8969,6 +9006,8 @@ components:
           items:
             $ref: '#/components/schemas/PrometheusRuleGroup'
           type: array
+        managedBy:
+          type: string
     RuleGenerationResponseDto:
       properties:
         prometheusRules:
@@ -9416,16 +9455,17 @@ components:
     KpiDisplayConfigDto:
       example:
         tracesView: true
-        metricsView: true
-        frontendO11yAppView: true
         runtimeDashboard: true
         logsView: true
-        k8sAppView: true
-        awsAppView: true
-        frameworkDashboard: true
         defaultDashboard: true
         additionalDashboard: true
         propertiesView: true
+        profilesView: true
+        metricsView: true
+        frontendO11yAppView: true
+        k8sAppView: true
+        awsAppView: true
+        frameworkDashboard: true
         appO11yAppView: true
       properties:
         defaultDashboard:
@@ -9447,6 +9487,8 @@ components:
         logsView:
           type: boolean
         tracesView:
+          type: boolean
+        profilesView:
           type: boolean
         propertiesView:
           type: boolean
@@ -9491,6 +9533,7 @@ components:
       example:
         matchLabels:
           key: matchLabels
+        managedBy: managedBy
         name: name
       properties:
         name:
@@ -9498,14 +9541,18 @@ components:
         matchLabels:
           additionalProperties:
             type: string
+        managedBy:
+          type: string
     DisabledAlertConfigsDto:
       example:
         disabledAlertConfigs:
         - matchLabels:
             key: matchLabels
+          managedBy: managedBy
           name: name
         - matchLabels:
             key: matchLabels
+          managedBy: managedBy
           name: name
       properties:
         disabledAlertConfigs:
@@ -9560,6 +9607,7 @@ components:
         silenced: true
         matchLabels:
           key: matchLabels
+        managedBy: managedBy
         name: name
         for: for
         annotations:
@@ -9580,6 +9628,8 @@ components:
             type: string
         silenced:
           type: boolean
+        managedBy:
+          type: string
         for:
           type: string
     AlertConfigsDto:
@@ -9588,6 +9638,7 @@ components:
         - silenced: true
           matchLabels:
             key: matchLabels
+          managedBy: managedBy
           name: name
           for: for
           annotations:
@@ -9597,6 +9648,7 @@ components:
         - silenced: true
           matchLabels:
             key: matchLabels
+          managedBy: managedBy
           name: name
           for: for
           annotations:
@@ -15335,7 +15387,8 @@ components:
       example:
         all:
           rules:
-          - groups:
+          - managedBy: managedBy
+            groups:
             - name: name
               interval: interval
               rules:
@@ -15386,7 +15439,8 @@ components:
                 expr: expr
                 labels:
                   empty: true
-          - groups:
+          - managedBy: managedBy
+            groups:
             - name: name
               interval: interval
               rules:
@@ -16403,7 +16457,8 @@ components:
     VersionedRulesPayload:
       example:
         rules:
-        - groups:
+        - managedBy: managedBy
+          groups:
           - name: name
             interval: interval
             rules:
@@ -16454,7 +16509,8 @@ components:
               expr: expr
               labels:
                 empty: true
-        - groups:
+        - managedBy: managedBy
+          groups:
           - name: name
             interval: interval
             rules:
@@ -16576,15 +16632,16 @@ components:
         - dataSourceUid: dataSourceUid
           entityPropertyToTraceLabelMapping:
             key: entityPropertyToTraceLabelMapping
+          managedBy: managedBy
           defaultConfig: true
           name: name
           match:
-          - op: EQUALS
+          - op: op
             values:
             - values
             - values
             property: property
-          - op: EQUALS
+          - op: op
             values:
             - values
             - values
@@ -16593,15 +16650,16 @@ components:
         - dataSourceUid: dataSourceUid
           entityPropertyToTraceLabelMapping:
             key: entityPropertyToTraceLabelMapping
+          managedBy: managedBy
           defaultConfig: true
           name: name
           match:
-          - op: EQUALS
+          - op: op
             values:
             - values
             - values
             property: property
-          - op: EQUALS
+          - op: op
             values:
             - values
             - values
@@ -16618,15 +16676,16 @@ components:
         - entityPropertyToProfileLabelMapping:
             key: entityPropertyToProfileLabelMapping
           dataSourceUid: dataSourceUid
+          managedBy: managedBy
           defaultConfig: true
           name: name
           match:
-          - op: EQUALS
+          - op: op
             values:
             - values
             - values
             property: property
-          - op: EQUALS
+          - op: op
             values:
             - values
             - values
@@ -16635,15 +16694,16 @@ components:
         - entityPropertyToProfileLabelMapping:
             key: entityPropertyToProfileLabelMapping
           dataSourceUid: dataSourceUid
+          managedBy: managedBy
           defaultConfig: true
           name: name
           match:
-          - op: EQUALS
+          - op: op
             values:
             - values
             - values
             property: property
-          - op: EQUALS
+          - op: op
             values:
             - values
             - values
@@ -16659,15 +16719,16 @@ components:
         logDrilldownConfigs:
         - dataSourceUid: dataSourceUid
           filterByTraceId: true
+          managedBy: managedBy
           defaultConfig: true
           name: name
           match:
-          - op: EQUALS
+          - op: op
             values:
             - values
             - values
             property: property
-          - op: EQUALS
+          - op: op
             values:
             - values
             - values
@@ -16679,15 +16740,16 @@ components:
           filterBySpanId: true
         - dataSourceUid: dataSourceUid
           filterByTraceId: true
+          managedBy: managedBy
           defaultConfig: true
           name: name
           match:
-          - op: EQUALS
+          - op: op
             values:
             - values
             - values
             property: property
-          - op: EQUALS
+          - op: op
             values:
             - values
             - values
@@ -16871,6 +16933,7 @@ components:
       example:
         items:
         - orgSlug: orgSlug
+          contactPointUID: contactPointUID
           alertManagerConfigured: true
           stackId: 0
           useGrafanaManagedAlerts: true
@@ -16884,6 +16947,7 @@ components:
           assertionDetectorToken: assertionDetectorToken
           graphInstanceCreated: true
         - orgSlug: orgSlug
+          contactPointUID: contactPointUID
           alertManagerConfigured: true
           stackId: 0
           useGrafanaManagedAlerts: true

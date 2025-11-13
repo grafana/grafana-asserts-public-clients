@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **AlertLabels** | Pointer to **map[string]string** |  | [optional] 
 **Annotations** | Pointer to **map[string]string** |  | [optional] 
 **Silenced** | Pointer to **bool** |  | [optional] 
+**ManagedBy** | Pointer to **string** |  | [optional] 
 **For** | Pointer to **string** |  | [optional] 
 
 ## Methods
@@ -154,6 +155,31 @@ SetSilenced sets Silenced field to given value.
 `func (o *AlertConfigDto) HasSilenced() bool`
 
 HasSilenced returns a boolean if a field has been set.
+
+### GetManagedBy
+
+`func (o *AlertConfigDto) GetManagedBy() string`
+
+GetManagedBy returns the ManagedBy field if non-nil, zero value otherwise.
+
+### GetManagedByOk
+
+`func (o *AlertConfigDto) GetManagedByOk() (*string, bool)`
+
+GetManagedByOk returns a tuple with the ManagedBy field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetManagedBy
+
+`func (o *AlertConfigDto) SetManagedBy(v string)`
+
+SetManagedBy sets ManagedBy field to given value.
+
+### HasManagedBy
+
+`func (o *AlertConfigDto) HasManagedBy() bool`
+
+HasManagedBy returns a boolean if a field has been set.
 
 ### GetFor
 

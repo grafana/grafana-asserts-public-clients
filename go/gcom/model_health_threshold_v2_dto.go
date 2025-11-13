@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2025.10.14-114207
+API version: 2025.11.13-101646
 Contact: support@asserts.ai
 */
 
@@ -24,6 +24,7 @@ type HealthThresholdV2Dto struct {
 	Expression           *string `json:"expression,omitempty"`
 	AlertCategory        *string `json:"alertCategory,omitempty"`
 	EntityType           *string `json:"entityType,omitempty"`
+	ManagedBy            *string `json:"managedBy,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -174,6 +175,38 @@ func (o *HealthThresholdV2Dto) SetEntityType(v string) {
 	o.EntityType = &v
 }
 
+// GetManagedBy returns the ManagedBy field value if set, zero value otherwise.
+func (o *HealthThresholdV2Dto) GetManagedBy() string {
+	if o == nil || IsNil(o.ManagedBy) {
+		var ret string
+		return ret
+	}
+	return *o.ManagedBy
+}
+
+// GetManagedByOk returns a tuple with the ManagedBy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *HealthThresholdV2Dto) GetManagedByOk() (*string, bool) {
+	if o == nil || IsNil(o.ManagedBy) {
+		return nil, false
+	}
+	return o.ManagedBy, true
+}
+
+// HasManagedBy returns a boolean if a field has been set.
+func (o *HealthThresholdV2Dto) HasManagedBy() bool {
+	if o != nil && !IsNil(o.ManagedBy) {
+		return true
+	}
+
+	return false
+}
+
+// SetManagedBy gets a reference to the given string and assigns it to the ManagedBy field.
+func (o *HealthThresholdV2Dto) SetManagedBy(v string) {
+	o.ManagedBy = &v
+}
+
 func (o HealthThresholdV2Dto) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -195,6 +228,9 @@ func (o HealthThresholdV2Dto) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.EntityType) {
 		toSerialize["entityType"] = o.EntityType
+	}
+	if !IsNil(o.ManagedBy) {
+		toSerialize["managedBy"] = o.ManagedBy
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -222,6 +258,7 @@ func (o *HealthThresholdV2Dto) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "expression")
 		delete(additionalProperties, "alertCategory")
 		delete(additionalProperties, "entityType")
+		delete(additionalProperties, "managedBy")
 		o.AdditionalProperties = additionalProperties
 	}
 

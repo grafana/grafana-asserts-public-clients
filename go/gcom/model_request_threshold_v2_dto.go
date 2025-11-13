@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2025.10.14-114207
+API version: 2025.11.13-101646
 Contact: support@asserts.ai
 */
 
@@ -25,6 +25,7 @@ type RequestThresholdV2Dto struct {
 	RequestType          *string  `json:"requestType,omitempty"`
 	RequestContext       *string  `json:"requestContext,omitempty"`
 	Value                *float64 `json:"value,omitempty"`
+	ManagedBy            *string  `json:"managedBy,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -207,6 +208,38 @@ func (o *RequestThresholdV2Dto) SetValue(v float64) {
 	o.Value = &v
 }
 
+// GetManagedBy returns the ManagedBy field value if set, zero value otherwise.
+func (o *RequestThresholdV2Dto) GetManagedBy() string {
+	if o == nil || IsNil(o.ManagedBy) {
+		var ret string
+		return ret
+	}
+	return *o.ManagedBy
+}
+
+// GetManagedByOk returns a tuple with the ManagedBy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RequestThresholdV2Dto) GetManagedByOk() (*string, bool) {
+	if o == nil || IsNil(o.ManagedBy) {
+		return nil, false
+	}
+	return o.ManagedBy, true
+}
+
+// HasManagedBy returns a boolean if a field has been set.
+func (o *RequestThresholdV2Dto) HasManagedBy() bool {
+	if o != nil && !IsNil(o.ManagedBy) {
+		return true
+	}
+
+	return false
+}
+
+// SetManagedBy gets a reference to the given string and assigns it to the ManagedBy field.
+func (o *RequestThresholdV2Dto) SetManagedBy(v string) {
+	o.ManagedBy = &v
+}
+
 func (o RequestThresholdV2Dto) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -231,6 +264,9 @@ func (o RequestThresholdV2Dto) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
+	}
+	if !IsNil(o.ManagedBy) {
+		toSerialize["managedBy"] = o.ManagedBy
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -259,6 +295,7 @@ func (o *RequestThresholdV2Dto) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "requestType")
 		delete(additionalProperties, "requestContext")
 		delete(additionalProperties, "value")
+		delete(additionalProperties, "managedBy")
 		o.AdditionalProperties = additionalProperties
 	}
 

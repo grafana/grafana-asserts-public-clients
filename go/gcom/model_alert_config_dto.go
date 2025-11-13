@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2025.10.14-114207
+API version: 2025.11.13-101646
 Contact: support@asserts.ai
 */
 
@@ -25,6 +25,7 @@ type AlertConfigDto struct {
 	AlertLabels          map[string]string `json:"alertLabels,omitempty"`
 	Annotations          map[string]string `json:"annotations,omitempty"`
 	Silenced             *bool             `json:"silenced,omitempty"`
+	ManagedBy            *string           `json:"managedBy,omitempty"`
 	For                  *string           `json:"for,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -208,6 +209,38 @@ func (o *AlertConfigDto) SetSilenced(v bool) {
 	o.Silenced = &v
 }
 
+// GetManagedBy returns the ManagedBy field value if set, zero value otherwise.
+func (o *AlertConfigDto) GetManagedBy() string {
+	if o == nil || IsNil(o.ManagedBy) {
+		var ret string
+		return ret
+	}
+	return *o.ManagedBy
+}
+
+// GetManagedByOk returns a tuple with the ManagedBy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AlertConfigDto) GetManagedByOk() (*string, bool) {
+	if o == nil || IsNil(o.ManagedBy) {
+		return nil, false
+	}
+	return o.ManagedBy, true
+}
+
+// HasManagedBy returns a boolean if a field has been set.
+func (o *AlertConfigDto) HasManagedBy() bool {
+	if o != nil && !IsNil(o.ManagedBy) {
+		return true
+	}
+
+	return false
+}
+
+// SetManagedBy gets a reference to the given string and assigns it to the ManagedBy field.
+func (o *AlertConfigDto) SetManagedBy(v string) {
+	o.ManagedBy = &v
+}
+
 // GetFor returns the For field value if set, zero value otherwise.
 func (o *AlertConfigDto) GetFor() string {
 	if o == nil || IsNil(o.For) {
@@ -265,6 +298,9 @@ func (o AlertConfigDto) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Silenced) {
 		toSerialize["silenced"] = o.Silenced
 	}
+	if !IsNil(o.ManagedBy) {
+		toSerialize["managedBy"] = o.ManagedBy
+	}
 	if !IsNil(o.For) {
 		toSerialize["for"] = o.For
 	}
@@ -295,6 +331,7 @@ func (o *AlertConfigDto) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "alertLabels")
 		delete(additionalProperties, "annotations")
 		delete(additionalProperties, "silenced")
+		delete(additionalProperties, "managedBy")
 		delete(additionalProperties, "for")
 		o.AdditionalProperties = additionalProperties
 	}

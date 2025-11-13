@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2025.10.14-114207
+API version: 2025.11.13-101646
 Contact: support@asserts.ai
 */
 
@@ -29,6 +29,7 @@ type LogDrilldownConfigDto struct {
 	EntityPropertyToLogLabelMapping map[string]string       `json:"entityPropertyToLogLabelMapping,omitempty"`
 	FilterBySpanId                  *bool                   `json:"filterBySpanId,omitempty"`
 	FilterByTraceId                 *bool                   `json:"filterByTraceId,omitempty"`
+	ManagedBy                       *string                 `json:"managedBy,omitempty"`
 	AdditionalProperties            map[string]interface{}
 }
 
@@ -339,6 +340,38 @@ func (o *LogDrilldownConfigDto) SetFilterByTraceId(v bool) {
 	o.FilterByTraceId = &v
 }
 
+// GetManagedBy returns the ManagedBy field value if set, zero value otherwise.
+func (o *LogDrilldownConfigDto) GetManagedBy() string {
+	if o == nil || IsNil(o.ManagedBy) {
+		var ret string
+		return ret
+	}
+	return *o.ManagedBy
+}
+
+// GetManagedByOk returns a tuple with the ManagedBy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LogDrilldownConfigDto) GetManagedByOk() (*string, bool) {
+	if o == nil || IsNil(o.ManagedBy) {
+		return nil, false
+	}
+	return o.ManagedBy, true
+}
+
+// HasManagedBy returns a boolean if a field has been set.
+func (o *LogDrilldownConfigDto) HasManagedBy() bool {
+	if o != nil && !IsNil(o.ManagedBy) {
+		return true
+	}
+
+	return false
+}
+
+// SetManagedBy gets a reference to the given string and assigns it to the ManagedBy field.
+func (o *LogDrilldownConfigDto) SetManagedBy(v string) {
+	o.ManagedBy = &v
+}
+
 func (o LogDrilldownConfigDto) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -376,6 +409,9 @@ func (o LogDrilldownConfigDto) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.FilterByTraceId) {
 		toSerialize["filterByTraceId"] = o.FilterByTraceId
 	}
+	if !IsNil(o.ManagedBy) {
+		toSerialize["managedBy"] = o.ManagedBy
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -407,6 +443,7 @@ func (o *LogDrilldownConfigDto) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "entityPropertyToLogLabelMapping")
 		delete(additionalProperties, "filterBySpanId")
 		delete(additionalProperties, "filterByTraceId")
+		delete(additionalProperties, "managedBy")
 		o.AdditionalProperties = additionalProperties
 	}
 

@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2025.10.14-114207
+API version: 2025.11.13-101646
 Contact: support@asserts.ai
 */
 
@@ -23,6 +23,7 @@ type PrometheusRulesDto struct {
 	Active               *bool                    `json:"active,omitempty"`
 	Name                 *string                  `json:"name,omitempty"`
 	Groups               []PrometheusRuleGroupDto `json:"groups,omitempty"`
+	ManagedBy            *string                  `json:"managedBy,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -141,6 +142,38 @@ func (o *PrometheusRulesDto) SetGroups(v []PrometheusRuleGroupDto) {
 	o.Groups = v
 }
 
+// GetManagedBy returns the ManagedBy field value if set, zero value otherwise.
+func (o *PrometheusRulesDto) GetManagedBy() string {
+	if o == nil || IsNil(o.ManagedBy) {
+		var ret string
+		return ret
+	}
+	return *o.ManagedBy
+}
+
+// GetManagedByOk returns a tuple with the ManagedBy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PrometheusRulesDto) GetManagedByOk() (*string, bool) {
+	if o == nil || IsNil(o.ManagedBy) {
+		return nil, false
+	}
+	return o.ManagedBy, true
+}
+
+// HasManagedBy returns a boolean if a field has been set.
+func (o *PrometheusRulesDto) HasManagedBy() bool {
+	if o != nil && !IsNil(o.ManagedBy) {
+		return true
+	}
+
+	return false
+}
+
+// SetManagedBy gets a reference to the given string and assigns it to the ManagedBy field.
+func (o *PrometheusRulesDto) SetManagedBy(v string) {
+	o.ManagedBy = &v
+}
+
 func (o PrometheusRulesDto) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -159,6 +192,9 @@ func (o PrometheusRulesDto) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Groups) {
 		toSerialize["groups"] = o.Groups
+	}
+	if !IsNil(o.ManagedBy) {
+		toSerialize["managedBy"] = o.ManagedBy
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -185,6 +221,7 @@ func (o *PrometheusRulesDto) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "active")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "groups")
+		delete(additionalProperties, "managedBy")
 		o.AdditionalProperties = additionalProperties
 	}
 
