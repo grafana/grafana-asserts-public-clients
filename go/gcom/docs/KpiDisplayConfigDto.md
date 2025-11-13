@@ -14,7 +14,6 @@ Name | Type | Description | Notes
 **AwsAppView** | Pointer to **bool** |  | [optional] 
 **LogsView** | Pointer to **bool** |  | [optional] 
 **TracesView** | Pointer to **bool** |  | [optional] 
-**ProfilesView** | Pointer to **bool** |  | [optional] 
 **PropertiesView** | Pointer to **bool** |  | [optional] 
 **MetricsView** | Pointer to **bool** |  | [optional] 
 
@@ -286,31 +285,6 @@ SetTracesView sets TracesView field to given value.
 `func (o *KpiDisplayConfigDto) HasTracesView() bool`
 
 HasTracesView returns a boolean if a field has been set.
-
-### GetProfilesView
-
-`func (o *KpiDisplayConfigDto) GetProfilesView() bool`
-
-GetProfilesView returns the ProfilesView field if non-nil, zero value otherwise.
-
-### GetProfilesViewOk
-
-`func (o *KpiDisplayConfigDto) GetProfilesViewOk() (*bool, bool)`
-
-GetProfilesViewOk returns a tuple with the ProfilesView field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetProfilesView
-
-`func (o *KpiDisplayConfigDto) SetProfilesView(v bool)`
-
-SetProfilesView sets ProfilesView field to given value.
-
-### HasProfilesView
-
-`func (o *KpiDisplayConfigDto) HasProfilesView() bool`
-
-HasProfilesView returns a boolean if a field has been set.
 
 ### GetPropertiesView
 
