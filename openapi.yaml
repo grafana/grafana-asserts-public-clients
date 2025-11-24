@@ -7,7 +7,7 @@ info:
     name: Support
     url: "https://www.grafana.com"
     email: support@asserts.ai
-  version: 2025.11.24-113232
+  version: 2025.11.24-130722
 servers:
   - url: http://localhost:8030/asserts/api-server
     description: Generated server url
