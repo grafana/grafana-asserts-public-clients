@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2025.11.13-120854
+API version: 2025.11.24-113232
 Contact: support@asserts.ai
 */
 
@@ -24,6 +24,7 @@ type MimirRelabelRuleGroup struct {
 	Order                *int32             `json:"order,omitempty"`
 	Selector             *string            `json:"selector,omitempty"`
 	Dataset              *string            `json:"dataset,omitempty"`
+	Base                 *bool              `json:"base,omitempty"`
 	Rules                []MimirRelabelRule `json:"rules,omitempty"`
 	VendorLookupQuery    *string            `json:"vendor_lookup_query,omitempty"`
 	MetricRegex          []string           `json:"metric_regex,omitempty"`
@@ -178,6 +179,38 @@ func (o *MimirRelabelRuleGroup) SetDataset(v string) {
 	o.Dataset = &v
 }
 
+// GetBase returns the Base field value if set, zero value otherwise.
+func (o *MimirRelabelRuleGroup) GetBase() bool {
+	if o == nil || IsNil(o.Base) {
+		var ret bool
+		return ret
+	}
+	return *o.Base
+}
+
+// GetBaseOk returns a tuple with the Base field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MimirRelabelRuleGroup) GetBaseOk() (*bool, bool) {
+	if o == nil || IsNil(o.Base) {
+		return nil, false
+	}
+	return o.Base, true
+}
+
+// HasBase returns a boolean if a field has been set.
+func (o *MimirRelabelRuleGroup) HasBase() bool {
+	if o != nil && !IsNil(o.Base) {
+		return true
+	}
+
+	return false
+}
+
+// SetBase gets a reference to the given bool and assigns it to the Base field.
+func (o *MimirRelabelRuleGroup) SetBase(v bool) {
+	o.Base = &v
+}
+
 // GetRules returns the Rules field value if set, zero value otherwise.
 func (o *MimirRelabelRuleGroup) GetRules() []MimirRelabelRule {
 	if o == nil || IsNil(o.Rules) {
@@ -328,6 +361,9 @@ func (o MimirRelabelRuleGroup) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Dataset) {
 		toSerialize["dataset"] = o.Dataset
 	}
+	if !IsNil(o.Base) {
+		toSerialize["base"] = o.Base
+	}
 	if !IsNil(o.Rules) {
 		toSerialize["rules"] = o.Rules
 	}
@@ -366,6 +402,7 @@ func (o *MimirRelabelRuleGroup) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "order")
 		delete(additionalProperties, "selector")
 		delete(additionalProperties, "dataset")
+		delete(additionalProperties, "base")
 		delete(additionalProperties, "rules")
 		delete(additionalProperties, "vendor_lookup_query")
 		delete(additionalProperties, "metric_regex")

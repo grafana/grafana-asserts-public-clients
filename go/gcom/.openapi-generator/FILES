@@ -16,6 +16,7 @@ api_custom_dash_config_controller.go
 api_custom_model_rules_configuration.go
 api_customer_metric_controller.go
 api_data_sources_config_controller.go
+api_drilldown_config_migration_controller.go
 api_entity_assertions_controller.go
 api_entity_controller.go
 api_entity_kpi_controller.go
@@ -147,6 +148,8 @@ docs/DefinedByPropertyMatchDto.md
 docs/DisabledAlertConfigDto.md
 docs/DisabledAlertConfigsDto.md
 docs/DisabledRulesDto.md
+docs/DrilldownConfigMigrationControllerAPI.md
+docs/DrilldownConfigMigrationDto.md
 docs/EdgeDisplayConfigDto.md
 docs/EntityAssertionDetailsDto.md
 docs/EntityAssertionDetailsDtoThresholdsInner.md
@@ -446,6 +449,7 @@ model_defined_by_property_match_dto.go
 model_disabled_alert_config_dto.go
 model_disabled_alert_configs_dto.go
 model_disabled_rules_dto.go
+model_drilldown_config_migration_dto.go
 model_edge_display_config_dto.go
 model_entity_assertion_details_dto.go
 model_entity_assertion_details_dto_thresholds_inner.go
@@ -640,6 +644,7 @@ test/api_custom_dash_config_controller_test.go
 test/api_custom_model_rules_configuration_test.go
 test/api_customer_metric_controller_test.go
 test/api_data_sources_config_controller_test.go
+test/api_drilldown_config_migration_controller_test.go
 test/api_entity_assertions_controller_test.go
 test/api_entity_controller_test.go
 test/api_entity_kpi_controller_test.go

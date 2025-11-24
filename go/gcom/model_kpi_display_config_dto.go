@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2025.11.13-120854
+API version: 2025.11.24-113232
 Contact: support@asserts.ai
 */
 
@@ -30,6 +30,7 @@ type KpiDisplayConfigDto struct {
 	AwsAppView           *bool `json:"awsAppView,omitempty"`
 	LogsView             *bool `json:"logsView,omitempty"`
 	TracesView           *bool `json:"tracesView,omitempty"`
+	ProfilesView         *bool `json:"profilesView,omitempty"`
 	PropertiesView       *bool `json:"propertiesView,omitempty"`
 	MetricsView          *bool `json:"metricsView,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -374,6 +375,38 @@ func (o *KpiDisplayConfigDto) SetTracesView(v bool) {
 	o.TracesView = &v
 }
 
+// GetProfilesView returns the ProfilesView field value if set, zero value otherwise.
+func (o *KpiDisplayConfigDto) GetProfilesView() bool {
+	if o == nil || IsNil(o.ProfilesView) {
+		var ret bool
+		return ret
+	}
+	return *o.ProfilesView
+}
+
+// GetProfilesViewOk returns a tuple with the ProfilesView field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *KpiDisplayConfigDto) GetProfilesViewOk() (*bool, bool) {
+	if o == nil || IsNil(o.ProfilesView) {
+		return nil, false
+	}
+	return o.ProfilesView, true
+}
+
+// HasProfilesView returns a boolean if a field has been set.
+func (o *KpiDisplayConfigDto) HasProfilesView() bool {
+	if o != nil && !IsNil(o.ProfilesView) {
+		return true
+	}
+
+	return false
+}
+
+// SetProfilesView gets a reference to the given bool and assigns it to the ProfilesView field.
+func (o *KpiDisplayConfigDto) SetProfilesView(v bool) {
+	o.ProfilesView = &v
+}
+
 // GetPropertiesView returns the PropertiesView field value if set, zero value otherwise.
 func (o *KpiDisplayConfigDto) GetPropertiesView() bool {
 	if o == nil || IsNil(o.PropertiesView) {
@@ -478,6 +511,9 @@ func (o KpiDisplayConfigDto) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TracesView) {
 		toSerialize["tracesView"] = o.TracesView
 	}
+	if !IsNil(o.ProfilesView) {
+		toSerialize["profilesView"] = o.ProfilesView
+	}
 	if !IsNil(o.PropertiesView) {
 		toSerialize["propertiesView"] = o.PropertiesView
 	}
@@ -516,6 +552,7 @@ func (o *KpiDisplayConfigDto) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "awsAppView")
 		delete(additionalProperties, "logsView")
 		delete(additionalProperties, "tracesView")
+		delete(additionalProperties, "profilesView")
 		delete(additionalProperties, "propertiesView")
 		delete(additionalProperties, "metricsView")
 		o.AdditionalProperties = additionalProperties
