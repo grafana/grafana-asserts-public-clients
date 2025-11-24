@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **Order** | Pointer to **int32** |  | [optional] 
 **Selector** | Pointer to **string** |  | [optional] 
 **Dataset** | Pointer to **string** |  | [optional] 
+**Base** | Pointer to **bool** |  | [optional] 
 **Rules** | Pointer to [**[]MimirRelabelRule**](MimirRelabelRule.md) |  | [optional] 
 **VendorLookupQuery** | Pointer to **string** |  | [optional] 
 **MetricRegex** | Pointer to **[]string** |  | [optional] 
@@ -131,6 +132,31 @@ SetDataset sets Dataset field to given value.
 `func (o *MimirRelabelRuleGroup) HasDataset() bool`
 
 HasDataset returns a boolean if a field has been set.
+
+### GetBase
+
+`func (o *MimirRelabelRuleGroup) GetBase() bool`
+
+GetBase returns the Base field if non-nil, zero value otherwise.
+
+### GetBaseOk
+
+`func (o *MimirRelabelRuleGroup) GetBaseOk() (*bool, bool)`
+
+GetBaseOk returns a tuple with the Base field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBase
+
+`func (o *MimirRelabelRuleGroup) SetBase(v bool)`
+
+SetBase sets Base field to given value.
+
+### HasBase
+
+`func (o *MimirRelabelRuleGroup) HasBase() bool`
+
+HasBase returns a boolean if a field has been set.
 
 ### GetRules
 

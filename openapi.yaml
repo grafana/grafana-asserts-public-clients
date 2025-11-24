@@ -7,7 +7,7 @@ info:
     name: Support
     url: "https://www.grafana.com"
     email: support@asserts.ai
-  version: 2025.11.13-120854
+  version: 2025.11.24-113232
 servers:
   - url: http://localhost:8030/asserts/api-server
     description: Generated server url
@@ -919,6 +919,23 @@ paths:
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+  /v2/config/drilldown-migration:
+    post:
+      tags:
+        - drilldown-config-migration-controller
+      operationId: migrateConfigs
+      parameters:
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DrilldownConfigMigrationDto"
+        required: true
+      responses:
+        "200":
+          description: OK
   /v1/validate/prometheus-query:
     post:
       tags:
@@ -5079,6 +5096,11 @@ components:
           type: boolean
         managedBy:
           type: string
+    DrilldownConfigMigrationDto:
+      type: object
+      properties:
+        dryRun:
+          type: boolean
     MetricSanityCheckResult:
       type: object
       properties:
@@ -6620,6 +6642,8 @@ components:
           type: boolean
         tracesView:
           type: boolean
+        profilesView:
+          type: boolean
         propertiesView:
           type: boolean
         metricsView:
@@ -7745,6 +7769,8 @@ components:
           type: string
         dataset:
           type: string
+        base:
+          type: boolean
         rules:
           type: array
           items:
