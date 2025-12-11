@@ -7,13 +7,13 @@ info:
   description: Asserts Public API
   termsOfService: https://www.asserts.ai/terms-of-service
   title: "Asserts, Inc"
-  version: 2025.11.24-113232
+  version: 2025.12.11-145809
 servers:
 - description: Generated server url
   url: http://localhost:8030/asserts/api-server
 tags:
-- description: APIs for managing custom model rule configurations
-  name: Custom Model Rules Configuration
+- description: APIs for managing model rule configurations
+  name: Model Rules Configuration
 - description: APIs for managing alert configurations
   name: Alert Configuration
 paths:
@@ -321,8 +321,8 @@ paths:
       - prom-rules-config-controller
   /v1/config/model-rules:
     get:
-      description: Retrieves a list of all available model rule configuration names
-        for the current tenant.
+      description: Retrieves a list of all available custom model rule configuration
+        names for the current tenant.
       operationId: listModelRules
       parameters:
       - $ref: '#/components/parameters/TenantId'
@@ -338,13 +338,13 @@ paths:
             application/x-yaml:
               schema:
                 $ref: '#/components/schemas/ModelRuleNamesDto'
-          description: Successfully retrieved list of model rule names
-      summary: List all model rule names
+          description: Successfully retrieved list of custom model rule names
+      summary: List all custom model rule names
       tags:
-      - Custom Model Rules Configuration
+      - Model Rules Configuration
     put:
-      description: Creates or updates model rules using the name specified in the
-        request body.
+      description: Creates or updates custom model rules using the name specified
+        in the request body.
       operationId: putModelRules
       parameters:
       - $ref: '#/components/parameters/TenantId'
@@ -362,7 +362,7 @@ paths:
         required: true
       responses:
         "200":
-          description: Successfully created or updated model rules
+          description: Successfully created or updated custom model rules
         "422":
           content:
             application/json:
@@ -387,13 +387,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/ApiError'
           description: Internal server error
-      summary: Create or update model rules
+      summary: Create or update custom model rules
       tags:
-      - Custom Model Rules Configuration
+      - Model Rules Configuration
   /v1/config/model-rules/{name}:
     delete:
-      description: Permanently deletes a specific model rules configuration by its
-        name.
+      description: Permanently deletes a specific custom model rules configuration
+        by its name.
       operationId: deleteModelRules
       parameters:
       - description: The name of the model rules configuration to delete
@@ -407,12 +407,12 @@ paths:
       - $ref: '#/components/parameters/TenantId'
       responses:
         "204":
-          description: Successfully deleted model rules
-      summary: Delete model rules by name
+          description: Successfully deleted custom model rules
+      summary: Delete custom model rules by name
       tags:
-      - Custom Model Rules Configuration
+      - Model Rules Configuration
     get:
-      description: Retrieves a specific model rules configuration by its name.
+      description: Retrieves a specific custom model rules configuration by its name.
       operationId: getModelRules
       parameters:
       - description: The name of the model rules configuration to retrieve
@@ -436,7 +436,7 @@ paths:
             application/x-yaml:
               schema:
                 $ref: '#/components/schemas/ModelRulesDto'
-          description: Successfully retrieved model rules
+          description: Successfully retrieved custom model rules
         "404":
           content:
             application/json:
@@ -448,13 +448,13 @@ paths:
             application/x-yaml:
               schema:
                 $ref: '#/components/schemas/ModelRulesDto'
-          description: Model rules not found
-      summary: Get model rules by name
+          description: Custom model rules not found
+      summary: Get custom model rules by name
       tags:
-      - Custom Model Rules Configuration
+      - Model Rules Configuration
     put:
-      description: "Creates or updates model rules with a specific name. If the dto\
-        \ also contains a name, it will be used instead (save as operation)."
+      description: "Creates or updates custom model rules with a specific name. If\
+        \ the dto also contains a name, it will be used instead (save as operation)."
       operationId: putModelRules_1
       parameters:
       - description: The name of the model rules configuration
@@ -474,7 +474,7 @@ paths:
         required: true
       responses:
         "200":
-          description: Successfully created or updated model rules
+          description: Successfully created or updated custom model rules
         "422":
           content:
             application/json:
@@ -499,9 +499,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/ApiError'
           description: Internal server error
-      summary: Create or update model rules by name
+      summary: Create or update custom model rules by name
       tags:
-      - Custom Model Rules Configuration
+      - Model Rules Configuration
   /v1/config/model-mapping/{name}:
     delete:
       operationId: delete
@@ -3700,6 +3700,36 @@ paths:
           description: OK
       tags:
       - prom-rules-config-controller
+  /v1/config/model-rules-types/{type}:
+    get:
+      description: "Retrieves base, active, or custom model rules for the current\
+        \ tenant."
+      operationId: getModelRulesByType
+      parameters:
+      - explode: false
+        in: path
+        name: type
+        required: true
+        schema:
+          type: string
+        style: simple
+      - $ref: '#/components/parameters/TenantId'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModelRulesDto'
+            application/x-yml:
+              schema:
+                $ref: '#/components/schemas/ModelRulesDto'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/ModelRulesDto'
+          description: Successfully retrieved typed model rules
+      summary: "Get base, active, or custom model rules"
+      tags:
+      - Model Rules Configuration
   /v1/config/failure-rules:
     get:
       description: Retrieves Prometheus rule groups related to failures. Can be filtered
@@ -4640,6 +4670,7 @@ components:
           type: string
     ProductActivationDto:
       example:
+        createdAt: 2000-01-23T04:56:07.000+00:00
         product: appo11y
         enabled: true
       properties:
@@ -4650,6 +4681,9 @@ components:
           type: string
         enabled:
           type: boolean
+        createdAt:
+          format: date-time
+          type: string
       required:
       - enabled
       - product
@@ -5441,7 +5475,7 @@ components:
           type: string
         entityType:
           minLength: 1
-          pattern: Service|DataSource|Topic
+          pattern: Service|Database|Topic
           type: string
         signals:
           items:
@@ -15351,17 +15385,35 @@ components:
         labels:
           additionalProperties:
             type: string
+    AssertionSourceMetricLabelDto:
+      example:
+        op: op
+        label: label
+        value: value
+      properties:
+        label:
+          type: string
+        op:
+          type: string
+        value:
+          type: string
     AssertionSourceMetricResponseDto:
       example:
         metricName: metricName
         labels:
-          key: labels
+        - op: op
+          label: label
+          value: value
+        - op: op
+          label: label
+          value: value
       properties:
         metricName:
           type: string
         labels:
-          additionalProperties:
-            type: string
+          items:
+            $ref: '#/components/schemas/AssertionSourceMetricLabelDto'
+          type: array
     AffectedEntityNamesDto:
       example:
         entityNames:

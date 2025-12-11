@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2025.11.24-113232
+API version: 2025.12.11-145809
 Contact: support@asserts.ai
 */
 
@@ -20,12 +20,12 @@ import (
 	"strings"
 )
 
-// CustomModelRulesConfigurationAPIService CustomModelRulesConfigurationAPI service
-type CustomModelRulesConfigurationAPIService service
+// ModelRulesConfigurationAPIService ModelRulesConfigurationAPI service
+type ModelRulesConfigurationAPIService service
 
 type ApiDeleteModelRulesRequest struct {
 	ctx         context.Context
-	ApiService  *CustomModelRulesConfigurationAPIService
+	ApiService  *ModelRulesConfigurationAPIService
 	name        string
 	xScopeOrgID *string
 }
@@ -41,15 +41,15 @@ func (r ApiDeleteModelRulesRequest) Execute() (*http.Response, error) {
 }
 
 /*
-DeleteModelRules Delete model rules by name
+DeleteModelRules Delete custom model rules by name
 
-Permanently deletes a specific model rules configuration by its name.
+Permanently deletes a specific custom model rules configuration by its name.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param name The name of the model rules configuration to delete
 	@return ApiDeleteModelRulesRequest
 */
-func (a *CustomModelRulesConfigurationAPIService) DeleteModelRules(ctx context.Context, name string) ApiDeleteModelRulesRequest {
+func (a *ModelRulesConfigurationAPIService) DeleteModelRules(ctx context.Context, name string) ApiDeleteModelRulesRequest {
 	return ApiDeleteModelRulesRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -58,14 +58,14 @@ func (a *CustomModelRulesConfigurationAPIService) DeleteModelRules(ctx context.C
 }
 
 // Execute executes the request
-func (a *CustomModelRulesConfigurationAPIService) DeleteModelRulesExecute(r ApiDeleteModelRulesRequest) (*http.Response, error) {
+func (a *ModelRulesConfigurationAPIService) DeleteModelRulesExecute(r ApiDeleteModelRulesRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomModelRulesConfigurationAPIService.DeleteModelRules")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ModelRulesConfigurationAPIService.DeleteModelRules")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -127,7 +127,7 @@ func (a *CustomModelRulesConfigurationAPIService) DeleteModelRulesExecute(r ApiD
 
 type ApiGetModelRulesRequest struct {
 	ctx         context.Context
-	ApiService  *CustomModelRulesConfigurationAPIService
+	ApiService  *ModelRulesConfigurationAPIService
 	name        string
 	xScopeOrgID *string
 }
@@ -143,15 +143,15 @@ func (r ApiGetModelRulesRequest) Execute() (*ModelRulesDto, *http.Response, erro
 }
 
 /*
-GetModelRules Get model rules by name
+GetModelRules Get custom model rules by name
 
-Retrieves a specific model rules configuration by its name.
+Retrieves a specific custom model rules configuration by its name.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param name The name of the model rules configuration to retrieve
 	@return ApiGetModelRulesRequest
 */
-func (a *CustomModelRulesConfigurationAPIService) GetModelRules(ctx context.Context, name string) ApiGetModelRulesRequest {
+func (a *ModelRulesConfigurationAPIService) GetModelRules(ctx context.Context, name string) ApiGetModelRulesRequest {
 	return ApiGetModelRulesRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -162,7 +162,7 @@ func (a *CustomModelRulesConfigurationAPIService) GetModelRules(ctx context.Cont
 // Execute executes the request
 //
 //	@return ModelRulesDto
-func (a *CustomModelRulesConfigurationAPIService) GetModelRulesExecute(r ApiGetModelRulesRequest) (*ModelRulesDto, *http.Response, error) {
+func (a *ModelRulesConfigurationAPIService) GetModelRulesExecute(r ApiGetModelRulesRequest) (*ModelRulesDto, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -170,7 +170,7 @@ func (a *CustomModelRulesConfigurationAPIService) GetModelRulesExecute(r ApiGetM
 		localVarReturnValue *ModelRulesDto
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomModelRulesConfigurationAPIService.GetModelRules")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ModelRulesConfigurationAPIService.GetModelRules")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -249,9 +249,123 @@ func (a *CustomModelRulesConfigurationAPIService) GetModelRulesExecute(r ApiGetM
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiGetModelRulesByTypeRequest struct {
+	ctx         context.Context
+	ApiService  *ModelRulesConfigurationAPIService
+	type_       string
+	xScopeOrgID *string
+}
+
+// Grafana Tenant/Stack ID
+func (r ApiGetModelRulesByTypeRequest) XScopeOrgID(xScopeOrgID string) ApiGetModelRulesByTypeRequest {
+	r.xScopeOrgID = &xScopeOrgID
+	return r
+}
+
+func (r ApiGetModelRulesByTypeRequest) Execute() (*ModelRulesDto, *http.Response, error) {
+	return r.ApiService.GetModelRulesByTypeExecute(r)
+}
+
+/*
+GetModelRulesByType Get base, active, or custom model rules
+
+Retrieves base, active, or custom model rules for the current tenant.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param type_
+	@return ApiGetModelRulesByTypeRequest
+*/
+func (a *ModelRulesConfigurationAPIService) GetModelRulesByType(ctx context.Context, type_ string) ApiGetModelRulesByTypeRequest {
+	return ApiGetModelRulesByTypeRequest{
+		ApiService: a,
+		ctx:        ctx,
+		type_:      type_,
+	}
+}
+
+// Execute executes the request
+//
+//	@return ModelRulesDto
+func (a *ModelRulesConfigurationAPIService) GetModelRulesByTypeExecute(r ApiGetModelRulesByTypeRequest) (*ModelRulesDto, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ModelRulesDto
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ModelRulesConfigurationAPIService.GetModelRulesByType")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/config/model-rules-types/{type}"
+	localVarPath = strings.Replace(localVarPath, "{"+"type"+"}", url.PathEscape(parameterValueToString(r.type_, "type_")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/x-yml", "application/x-yaml"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.xScopeOrgID != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Scope-OrgID", r.xScopeOrgID, "")
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiListModelRulesRequest struct {
 	ctx         context.Context
-	ApiService  *CustomModelRulesConfigurationAPIService
+	ApiService  *ModelRulesConfigurationAPIService
 	xScopeOrgID *string
 }
 
@@ -266,14 +380,14 @@ func (r ApiListModelRulesRequest) Execute() (*ModelRuleNamesDto, *http.Response,
 }
 
 /*
-ListModelRules List all model rule names
+ListModelRules List all custom model rule names
 
-Retrieves a list of all available model rule configuration names for the current tenant.
+Retrieves a list of all available custom model rule configuration names for the current tenant.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiListModelRulesRequest
 */
-func (a *CustomModelRulesConfigurationAPIService) ListModelRules(ctx context.Context) ApiListModelRulesRequest {
+func (a *ModelRulesConfigurationAPIService) ListModelRules(ctx context.Context) ApiListModelRulesRequest {
 	return ApiListModelRulesRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -283,7 +397,7 @@ func (a *CustomModelRulesConfigurationAPIService) ListModelRules(ctx context.Con
 // Execute executes the request
 //
 //	@return ModelRuleNamesDto
-func (a *CustomModelRulesConfigurationAPIService) ListModelRulesExecute(r ApiListModelRulesRequest) (*ModelRuleNamesDto, *http.Response, error) {
+func (a *ModelRulesConfigurationAPIService) ListModelRulesExecute(r ApiListModelRulesRequest) (*ModelRuleNamesDto, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -291,7 +405,7 @@ func (a *CustomModelRulesConfigurationAPIService) ListModelRulesExecute(r ApiLis
 		localVarReturnValue *ModelRuleNamesDto
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomModelRulesConfigurationAPIService.ListModelRules")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ModelRulesConfigurationAPIService.ListModelRules")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -361,7 +475,7 @@ func (a *CustomModelRulesConfigurationAPIService) ListModelRulesExecute(r ApiLis
 
 type ApiPutModelRulesRequest struct {
 	ctx           context.Context
-	ApiService    *CustomModelRulesConfigurationAPIService
+	ApiService    *ModelRulesConfigurationAPIService
 	modelRulesDto *ModelRulesDto
 	xScopeOrgID   *string
 }
@@ -382,14 +496,14 @@ func (r ApiPutModelRulesRequest) Execute() (*http.Response, error) {
 }
 
 /*
-PutModelRules Create or update model rules
+PutModelRules Create or update custom model rules
 
-Creates or updates model rules using the name specified in the request body.
+Creates or updates custom model rules using the name specified in the request body.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiPutModelRulesRequest
 */
-func (a *CustomModelRulesConfigurationAPIService) PutModelRules(ctx context.Context) ApiPutModelRulesRequest {
+func (a *ModelRulesConfigurationAPIService) PutModelRules(ctx context.Context) ApiPutModelRulesRequest {
 	return ApiPutModelRulesRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -397,14 +511,14 @@ func (a *CustomModelRulesConfigurationAPIService) PutModelRules(ctx context.Cont
 }
 
 // Execute executes the request
-func (a *CustomModelRulesConfigurationAPIService) PutModelRulesExecute(r ApiPutModelRulesRequest) (*http.Response, error) {
+func (a *ModelRulesConfigurationAPIService) PutModelRulesExecute(r ApiPutModelRulesRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPut
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomModelRulesConfigurationAPIService.PutModelRules")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ModelRulesConfigurationAPIService.PutModelRules")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -491,7 +605,7 @@ func (a *CustomModelRulesConfigurationAPIService) PutModelRulesExecute(r ApiPutM
 
 type ApiPutModelRules1Request struct {
 	ctx           context.Context
-	ApiService    *CustomModelRulesConfigurationAPIService
+	ApiService    *ModelRulesConfigurationAPIService
 	name          string
 	modelRulesDto *ModelRulesDto
 	xScopeOrgID   *string
@@ -513,15 +627,15 @@ func (r ApiPutModelRules1Request) Execute() (*http.Response, error) {
 }
 
 /*
-PutModelRules1 Create or update model rules by name
+PutModelRules1 Create or update custom model rules by name
 
-Creates or updates model rules with a specific name. If the dto also contains a name, it will be used instead (save as operation).
+Creates or updates custom model rules with a specific name. If the dto also contains a name, it will be used instead (save as operation).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param name The name of the model rules configuration
 	@return ApiPutModelRules1Request
 */
-func (a *CustomModelRulesConfigurationAPIService) PutModelRules1(ctx context.Context, name string) ApiPutModelRules1Request {
+func (a *ModelRulesConfigurationAPIService) PutModelRules1(ctx context.Context, name string) ApiPutModelRules1Request {
 	return ApiPutModelRules1Request{
 		ApiService: a,
 		ctx:        ctx,
@@ -530,14 +644,14 @@ func (a *CustomModelRulesConfigurationAPIService) PutModelRules1(ctx context.Con
 }
 
 // Execute executes the request
-func (a *CustomModelRulesConfigurationAPIService) PutModelRules1Execute(r ApiPutModelRules1Request) (*http.Response, error) {
+func (a *ModelRulesConfigurationAPIService) PutModelRules1Execute(r ApiPutModelRules1Request) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPut
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomModelRulesConfigurationAPIService.PutModelRules1")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ModelRulesConfigurationAPIService.PutModelRules1")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
