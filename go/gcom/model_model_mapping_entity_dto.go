@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2025.11.24-113232
+API version: 2025.12.11-145809
 Contact: support@asserts.ai
 */
 
@@ -21,7 +21,7 @@ var _ MappedNullable = &ModelMappingEntityDto{}
 // ModelMappingEntityDto struct for ModelMappingEntityDto
 type ModelMappingEntityDto struct {
 	Id                   *string                             `json:"id,omitempty"`
-	EntityType           string                              `json:"entityType" validate:"regexp=Service|DataSource|Topic"`
+	EntityType           string                              `json:"entityType" validate:"regexp=Service|Database|Topic"`
 	Signals              []ModelMappingEntityDtoSignalsInner `json:"signals"`
 	AdditionalProperties map[string]interface{}
 }

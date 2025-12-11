@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2025.11.24-113232
+API version: 2025.12.11-145809
 Contact: support@asserts.ai
 */
 
@@ -41,7 +41,7 @@ var (
 	queryDescape    = strings.NewReplacer("%5B", "[", "%5D", "]")
 )
 
-// APIClient manages communication with the Asserts, Inc API v2025.11.24-113232
+// APIClient manages communication with the Asserts, Inc API v2025.12.11-145809
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration
@@ -68,8 +68,6 @@ type APIClient struct {
 	ConfigExportImportControllerAPI *ConfigExportImportControllerAPIService
 
 	CustomDashConfigControllerAPI *CustomDashConfigControllerAPIService
-
-	CustomModelRulesConfigurationAPI *CustomModelRulesConfigurationAPIService
 
 	CustomerMetricControllerAPI *CustomerMetricControllerAPIService
 
@@ -106,6 +104,8 @@ type APIClient struct {
 	MimirRelabelRulesConfigControllerAPI *MimirRelabelRulesConfigControllerAPIService
 
 	ModelMappingControllerAPI *ModelMappingControllerAPIService
+
+	ModelRulesConfigurationAPI *ModelRulesConfigurationAPIService
 
 	MonitoringStatusControllerAPI *MonitoringStatusControllerAPIService
 
@@ -180,7 +180,6 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.AutoCompleteControllerAPI = (*AutoCompleteControllerAPIService)(&c.common)
 	c.ConfigExportImportControllerAPI = (*ConfigExportImportControllerAPIService)(&c.common)
 	c.CustomDashConfigControllerAPI = (*CustomDashConfigControllerAPIService)(&c.common)
-	c.CustomModelRulesConfigurationAPI = (*CustomModelRulesConfigurationAPIService)(&c.common)
 	c.CustomerMetricControllerAPI = (*CustomerMetricControllerAPIService)(&c.common)
 	c.DataSourcesConfigControllerAPI = (*DataSourcesConfigControllerAPIService)(&c.common)
 	c.DrilldownConfigMigrationControllerAPI = (*DrilldownConfigMigrationControllerAPIService)(&c.common)
@@ -199,6 +198,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.LogDrilldownConfigControllerAPI = (*LogDrilldownConfigControllerAPIService)(&c.common)
 	c.MimirRelabelRulesConfigControllerAPI = (*MimirRelabelRulesConfigControllerAPIService)(&c.common)
 	c.ModelMappingControllerAPI = (*ModelMappingControllerAPIService)(&c.common)
+	c.ModelRulesConfigurationAPI = (*ModelRulesConfigurationAPIService)(&c.common)
 	c.MonitoringStatusControllerAPI = (*MonitoringStatusControllerAPIService)(&c.common)
 	c.OtelConfigControllerAPI = (*OtelConfigControllerAPIService)(&c.common)
 	c.ProductActivationControllerAPI = (*ProductActivationControllerAPIService)(&c.common)
