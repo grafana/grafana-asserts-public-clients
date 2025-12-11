@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2025.11.24-113232
+API version: 2025.12.11-151055
 Contact: support@asserts.ai
 */
 
@@ -13,6 +13,7 @@ package gcom
 
 import (
 	"encoding/json"
+	"time"
 )
 
 // checks if the ProductActivationDto type satisfies the MappedNullable interface at compile time
@@ -20,8 +21,9 @@ var _ MappedNullable = &ProductActivationDto{}
 
 // ProductActivationDto struct for ProductActivationDto
 type ProductActivationDto struct {
-	Product              string `json:"product"`
-	Enabled              bool   `json:"enabled"`
+	Product              string     `json:"product"`
+	Enabled              bool       `json:"enabled"`
+	CreatedAt            *time.Time `json:"createdAt,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -94,6 +96,38 @@ func (o *ProductActivationDto) SetEnabled(v bool) {
 	o.Enabled = v
 }
 
+// GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
+func (o *ProductActivationDto) GetCreatedAt() time.Time {
+	if o == nil || IsNil(o.CreatedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.CreatedAt
+}
+
+// GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ProductActivationDto) GetCreatedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.CreatedAt) {
+		return nil, false
+	}
+	return o.CreatedAt, true
+}
+
+// HasCreatedAt returns a boolean if a field has been set.
+func (o *ProductActivationDto) HasCreatedAt() bool {
+	if o != nil && !IsNil(o.CreatedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetCreatedAt gets a reference to the given time.Time and assigns it to the CreatedAt field.
+func (o *ProductActivationDto) SetCreatedAt(v time.Time) {
+	o.CreatedAt = &v
+}
+
 func (o ProductActivationDto) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -106,6 +140,9 @@ func (o ProductActivationDto) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["product"] = o.Product
 	toSerialize["enabled"] = o.Enabled
+	if !IsNil(o.CreatedAt) {
+		toSerialize["createdAt"] = o.CreatedAt
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -138,6 +175,7 @@ func (o *ProductActivationDto) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "product")
 		delete(additionalProperties, "enabled")
+		delete(additionalProperties, "createdAt")
 		o.AdditionalProperties = additionalProperties
 	}
 

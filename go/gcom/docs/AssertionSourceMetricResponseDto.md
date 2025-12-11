@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **MetricName** | Pointer to **string** |  | [optional] 
-**Labels** | Pointer to **map[string]string** |  | [optional] 
+**Labels** | Pointer to [**[]AssertionSourceMetricLabelDto**](AssertionSourceMetricLabelDto.md) |  | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasMetricName returns a boolean if a field has been set.
 
 ### GetLabels
 
-`func (o *AssertionSourceMetricResponseDto) GetLabels() map[string]string`
+`func (o *AssertionSourceMetricResponseDto) GetLabels() []AssertionSourceMetricLabelDto`
 
 GetLabels returns the Labels field if non-nil, zero value otherwise.
 
 ### GetLabelsOk
 
-`func (o *AssertionSourceMetricResponseDto) GetLabelsOk() (*map[string]string, bool)`
+`func (o *AssertionSourceMetricResponseDto) GetLabelsOk() (*[]AssertionSourceMetricLabelDto, bool)`
 
 GetLabelsOk returns a tuple with the Labels field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLabels
 
-`func (o *AssertionSourceMetricResponseDto) SetLabels(v map[string]string)`
+`func (o *AssertionSourceMetricResponseDto) SetLabels(v []AssertionSourceMetricLabelDto)`
 
 SetLabels sets Labels field to given value.
 
