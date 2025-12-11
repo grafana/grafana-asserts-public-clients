@@ -13,7 +13,6 @@ api_assertion_search_controller.go
 api_auto_complete_controller.go
 api_config_export_import_controller.go
 api_custom_dash_config_controller.go
-api_custom_model_rules_configuration.go
 api_customer_metric_controller.go
 api_data_sources_config_controller.go
 api_drilldown_config_migration_controller.go
@@ -32,6 +31,7 @@ api_log_config_controller.go
 api_log_drilldown_config_controller.go
 api_mimir_relabel_rules_config_controller.go
 api_model_mapping_controller.go
+api_model_rules_configuration.go
 api_monitoring_status_controller.go
 api_otel_config_controller.go
 api_product_activation_controller.go
@@ -110,6 +110,7 @@ docs/AssertionScoreRequestDto.md
 docs/AssertionScoresDto.md
 docs/AssertionSearchControllerAPI.md
 docs/AssertionSearchRequestDto.md
+docs/AssertionSourceMetricLabelDto.md
 docs/AssertionSourceMetricRequestDto.md
 docs/AssertionSourceMetricResponseDto.md
 docs/AssertionStateDto.md
@@ -127,7 +128,6 @@ docs/CustomDashConfigControllerAPI.md
 docs/CustomDashConfigDto.md
 docs/CustomDashConfigsDto.md
 docs/CustomKpiDashConfigDto.md
-docs/CustomModelRulesConfigurationAPI.md
 docs/CustomerMetricControllerAPI.md
 docs/CustomerMetricRequestDto.md
 docs/CustomerMetricResponseDto.md
@@ -247,6 +247,7 @@ docs/ModelMappingRequestRateDto.md
 docs/ModelMappingSignalDto.md
 docs/ModelMappingSignalFilterDto.md
 docs/ModelRuleNamesDto.md
+docs/ModelRulesConfigurationAPI.md
 docs/ModelRulesDto.md
 docs/MonitoringStatusControllerAPI.md
 docs/MonitoringStatusRequestDto.md
@@ -417,6 +418,7 @@ model_assertion_rollup_dto.go
 model_assertion_score_request_dto.go
 model_assertion_scores_dto.go
 model_assertion_search_request_dto.go
+model_assertion_source_metric_label_dto.go
 model_assertion_source_metric_request_dto.go
 model_assertion_source_metric_response_dto.go
 model_assertion_state_dto.go
@@ -641,7 +643,6 @@ test/api_assertion_search_controller_test.go
 test/api_auto_complete_controller_test.go
 test/api_config_export_import_controller_test.go
 test/api_custom_dash_config_controller_test.go
-test/api_custom_model_rules_configuration_test.go
 test/api_customer_metric_controller_test.go
 test/api_data_sources_config_controller_test.go
 test/api_drilldown_config_migration_controller_test.go
@@ -660,6 +661,7 @@ test/api_log_config_controller_test.go
 test/api_log_drilldown_config_controller_test.go
 test/api_mimir_relabel_rules_config_controller_test.go
 test/api_model_mapping_controller_test.go
+test/api_model_rules_configuration_test.go
 test/api_monitoring_status_controller_test.go
 test/api_otel_config_controller_test.go
 test/api_product_activation_controller_test.go
