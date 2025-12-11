@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2025.11.24-113232
+API version: 2025.12.11-151055
 Contact: support@asserts.ai
 */
 
@@ -20,8 +20,8 @@ var _ MappedNullable = &AssertionSourceMetricResponseDto{}
 
 // AssertionSourceMetricResponseDto struct for AssertionSourceMetricResponseDto
 type AssertionSourceMetricResponseDto struct {
-	MetricName           *string           `json:"metricName,omitempty"`
-	Labels               map[string]string `json:"labels,omitempty"`
+	MetricName           *string                         `json:"metricName,omitempty"`
+	Labels               []AssertionSourceMetricLabelDto `json:"labels,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -77,9 +77,9 @@ func (o *AssertionSourceMetricResponseDto) SetMetricName(v string) {
 }
 
 // GetLabels returns the Labels field value if set, zero value otherwise.
-func (o *AssertionSourceMetricResponseDto) GetLabels() map[string]string {
+func (o *AssertionSourceMetricResponseDto) GetLabels() []AssertionSourceMetricLabelDto {
 	if o == nil || IsNil(o.Labels) {
-		var ret map[string]string
+		var ret []AssertionSourceMetricLabelDto
 		return ret
 	}
 	return o.Labels
@@ -87,9 +87,9 @@ func (o *AssertionSourceMetricResponseDto) GetLabels() map[string]string {
 
 // GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AssertionSourceMetricResponseDto) GetLabelsOk() (map[string]string, bool) {
+func (o *AssertionSourceMetricResponseDto) GetLabelsOk() ([]AssertionSourceMetricLabelDto, bool) {
 	if o == nil || IsNil(o.Labels) {
-		return map[string]string{}, false
+		return nil, false
 	}
 	return o.Labels, true
 }
@@ -103,8 +103,8 @@ func (o *AssertionSourceMetricResponseDto) HasLabels() bool {
 	return false
 }
 
-// SetLabels gets a reference to the given map[string]string and assigns it to the Labels field.
-func (o *AssertionSourceMetricResponseDto) SetLabels(v map[string]string) {
+// SetLabels gets a reference to the given []AssertionSourceMetricLabelDto and assigns it to the Labels field.
+func (o *AssertionSourceMetricResponseDto) SetLabels(v []AssertionSourceMetricLabelDto) {
 	o.Labels = v
 }
 
