@@ -7,13 +7,13 @@ info:
     name: Support
     url: "https://www.grafana.com"
     email: support@asserts.ai
-  version: 2025.11.24-113232
+  version: 2025.12.11-145308
 servers:
   - url: http://localhost:8030/asserts/api-server
     description: Generated server url
 tags:
-  - name: Custom Model Rules Configuration
-    description: APIs for managing custom model rule configurations
+  - name: Model Rules Configuration
+    description: APIs for managing model rule configurations
   - name: Alert Configuration
     description: APIs for managing alert configurations
 paths:
@@ -333,16 +333,16 @@ paths:
   /v1/config/model-rules:
     get:
       tags:
-        - Custom Model Rules Configuration
-      summary: List all model rule names
-      description: Retrieves a list of all available model rule configuration names for the current tenant.
+        - Model Rules Configuration
+      summary: List all custom model rule names
+      description: Retrieves a list of all available custom model rule configuration names for the current tenant.
       operationId: listModelRules
       parameters:
         - in: header
           $ref: "#/components/parameters/TenantId"
       responses:
         "200":
-          description: Successfully retrieved list of model rule names
+          description: Successfully retrieved list of custom model rule names
           content:
             application/json:
               schema:
@@ -355,9 +355,9 @@ paths:
                 $ref: "#/components/schemas/ModelRuleNamesDto"
     put:
       tags:
-        - Custom Model Rules Configuration
-      summary: Create or update model rules
-      description: Creates or updates model rules using the name specified in the request body.
+        - Model Rules Configuration
+      summary: Create or update custom model rules
+      description: Creates or updates custom model rules using the name specified in the request body.
       operationId: putModelRules
       parameters:
         - in: header
@@ -376,7 +376,7 @@ paths:
         required: true
       responses:
         "200":
-          description: Successfully created or updated model rules
+          description: Successfully created or updated custom model rules
         "422":
           description: Invalid request data or validation failed
           content:
@@ -404,9 +404,9 @@ paths:
   /v1/config/model-rules/{name}:
     get:
       tags:
-        - Custom Model Rules Configuration
-      summary: Get model rules by name
-      description: Retrieves a specific model rules configuration by its name.
+        - Model Rules Configuration
+      summary: Get custom model rules by name
+      description: Retrieves a specific custom model rules configuration by its name.
       operationId: getModelRules
       parameters:
         - name: name
@@ -419,7 +419,7 @@ paths:
           $ref: "#/components/parameters/TenantId"
       responses:
         "200":
-          description: Successfully retrieved model rules
+          description: Successfully retrieved custom model rules
           content:
             application/json:
               schema:
@@ -431,7 +431,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/ModelRulesDto"
         "404":
-          description: Model rules not found
+          description: Custom model rules not found
           content:
             application/json:
               schema:
@@ -444,9 +444,9 @@ paths:
                 $ref: "#/components/schemas/ModelRulesDto"
     put:
       tags:
-        - Custom Model Rules Configuration
-      summary: Create or update model rules by name
-      description: "Creates or updates model rules with a specific name. If the dto also contains a name, it will be used instead (save as operation)."
+        - Model Rules Configuration
+      summary: Create or update custom model rules by name
+      description: "Creates or updates custom model rules with a specific name. If the dto also contains a name, it will be used instead (save as operation)."
       operationId: putModelRules_1
       parameters:
         - name: name
@@ -465,7 +465,7 @@ paths:
         required: true
       responses:
         "200":
-          description: Successfully created or updated model rules
+          description: Successfully created or updated custom model rules
         "422":
           description: Invalid request data or validation failed
           content:
@@ -492,9 +492,9 @@ paths:
                 $ref: "#/components/schemas/ApiError"
     delete:
       tags:
-        - Custom Model Rules Configuration
-      summary: Delete model rules by name
-      description: Permanently deletes a specific model rules configuration by its name.
+        - Model Rules Configuration
+      summary: Delete custom model rules by name
+      description: Permanently deletes a specific custom model rules configuration by its name.
       operationId: deleteModelRules
       parameters:
         - name: name
@@ -507,7 +507,7 @@ paths:
           $ref: "#/components/parameters/TenantId"
       responses:
         "204":
-          description: Successfully deleted model rules
+          description: Successfully deleted custom model rules
   /v1/config/model-mapping/{name}:
     get:
       tags:
@@ -3722,6 +3722,34 @@ paths:
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/DisabledRulesDto"
+  /v1/config/model-rules-types/{type}:
+    get:
+      tags:
+        - Model Rules Configuration
+      summary: "Get base, active, or custom model rules"
+      description: "Retrieves base, active, or custom model rules for the current tenant."
+      operationId: getModelRulesByType
+      parameters:
+        - name: type
+          in: path
+          required: true
+          schema:
+            type: string
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      responses:
+        "200":
+          description: Successfully retrieved typed model rules
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ModelRulesDto"
+            application/x-yml:
+              schema:
+                $ref: "#/components/schemas/ModelRulesDto"
+            application/x-yaml:
+              schema:
+                $ref: "#/components/schemas/ModelRulesDto"
   /v1/config/failure-rules:
     get:
       tags:
@@ -4408,6 +4436,9 @@ components:
             - k8so11y
         enabled:
           type: boolean
+        createdAt:
+          type: string
+          format: date-time
       required:
         - enabled
         - product
@@ -4719,7 +4750,7 @@ components:
         entityType:
           type: string
           minLength: 1
-          pattern: Service|DataSource|Topic
+          pattern: Service|Database|Topic
         signals:
           type: array
           items:
@@ -7685,15 +7716,24 @@ components:
           type: object
           additionalProperties:
             type: string
+    AssertionSourceMetricLabelDto:
+      type: object
+      properties:
+        label:
+          type: string
+        op:
+          type: string
+        value:
+          type: string
     AssertionSourceMetricResponseDto:
       type: object
       properties:
         metricName:
           type: string
         labels:
-          type: object
-          additionalProperties:
-            type: string
+          type: array
+          items:
+            $ref: "#/components/schemas/AssertionSourceMetricLabelDto"
     AffectedEntityNamesDto:
       type: object
       properties:
