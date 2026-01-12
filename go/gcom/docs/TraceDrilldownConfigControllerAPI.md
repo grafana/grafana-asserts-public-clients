@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**DeleteConfig**](TraceDrilldownConfigControllerAPI.md#DeleteConfig) | **Delete** /v2/config/trace/{name} | Delete trace drilldown configuration
 [**GetTenantTraceConfig**](TraceDrilldownConfigControllerAPI.md#GetTenantTraceConfig) | **Get** /v2/config/trace | Get tenant trace configuration
+[**ReorderTraceConfigPriorities**](TraceDrilldownConfigControllerAPI.md#ReorderTraceConfigPriorities) | **Put** /v2/config/trace/reorder | Reorder trace drilldown configuration priorities
 [**UpsertTraceDrilldownConfig**](TraceDrilldownConfigControllerAPI.md#UpsertTraceDrilldownConfig) | **Post** /v2/config/trace | Upsert trace drilldown configuration
 
 
@@ -140,6 +141,74 @@ No authorization required
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ReorderTraceConfigPriorities
+
+> TenantTraceConfigResponseDto ReorderTraceConfigPriorities(ctx).ReorderTraceConfigRequestDto(reorderTraceConfigRequestDto).XScopeOrgID(xScopeOrgID).Execute()
+
+Reorder trace drilldown configuration priorities
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/grafana/grafana-asserts-public-clients/go/gcom"
+)
+
+func main() {
+	reorderTraceConfigRequestDto := *openapiclient.NewReorderTraceConfigRequestDto([]openapiclient.TraceConfigPriorityDto{*openapiclient.NewTraceConfigPriorityDto()}) // ReorderTraceConfigRequestDto | 
+	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TraceDrilldownConfigControllerAPI.ReorderTraceConfigPriorities(context.Background()).ReorderTraceConfigRequestDto(reorderTraceConfigRequestDto).XScopeOrgID(xScopeOrgID).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TraceDrilldownConfigControllerAPI.ReorderTraceConfigPriorities``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ReorderTraceConfigPriorities`: TenantTraceConfigResponseDto
+	fmt.Fprintf(os.Stdout, "Response from `TraceDrilldownConfigControllerAPI.ReorderTraceConfigPriorities`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiReorderTraceConfigPrioritiesRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **reorderTraceConfigRequestDto** | [**ReorderTraceConfigRequestDto**](ReorderTraceConfigRequestDto.md) |  | 
+ **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
+
+### Return type
+
+[**TenantTraceConfigResponseDto**](TenantTraceConfigResponseDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json, application/x-yml, application/yaml
+- **Accept**: application/json, application/x-yml, application/yaml
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

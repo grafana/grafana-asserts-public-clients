@@ -48,6 +48,18 @@ func Test_gcom_LogDrilldownConfigControllerAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test LogDrilldownConfigControllerAPIService ReorderLogConfigPriorities", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		resp, httpRes, err := apiClient.LogDrilldownConfigControllerAPI.ReorderLogConfigPriorities(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test LogDrilldownConfigControllerAPIService UpsertLogDrilldownConfig", func(t *testing.T) {
 
 		t.Skip("skip test") // remove to run test

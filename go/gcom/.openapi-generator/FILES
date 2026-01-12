@@ -221,6 +221,7 @@ docs/LlmRcaSummaryReqDto.md
 docs/LlmRcaSummarySearchReqDto.md
 docs/LogConfigControllerAPI.md
 docs/LogConfigDto.md
+docs/LogConfigPriorityDto.md
 docs/LogDrilldownConfigControllerAPI.md
 docs/LogDrilldownConfigDto.md
 docs/MetricDto.md
@@ -257,6 +258,7 @@ docs/OtelCollectorConfigDto.md
 docs/OtelConfigControllerAPI.md
 docs/ProductActivationControllerAPI.md
 docs/ProductActivationDto.md
+docs/ProfileConfigPriorityDto.md
 docs/ProfileDrilldownConfigControllerAPI.md
 docs/ProfileDrilldownConfigDto.md
 docs/PromQlValidationControllerAPI.md
@@ -278,6 +280,9 @@ docs/RcaPatternSearchResponseDto.md
 docs/RecordingRuleControllerAPI.md
 docs/RelationRuleDto.md
 docs/RelationRuleDtoDefinedBy.md
+docs/ReorderConfigRequestDto.md
+docs/ReorderLogConfigRequestDto.md
+docs/ReorderTraceConfigRequestDto.md
 docs/RequestSliConfigDto.md
 docs/RequestThresholdV2Dto.md
 docs/ResourceThresholdV2Dto.md
@@ -353,6 +358,7 @@ docs/TimeCriteriaDto.md
 docs/TimeWindowDto.md
 docs/TraceConfigControllerAPI.md
 docs/TraceConfigDto.md
+docs/TraceConfigPriorityDto.md
 docs/TraceControllerAPI.md
 docs/TraceDrilldownConfigControllerAPI.md
 docs/TraceDrilldownConfigDto.md
@@ -511,6 +517,7 @@ model_llm_rca_summaries_dto.go
 model_llm_rca_summary_req_dto.go
 model_llm_rca_summary_search_req_dto.go
 model_log_config_dto.go
+model_log_config_priority_dto.go
 model_log_drilldown_config_dto.go
 model_metric_dto.go
 model_metric_sanity_check_dto.go
@@ -540,6 +547,7 @@ model_monitoring_status_response_dto.go
 model_occurrence_sli_config_dto.go
 model_otel_collector_config_dto.go
 model_product_activation_dto.go
+model_profile_config_priority_dto.go
 model_profile_drilldown_config_dto.go
 model_prometheus_rule.go
 model_prometheus_rule_annotations.go
@@ -556,6 +564,9 @@ model_rca_pattern_search_request_dto.go
 model_rca_pattern_search_response_dto.go
 model_relation_rule_dto.go
 model_relation_rule_dto_defined_by.go
+model_reorder_config_request_dto.go
+model_reorder_log_config_request_dto.go
+model_reorder_trace_config_request_dto.go
 model_request_sli_config_dto.go
 model_request_threshold_v2_dto.go
 model_resource_threshold_v2_dto.go
@@ -619,6 +630,7 @@ model_thresholds_v2_dto.go
 model_time_criteria_dto.go
 model_time_window_dto.go
 model_trace_config_dto.go
+model_trace_config_priority_dto.go
 model_trace_drilldown_config_dto.go
 model_trace_env_config_dto.go
 model_trace_env_config_response_dto.go

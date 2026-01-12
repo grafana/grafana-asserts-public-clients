@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**DeleteConfig1**](ProfileDrilldownConfigControllerAPI.md#DeleteConfig1) | **Delete** /v2/config/profile/{name} | Delete profile drilldown configuration
 [**GetTenantProfileConfig**](ProfileDrilldownConfigControllerAPI.md#GetTenantProfileConfig) | **Get** /v2/config/profile | Get tenant profile configuration
+[**ReorderProfileConfigPriorities**](ProfileDrilldownConfigControllerAPI.md#ReorderProfileConfigPriorities) | **Put** /v2/config/profile/reorder | Reorder profile drilldown configuration priorities
 [**UpsertProfileDrilldownConfig**](ProfileDrilldownConfigControllerAPI.md#UpsertProfileDrilldownConfig) | **Post** /v2/config/profile | Upsert profile drilldown configuration
 
 
@@ -140,6 +141,74 @@ No authorization required
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ReorderProfileConfigPriorities
+
+> TenantProfileConfigResponseDto ReorderProfileConfigPriorities(ctx).ReorderConfigRequestDto(reorderConfigRequestDto).XScopeOrgID(xScopeOrgID).Execute()
+
+Reorder profile drilldown configuration priorities
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/grafana/grafana-asserts-public-clients/go/gcom"
+)
+
+func main() {
+	reorderConfigRequestDto := *openapiclient.NewReorderConfigRequestDto([]openapiclient.ProfileConfigPriorityDto{*openapiclient.NewProfileConfigPriorityDto()}) // ReorderConfigRequestDto | 
+	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ProfileDrilldownConfigControllerAPI.ReorderProfileConfigPriorities(context.Background()).ReorderConfigRequestDto(reorderConfigRequestDto).XScopeOrgID(xScopeOrgID).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ProfileDrilldownConfigControllerAPI.ReorderProfileConfigPriorities``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ReorderProfileConfigPriorities`: TenantProfileConfigResponseDto
+	fmt.Fprintf(os.Stdout, "Response from `ProfileDrilldownConfigControllerAPI.ReorderProfileConfigPriorities`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiReorderProfileConfigPrioritiesRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **reorderConfigRequestDto** | [**ReorderConfigRequestDto**](ReorderConfigRequestDto.md) |  | 
+ **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
+
+### Return type
+
+[**TenantProfileConfigResponseDto**](TenantProfileConfigResponseDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json, application/x-yml, application/yaml
+- **Accept**: application/json, application/x-yml, application/yaml
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

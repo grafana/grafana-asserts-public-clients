@@ -7,7 +7,7 @@ info:
   description: Asserts Public API
   termsOfService: https://www.asserts.ai/terms-of-service
   title: "Asserts, Inc"
-  version: 2025.12.11-145308
+  version: 2026.01.12-112015
 servers:
 - description: Generated server url
   url: http://localhost:8030/asserts/api-server
@@ -53,6 +53,53 @@ paths:
           description: OK
       tags:
       - stack-controller
+  /v2/config/trace/reorder:
+    put:
+      description: Accepts a list of trace drilldown configuration names and their
+        new priorities to reorder the configurations for the tenant
+      operationId: reorderTraceConfigPriorities
+      parameters:
+      - $ref: '#/components/parameters/TenantId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReorderTraceConfigRequestDto'
+          application/x-yml:
+            schema:
+              $ref: '#/components/schemas/ReorderTraceConfigRequestDto'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/ReorderTraceConfigRequestDto'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TenantTraceConfigResponseDto'
+            application/x-yml:
+              schema:
+                $ref: '#/components/schemas/TenantTraceConfigResponseDto'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/TenantTraceConfigResponseDto'
+          description: Configuration priorities updated successfully
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Invalid configuration data
+      summary: Reorder trace drilldown configuration priorities
+      tags:
+      - trace-drilldown-config-controller
   /v2/config/relabel-rules/prologue:
     delete:
       operationId: deletePrologueRelabelRules
@@ -153,6 +200,100 @@ paths:
           description: OK
       tags:
       - mimir-relabel-rules-config-controller
+  /v2/config/profile/reorder:
+    put:
+      description: Accepts a list of profile drilldown configuration names and their
+        new priorities to reorder the configurations for the tenant
+      operationId: reorderProfileConfigPriorities
+      parameters:
+      - $ref: '#/components/parameters/TenantId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReorderConfigRequestDto'
+          application/x-yml:
+            schema:
+              $ref: '#/components/schemas/ReorderConfigRequestDto'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/ReorderConfigRequestDto'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TenantProfileConfigResponseDto'
+            application/x-yml:
+              schema:
+                $ref: '#/components/schemas/TenantProfileConfigResponseDto'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/TenantProfileConfigResponseDto'
+          description: Configuration priorities updated successfully
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Invalid configuration data
+      summary: Reorder profile drilldown configuration priorities
+      tags:
+      - profile-drilldown-config-controller
+  /v2/config/log/reorder:
+    put:
+      description: Accepts a list of log drilldown configuration names and their new
+        priorities to reorder the configurations for the tenant
+      operationId: reorderLogConfigPriorities
+      parameters:
+      - $ref: '#/components/parameters/TenantId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReorderLogConfigRequestDto'
+          application/x-yml:
+            schema:
+              $ref: '#/components/schemas/ReorderLogConfigRequestDto'
+          application/x-yaml:
+            schema:
+              $ref: '#/components/schemas/ReorderLogConfigRequestDto'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TenantLogConfigResponseDto'
+            application/x-yml:
+              schema:
+                $ref: '#/components/schemas/TenantLogConfigResponseDto'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/TenantLogConfigResponseDto'
+          description: Configuration priorities updated successfully
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Invalid configuration data
+      summary: Reorder log drilldown configuration priorities
+      tags:
+      - log-drilldown-config-controller
   /v1/stack:
     get:
       operationId: getStackDetail
@@ -4445,6 +4586,277 @@ components:
           items:
             $ref: '#/components/schemas/DatasetSanityCheckResultDto'
           type: array
+    ApiError:
+      example:
+        trace_id: trace_id
+        span_id: span_id
+        requestId: requestId
+        debugMessage: debugMessage
+        message: message
+        status:
+          is4xxClientError: true
+          is5xxServerError: true
+          is2xxSuccessful: true
+          error: true
+          is3xxRedirection: true
+          is1xxInformational: true
+        timestamp: 6
+        subErrors:
+        - message: message
+        - message: message
+      properties:
+        status:
+          $ref: '#/components/schemas/ApiError_status'
+        requestId:
+          type: string
+        timestamp:
+          format: int64
+          type: integer
+        message:
+          type: string
+        debugMessage:
+          type: string
+        subErrors:
+          items:
+            $ref: '#/components/schemas/ApiError_subErrors_inner'
+          type: array
+        trace_id:
+          type: string
+        span_id:
+          type: string
+    ApiSubError:
+      example:
+        message: message
+      properties:
+        message:
+          type: string
+    ApiValidationError:
+      allOf:
+      - $ref: '#/components/schemas/ApiSubError'
+      - properties:
+          field:
+            type: string
+          rejectedValue: {}
+    DefaultHttpStatusCode:
+      allOf:
+      - $ref: '#/components/schemas/HttpStatusCode'
+      example:
+        is4xxClientError: true
+        is5xxServerError: true
+        is2xxSuccessful: true
+        error: true
+        is3xxRedirection: true
+        is1xxInformational: true
+    HttpStatus:
+      enum:
+      - 100 CONTINUE
+      - 101 SWITCHING_PROTOCOLS
+      - 102 PROCESSING
+      - 103 EARLY_HINTS
+      - 103 CHECKPOINT
+      - 200 OK
+      - 201 CREATED
+      - 202 ACCEPTED
+      - 203 NON_AUTHORITATIVE_INFORMATION
+      - 204 NO_CONTENT
+      - 205 RESET_CONTENT
+      - 206 PARTIAL_CONTENT
+      - 207 MULTI_STATUS
+      - 208 ALREADY_REPORTED
+      - 226 IM_USED
+      - 300 MULTIPLE_CHOICES
+      - 301 MOVED_PERMANENTLY
+      - 302 FOUND
+      - 302 MOVED_TEMPORARILY
+      - 303 SEE_OTHER
+      - 304 NOT_MODIFIED
+      - 305 USE_PROXY
+      - 307 TEMPORARY_REDIRECT
+      - 308 PERMANENT_REDIRECT
+      - 400 BAD_REQUEST
+      - 401 UNAUTHORIZED
+      - 402 PAYMENT_REQUIRED
+      - 403 FORBIDDEN
+      - 404 NOT_FOUND
+      - 405 METHOD_NOT_ALLOWED
+      - 406 NOT_ACCEPTABLE
+      - 407 PROXY_AUTHENTICATION_REQUIRED
+      - 408 REQUEST_TIMEOUT
+      - 409 CONFLICT
+      - 410 GONE
+      - 411 LENGTH_REQUIRED
+      - 412 PRECONDITION_FAILED
+      - 413 PAYLOAD_TOO_LARGE
+      - 413 REQUEST_ENTITY_TOO_LARGE
+      - 414 URI_TOO_LONG
+      - 414 REQUEST_URI_TOO_LONG
+      - 415 UNSUPPORTED_MEDIA_TYPE
+      - 416 REQUESTED_RANGE_NOT_SATISFIABLE
+      - 417 EXPECTATION_FAILED
+      - 418 I_AM_A_TEAPOT
+      - 419 INSUFFICIENT_SPACE_ON_RESOURCE
+      - 420 METHOD_FAILURE
+      - 421 DESTINATION_LOCKED
+      - 422 UNPROCESSABLE_ENTITY
+      - 423 LOCKED
+      - 424 FAILED_DEPENDENCY
+      - 425 TOO_EARLY
+      - 426 UPGRADE_REQUIRED
+      - 428 PRECONDITION_REQUIRED
+      - 429 TOO_MANY_REQUESTS
+      - 431 REQUEST_HEADER_FIELDS_TOO_LARGE
+      - 451 UNAVAILABLE_FOR_LEGAL_REASONS
+      - 500 INTERNAL_SERVER_ERROR
+      - 501 NOT_IMPLEMENTED
+      - 502 BAD_GATEWAY
+      - 503 SERVICE_UNAVAILABLE
+      - 504 GATEWAY_TIMEOUT
+      - 505 HTTP_VERSION_NOT_SUPPORTED
+      - 506 VARIANT_ALSO_NEGOTIATES
+      - 507 INSUFFICIENT_STORAGE
+      - 508 LOOP_DETECTED
+      - 509 BANDWIDTH_LIMIT_EXCEEDED
+      - 510 NOT_EXTENDED
+      - 511 NETWORK_AUTHENTICATION_REQUIRED
+      type: string
+    HttpStatusCode:
+      properties:
+        error:
+          type: boolean
+        is5xxServerError:
+          type: boolean
+        is2xxSuccessful:
+          type: boolean
+        is4xxClientError:
+          type: boolean
+        is1xxInformational:
+          type: boolean
+        is3xxRedirection:
+          type: boolean
+    ReorderTraceConfigRequestDto:
+      description: Trace drilldown configuration priority data
+      example:
+        orderedConfigs:
+        - name: name
+          priority: 0
+        - name: name
+          priority: 0
+      properties:
+        orderedConfigs:
+          items:
+            $ref: '#/components/schemas/TraceConfigPriorityDto'
+          type: array
+      required:
+      - orderedConfigs
+    TraceConfigPriorityDto:
+      example:
+        name: name
+        priority: 0
+      properties:
+        name:
+          type: string
+        priority:
+          format: int32
+          type: integer
+    PropertyMatchEntryDto:
+      example:
+        op: op
+        values:
+        - values
+        - values
+        property: property
+      properties:
+        property:
+          type: string
+        op:
+          type: string
+        values:
+          items:
+            type: string
+          type: array
+    TenantTraceConfigResponseDto:
+      example:
+        traceDrilldownConfigs:
+        - dataSourceUid: dataSourceUid
+          entityPropertyToTraceLabelMapping:
+            key: entityPropertyToTraceLabelMapping
+          managedBy: managedBy
+          defaultConfig: true
+          name: name
+          match:
+          - op: op
+            values:
+            - values
+            - values
+            property: property
+          - op: op
+            values:
+            - values
+            - values
+            property: property
+          priority: 0
+        - dataSourceUid: dataSourceUid
+          entityPropertyToTraceLabelMapping:
+            key: entityPropertyToTraceLabelMapping
+          managedBy: managedBy
+          defaultConfig: true
+          name: name
+          match:
+          - op: op
+            values:
+            - values
+            - values
+            property: property
+          - op: op
+            values:
+            - values
+            - values
+            property: property
+          priority: 0
+      properties:
+        traceDrilldownConfigs:
+          items:
+            $ref: '#/components/schemas/TraceDrilldownConfigDto'
+          type: array
+    TraceDrilldownConfigDto:
+      example:
+        dataSourceUid: dataSourceUid
+        entityPropertyToTraceLabelMapping:
+          key: entityPropertyToTraceLabelMapping
+        managedBy: managedBy
+        defaultConfig: true
+        name: name
+        match:
+        - op: op
+          values:
+          - values
+          - values
+          property: property
+        - op: op
+          values:
+          - values
+          - values
+          property: property
+        priority: 0
+      properties:
+        name:
+          type: string
+        priority:
+          format: int32
+          type: integer
+        match:
+          items:
+            $ref: '#/components/schemas/PropertyMatchEntryDto'
+          type: array
+        defaultConfig:
+          type: boolean
+        dataSourceUid:
+          type: string
+        entityPropertyToTraceLabelMapping:
+          additionalProperties:
+            type: string
+        managedBy:
+          type: string
     MimirRelabelRuleDto:
       example:
         drop: true
@@ -4531,6 +4943,237 @@ components:
         rules:
           items:
             $ref: '#/components/schemas/MimirRelabelRuleDto'
+          type: array
+    ProfileConfigPriorityDto:
+      example:
+        name: name
+        priority: 0
+      properties:
+        name:
+          type: string
+        priority:
+          format: int32
+          type: integer
+    ReorderConfigRequestDto:
+      description: Profile drilldown configuration data
+      example:
+        orderedConfigs:
+        - name: name
+          priority: 0
+        - name: name
+          priority: 0
+      properties:
+        orderedConfigs:
+          items:
+            $ref: '#/components/schemas/ProfileConfigPriorityDto'
+          type: array
+      required:
+      - orderedConfigs
+    ProfileDrilldownConfigDto:
+      example:
+        entityPropertyToProfileLabelMapping:
+          key: entityPropertyToProfileLabelMapping
+        dataSourceUid: dataSourceUid
+        managedBy: managedBy
+        defaultConfig: true
+        name: name
+        match:
+        - op: op
+          values:
+          - values
+          - values
+          property: property
+        - op: op
+          values:
+          - values
+          - values
+          property: property
+        priority: 0
+      properties:
+        name:
+          type: string
+        priority:
+          format: int32
+          type: integer
+        match:
+          items:
+            $ref: '#/components/schemas/PropertyMatchEntryDto'
+          type: array
+        defaultConfig:
+          type: boolean
+        dataSourceUid:
+          type: string
+        entityPropertyToProfileLabelMapping:
+          additionalProperties:
+            type: string
+        managedBy:
+          type: string
+    TenantProfileConfigResponseDto:
+      example:
+        profileDrilldownConfigs:
+        - entityPropertyToProfileLabelMapping:
+            key: entityPropertyToProfileLabelMapping
+          dataSourceUid: dataSourceUid
+          managedBy: managedBy
+          defaultConfig: true
+          name: name
+          match:
+          - op: op
+            values:
+            - values
+            - values
+            property: property
+          - op: op
+            values:
+            - values
+            - values
+            property: property
+          priority: 0
+        - entityPropertyToProfileLabelMapping:
+            key: entityPropertyToProfileLabelMapping
+          dataSourceUid: dataSourceUid
+          managedBy: managedBy
+          defaultConfig: true
+          name: name
+          match:
+          - op: op
+            values:
+            - values
+            - values
+            property: property
+          - op: op
+            values:
+            - values
+            - values
+            property: property
+          priority: 0
+      properties:
+        profileDrilldownConfigs:
+          items:
+            $ref: '#/components/schemas/ProfileDrilldownConfigDto'
+          type: array
+    LogConfigPriorityDto:
+      example:
+        name: name
+        priority: 0
+      properties:
+        name:
+          type: string
+        priority:
+          format: int32
+          type: integer
+    ReorderLogConfigRequestDto:
+      description: Log drilldown configuration priority data
+      example:
+        orderedConfigs:
+        - name: name
+          priority: 0
+        - name: name
+          priority: 0
+      properties:
+        orderedConfigs:
+          items:
+            $ref: '#/components/schemas/LogConfigPriorityDto'
+          type: array
+      required:
+      - orderedConfigs
+    LogDrilldownConfigDto:
+      example:
+        dataSourceUid: dataSourceUid
+        filterByTraceId: true
+        managedBy: managedBy
+        defaultConfig: true
+        name: name
+        match:
+        - op: op
+          values:
+          - values
+          - values
+          property: property
+        - op: op
+          values:
+          - values
+          - values
+          property: property
+        entityPropertyToLogLabelMapping:
+          key: entityPropertyToLogLabelMapping
+        priority: 0
+        errorLabel: errorLabel
+        filterBySpanId: true
+      properties:
+        name:
+          type: string
+        priority:
+          format: int32
+          type: integer
+        match:
+          items:
+            $ref: '#/components/schemas/PropertyMatchEntryDto'
+          type: array
+        defaultConfig:
+          type: boolean
+        dataSourceUid:
+          type: string
+        errorLabel:
+          type: string
+        entityPropertyToLogLabelMapping:
+          additionalProperties:
+            type: string
+        filterBySpanId:
+          type: boolean
+        filterByTraceId:
+          type: boolean
+        managedBy:
+          type: string
+    TenantLogConfigResponseDto:
+      example:
+        logDrilldownConfigs:
+        - dataSourceUid: dataSourceUid
+          filterByTraceId: true
+          managedBy: managedBy
+          defaultConfig: true
+          name: name
+          match:
+          - op: op
+            values:
+            - values
+            - values
+            property: property
+          - op: op
+            values:
+            - values
+            - values
+            property: property
+          entityPropertyToLogLabelMapping:
+            key: entityPropertyToLogLabelMapping
+          priority: 0
+          errorLabel: errorLabel
+          filterBySpanId: true
+        - dataSourceUid: dataSourceUid
+          filterByTraceId: true
+          managedBy: managedBy
+          defaultConfig: true
+          name: name
+          match:
+          - op: op
+            values:
+            - values
+            - values
+            property: property
+          - op: op
+            values:
+            - values
+            - values
+            property: property
+          entityPropertyToLogLabelMapping:
+            key: entityPropertyToLogLabelMapping
+          priority: 0
+          errorLabel: errorLabel
+          filterBySpanId: true
+      properties:
+        logDrilldownConfigs:
+          items:
+            $ref: '#/components/schemas/LogDrilldownConfigDto'
           type: array
     EntityMatcherDto:
       example:
@@ -4831,153 +5474,6 @@ components:
           type: array
         managedBy:
           type: string
-    ApiError:
-      example:
-        trace_id: trace_id
-        span_id: span_id
-        requestId: requestId
-        debugMessage: debugMessage
-        message: message
-        status:
-          is4xxClientError: true
-          is5xxServerError: true
-          is2xxSuccessful: true
-          error: true
-          is3xxRedirection: true
-          is1xxInformational: true
-        timestamp: 0
-        subErrors:
-        - message: message
-        - message: message
-      properties:
-        status:
-          $ref: '#/components/schemas/ApiError_status'
-        requestId:
-          type: string
-        timestamp:
-          format: int64
-          type: integer
-        message:
-          type: string
-        debugMessage:
-          type: string
-        subErrors:
-          items:
-            $ref: '#/components/schemas/ApiError_subErrors_inner'
-          type: array
-        trace_id:
-          type: string
-        span_id:
-          type: string
-    ApiSubError:
-      example:
-        message: message
-      properties:
-        message:
-          type: string
-    ApiValidationError:
-      allOf:
-      - $ref: '#/components/schemas/ApiSubError'
-      - properties:
-          field:
-            type: string
-          rejectedValue: {}
-    DefaultHttpStatusCode:
-      allOf:
-      - $ref: '#/components/schemas/HttpStatusCode'
-      example:
-        is4xxClientError: true
-        is5xxServerError: true
-        is2xxSuccessful: true
-        error: true
-        is3xxRedirection: true
-        is1xxInformational: true
-    HttpStatus:
-      enum:
-      - 100 CONTINUE
-      - 101 SWITCHING_PROTOCOLS
-      - 102 PROCESSING
-      - 103 EARLY_HINTS
-      - 103 CHECKPOINT
-      - 200 OK
-      - 201 CREATED
-      - 202 ACCEPTED
-      - 203 NON_AUTHORITATIVE_INFORMATION
-      - 204 NO_CONTENT
-      - 205 RESET_CONTENT
-      - 206 PARTIAL_CONTENT
-      - 207 MULTI_STATUS
-      - 208 ALREADY_REPORTED
-      - 226 IM_USED
-      - 300 MULTIPLE_CHOICES
-      - 301 MOVED_PERMANENTLY
-      - 302 FOUND
-      - 302 MOVED_TEMPORARILY
-      - 303 SEE_OTHER
-      - 304 NOT_MODIFIED
-      - 305 USE_PROXY
-      - 307 TEMPORARY_REDIRECT
-      - 308 PERMANENT_REDIRECT
-      - 400 BAD_REQUEST
-      - 401 UNAUTHORIZED
-      - 402 PAYMENT_REQUIRED
-      - 403 FORBIDDEN
-      - 404 NOT_FOUND
-      - 405 METHOD_NOT_ALLOWED
-      - 406 NOT_ACCEPTABLE
-      - 407 PROXY_AUTHENTICATION_REQUIRED
-      - 408 REQUEST_TIMEOUT
-      - 409 CONFLICT
-      - 410 GONE
-      - 411 LENGTH_REQUIRED
-      - 412 PRECONDITION_FAILED
-      - 413 PAYLOAD_TOO_LARGE
-      - 413 REQUEST_ENTITY_TOO_LARGE
-      - 414 URI_TOO_LONG
-      - 414 REQUEST_URI_TOO_LONG
-      - 415 UNSUPPORTED_MEDIA_TYPE
-      - 416 REQUESTED_RANGE_NOT_SATISFIABLE
-      - 417 EXPECTATION_FAILED
-      - 418 I_AM_A_TEAPOT
-      - 419 INSUFFICIENT_SPACE_ON_RESOURCE
-      - 420 METHOD_FAILURE
-      - 421 DESTINATION_LOCKED
-      - 422 UNPROCESSABLE_ENTITY
-      - 423 LOCKED
-      - 424 FAILED_DEPENDENCY
-      - 425 TOO_EARLY
-      - 426 UPGRADE_REQUIRED
-      - 428 PRECONDITION_REQUIRED
-      - 429 TOO_MANY_REQUESTS
-      - 431 REQUEST_HEADER_FIELDS_TOO_LARGE
-      - 451 UNAVAILABLE_FOR_LEGAL_REASONS
-      - 500 INTERNAL_SERVER_ERROR
-      - 501 NOT_IMPLEMENTED
-      - 502 BAD_GATEWAY
-      - 503 SERVICE_UNAVAILABLE
-      - 504 GATEWAY_TIMEOUT
-      - 505 HTTP_VERSION_NOT_SUPPORTED
-      - 506 VARIANT_ALSO_NEGOTIATES
-      - 507 INSUFFICIENT_STORAGE
-      - 508 LOOP_DETECTED
-      - 509 BANDWIDTH_LIMIT_EXCEEDED
-      - 510 NOT_EXTENDED
-      - 511 NETWORK_AUTHENTICATION_REQUIRED
-      type: string
-    HttpStatusCode:
-      properties:
-        error:
-          type: boolean
-        is5xxServerError:
-          type: boolean
-        is2xxSuccessful:
-          type: boolean
-        is4xxClientError:
-          type: boolean
-        is1xxInformational:
-          type: boolean
-        is3xxRedirection:
-          type: boolean
     DefinedByDto:
       discriminator:
         propertyName: source
@@ -5797,61 +6293,6 @@ components:
           items:
             $ref: '#/components/schemas/LatencyThresholdDto'
           type: array
-    PropertyMatchEntryDto:
-      example:
-        op: op
-        values:
-        - values
-        - values
-        property: property
-      properties:
-        property:
-          type: string
-        op:
-          type: string
-        values:
-          items:
-            type: string
-          type: array
-    TraceDrilldownConfigDto:
-      example:
-        dataSourceUid: dataSourceUid
-        entityPropertyToTraceLabelMapping:
-          key: entityPropertyToTraceLabelMapping
-        managedBy: managedBy
-        defaultConfig: true
-        name: name
-        match:
-        - op: op
-          values:
-          - values
-          - values
-          property: property
-        - op: op
-          values:
-          - values
-          - values
-          property: property
-        priority: 0
-      properties:
-        name:
-          type: string
-        priority:
-          format: int32
-          type: integer
-        match:
-          items:
-            $ref: '#/components/schemas/PropertyMatchEntryDto'
-          type: array
-        defaultConfig:
-          type: boolean
-        dataSourceUid:
-          type: string
-        entityPropertyToTraceLabelMapping:
-          additionalProperties:
-            type: string
-        managedBy:
-          type: string
     HealthThresholdV2Dto:
       example:
         expression: expression
@@ -5971,93 +6412,6 @@ components:
           items:
             $ref: '#/components/schemas/HealthThresholdV2Dto'
           type: array
-    ProfileDrilldownConfigDto:
-      example:
-        entityPropertyToProfileLabelMapping:
-          key: entityPropertyToProfileLabelMapping
-        dataSourceUid: dataSourceUid
-        managedBy: managedBy
-        defaultConfig: true
-        name: name
-        match:
-        - op: op
-          values:
-          - values
-          - values
-          property: property
-        - op: op
-          values:
-          - values
-          - values
-          property: property
-        priority: 0
-      properties:
-        name:
-          type: string
-        priority:
-          format: int32
-          type: integer
-        match:
-          items:
-            $ref: '#/components/schemas/PropertyMatchEntryDto'
-          type: array
-        defaultConfig:
-          type: boolean
-        dataSourceUid:
-          type: string
-        entityPropertyToProfileLabelMapping:
-          additionalProperties:
-            type: string
-        managedBy:
-          type: string
-    LogDrilldownConfigDto:
-      example:
-        dataSourceUid: dataSourceUid
-        filterByTraceId: true
-        managedBy: managedBy
-        defaultConfig: true
-        name: name
-        match:
-        - op: op
-          values:
-          - values
-          - values
-          property: property
-        - op: op
-          values:
-          - values
-          - values
-          property: property
-        entityPropertyToLogLabelMapping:
-          key: entityPropertyToLogLabelMapping
-        priority: 0
-        errorLabel: errorLabel
-        filterBySpanId: true
-      properties:
-        name:
-          type: string
-        priority:
-          format: int32
-          type: integer
-        match:
-          items:
-            $ref: '#/components/schemas/PropertyMatchEntryDto'
-          type: array
-        defaultConfig:
-          type: boolean
-        dataSourceUid:
-          type: string
-        errorLabel:
-          type: string
-        entityPropertyToLogLabelMapping:
-          additionalProperties:
-            type: string
-        filterBySpanId:
-          type: boolean
-        filterByTraceId:
-          type: boolean
-        managedBy:
-          type: string
     DrilldownConfigMigrationDto:
       example:
         dryRun: true
@@ -16721,144 +17075,6 @@ components:
         items:
           items:
             $ref: '#/components/schemas/DatasetVendorDto'
-          type: array
-    TenantTraceConfigResponseDto:
-      example:
-        traceDrilldownConfigs:
-        - dataSourceUid: dataSourceUid
-          entityPropertyToTraceLabelMapping:
-            key: entityPropertyToTraceLabelMapping
-          managedBy: managedBy
-          defaultConfig: true
-          name: name
-          match:
-          - op: op
-            values:
-            - values
-            - values
-            property: property
-          - op: op
-            values:
-            - values
-            - values
-            property: property
-          priority: 0
-        - dataSourceUid: dataSourceUid
-          entityPropertyToTraceLabelMapping:
-            key: entityPropertyToTraceLabelMapping
-          managedBy: managedBy
-          defaultConfig: true
-          name: name
-          match:
-          - op: op
-            values:
-            - values
-            - values
-            property: property
-          - op: op
-            values:
-            - values
-            - values
-            property: property
-          priority: 0
-      properties:
-        traceDrilldownConfigs:
-          items:
-            $ref: '#/components/schemas/TraceDrilldownConfigDto'
-          type: array
-    TenantProfileConfigResponseDto:
-      example:
-        profileDrilldownConfigs:
-        - entityPropertyToProfileLabelMapping:
-            key: entityPropertyToProfileLabelMapping
-          dataSourceUid: dataSourceUid
-          managedBy: managedBy
-          defaultConfig: true
-          name: name
-          match:
-          - op: op
-            values:
-            - values
-            - values
-            property: property
-          - op: op
-            values:
-            - values
-            - values
-            property: property
-          priority: 0
-        - entityPropertyToProfileLabelMapping:
-            key: entityPropertyToProfileLabelMapping
-          dataSourceUid: dataSourceUid
-          managedBy: managedBy
-          defaultConfig: true
-          name: name
-          match:
-          - op: op
-            values:
-            - values
-            - values
-            property: property
-          - op: op
-            values:
-            - values
-            - values
-            property: property
-          priority: 0
-      properties:
-        profileDrilldownConfigs:
-          items:
-            $ref: '#/components/schemas/ProfileDrilldownConfigDto'
-          type: array
-    TenantLogConfigResponseDto:
-      example:
-        logDrilldownConfigs:
-        - dataSourceUid: dataSourceUid
-          filterByTraceId: true
-          managedBy: managedBy
-          defaultConfig: true
-          name: name
-          match:
-          - op: op
-            values:
-            - values
-            - values
-            property: property
-          - op: op
-            values:
-            - values
-            - values
-            property: property
-          entityPropertyToLogLabelMapping:
-            key: entityPropertyToLogLabelMapping
-          priority: 0
-          errorLabel: errorLabel
-          filterBySpanId: true
-        - dataSourceUid: dataSourceUid
-          filterByTraceId: true
-          managedBy: managedBy
-          defaultConfig: true
-          name: name
-          match:
-          - op: op
-            values:
-            - values
-            - values
-            property: property
-          - op: op
-            values:
-            - values
-            - values
-            property: property
-          entityPropertyToLogLabelMapping:
-            key: entityPropertyToLogLabelMapping
-          priority: 0
-          errorLabel: errorLabel
-          filterBySpanId: true
-      properties:
-        logDrilldownConfigs:
-          items:
-            $ref: '#/components/schemas/LogDrilldownConfigDto'
           type: array
     VersionDto:
       example:
