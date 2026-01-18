@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2025.12.11-145308
+API version: 2026.01.18-144604
 Contact: support@asserts.ai
 */
 
@@ -219,6 +219,137 @@ func (a *TraceDrilldownConfigControllerAPIService) GetTenantTraceConfigExecute(r
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiReorderTraceConfigPrioritiesRequest struct {
+	ctx                          context.Context
+	ApiService                   *TraceDrilldownConfigControllerAPIService
+	reorderTraceConfigRequestDto *ReorderTraceConfigRequestDto
+	xScopeOrgID                  *string
+}
+
+func (r ApiReorderTraceConfigPrioritiesRequest) ReorderTraceConfigRequestDto(reorderTraceConfigRequestDto ReorderTraceConfigRequestDto) ApiReorderTraceConfigPrioritiesRequest {
+	r.reorderTraceConfigRequestDto = &reorderTraceConfigRequestDto
+	return r
+}
+
+// Grafana Tenant/Stack ID
+func (r ApiReorderTraceConfigPrioritiesRequest) XScopeOrgID(xScopeOrgID string) ApiReorderTraceConfigPrioritiesRequest {
+	r.xScopeOrgID = &xScopeOrgID
+	return r
+}
+
+func (r ApiReorderTraceConfigPrioritiesRequest) Execute() (*TenantTraceConfigResponseDto, *http.Response, error) {
+	return r.ApiService.ReorderTraceConfigPrioritiesExecute(r)
+}
+
+/*
+ReorderTraceConfigPriorities Reorder trace drilldown configuration priorities
+
+Accepts a list of trace drilldown configuration names and their new priorities to reorder the configurations for the tenant
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiReorderTraceConfigPrioritiesRequest
+*/
+func (a *TraceDrilldownConfigControllerAPIService) ReorderTraceConfigPriorities(ctx context.Context) ApiReorderTraceConfigPrioritiesRequest {
+	return ApiReorderTraceConfigPrioritiesRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return TenantTraceConfigResponseDto
+func (a *TraceDrilldownConfigControllerAPIService) ReorderTraceConfigPrioritiesExecute(r ApiReorderTraceConfigPrioritiesRequest) (*TenantTraceConfigResponseDto, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TenantTraceConfigResponseDto
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TraceDrilldownConfigControllerAPIService.ReorderTraceConfigPriorities")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v2/config/trace/reorder"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.reorderTraceConfigRequestDto == nil {
+		return localVarReturnValue, nil, reportError("reorderTraceConfigRequestDto is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json", "application/x-yml", "application/yaml"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/x-yml", "application/yaml"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.xScopeOrgID != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Scope-OrgID", r.xScopeOrgID, "")
+	}
+	// body params
+	localVarPostBody = r.reorderTraceConfigRequestDto
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 422 {
+			var v ApiError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

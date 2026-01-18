@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Receiver** | Pointer to **string** |  | [optional] 
 **Match** | Pointer to **map[string]string** |  | [optional] 
 **Matchers** | Pointer to **[]string** |  | [optional] 
-**Routes** | Pointer to **[]interface{}** |  | [optional] 
+**Routes** | Pointer to [**[]AlertManagerRoute**](AlertManagerRoute.md) |  | [optional] 
 **GroupBy** | Pointer to **[]string** |  | [optional] 
 **Continue** | Pointer to **bool** |  | [optional] 
 **MatchRe** | Pointer to **map[string]string** |  | [optional] 
@@ -113,20 +113,20 @@ HasMatchers returns a boolean if a field has been set.
 
 ### GetRoutes
 
-`func (o *AlertManagerRoute) GetRoutes() []interface{}`
+`func (o *AlertManagerRoute) GetRoutes() []AlertManagerRoute`
 
 GetRoutes returns the Routes field if non-nil, zero value otherwise.
 
 ### GetRoutesOk
 
-`func (o *AlertManagerRoute) GetRoutesOk() (*[]interface{}, bool)`
+`func (o *AlertManagerRoute) GetRoutesOk() (*[]AlertManagerRoute, bool)`
 
 GetRoutesOk returns a tuple with the Routes field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRoutes
 
-`func (o *AlertManagerRoute) SetRoutes(v []interface{})`
+`func (o *AlertManagerRoute) SetRoutes(v []AlertManagerRoute)`
 
 SetRoutes sets Routes field to given value.
 

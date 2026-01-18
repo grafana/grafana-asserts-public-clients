@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2025.12.11-145308
+API version: 2026.01.18-144604
 Contact: support@asserts.ai
 */
 
@@ -32,6 +32,7 @@ type LlmRcaSummarySearchReqDto struct {
 	CurrentWBEntityCount                          *int32             `json:"currentWBEntityCount,omitempty"`
 	HideAssertionsPresentMoreThanPercentageOfTime *int32             `json:"hideAssertionsPresentMoreThanPercentageOfTime,omitempty"`
 	IncludeSuggestions                            *bool              `json:"includeSuggestions,omitempty"`
+	IncludeRcaPatterns                            *bool              `json:"includeRcaPatterns,omitempty"`
 	AdditionalProperties                          map[string]interface{}
 }
 
@@ -438,6 +439,38 @@ func (o *LlmRcaSummarySearchReqDto) SetIncludeSuggestions(v bool) {
 	o.IncludeSuggestions = &v
 }
 
+// GetIncludeRcaPatterns returns the IncludeRcaPatterns field value if set, zero value otherwise.
+func (o *LlmRcaSummarySearchReqDto) GetIncludeRcaPatterns() bool {
+	if o == nil || IsNil(o.IncludeRcaPatterns) {
+		var ret bool
+		return ret
+	}
+	return *o.IncludeRcaPatterns
+}
+
+// GetIncludeRcaPatternsOk returns a tuple with the IncludeRcaPatterns field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LlmRcaSummarySearchReqDto) GetIncludeRcaPatternsOk() (*bool, bool) {
+	if o == nil || IsNil(o.IncludeRcaPatterns) {
+		return nil, false
+	}
+	return o.IncludeRcaPatterns, true
+}
+
+// HasIncludeRcaPatterns returns a boolean if a field has been set.
+func (o *LlmRcaSummarySearchReqDto) HasIncludeRcaPatterns() bool {
+	if o != nil && !IsNil(o.IncludeRcaPatterns) {
+		return true
+	}
+
+	return false
+}
+
+// SetIncludeRcaPatterns gets a reference to the given bool and assigns it to the IncludeRcaPatterns field.
+func (o *LlmRcaSummarySearchReqDto) SetIncludeRcaPatterns(v bool) {
+	o.IncludeRcaPatterns = &v
+}
+
 func (o LlmRcaSummarySearchReqDto) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -484,6 +517,9 @@ func (o LlmRcaSummarySearchReqDto) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.IncludeSuggestions) {
 		toSerialize["includeSuggestions"] = o.IncludeSuggestions
 	}
+	if !IsNil(o.IncludeRcaPatterns) {
+		toSerialize["includeRcaPatterns"] = o.IncludeRcaPatterns
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -518,6 +554,7 @@ func (o *LlmRcaSummarySearchReqDto) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "currentWBEntityCount")
 		delete(additionalProperties, "hideAssertionsPresentMoreThanPercentageOfTime")
 		delete(additionalProperties, "includeSuggestions")
+		delete(additionalProperties, "includeRcaPatterns")
 		o.AdditionalProperties = additionalProperties
 	}
 

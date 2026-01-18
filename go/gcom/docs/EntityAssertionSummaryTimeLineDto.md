@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **AlertName** | Pointer to **string** |  | [optional] 
 **HealthStates** | Pointer to [**[]AssertionStateDto**](AssertionStateDto.md) |  | [optional] 
 **Labels** | Pointer to **[]map[string]string** |  | [optional] 
+**NestedSummaries** | Pointer to [**[]EntityAssertionSummaryTimeLineDto**](EntityAssertionSummaryTimeLineDto.md) |  | [optional] 
 
 ## Methods
 
@@ -153,6 +154,31 @@ SetLabels sets Labels field to given value.
 `func (o *EntityAssertionSummaryTimeLineDto) HasLabels() bool`
 
 HasLabels returns a boolean if a field has been set.
+
+### GetNestedSummaries
+
+`func (o *EntityAssertionSummaryTimeLineDto) GetNestedSummaries() []EntityAssertionSummaryTimeLineDto`
+
+GetNestedSummaries returns the NestedSummaries field if non-nil, zero value otherwise.
+
+### GetNestedSummariesOk
+
+`func (o *EntityAssertionSummaryTimeLineDto) GetNestedSummariesOk() (*[]EntityAssertionSummaryTimeLineDto, bool)`
+
+GetNestedSummariesOk returns a tuple with the NestedSummaries field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNestedSummaries
+
+`func (o *EntityAssertionSummaryTimeLineDto) SetNestedSummaries(v []EntityAssertionSummaryTimeLineDto)`
+
+SetNestedSummaries sets NestedSummaries field to given value.
+
+### HasNestedSummaries
+
+`func (o *EntityAssertionSummaryTimeLineDto) HasNestedSummaries() bool`
+
+HasNestedSummaries returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

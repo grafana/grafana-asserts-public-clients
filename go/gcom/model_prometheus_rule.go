@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2025.12.11-145308
+API version: 2026.01.18-144604
 Contact: support@asserts.ai
 */
 
@@ -24,7 +24,7 @@ type PrometheusRule struct {
 	Alert                *string                    `json:"alert,omitempty"`
 	Expr                 *string                    `json:"expr,omitempty"`
 	Annotations          *PrometheusRuleAnnotations `json:"annotations,omitempty"`
-	Labels               *PrometheusRuleAnnotations `json:"labels,omitempty"`
+	Labels               *ImmutableMapStringString  `json:"labels,omitempty"`
 	DisableInGroups      []string                   `json:"disableInGroups,omitempty"`
 	For                  *string                    `json:"for,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -178,9 +178,9 @@ func (o *PrometheusRule) SetAnnotations(v PrometheusRuleAnnotations) {
 }
 
 // GetLabels returns the Labels field value if set, zero value otherwise.
-func (o *PrometheusRule) GetLabels() PrometheusRuleAnnotations {
+func (o *PrometheusRule) GetLabels() ImmutableMapStringString {
 	if o == nil || IsNil(o.Labels) {
-		var ret PrometheusRuleAnnotations
+		var ret ImmutableMapStringString
 		return ret
 	}
 	return *o.Labels
@@ -188,7 +188,7 @@ func (o *PrometheusRule) GetLabels() PrometheusRuleAnnotations {
 
 // GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PrometheusRule) GetLabelsOk() (*PrometheusRuleAnnotations, bool) {
+func (o *PrometheusRule) GetLabelsOk() (*ImmutableMapStringString, bool) {
 	if o == nil || IsNil(o.Labels) {
 		return nil, false
 	}
@@ -204,8 +204,8 @@ func (o *PrometheusRule) HasLabels() bool {
 	return false
 }
 
-// SetLabels gets a reference to the given PrometheusRuleAnnotations and assigns it to the Labels field.
-func (o *PrometheusRule) SetLabels(v PrometheusRuleAnnotations) {
+// SetLabels gets a reference to the given ImmutableMapStringString and assigns it to the Labels field.
+func (o *PrometheusRule) SetLabels(v ImmutableMapStringString) {
 	o.Labels = &v
 }
 
