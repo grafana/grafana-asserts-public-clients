@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2025.12.11-145308
+API version: 2026.01.18-144604
 Contact: support@asserts.ai
 */
 
@@ -28,6 +28,7 @@ type AssertionRollupDto struct {
 	WarningCount             *int32                 `json:"warningCount,omitempty"`
 	CriticalCount            *int32                 `json:"criticalCount,omitempty"`
 	InfoCount                *int32                 `json:"infoCount,omitempty"`
+	NextLevel                []AssertionRollupDto   `json:"nextLevel,omitempty"`
 	TimelineIds              []int64                `json:"timelineIds,omitempty"`
 	TimelineHashes           []string               `json:"timelineHashes,omitempty"`
 	PathsToLinkedGroups      [][]int64              `json:"pathsToLinkedGroups,omitempty"`
@@ -310,6 +311,38 @@ func (o *AssertionRollupDto) SetInfoCount(v int32) {
 	o.InfoCount = &v
 }
 
+// GetNextLevel returns the NextLevel field value if set, zero value otherwise.
+func (o *AssertionRollupDto) GetNextLevel() []AssertionRollupDto {
+	if o == nil || IsNil(o.NextLevel) {
+		var ret []AssertionRollupDto
+		return ret
+	}
+	return o.NextLevel
+}
+
+// GetNextLevelOk returns a tuple with the NextLevel field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AssertionRollupDto) GetNextLevelOk() ([]AssertionRollupDto, bool) {
+	if o == nil || IsNil(o.NextLevel) {
+		return nil, false
+	}
+	return o.NextLevel, true
+}
+
+// HasNextLevel returns a boolean if a field has been set.
+func (o *AssertionRollupDto) HasNextLevel() bool {
+	if o != nil && !IsNil(o.NextLevel) {
+		return true
+	}
+
+	return false
+}
+
+// SetNextLevel gets a reference to the given []AssertionRollupDto and assigns it to the NextLevel field.
+func (o *AssertionRollupDto) SetNextLevel(v []AssertionRollupDto) {
+	o.NextLevel = v
+}
+
 // GetTimelineIds returns the TimelineIds field value if set, zero value otherwise.
 func (o *AssertionRollupDto) GetTimelineIds() []int64 {
 	if o == nil || IsNil(o.TimelineIds) {
@@ -472,6 +505,9 @@ func (o AssertionRollupDto) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.InfoCount) {
 		toSerialize["infoCount"] = o.InfoCount
 	}
+	if !IsNil(o.NextLevel) {
+		toSerialize["nextLevel"] = o.NextLevel
+	}
 	if !IsNil(o.TimelineIds) {
 		toSerialize["timelineIds"] = o.TimelineIds
 	}
@@ -514,6 +550,7 @@ func (o *AssertionRollupDto) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "warningCount")
 		delete(additionalProperties, "criticalCount")
 		delete(additionalProperties, "infoCount")
+		delete(additionalProperties, "nextLevel")
 		delete(additionalProperties, "timelineIds")
 		delete(additionalProperties, "timelineHashes")
 		delete(additionalProperties, "pathsToLinkedGroups")

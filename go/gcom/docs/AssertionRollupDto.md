@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **WarningCount** | Pointer to **int32** |  | [optional] 
 **CriticalCount** | Pointer to **int32** |  | [optional] 
 **InfoCount** | Pointer to **int32** |  | [optional] 
+**NextLevel** | Pointer to [**[]AssertionRollupDto**](AssertionRollupDto.md) |  | [optional] 
 **TimelineIds** | Pointer to **[]int64** |  | [optional] 
 **TimelineHashes** | Pointer to **[]string** |  | [optional] 
 **PathsToLinkedGroups** | Pointer to **[][]int64** |  | [optional] 
@@ -235,6 +236,31 @@ SetInfoCount sets InfoCount field to given value.
 `func (o *AssertionRollupDto) HasInfoCount() bool`
 
 HasInfoCount returns a boolean if a field has been set.
+
+### GetNextLevel
+
+`func (o *AssertionRollupDto) GetNextLevel() []AssertionRollupDto`
+
+GetNextLevel returns the NextLevel field if non-nil, zero value otherwise.
+
+### GetNextLevelOk
+
+`func (o *AssertionRollupDto) GetNextLevelOk() (*[]AssertionRollupDto, bool)`
+
+GetNextLevelOk returns a tuple with the NextLevel field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNextLevel
+
+`func (o *AssertionRollupDto) SetNextLevel(v []AssertionRollupDto)`
+
+SetNextLevel sets NextLevel field to given value.
+
+### HasNextLevel
+
+`func (o *AssertionRollupDto) HasNextLevel() bool`
+
+HasNextLevel returns a boolean if a field has been set.
 
 ### GetTimelineIds
 

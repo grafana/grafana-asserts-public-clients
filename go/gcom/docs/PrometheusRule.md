@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Alert** | Pointer to **string** |  | [optional] 
 **Expr** | Pointer to **string** |  | [optional] 
 **Annotations** | Pointer to [**PrometheusRuleAnnotations**](PrometheusRuleAnnotations.md) |  | [optional] 
-**Labels** | Pointer to [**PrometheusRuleAnnotations**](PrometheusRuleAnnotations.md) |  | [optional] 
+**Labels** | Pointer to [**ImmutableMapStringString**](ImmutableMapStringString.md) |  | [optional] 
 **DisableInGroups** | Pointer to **[]string** |  | [optional] 
 **For** | Pointer to **string** |  | [optional] 
 
@@ -133,20 +133,20 @@ HasAnnotations returns a boolean if a field has been set.
 
 ### GetLabels
 
-`func (o *PrometheusRule) GetLabels() PrometheusRuleAnnotations`
+`func (o *PrometheusRule) GetLabels() ImmutableMapStringString`
 
 GetLabels returns the Labels field if non-nil, zero value otherwise.
 
 ### GetLabelsOk
 
-`func (o *PrometheusRule) GetLabelsOk() (*PrometheusRuleAnnotations, bool)`
+`func (o *PrometheusRule) GetLabelsOk() (*ImmutableMapStringString, bool)`
 
 GetLabelsOk returns a tuple with the Labels field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLabels
 
-`func (o *PrometheusRule) SetLabels(v PrometheusRuleAnnotations)`
+`func (o *PrometheusRule) SetLabels(v ImmutableMapStringString)`
 
 SetLabels sets Labels field to given value.
 

@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2025.12.11-145308
+API version: 2026.01.18-144604
 Contact: support@asserts.ai
 */
 
@@ -22,17 +22,17 @@ var _ MappedNullable = &AlertManagerRoute{}
 type AlertManagerRoute struct {
 	Receiver *string `json:"receiver,omitempty"`
 	// Deprecated
-	Match                map[string]string `json:"match,omitempty"`
-	Matchers             []string          `json:"matchers,omitempty"`
-	Routes               []interface{}     `json:"routes,omitempty"`
-	GroupBy              []string          `json:"group_by,omitempty"`
-	Continue             *bool             `json:"continue,omitempty"`
-	MatchRe              map[string]string `json:"match_re,omitempty"`
-	GroupWait            *string           `json:"group_wait,omitempty"`
-	GroupInterval        *string           `json:"group_interval,omitempty"`
-	RepeatInterval       *string           `json:"repeat_interval,omitempty"`
-	MuteTimeIntervals    []string          `json:"mute_time_intervals,omitempty"`
-	ActiveTimeIntervals  []string          `json:"active_time_intervals,omitempty"`
+	Match                map[string]string   `json:"match,omitempty"`
+	Matchers             []string            `json:"matchers,omitempty"`
+	Routes               []AlertManagerRoute `json:"routes,omitempty"`
+	GroupBy              []string            `json:"group_by,omitempty"`
+	Continue             *bool               `json:"continue,omitempty"`
+	MatchRe              map[string]string   `json:"match_re,omitempty"`
+	GroupWait            *string             `json:"group_wait,omitempty"`
+	GroupInterval        *string             `json:"group_interval,omitempty"`
+	RepeatInterval       *string             `json:"repeat_interval,omitempty"`
+	MuteTimeIntervals    []string            `json:"mute_time_intervals,omitempty"`
+	ActiveTimeIntervals  []string            `json:"active_time_intervals,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -155,9 +155,9 @@ func (o *AlertManagerRoute) SetMatchers(v []string) {
 }
 
 // GetRoutes returns the Routes field value if set, zero value otherwise.
-func (o *AlertManagerRoute) GetRoutes() []interface{} {
+func (o *AlertManagerRoute) GetRoutes() []AlertManagerRoute {
 	if o == nil || IsNil(o.Routes) {
-		var ret []interface{}
+		var ret []AlertManagerRoute
 		return ret
 	}
 	return o.Routes
@@ -165,7 +165,7 @@ func (o *AlertManagerRoute) GetRoutes() []interface{} {
 
 // GetRoutesOk returns a tuple with the Routes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AlertManagerRoute) GetRoutesOk() ([]interface{}, bool) {
+func (o *AlertManagerRoute) GetRoutesOk() ([]AlertManagerRoute, bool) {
 	if o == nil || IsNil(o.Routes) {
 		return nil, false
 	}
@@ -181,8 +181,8 @@ func (o *AlertManagerRoute) HasRoutes() bool {
 	return false
 }
 
-// SetRoutes gets a reference to the given []interface{} and assigns it to the Routes field.
-func (o *AlertManagerRoute) SetRoutes(v []interface{}) {
+// SetRoutes gets a reference to the given []AlertManagerRoute and assigns it to the Routes field.
+func (o *AlertManagerRoute) SetRoutes(v []AlertManagerRoute) {
 	o.Routes = v
 }
 

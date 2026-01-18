@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Summaries** | Pointer to [**[]LlmRcaAssertionSummaryDto**](LlmRcaAssertionSummaryDto.md) |  | [optional] 
 **GraphData** | Pointer to [**[]LlmRcaGraphEntityDto**](LlmRcaGraphEntityDto.md) |  | [optional] 
 **Suggestions** | Pointer to [**[]LlmRcaSuggestionDto**](LlmRcaSuggestionDto.md) |  | [optional] 
+**RcaPatterns** | Pointer to [**[]LlmRcaPatternDto**](LlmRcaPatternDto.md) |  | [optional] 
 
 ## Methods
 
@@ -101,6 +102,31 @@ SetSuggestions sets Suggestions field to given value.
 `func (o *LlmRcaSummariesDto) HasSuggestions() bool`
 
 HasSuggestions returns a boolean if a field has been set.
+
+### GetRcaPatterns
+
+`func (o *LlmRcaSummariesDto) GetRcaPatterns() []LlmRcaPatternDto`
+
+GetRcaPatterns returns the RcaPatterns field if non-nil, zero value otherwise.
+
+### GetRcaPatternsOk
+
+`func (o *LlmRcaSummariesDto) GetRcaPatternsOk() (*[]LlmRcaPatternDto, bool)`
+
+GetRcaPatternsOk returns a tuple with the RcaPatterns field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRcaPatterns
+
+`func (o *LlmRcaSummariesDto) SetRcaPatterns(v []LlmRcaPatternDto)`
+
+SetRcaPatterns sets RcaPatterns field to given value.
+
+### HasRcaPatterns
+
+`func (o *LlmRcaSummariesDto) HasRcaPatterns() bool`
+
+HasRcaPatterns returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

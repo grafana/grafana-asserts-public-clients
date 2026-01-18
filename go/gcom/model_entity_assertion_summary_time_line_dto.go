@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2025.12.11-145308
+API version: 2026.01.18-144604
 Contact: support@asserts.ai
 */
 
@@ -20,11 +20,12 @@ var _ MappedNullable = &EntityAssertionSummaryTimeLineDto{}
 
 // EntityAssertionSummaryTimeLineDto struct for EntityAssertionSummaryTimeLineDto
 type EntityAssertionSummaryTimeLineDto struct {
-	AssertionName        *string             `json:"assertionName,omitempty"`
-	Category             *string             `json:"category,omitempty"`
-	AlertName            *string             `json:"alertName,omitempty"`
-	HealthStates         []AssertionStateDto `json:"healthStates,omitempty"`
-	Labels               []map[string]string `json:"labels,omitempty"`
+	AssertionName        *string                             `json:"assertionName,omitempty"`
+	Category             *string                             `json:"category,omitempty"`
+	AlertName            *string                             `json:"alertName,omitempty"`
+	HealthStates         []AssertionStateDto                 `json:"healthStates,omitempty"`
+	Labels               []map[string]string                 `json:"labels,omitempty"`
+	NestedSummaries      []EntityAssertionSummaryTimeLineDto `json:"nestedSummaries,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -207,6 +208,38 @@ func (o *EntityAssertionSummaryTimeLineDto) SetLabels(v []map[string]string) {
 	o.Labels = v
 }
 
+// GetNestedSummaries returns the NestedSummaries field value if set, zero value otherwise.
+func (o *EntityAssertionSummaryTimeLineDto) GetNestedSummaries() []EntityAssertionSummaryTimeLineDto {
+	if o == nil || IsNil(o.NestedSummaries) {
+		var ret []EntityAssertionSummaryTimeLineDto
+		return ret
+	}
+	return o.NestedSummaries
+}
+
+// GetNestedSummariesOk returns a tuple with the NestedSummaries field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EntityAssertionSummaryTimeLineDto) GetNestedSummariesOk() ([]EntityAssertionSummaryTimeLineDto, bool) {
+	if o == nil || IsNil(o.NestedSummaries) {
+		return nil, false
+	}
+	return o.NestedSummaries, true
+}
+
+// HasNestedSummaries returns a boolean if a field has been set.
+func (o *EntityAssertionSummaryTimeLineDto) HasNestedSummaries() bool {
+	if o != nil && !IsNil(o.NestedSummaries) {
+		return true
+	}
+
+	return false
+}
+
+// SetNestedSummaries gets a reference to the given []EntityAssertionSummaryTimeLineDto and assigns it to the NestedSummaries field.
+func (o *EntityAssertionSummaryTimeLineDto) SetNestedSummaries(v []EntityAssertionSummaryTimeLineDto) {
+	o.NestedSummaries = v
+}
+
 func (o EntityAssertionSummaryTimeLineDto) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -231,6 +264,9 @@ func (o EntityAssertionSummaryTimeLineDto) ToMap() (map[string]interface{}, erro
 	}
 	if !IsNil(o.Labels) {
 		toSerialize["labels"] = o.Labels
+	}
+	if !IsNil(o.NestedSummaries) {
+		toSerialize["nestedSummaries"] = o.NestedSummaries
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -259,6 +295,7 @@ func (o *EntityAssertionSummaryTimeLineDto) UnmarshalJSON(data []byte) (err erro
 		delete(additionalProperties, "alertName")
 		delete(additionalProperties, "healthStates")
 		delete(additionalProperties, "labels")
+		delete(additionalProperties, "nestedSummaries")
 		o.AdditionalProperties = additionalProperties
 	}
 

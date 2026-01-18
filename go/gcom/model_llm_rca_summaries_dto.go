@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2025.12.11-145308
+API version: 2026.01.18-144604
 Contact: support@asserts.ai
 */
 
@@ -23,6 +23,7 @@ type LlmRcaSummariesDto struct {
 	Summaries            []LlmRcaAssertionSummaryDto `json:"summaries,omitempty"`
 	GraphData            []LlmRcaGraphEntityDto      `json:"graphData,omitempty"`
 	Suggestions          []LlmRcaSuggestionDto       `json:"suggestions,omitempty"`
+	RcaPatterns          []LlmRcaPatternDto          `json:"rcaPatterns,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -141,6 +142,38 @@ func (o *LlmRcaSummariesDto) SetSuggestions(v []LlmRcaSuggestionDto) {
 	o.Suggestions = v
 }
 
+// GetRcaPatterns returns the RcaPatterns field value if set, zero value otherwise.
+func (o *LlmRcaSummariesDto) GetRcaPatterns() []LlmRcaPatternDto {
+	if o == nil || IsNil(o.RcaPatterns) {
+		var ret []LlmRcaPatternDto
+		return ret
+	}
+	return o.RcaPatterns
+}
+
+// GetRcaPatternsOk returns a tuple with the RcaPatterns field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LlmRcaSummariesDto) GetRcaPatternsOk() ([]LlmRcaPatternDto, bool) {
+	if o == nil || IsNil(o.RcaPatterns) {
+		return nil, false
+	}
+	return o.RcaPatterns, true
+}
+
+// HasRcaPatterns returns a boolean if a field has been set.
+func (o *LlmRcaSummariesDto) HasRcaPatterns() bool {
+	if o != nil && !IsNil(o.RcaPatterns) {
+		return true
+	}
+
+	return false
+}
+
+// SetRcaPatterns gets a reference to the given []LlmRcaPatternDto and assigns it to the RcaPatterns field.
+func (o *LlmRcaSummariesDto) SetRcaPatterns(v []LlmRcaPatternDto) {
+	o.RcaPatterns = v
+}
+
 func (o LlmRcaSummariesDto) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -159,6 +192,9 @@ func (o LlmRcaSummariesDto) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Suggestions) {
 		toSerialize["suggestions"] = o.Suggestions
+	}
+	if !IsNil(o.RcaPatterns) {
+		toSerialize["rcaPatterns"] = o.RcaPatterns
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -185,6 +221,7 @@ func (o *LlmRcaSummariesDto) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "summaries")
 		delete(additionalProperties, "graphData")
 		delete(additionalProperties, "suggestions")
+		delete(additionalProperties, "rcaPatterns")
 		o.AdditionalProperties = additionalProperties
 	}
 

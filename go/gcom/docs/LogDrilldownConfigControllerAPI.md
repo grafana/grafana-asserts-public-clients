@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**DeleteConfig2**](LogDrilldownConfigControllerAPI.md#DeleteConfig2) | **Delete** /v2/config/log/{name} | Delete log drilldown configuration
 [**GetTenantLogConfig**](LogDrilldownConfigControllerAPI.md#GetTenantLogConfig) | **Get** /v2/config/log | Get tenant log configuration
+[**ReorderLogConfigPriorities**](LogDrilldownConfigControllerAPI.md#ReorderLogConfigPriorities) | **Put** /v2/config/log/reorder | Reorder log drilldown configuration priorities
 [**UpsertLogDrilldownConfig**](LogDrilldownConfigControllerAPI.md#UpsertLogDrilldownConfig) | **Post** /v2/config/log | Upsert log drilldown configuration
 
 
@@ -140,6 +141,74 @@ No authorization required
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ReorderLogConfigPriorities
+
+> TenantLogConfigResponseDto ReorderLogConfigPriorities(ctx).ReorderLogConfigRequestDto(reorderLogConfigRequestDto).XScopeOrgID(xScopeOrgID).Execute()
+
+Reorder log drilldown configuration priorities
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/grafana/grafana-asserts-public-clients/go/gcom"
+)
+
+func main() {
+	reorderLogConfigRequestDto := *openapiclient.NewReorderLogConfigRequestDto([]openapiclient.LogConfigPriorityDto{*openapiclient.NewLogConfigPriorityDto()}) // ReorderLogConfigRequestDto | 
+	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.LogDrilldownConfigControllerAPI.ReorderLogConfigPriorities(context.Background()).ReorderLogConfigRequestDto(reorderLogConfigRequestDto).XScopeOrgID(xScopeOrgID).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `LogDrilldownConfigControllerAPI.ReorderLogConfigPriorities``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ReorderLogConfigPriorities`: TenantLogConfigResponseDto
+	fmt.Fprintf(os.Stdout, "Response from `LogDrilldownConfigControllerAPI.ReorderLogConfigPriorities`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiReorderLogConfigPrioritiesRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **reorderLogConfigRequestDto** | [**ReorderLogConfigRequestDto**](ReorderLogConfigRequestDto.md) |  | 
+ **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
+
+### Return type
+
+[**TenantLogConfigResponseDto**](TenantLogConfigResponseDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json, application/x-yml, application/x-yaml
+- **Accept**: application/json, application/x-yml, application/x-yaml
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
