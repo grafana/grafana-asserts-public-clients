@@ -7,7 +7,7 @@ info:
   description: Asserts Public API
   termsOfService: https://www.asserts.ai/terms-of-service
   title: "Asserts, Inc"
-  version: 2026.01.18-144604
+  version: 2026.01.27-101859
 servers:
 - description: Generated server url
   url: http://localhost:8030/asserts/api-server
@@ -762,6 +762,8 @@ paths:
                   - prometheus
                   - otel
                   - aws
+                  - azure
+                  - gcp
                   - custom
                   type: string
                 type: array
@@ -3142,6 +3144,8 @@ paths:
           - prometheus
           - otel
           - aws
+          - azure
+          - gcp
           - custom
           type: string
         style: simple
@@ -3169,6 +3173,8 @@ paths:
           - prometheus
           - otel
           - aws
+          - azure
+          - gcp
           - custom
           type: string
         style: simple
@@ -3196,6 +3202,8 @@ paths:
           - prometheus
           - otel
           - aws
+          - azure
+          - gcp
           - custom
           type: string
         style: simple
@@ -4422,6 +4430,8 @@ components:
           - prometheus
           - otel
           - aws
+          - azure
+          - gcp
           - custom
           type: string
         disabledVendors:
