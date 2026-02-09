@@ -7,7 +7,7 @@ info:
   description: Asserts Public API
   termsOfService: https://www.asserts.ai/terms-of-service
   title: "Asserts, Inc"
-  version: 2026.02.03-072313
+  version: 2026.02.09-142804
 servers:
 - description: Generated server url
   url: http://localhost:8030/asserts/api-server
@@ -1573,6 +1573,53 @@ paths:
           description: OK
       tags:
       - rca-pattern-controller
+  /v1/patterns/custom:
+    get:
+      operationId: listCustom
+      parameters:
+      - $ref: '#/components/parameters/TenantId'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/PatternDto'
+                type: array
+            application/x-yml:
+              schema:
+                items:
+                  $ref: '#/components/schemas/PatternDto'
+                type: array
+            application/x-yaml:
+              schema:
+                items:
+                  $ref: '#/components/schemas/PatternDto'
+                type: array
+          description: OK
+      tags:
+      - custom-rca-pattern-controller
+    post:
+      operationId: putCustom
+      parameters:
+      - $ref: '#/components/parameters/TenantId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatternDto'
+          application/x-yml:
+            schema:
+              $ref: '#/components/schemas/PatternDto'
+          application/x-yaml:
+            schema:
+              $ref: '#/components/schemas/PatternDto'
+        required: true
+      responses:
+        "200":
+          description: OK
+      tags:
+      - custom-rca-pattern-controller
   /v1/monitoring-status/for-entities:
     post:
       operationId: getEntityMonitoringStatus
@@ -4216,6 +4263,23 @@ paths:
       summary: Delete log drilldown configuration
       tags:
       - log-drilldown-config-controller
+  /v1/patterns/custom/{name}:
+    delete:
+      operationId: deleteCustom
+      parameters:
+      - explode: false
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+        style: simple
+      - $ref: '#/components/parameters/TenantId'
+      responses:
+        "200":
+          description: OK
+      tags:
+      - custom-rca-pattern-controller
   /v1/config/trace/{name}:
     delete:
       operationId: deleteTraceConfig
@@ -8530,6 +8594,73 @@ components:
           type: string
         namespace:
           type: string
+    MetricMatchDto:
+      example:
+        matchScope: true
+        metric: metric
+        match: match
+      properties:
+        metric:
+          type: string
+        match:
+          type: string
+        matchScope:
+          type: boolean
+    PatternDto:
+      example:
+        reason: reason
+        srcEntityTypes:
+        - srcEntityTypes
+        - srcEntityTypes
+        metricMatches:
+        - matchScope: true
+          metric: metric
+          match: match
+        - matchScope: true
+          metric: metric
+          match: match
+        requiredEntityTypes:
+        - requiredEntityTypes
+        - requiredEntityTypes
+        name: name
+        description: description
+        dstSearch: dstSearch
+        includedByDefault: true
+        vars:
+        - vars
+        - vars
+      properties:
+        name:
+          minLength: 1
+          type: string
+        description:
+          type: string
+        reason:
+          type: string
+        includedByDefault:
+          type: boolean
+        srcEntityTypes:
+          items:
+            type: string
+          type: array
+        requiredEntityTypes:
+          items:
+            type: string
+          type: array
+        dstSearch:
+          minLength: 1
+          type: string
+        vars:
+          items:
+            type: string
+          type: array
+        metricMatches:
+          items:
+            $ref: '#/components/schemas/MetricMatchDto'
+          type: array
+      required:
+      - dstSearch
+      - name
     MonitoringStatusRequestDto:
       example:
         entityKeys:
@@ -15022,7 +15153,6 @@ components:
           type: string
         match:
           additionalProperties:
-            deprecated: true
             type: string
           deprecated: true
         matchers:
