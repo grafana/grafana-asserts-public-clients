@@ -7,7 +7,7 @@ info:
     name: Support
     url: "https://www.grafana.com"
     email: support@asserts.ai
-  version: 2026.02.03-072313
+  version: 2026.02.09-142804
 servers:
   - url: http://localhost:8030/asserts/api-server
     description: Generated server url
@@ -1591,6 +1591,55 @@ paths:
                 type: array
                 items:
                   type: string
+  /v1/patterns/custom:
+    get:
+      tags:
+        - custom-rca-pattern-controller
+      operationId: listCustom
+      parameters:
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PatternDto"
+            application/x-yml:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PatternDto"
+            application/x-yaml:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PatternDto"
+    post:
+      tags:
+        - custom-rca-pattern-controller
+      operationId: putCustom
+      parameters:
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PatternDto"
+          application/x-yml:
+            schema:
+              $ref: "#/components/schemas/PatternDto"
+          application/x-yaml:
+            schema:
+              $ref: "#/components/schemas/PatternDto"
+        required: true
+      responses:
+        "200":
+          description: OK
   /v1/monitoring-status/for-entities:
     post:
       tags:
@@ -4236,6 +4285,22 @@ paths:
       responses:
         "200":
           description: Configuration deleted successfully
+  /v1/patterns/custom/{name}:
+    delete:
+      tags:
+        - custom-rca-pattern-controller
+      operationId: deleteCustom
+      parameters:
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: string
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      responses:
+        "200":
+          description: OK
   /v1/config/trace/{name}:
     delete:
       tags:
@@ -6169,6 +6234,49 @@ components:
           type: string
         namespace:
           type: string
+    MetricMatchDto:
+      type: object
+      properties:
+        metric:
+          type: string
+        match:
+          type: string
+        matchScope:
+          type: boolean
+    PatternDto:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+        description:
+          type: string
+        reason:
+          type: string
+        includedByDefault:
+          type: boolean
+        srcEntityTypes:
+          type: array
+          items:
+            type: string
+        requiredEntityTypes:
+          type: array
+          items:
+            type: string
+        dstSearch:
+          type: string
+          minLength: 1
+        vars:
+          type: array
+          items:
+            type: string
+        metricMatches:
+          type: array
+          items:
+            $ref: "#/components/schemas/MetricMatchDto"
+      required:
+        - dstSearch
+        - name
     MonitoringStatusRequestDto:
       type: object
       properties:
@@ -7597,7 +7705,6 @@ components:
           type: object
           additionalProperties:
             type: string
-            deprecated: true
           deprecated: true
         matchers:
           type: array
