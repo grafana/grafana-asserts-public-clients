@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | Pointer to **string** |  | [optional] 
-**Interval** | Pointer to **string** |  | [optional] 
-**Rules** | Pointer to [**[]PrometheusRuleDto**](PrometheusRuleDto.md) |  | [optional] 
+**Name** | **string** | Group name | 
+**Interval** | Pointer to **string** | Evaluation interval (e.g., &#39;30s&#39;, &#39;1m&#39;) | [optional] 
+**Rules** | [**[]PrometheusRuleDto**](PrometheusRuleDto.md) | List of alert and recording rules in this group | 
 
 ## Methods
 
 ### NewPrometheusRuleGroupDto
 
-`func NewPrometheusRuleGroupDto() *PrometheusRuleGroupDto`
+`func NewPrometheusRuleGroupDto(name string, rules []PrometheusRuleDto, ) *PrometheusRuleGroupDto`
 
 NewPrometheusRuleGroupDto instantiates a new PrometheusRuleGroupDto object
 This constructor will assign default values to properties that have it defined,
@@ -46,11 +46,6 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
-### HasName
-
-`func (o *PrometheusRuleGroupDto) HasName() bool`
-
-HasName returns a boolean if a field has been set.
 
 ### GetInterval
 
@@ -96,11 +91,6 @@ and a boolean to check if the value has been set.
 
 SetRules sets Rules field to given value.
 
-### HasRules
-
-`func (o *PrometheusRuleGroupDto) HasRules() bool`
-
-HasRules returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

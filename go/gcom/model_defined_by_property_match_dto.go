@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.02.03-072313
+API version: 2026.02.11-155702
 Contact: support@asserts.ai
 */
 
@@ -20,12 +20,14 @@ import (
 // checks if the DefinedByPropertyMatchDto type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &DefinedByPropertyMatchDto{}
 
-// DefinedByPropertyMatchDto struct for DefinedByPropertyMatchDto
+// DefinedByPropertyMatchDto Property-match based relation definition
 type DefinedByPropertyMatchDto struct {
 	DefinedByDto
+	// Properties from start entity to match
 	StartEntityProperties []string `json:"startEntityProperties,omitempty"`
-	EndEntityProperties   []string `json:"endEntityProperties,omitempty"`
-	AdditionalProperties  map[string]interface{}
+	// Properties from end entity to match
+	EndEntityProperties  []string `json:"endEntityProperties,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _DefinedByPropertyMatchDto DefinedByPropertyMatchDto
@@ -154,8 +156,10 @@ func (o *DefinedByPropertyMatchDto) UnmarshalJSON(data []byte) (err error) {
 	}
 
 	type DefinedByPropertyMatchDtoWithoutEmbeddedStruct struct {
+		// Properties from start entity to match
 		StartEntityProperties []string `json:"startEntityProperties,omitempty"`
-		EndEntityProperties   []string `json:"endEntityProperties,omitempty"`
+		// Properties from end entity to match
+		EndEntityProperties []string `json:"endEntityProperties,omitempty"`
 	}
 
 	varDefinedByPropertyMatchDtoWithoutEmbeddedStruct := DefinedByPropertyMatchDtoWithoutEmbeddedStruct{}

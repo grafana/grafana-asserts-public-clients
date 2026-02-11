@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | Pointer to **string** |  | [optional] 
-**Entities** | Pointer to [**[]EntityRuleDto**](EntityRuleDto.md) |  | [optional] 
-**Relations** | Pointer to [**[]RelationRuleDto**](RelationRuleDto.md) |  | [optional] 
-**ManagedBy** | Pointer to **string** |  | [optional] 
+**Name** | **string** | Configuration name | 
+**Entities** | Pointer to [**[]EntityRuleDto**](EntityRuleDto.md) | Entity type definitions | [optional] 
+**Relations** | Pointer to [**[]RelationRuleDto**](RelationRuleDto.md) | Relationship rules between entities | [optional] 
+**ManagedBy** | Pointer to **string** | Management source: &#39;terraform&#39; for Terraform-managed, null for UI-managed | [optional] 
 
 ## Methods
 
 ### NewModelRulesDto
 
-`func NewModelRulesDto() *ModelRulesDto`
+`func NewModelRulesDto(name string, ) *ModelRulesDto`
 
 NewModelRulesDto instantiates a new ModelRulesDto object
 This constructor will assign default values to properties that have it defined,
@@ -47,11 +47,6 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
-### HasName
-
-`func (o *ModelRulesDto) HasName() bool`
-
-HasName returns a boolean if a field has been set.
 
 ### GetEntities
 

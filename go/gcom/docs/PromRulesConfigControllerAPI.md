@@ -11,6 +11,7 @@ Method | HTTP request | Description
 [**EnableRule**](PromRulesConfigControllerAPI.md#EnableRule) | **Post** /v1/config/prom-rules-enable/{name} | 
 [**GetDisabledRules**](PromRulesConfigControllerAPI.md#GetDisabledRules) | **Get** /v1/config/prom-rules-disable | 
 [**GetPromRules**](PromRulesConfigControllerAPI.md#GetPromRules) | **Get** /v1/config/prom-rules/{name} | 
+[**GetPrometheusRulesSchema**](PromRulesConfigControllerAPI.md#GetPrometheusRulesSchema) | **Get** /v1/config/prom-rules/schema | Get JSON Schema for Prometheus Rules configuration
 [**GetValidation**](PromRulesConfigControllerAPI.md#GetValidation) | **Get** /v1/config/prom-rules-validate/{id} | 
 [**GetVendorNames**](PromRulesConfigControllerAPI.md#GetVendorNames) | **Get** /v1/vendor-names | 
 [**ListPromRules**](PromRulesConfigControllerAPI.md#ListPromRules) | **Get** /v1/config/prom-rules | 
@@ -178,7 +179,7 @@ import (
 
 func main() {
 	name := "name_example" // string | 
-	prometheusRuleDto := *openapiclient.NewPrometheusRuleDto() // PrometheusRuleDto | 
+	prometheusRuleDto := *openapiclient.NewPrometheusRuleDto("probe_success == 0") // PrometheusRuleDto | 
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -498,6 +499,70 @@ No authorization required
 [[Back to README]](../README.md)
 
 
+## GetPrometheusRulesSchema
+
+> map[string]interface{} GetPrometheusRulesSchema(ctx).XScopeOrgID(xScopeOrgID).Execute()
+
+Get JSON Schema for Prometheus Rules configuration
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/grafana/grafana-asserts-public-clients/go/gcom"
+)
+
+func main() {
+	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PromRulesConfigControllerAPI.GetPrometheusRulesSchema(context.Background()).XScopeOrgID(xScopeOrgID).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PromRulesConfigControllerAPI.GetPrometheusRulesSchema``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetPrometheusRulesSchema`: map[string]interface{}
+	fmt.Fprintf(os.Stdout, "Response from `PromRulesConfigControllerAPI.GetPrometheusRulesSchema`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetPrometheusRulesSchemaRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
+
+### Return type
+
+**map[string]interface{}**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetValidation
 
 > ConfigValidationResponseDto GetValidation(ctx, id).XScopeOrgID(xScopeOrgID).Execute()
@@ -715,7 +780,7 @@ import (
 )
 
 func main() {
-	prometheusRulesDto := *openapiclient.NewPrometheusRulesDto() // PrometheusRulesDto | 
+	prometheusRulesDto := *openapiclient.NewPrometheusRulesDto("Name_example", []openapiclient.PrometheusRuleGroupDto{*openapiclient.NewPrometheusRuleGroupDto("Name_example", []openapiclient.PrometheusRuleDto{*openapiclient.NewPrometheusRuleDto("probe_success == 0")})}) // PrometheusRulesDto | 
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -779,7 +844,7 @@ import (
 )
 
 func main() {
-	prometheusRulesDto := *openapiclient.NewPrometheusRulesDto() // PrometheusRulesDto | 
+	prometheusRulesDto := *openapiclient.NewPrometheusRulesDto("Name_example", []openapiclient.PrometheusRuleGroupDto{*openapiclient.NewPrometheusRuleGroupDto("Name_example", []openapiclient.PrometheusRuleDto{*openapiclient.NewPrometheusRuleDto("probe_success == 0")})}) // PrometheusRulesDto | 
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -846,7 +911,7 @@ import (
 
 func main() {
 	name := "name_example" // string | 
-	prometheusRuleDto := *openapiclient.NewPrometheusRuleDto() // PrometheusRuleDto | 
+	prometheusRuleDto := *openapiclient.NewPrometheusRuleDto("probe_success == 0") // PrometheusRuleDto | 
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
 	configuration := openapiclient.NewConfiguration()

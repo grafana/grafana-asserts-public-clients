@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.02.03-072313
+API version: 2026.02.11-155702
 Contact: support@asserts.ai
 */
 
@@ -18,12 +18,16 @@ import (
 // checks if the PrometheusRulesDto type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &PrometheusRulesDto{}
 
-// PrometheusRulesDto struct for PrometheusRulesDto
+// PrometheusRulesDto Prometheus rules configuration containing alert and recording rules
 type PrometheusRulesDto struct {
-	Active               *bool                    `json:"active,omitempty"`
-	Name                 *string                  `json:"name,omitempty"`
-	Groups               []PrometheusRuleGroupDto `json:"groups,omitempty"`
-	ManagedBy            *string                  `json:"managedBy,omitempty"`
+	// Whether this configuration is active
+	Active *bool `json:"active,omitempty"`
+	// Configuration name for the Prometheus rule file
+	Name string `json:"name"`
+	// List of rule groups containing alert and recording rules
+	Groups []PrometheusRuleGroupDto `json:"groups"`
+	// Management source: 'terraform' for Terraform-managed, null for UI-managed
+	ManagedBy            *string `json:"managedBy,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -33,8 +37,12 @@ type _PrometheusRulesDto PrometheusRulesDto
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPrometheusRulesDto() *PrometheusRulesDto {
+func NewPrometheusRulesDto(name string, groups []PrometheusRuleGroupDto) *PrometheusRulesDto {
 	this := PrometheusRulesDto{}
+	var active bool = true
+	this.Active = &active
+	this.Name = name
+	this.Groups = groups
 	return &this
 }
 
@@ -43,6 +51,8 @@ func NewPrometheusRulesDto() *PrometheusRulesDto {
 // but it doesn't guarantee that properties required by API are set
 func NewPrometheusRulesDtoWithDefaults() *PrometheusRulesDto {
 	this := PrometheusRulesDto{}
+	var active bool = true
+	this.Active = &active
 	return &this
 }
 
@@ -78,66 +88,50 @@ func (o *PrometheusRulesDto) SetActive(v bool) {
 	o.Active = &v
 }
 
-// GetName returns the Name field value if set, zero value otherwise.
+// GetName returns the Name field value
 func (o *PrometheusRulesDto) GetName() string {
-	if o == nil || IsNil(o.Name) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Name
+
+	return o.Name
 }
 
-// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *PrometheusRulesDto) GetNameOk() (*string, bool) {
-	if o == nil || IsNil(o.Name) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Name, true
+	return &o.Name, true
 }
 
-// HasName returns a boolean if a field has been set.
-func (o *PrometheusRulesDto) HasName() bool {
-	if o != nil && !IsNil(o.Name) {
-		return true
-	}
-
-	return false
-}
-
-// SetName gets a reference to the given string and assigns it to the Name field.
+// SetName sets field value
 func (o *PrometheusRulesDto) SetName(v string) {
-	o.Name = &v
+	o.Name = v
 }
 
-// GetGroups returns the Groups field value if set, zero value otherwise.
+// GetGroups returns the Groups field value
 func (o *PrometheusRulesDto) GetGroups() []PrometheusRuleGroupDto {
-	if o == nil || IsNil(o.Groups) {
+	if o == nil {
 		var ret []PrometheusRuleGroupDto
 		return ret
 	}
+
 	return o.Groups
 }
 
-// GetGroupsOk returns a tuple with the Groups field value if set, nil otherwise
+// GetGroupsOk returns a tuple with the Groups field value
 // and a boolean to check if the value has been set.
 func (o *PrometheusRulesDto) GetGroupsOk() ([]PrometheusRuleGroupDto, bool) {
-	if o == nil || IsNil(o.Groups) {
+	if o == nil {
 		return nil, false
 	}
 	return o.Groups, true
 }
 
-// HasGroups returns a boolean if a field has been set.
-func (o *PrometheusRulesDto) HasGroups() bool {
-	if o != nil && !IsNil(o.Groups) {
-		return true
-	}
-
-	return false
-}
-
-// SetGroups gets a reference to the given []PrometheusRuleGroupDto and assigns it to the Groups field.
+// SetGroups sets field value
 func (o *PrometheusRulesDto) SetGroups(v []PrometheusRuleGroupDto) {
 	o.Groups = v
 }
@@ -187,12 +181,8 @@ func (o PrometheusRulesDto) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Active) {
 		toSerialize["active"] = o.Active
 	}
-	if !IsNil(o.Name) {
-		toSerialize["name"] = o.Name
-	}
-	if !IsNil(o.Groups) {
-		toSerialize["groups"] = o.Groups
-	}
+	toSerialize["name"] = o.Name
+	toSerialize["groups"] = o.Groups
 	if !IsNil(o.ManagedBy) {
 		toSerialize["managedBy"] = o.ManagedBy
 	}
@@ -205,6 +195,14 @@ func (o PrometheusRulesDto) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *PrometheusRulesDto) UnmarshalJSON(data []byte) (err error) {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
 	varPrometheusRulesDto := _PrometheusRulesDto{}
 
 	err = json.Unmarshal(data, &varPrometheusRulesDto)

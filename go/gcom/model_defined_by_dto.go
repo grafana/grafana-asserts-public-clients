@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.02.03-072313
+API version: 2026.02.11-155702
 Contact: support@asserts.ai
 */
 
@@ -18,8 +18,9 @@ import (
 // checks if the DefinedByDto type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &DefinedByDto{}
 
-// DefinedByDto struct for DefinedByDto
+// DefinedByDto Base class for relation definitions
 type DefinedByDto struct {
+	// Static properties to attach to the relation
 	StaticProperties     map[string]interface{} `json:"staticProperties,omitempty"`
 	Source               string                 `json:"source"`
 	AdditionalProperties map[string]interface{}

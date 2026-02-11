@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.02.03-072313
+API version: 2026.02.11-155702
 Contact: support@asserts.ai
 */
 
@@ -352,6 +352,125 @@ func (a *EntityTypeControllerAPIService) GetEntityTypeExecute(r ApiGetEntityType
 	if r.xScopeOrgID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Scope-OrgID", r.xScopeOrgID, "")
 	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetPropertyValuesRequest struct {
+	ctx                            context.Context
+	ApiService                     *EntityTypeControllerAPIService
+	entityPropertyValuesRequestDto *EntityPropertyValuesRequestDto
+	xScopeOrgID                    *string
+}
+
+func (r ApiGetPropertyValuesRequest) EntityPropertyValuesRequestDto(entityPropertyValuesRequestDto EntityPropertyValuesRequestDto) ApiGetPropertyValuesRequest {
+	r.entityPropertyValuesRequestDto = &entityPropertyValuesRequestDto
+	return r
+}
+
+// Grafana Tenant/Stack ID
+func (r ApiGetPropertyValuesRequest) XScopeOrgID(xScopeOrgID string) ApiGetPropertyValuesRequest {
+	r.xScopeOrgID = &xScopeOrgID
+	return r
+}
+
+func (r ApiGetPropertyValuesRequest) Execute() (*EntityPropertyValuesDto, *http.Response, error) {
+	return r.ApiService.GetPropertyValuesExecute(r)
+}
+
+/*
+GetPropertyValues Method for GetPropertyValues
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetPropertyValuesRequest
+*/
+func (a *EntityTypeControllerAPIService) GetPropertyValues(ctx context.Context) ApiGetPropertyValuesRequest {
+	return ApiGetPropertyValuesRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return EntityPropertyValuesDto
+func (a *EntityTypeControllerAPIService) GetPropertyValuesExecute(r ApiGetPropertyValuesRequest) (*EntityPropertyValuesDto, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *EntityPropertyValuesDto
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EntityTypeControllerAPIService.GetPropertyValues")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/entity_type/property_values"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.entityPropertyValuesRequestDto == nil {
+		return localVarReturnValue, nil, reportError("entityPropertyValuesRequestDto is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.xScopeOrgID != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Scope-OrgID", r.xScopeOrgID, "")
+	}
+	// body params
+	localVarPostBody = r.entityPropertyValuesRequestDto
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

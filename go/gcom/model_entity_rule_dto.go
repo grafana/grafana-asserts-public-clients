@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.02.03-072313
+API version: 2026.02.11-155702
 Contact: support@asserts.ai
 */
 
@@ -18,15 +18,22 @@ import (
 // checks if the EntityRuleDto type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &EntityRuleDto{}
 
-// EntityRuleDto struct for EntityRuleDto
+// EntityRuleDto Entity type rule definition
 type EntityRuleDto struct {
-	Type                 *string           `json:"type,omitempty"`
-	Name                 *string           `json:"name,omitempty"`
-	Scope                map[string]string `json:"scope,omitempty"`
-	Lookup               map[string]string `json:"lookup,omitempty"`
-	DefinedBy            []PropertyRuleDto `json:"definedBy,omitempty"`
-	EnrichedBy           []PropertyRuleDto `json:"enrichedBy,omitempty"`
-	Disabled             *bool             `json:"disabled,omitempty"`
+	// Entity type name (e.g., 'Service', 'Pod', 'Jvm')
+	Type string `json:"type"`
+	// Entity name pattern
+	Name string `json:"name"`
+	// Scope definitions for the entity
+	Scope map[string]string `json:"scope,omitempty"`
+	// Lookup mappings
+	Lookup map[string]string `json:"lookup,omitempty"`
+	// Query/metric definitions that define this entity
+	DefinedBy []PropertyRuleDto `json:"definedBy,omitempty"`
+	// Enrichment rules for this entity
+	EnrichedBy []PropertyRuleDto `json:"enrichedBy,omitempty"`
+	// Whether this entity rule is disabled
+	Disabled             *bool `json:"disabled,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -36,8 +43,10 @@ type _EntityRuleDto EntityRuleDto
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEntityRuleDto() *EntityRuleDto {
+func NewEntityRuleDto(type_ string, name string) *EntityRuleDto {
 	this := EntityRuleDto{}
+	this.Type = type_
+	this.Name = name
 	return &this
 }
 
@@ -49,68 +58,52 @@ func NewEntityRuleDtoWithDefaults() *EntityRuleDto {
 	return &this
 }
 
-// GetType returns the Type field value if set, zero value otherwise.
+// GetType returns the Type field value
 func (o *EntityRuleDto) GetType() string {
-	if o == nil || IsNil(o.Type) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Type
+
+	return o.Type
 }
 
-// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
 func (o *EntityRuleDto) GetTypeOk() (*string, bool) {
-	if o == nil || IsNil(o.Type) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Type, true
+	return &o.Type, true
 }
 
-// HasType returns a boolean if a field has been set.
-func (o *EntityRuleDto) HasType() bool {
-	if o != nil && !IsNil(o.Type) {
-		return true
-	}
-
-	return false
-}
-
-// SetType gets a reference to the given string and assigns it to the Type field.
+// SetType sets field value
 func (o *EntityRuleDto) SetType(v string) {
-	o.Type = &v
+	o.Type = v
 }
 
-// GetName returns the Name field value if set, zero value otherwise.
+// GetName returns the Name field value
 func (o *EntityRuleDto) GetName() string {
-	if o == nil || IsNil(o.Name) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Name
+
+	return o.Name
 }
 
-// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *EntityRuleDto) GetNameOk() (*string, bool) {
-	if o == nil || IsNil(o.Name) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Name, true
+	return &o.Name, true
 }
 
-// HasName returns a boolean if a field has been set.
-func (o *EntityRuleDto) HasName() bool {
-	if o != nil && !IsNil(o.Name) {
-		return true
-	}
-
-	return false
-}
-
-// SetName gets a reference to the given string and assigns it to the Name field.
+// SetName sets field value
 func (o *EntityRuleDto) SetName(v string) {
-	o.Name = &v
+	o.Name = v
 }
 
 // GetScope returns the Scope field value if set, zero value otherwise.
@@ -283,12 +276,8 @@ func (o EntityRuleDto) MarshalJSON() ([]byte, error) {
 
 func (o EntityRuleDto) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Type) {
-		toSerialize["type"] = o.Type
-	}
-	if !IsNil(o.Name) {
-		toSerialize["name"] = o.Name
-	}
+	toSerialize["type"] = o.Type
+	toSerialize["name"] = o.Name
 	if !IsNil(o.Scope) {
 		toSerialize["scope"] = o.Scope
 	}
@@ -313,6 +302,14 @@ func (o EntityRuleDto) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *EntityRuleDto) UnmarshalJSON(data []byte) (err error) {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
 	varEntityRuleDto := _EntityRuleDto{}
 
 	err = json.Unmarshal(data, &varEntityRuleDto)
