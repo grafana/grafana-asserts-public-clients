@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.02.03-072313
+API version: 2026.02.11-155702
 Contact: support@asserts.ai
 */
 
@@ -18,12 +18,15 @@ import (
 // checks if the RelationRuleDto type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &RelationRuleDto{}
 
-// RelationRuleDto struct for RelationRuleDto
+// RelationRuleDto Relationship rule definition between entities
 type RelationRuleDto struct {
-	Type                 *string                   `json:"type,omitempty"`
-	StartEntityType      *string                   `json:"startEntityType,omitempty"`
-	EndEntityType        *string                   `json:"endEntityType,omitempty"`
-	DefinedBy            *RelationRuleDtoDefinedBy `json:"definedBy,omitempty"`
+	// Relation type (e.g., 'CALLS', 'HOSTS', 'ROUTES')
+	Type string `json:"type"`
+	// Source entity type
+	StartEntityType string `json:"startEntityType"`
+	// Target entity type
+	EndEntityType        string                   `json:"endEntityType"`
+	DefinedBy            RelationRuleDtoDefinedBy `json:"definedBy"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -33,8 +36,12 @@ type _RelationRuleDto RelationRuleDto
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewRelationRuleDto() *RelationRuleDto {
+func NewRelationRuleDto(type_ string, startEntityType string, endEntityType string, definedBy RelationRuleDtoDefinedBy) *RelationRuleDto {
 	this := RelationRuleDto{}
+	this.Type = type_
+	this.StartEntityType = startEntityType
+	this.EndEntityType = endEntityType
+	this.DefinedBy = definedBy
 	return &this
 }
 
@@ -46,132 +53,100 @@ func NewRelationRuleDtoWithDefaults() *RelationRuleDto {
 	return &this
 }
 
-// GetType returns the Type field value if set, zero value otherwise.
+// GetType returns the Type field value
 func (o *RelationRuleDto) GetType() string {
-	if o == nil || IsNil(o.Type) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Type
+
+	return o.Type
 }
 
-// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
 func (o *RelationRuleDto) GetTypeOk() (*string, bool) {
-	if o == nil || IsNil(o.Type) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Type, true
+	return &o.Type, true
 }
 
-// HasType returns a boolean if a field has been set.
-func (o *RelationRuleDto) HasType() bool {
-	if o != nil && !IsNil(o.Type) {
-		return true
-	}
-
-	return false
-}
-
-// SetType gets a reference to the given string and assigns it to the Type field.
+// SetType sets field value
 func (o *RelationRuleDto) SetType(v string) {
-	o.Type = &v
+	o.Type = v
 }
 
-// GetStartEntityType returns the StartEntityType field value if set, zero value otherwise.
+// GetStartEntityType returns the StartEntityType field value
 func (o *RelationRuleDto) GetStartEntityType() string {
-	if o == nil || IsNil(o.StartEntityType) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.StartEntityType
+
+	return o.StartEntityType
 }
 
-// GetStartEntityTypeOk returns a tuple with the StartEntityType field value if set, nil otherwise
+// GetStartEntityTypeOk returns a tuple with the StartEntityType field value
 // and a boolean to check if the value has been set.
 func (o *RelationRuleDto) GetStartEntityTypeOk() (*string, bool) {
-	if o == nil || IsNil(o.StartEntityType) {
+	if o == nil {
 		return nil, false
 	}
-	return o.StartEntityType, true
+	return &o.StartEntityType, true
 }
 
-// HasStartEntityType returns a boolean if a field has been set.
-func (o *RelationRuleDto) HasStartEntityType() bool {
-	if o != nil && !IsNil(o.StartEntityType) {
-		return true
-	}
-
-	return false
-}
-
-// SetStartEntityType gets a reference to the given string and assigns it to the StartEntityType field.
+// SetStartEntityType sets field value
 func (o *RelationRuleDto) SetStartEntityType(v string) {
-	o.StartEntityType = &v
+	o.StartEntityType = v
 }
 
-// GetEndEntityType returns the EndEntityType field value if set, zero value otherwise.
+// GetEndEntityType returns the EndEntityType field value
 func (o *RelationRuleDto) GetEndEntityType() string {
-	if o == nil || IsNil(o.EndEntityType) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.EndEntityType
+
+	return o.EndEntityType
 }
 
-// GetEndEntityTypeOk returns a tuple with the EndEntityType field value if set, nil otherwise
+// GetEndEntityTypeOk returns a tuple with the EndEntityType field value
 // and a boolean to check if the value has been set.
 func (o *RelationRuleDto) GetEndEntityTypeOk() (*string, bool) {
-	if o == nil || IsNil(o.EndEntityType) {
+	if o == nil {
 		return nil, false
 	}
-	return o.EndEntityType, true
+	return &o.EndEntityType, true
 }
 
-// HasEndEntityType returns a boolean if a field has been set.
-func (o *RelationRuleDto) HasEndEntityType() bool {
-	if o != nil && !IsNil(o.EndEntityType) {
-		return true
-	}
-
-	return false
-}
-
-// SetEndEntityType gets a reference to the given string and assigns it to the EndEntityType field.
+// SetEndEntityType sets field value
 func (o *RelationRuleDto) SetEndEntityType(v string) {
-	o.EndEntityType = &v
+	o.EndEntityType = v
 }
 
-// GetDefinedBy returns the DefinedBy field value if set, zero value otherwise.
+// GetDefinedBy returns the DefinedBy field value
 func (o *RelationRuleDto) GetDefinedBy() RelationRuleDtoDefinedBy {
-	if o == nil || IsNil(o.DefinedBy) {
+	if o == nil {
 		var ret RelationRuleDtoDefinedBy
 		return ret
 	}
-	return *o.DefinedBy
+
+	return o.DefinedBy
 }
 
-// GetDefinedByOk returns a tuple with the DefinedBy field value if set, nil otherwise
+// GetDefinedByOk returns a tuple with the DefinedBy field value
 // and a boolean to check if the value has been set.
 func (o *RelationRuleDto) GetDefinedByOk() (*RelationRuleDtoDefinedBy, bool) {
-	if o == nil || IsNil(o.DefinedBy) {
+	if o == nil {
 		return nil, false
 	}
-	return o.DefinedBy, true
+	return &o.DefinedBy, true
 }
 
-// HasDefinedBy returns a boolean if a field has been set.
-func (o *RelationRuleDto) HasDefinedBy() bool {
-	if o != nil && !IsNil(o.DefinedBy) {
-		return true
-	}
-
-	return false
-}
-
-// SetDefinedBy gets a reference to the given RelationRuleDtoDefinedBy and assigns it to the DefinedBy field.
+// SetDefinedBy sets field value
 func (o *RelationRuleDto) SetDefinedBy(v RelationRuleDtoDefinedBy) {
-	o.DefinedBy = &v
+	o.DefinedBy = v
 }
 
 func (o RelationRuleDto) MarshalJSON() ([]byte, error) {
@@ -184,18 +159,10 @@ func (o RelationRuleDto) MarshalJSON() ([]byte, error) {
 
 func (o RelationRuleDto) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Type) {
-		toSerialize["type"] = o.Type
-	}
-	if !IsNil(o.StartEntityType) {
-		toSerialize["startEntityType"] = o.StartEntityType
-	}
-	if !IsNil(o.EndEntityType) {
-		toSerialize["endEntityType"] = o.EndEntityType
-	}
-	if !IsNil(o.DefinedBy) {
-		toSerialize["definedBy"] = o.DefinedBy
-	}
+	toSerialize["type"] = o.Type
+	toSerialize["startEntityType"] = o.StartEntityType
+	toSerialize["endEntityType"] = o.EndEntityType
+	toSerialize["definedBy"] = o.DefinedBy
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -205,6 +172,14 @@ func (o RelationRuleDto) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *RelationRuleDto) UnmarshalJSON(data []byte) (err error) {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
 	varRelationRuleDto := _RelationRuleDto{}
 
 	err = json.Unmarshal(data, &varRelationRuleDto)

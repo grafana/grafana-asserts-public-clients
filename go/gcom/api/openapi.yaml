@@ -7,7 +7,7 @@ info:
   description: Asserts Public API
   termsOfService: https://www.asserts.ai/terms-of-service
   title: "Asserts, Inc"
-  version: 2026.02.03-072313
+  version: 2026.02.11-155702
 servers:
 - description: Generated server url
   url: http://localhost:8030/asserts/api-server
@@ -1573,6 +1573,53 @@ paths:
           description: OK
       tags:
       - rca-pattern-controller
+  /v1/patterns/custom:
+    get:
+      operationId: listCustom
+      parameters:
+      - $ref: '#/components/parameters/TenantId'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/PatternDto'
+                type: array
+            application/x-yml:
+              schema:
+                items:
+                  $ref: '#/components/schemas/PatternDto'
+                type: array
+            application/x-yaml:
+              schema:
+                items:
+                  $ref: '#/components/schemas/PatternDto'
+                type: array
+          description: OK
+      tags:
+      - custom-rca-pattern-controller
+    post:
+      operationId: putCustom
+      parameters:
+      - $ref: '#/components/parameters/TenantId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatternDto'
+          application/x-yml:
+            schema:
+              $ref: '#/components/schemas/PatternDto'
+          application/x-yaml:
+            schema:
+              $ref: '#/components/schemas/PatternDto'
+        required: true
+      responses:
+        "200":
+          description: OK
+      tags:
+      - custom-rca-pattern-controller
   /v1/monitoring-status/for-entities:
     post:
       operationId: getEntityMonitoringStatus
@@ -1723,6 +1770,26 @@ paths:
           description: OK
       tags:
       - incident-controller
+  /v1/entity_type/property_values:
+    post:
+      operationId: getPropertyValues
+      parameters:
+      - $ref: '#/components/parameters/TenantId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EntityPropertyValuesRequestDto'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityPropertyValuesDto'
+          description: OK
+      tags:
+      - entity-type-controller
   /v1/entity_type/count:
     post:
       operationId: getCountByEntityType
@@ -3776,6 +3843,21 @@ paths:
           description: OK
       tags:
       - slo-config-controller
+  /v1/config/prom-rules/schema:
+    get:
+      operationId: getPrometheusRulesSchema
+      parameters:
+      - $ref: '#/components/parameters/TenantId'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                additionalProperties: {}
+          description: JSON Schema returned successfully
+      summary: Get JSON Schema for Prometheus Rules configuration
+      tags:
+      - prom-rules-config-controller
   /v1/config/prom-rules-validate/{id}:
     delete:
       operationId: abortValidation
@@ -3849,6 +3931,29 @@ paths:
           description: OK
       tags:
       - prom-rules-config-controller
+  /v1/config/model-rules/schema:
+    get:
+      description: Returns a JSON Schema Draft 2020-12 document that describes the
+        structure of the Model Rules configuration.
+      operationId: getModelRulesSchema
+      parameters:
+      - $ref: '#/components/parameters/TenantId'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                additionalProperties: {}
+          description: JSON Schema returned successfully
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Internal server error
+      summary: Get JSON Schema for Model Rules configuration
+      tags:
+      - Model Rules Configuration
   /v1/config/model-rules-types/{type}:
     get:
       description: "Retrieves base, active, or custom model rules for the current\
@@ -4216,6 +4321,23 @@ paths:
       summary: Delete log drilldown configuration
       tags:
       - log-drilldown-config-controller
+  /v1/patterns/custom/{name}:
+    delete:
+      operationId: deleteCustom
+      parameters:
+      - explode: false
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+        style: simple
+      - $ref: '#/components/parameters/TenantId'
+      responses:
+        "200":
+          description: OK
+      tags:
+      - custom-rca-pattern-controller
   /v1/config/trace/{name}:
     delete:
       operationId: deleteTraceConfig
@@ -5341,55 +5463,72 @@ components:
       - enabled
       - product
     PrometheusRuleDto:
+      description: A Prometheus alert or recording rule
       example:
         alert: alert
         record: record
         disableInGroups:
         - disableInGroups
         - disableInGroups
-        for: for
+        for: 5m
         active: true
         annotations:
           key: annotations
-        expr: expr
+        expr: probe_success == 0
         labels:
           key: labels
       properties:
         active:
+          default: true
+          description: Whether this rule is active
           type: boolean
         record:
+          description: Metric name for recording rules (mutually exclusive with 'alert')
           type: string
         alert:
+          description: Alert name for alert rules (mutually exclusive with 'record')
           type: string
         expr:
+          description: PromQL expression to evaluate
+          example: probe_success == 0
           type: string
         annotations:
           additionalProperties:
             type: string
+          description: "Annotations for alert rules (e.g., summary, description)"
         labels:
           additionalProperties:
             type: string
+          description: "Labels to attach to the alert/metric. For alerts, must include\
+            \ 'asserts_severity' and 'asserts_alert_category'"
         disableInGroups:
+          description: List of rule groups where this rule should be disabled
           items:
             type: string
           type: array
         for:
+          description: Duration the expression must be true before firing (alert rules
+            only)
+          example: 5m
           type: string
+      required:
+      - expr
     PrometheusRuleGroupDto:
+      description: A group of related Prometheus rules
       example:
         name: name
-        interval: interval
+        interval: 30s
         rules:
         - alert: alert
           record: record
           disableInGroups:
           - disableInGroups
           - disableInGroups
-          for: for
+          for: 5m
           active: true
           annotations:
             key: annotations
-          expr: expr
+          expr: probe_success == 0
           labels:
             key: labels
         - alert: alert
@@ -5397,41 +5536,49 @@ components:
           disableInGroups:
           - disableInGroups
           - disableInGroups
-          for: for
+          for: 5m
           active: true
           annotations:
             key: annotations
-          expr: expr
+          expr: probe_success == 0
           labels:
             key: labels
       properties:
         name:
+          description: Group name
           type: string
         interval:
+          description: "Evaluation interval (e.g., '30s', '1m')"
+          example: 30s
           type: string
         rules:
+          description: List of alert and recording rules in this group
           items:
             $ref: '#/components/schemas/PrometheusRuleDto'
           type: array
+      required:
+      - name
+      - rules
     PrometheusRulesDto:
+      description: Prometheus rules configuration containing alert and recording rules
       example:
         managedBy: managedBy
         name: name
         active: true
         groups:
         - name: name
-          interval: interval
+          interval: 30s
           rules:
           - alert: alert
             record: record
             disableInGroups:
             - disableInGroups
             - disableInGroups
-            for: for
+            for: 5m
             active: true
             annotations:
               key: annotations
-            expr: expr
+            expr: probe_success == 0
             labels:
               key: labels
           - alert: alert
@@ -5439,26 +5586,26 @@ components:
             disableInGroups:
             - disableInGroups
             - disableInGroups
-            for: for
+            for: 5m
             active: true
             annotations:
               key: annotations
-            expr: expr
+            expr: probe_success == 0
             labels:
               key: labels
         - name: name
-          interval: interval
+          interval: 30s
           rules:
           - alert: alert
             record: record
             disableInGroups:
             - disableInGroups
             - disableInGroups
-            for: for
+            for: 5m
             active: true
             annotations:
               key: annotations
-            expr: expr
+            expr: probe_success == 0
             labels:
               key: labels
           - alert: alert
@@ -5466,30 +5613,41 @@ components:
             disableInGroups:
             - disableInGroups
             - disableInGroups
-            for: for
+            for: 5m
             active: true
             annotations:
               key: annotations
-            expr: expr
+            expr: probe_success == 0
             labels:
               key: labels
       properties:
         active:
+          default: true
+          description: Whether this configuration is active
           type: boolean
         name:
+          description: Configuration name for the Prometheus rule file
           type: string
         groups:
+          description: List of rule groups containing alert and recording rules
           items:
             $ref: '#/components/schemas/PrometheusRuleGroupDto'
           type: array
         managedBy:
+          description: "Management source: 'terraform' for Terraform-managed, null\
+            \ for UI-managed"
           type: string
+      required:
+      - groups
+      - name
     DefinedByDto:
+      description: Base class for relation definitions
       discriminator:
         propertyName: source
       properties:
         staticProperties:
           additionalProperties: {}
+          description: Static properties to attach to the relation
         source:
           type: string
       required:
@@ -5499,13 +5657,17 @@ components:
       - $ref: '#/components/schemas/DefinedByDto'
       - properties:
           pattern:
+            description: PromQL pattern to match metrics
             type: string
           startEntityMatchers:
             additionalProperties:
               type: string
+            description: Label matchers for start entity
           endEntityMatchers:
             additionalProperties:
               type: string
+            description: Label matchers for end entity
+      description: Metrics-based relation definition
       example:
         pattern: pattern
         staticProperties:
@@ -5515,19 +5677,25 @@ components:
         source: source
         endEntityMatchers:
           key: endEntityMatchers
+      required:
+      - pattern
     DefinedByPropertyMatchDto:
       allOf:
       - $ref: '#/components/schemas/DefinedByDto'
       - properties:
           startEntityProperties:
+            description: Properties from start entity to match
             items:
               type: string
             type: array
           endEntityProperties:
+            description: Properties from end entity to match
             items:
               type: string
             type: array
+      description: Property-match based relation definition
     EntityRuleDto:
+      description: Entity type rule definition
       example:
         lookup:
           key: lookup
@@ -5568,25 +5736,35 @@ components:
         type: type
       properties:
         type:
+          description: "Entity type name (e.g., 'Service', 'Pod', 'Jvm')"
           type: string
         name:
+          description: Entity name pattern
           type: string
         scope:
           additionalProperties:
             type: string
+          description: Scope definitions for the entity
         lookup:
           additionalProperties:
             type: string
+          description: Lookup mappings
         definedBy:
+          description: Query/metric definitions that define this entity
           items:
             $ref: '#/components/schemas/PropertyRuleDto'
           type: array
         enrichedBy:
+          description: Enrichment rules for this entity
           items:
             $ref: '#/components/schemas/PropertyRuleDto'
           type: array
         disabled:
+          description: Whether this entity rule is disabled
           type: boolean
+      required:
+      - name
+      - type
     ModelRulesDto:
       description: The model rules configuration to create or update
       example:
@@ -5694,17 +5872,24 @@ components:
           type: type
       properties:
         name:
+          description: Configuration name
           type: string
         entities:
+          description: Entity type definitions
           items:
             $ref: '#/components/schemas/EntityRuleDto'
           type: array
         relations:
+          description: Relationship rules between entities
           items:
             $ref: '#/components/schemas/RelationRuleDto'
           type: array
         managedBy:
+          description: "Management source: 'terraform' for Terraform-managed, null\
+            \ for UI-managed"
           type: string
+      required:
+      - name
     PropertyRuleDto:
       example:
         labelValues:
@@ -5728,6 +5913,7 @@ components:
         disabled:
           type: boolean
     RelationRuleDto:
+      description: Relationship rule definition between entities
       example:
         startEntityType: startEntityType
         endEntityType: endEntityType
@@ -5743,13 +5929,21 @@ components:
         type: type
       properties:
         type:
+          description: "Relation type (e.g., 'CALLS', 'HOSTS', 'ROUTES')"
           type: string
         startEntityType:
+          description: Source entity type
           type: string
         endEntityType:
+          description: Target entity type
           type: string
         definedBy:
           $ref: '#/components/schemas/RelationRuleDto_definedBy'
+      required:
+      - definedBy
+      - endEntityType
+      - startEntityType
+      - type
     ModelMappingDto:
       example:
         entities:
@@ -8530,6 +8724,73 @@ components:
           type: string
         namespace:
           type: string
+    MetricMatchDto:
+      example:
+        matchScope: true
+        metric: metric
+        match: match
+      properties:
+        metric:
+          type: string
+        match:
+          type: string
+        matchScope:
+          type: boolean
+    PatternDto:
+      example:
+        reason: reason
+        srcEntityTypes:
+        - srcEntityTypes
+        - srcEntityTypes
+        metricMatches:
+        - matchScope: true
+          metric: metric
+          match: match
+        - matchScope: true
+          metric: metric
+          match: match
+        requiredEntityTypes:
+        - requiredEntityTypes
+        - requiredEntityTypes
+        name: name
+        description: description
+        dstSearch: dstSearch
+        includedByDefault: true
+        vars:
+        - vars
+        - vars
+      properties:
+        name:
+          minLength: 1
+          type: string
+        description:
+          type: string
+        reason:
+          type: string
+        includedByDefault:
+          type: boolean
+        srcEntityTypes:
+          items:
+            type: string
+          type: array
+        requiredEntityTypes:
+          items:
+            type: string
+          type: array
+        dstSearch:
+          minLength: 1
+          type: string
+        vars:
+          items:
+            type: string
+          type: array
+        metricMatches:
+          items:
+            $ref: '#/components/schemas/MetricMatchDto'
+          type: array
+      required:
+      - dstSearch
+      - name
     MonitoringStatusRequestDto:
       example:
         entityKeys:
@@ -8908,6 +9169,70 @@ components:
         incidentSummaries:
           items:
             $ref: '#/components/schemas/IncidentSummaryDto'
+          type: array
+    EntityPropertyValuesRequestDto:
+      example:
+        propertyName: propertyName
+        entityType: entityType
+        prefix: prefix
+        propertyMatchers:
+        - op: op
+          uom: MB
+          name: name
+          value: ""
+        - op: op
+          uom: MB
+          name: name
+          value: ""
+        start: 0
+        limit: 1
+        end: 6
+        scopeCriteria:
+          scopeCriteriaMap:
+            key:
+            - scopeCriteriaMap
+            - scopeCriteriaMap
+          nameAndValues:
+            key:
+            - nameAndValues
+            - nameAndValues
+      properties:
+        entityType:
+          type: string
+        propertyName:
+          type: string
+        scopeCriteria:
+          $ref: '#/components/schemas/ScopeCriteriaDto'
+        propertyMatchers:
+          items:
+            $ref: '#/components/schemas/PropertyMatcherDto'
+          type: array
+        prefix:
+          type: string
+        start:
+          format: int64
+          type: integer
+        end:
+          format: int64
+          type: integer
+        limit:
+          format: int32
+          type: integer
+    EntityPropertyValuesDto:
+      example:
+        propertyName: propertyName
+        entityType: entityType
+        values:
+        - values
+        - values
+      properties:
+        entityType:
+          type: string
+        propertyName:
+          type: string
+        values:
+          items:
+            type: string
           type: array
     EntityCountRequestDto:
       example:
@@ -15022,7 +15347,6 @@ components:
           type: string
         match:
           additionalProperties:
-            deprecated: true
             type: string
           deprecated: true
         matchers:
@@ -20442,11 +20766,11 @@ components:
           disableInGroups:
           - disableInGroups
           - disableInGroups
-          for: for
+          for: 5m
           active: true
           annotations:
             key: annotations
-          expr: expr
+          expr: probe_success == 0
           labels:
             key: labels
         - alert: alert
@@ -20454,11 +20778,11 @@ components:
           disableInGroups:
           - disableInGroups
           - disableInGroups
-          for: for
+          for: 5m
           active: true
           annotations:
             key: annotations
-          expr: expr
+          expr: probe_success == 0
           labels:
             key: labels
         customThresholds:
@@ -20467,11 +20791,11 @@ components:
           disableInGroups:
           - disableInGroups
           - disableInGroups
-          for: for
+          for: 5m
           active: true
           annotations:
             key: annotations
-          expr: expr
+          expr: probe_success == 0
           labels:
             key: labels
         - alert: alert
@@ -20479,11 +20803,11 @@ components:
           disableInGroups:
           - disableInGroups
           - disableInGroups
-          for: for
+          for: 5m
           active: true
           annotations:
             key: annotations
-          expr: expr
+          expr: probe_success == 0
           labels:
             key: labels
       properties:
@@ -20820,6 +21144,7 @@ components:
       - $ref: '#/components/schemas/ApiSubError'
       - $ref: '#/components/schemas/ApiValidationError'
     RelationRuleDto_definedBy:
+      description: "Relation definition (polymorphic: METRICS or PROPERTY_MATCH)"
       oneOf:
       - $ref: '#/components/schemas/DefinedByMetricsDto'
       - $ref: '#/components/schemas/DefinedByPropertyMatchDto'

@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.02.03-072313
+API version: 2026.02.11-155702
 Contact: support@asserts.ai
 */
 
@@ -20,11 +20,14 @@ import (
 // checks if the DefinedByMetricsDto type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &DefinedByMetricsDto{}
 
-// DefinedByMetricsDto struct for DefinedByMetricsDto
+// DefinedByMetricsDto Metrics-based relation definition
 type DefinedByMetricsDto struct {
 	DefinedByDto
-	Pattern              *string           `json:"pattern,omitempty"`
-	StartEntityMatchers  map[string]string `json:"startEntityMatchers,omitempty"`
+	// PromQL pattern to match metrics
+	Pattern string `json:"pattern"`
+	// Label matchers for start entity
+	StartEntityMatchers map[string]string `json:"startEntityMatchers,omitempty"`
+	// Label matchers for end entity
 	EndEntityMatchers    map[string]string `json:"endEntityMatchers,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -35,9 +38,10 @@ type _DefinedByMetricsDto DefinedByMetricsDto
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDefinedByMetricsDto(source string) *DefinedByMetricsDto {
+func NewDefinedByMetricsDto(pattern string, source string) *DefinedByMetricsDto {
 	this := DefinedByMetricsDto{}
 	this.Source = source
+	this.Pattern = pattern
 	return &this
 }
 
@@ -49,36 +53,28 @@ func NewDefinedByMetricsDtoWithDefaults() *DefinedByMetricsDto {
 	return &this
 }
 
-// GetPattern returns the Pattern field value if set, zero value otherwise.
+// GetPattern returns the Pattern field value
 func (o *DefinedByMetricsDto) GetPattern() string {
-	if o == nil || IsNil(o.Pattern) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Pattern
+
+	return o.Pattern
 }
 
-// GetPatternOk returns a tuple with the Pattern field value if set, nil otherwise
+// GetPatternOk returns a tuple with the Pattern field value
 // and a boolean to check if the value has been set.
 func (o *DefinedByMetricsDto) GetPatternOk() (*string, bool) {
-	if o == nil || IsNil(o.Pattern) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Pattern, true
+	return &o.Pattern, true
 }
 
-// HasPattern returns a boolean if a field has been set.
-func (o *DefinedByMetricsDto) HasPattern() bool {
-	if o != nil && !IsNil(o.Pattern) {
-		return true
-	}
-
-	return false
-}
-
-// SetPattern gets a reference to the given string and assigns it to the Pattern field.
+// SetPattern sets field value
 func (o *DefinedByMetricsDto) SetPattern(v string) {
-	o.Pattern = &v
+	o.Pattern = v
 }
 
 // GetStartEntityMatchers returns the StartEntityMatchers field value if set, zero value otherwise.
@@ -163,9 +159,7 @@ func (o DefinedByMetricsDto) ToMap() (map[string]interface{}, error) {
 	if errDefinedByDto != nil {
 		return map[string]interface{}{}, errDefinedByDto
 	}
-	if !IsNil(o.Pattern) {
-		toSerialize["pattern"] = o.Pattern
-	}
+	toSerialize["pattern"] = o.Pattern
 	if !IsNil(o.StartEntityMatchers) {
 		toSerialize["startEntityMatchers"] = o.StartEntityMatchers
 	}
@@ -190,9 +184,12 @@ func (o *DefinedByMetricsDto) UnmarshalJSON(data []byte) (err error) {
 	}
 
 	type DefinedByMetricsDtoWithoutEmbeddedStruct struct {
-		Pattern             *string           `json:"pattern,omitempty"`
+		// PromQL pattern to match metrics
+		Pattern string `json:"pattern"`
+		// Label matchers for start entity
 		StartEntityMatchers map[string]string `json:"startEntityMatchers,omitempty"`
-		EndEntityMatchers   map[string]string `json:"endEntityMatchers,omitempty"`
+		// Label matchers for end entity
+		EndEntityMatchers map[string]string `json:"endEntityMatchers,omitempty"`
 	}
 
 	varDefinedByMetricsDtoWithoutEmbeddedStruct := DefinedByMetricsDtoWithoutEmbeddedStruct{}

@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.02.03-072313
+API version: 2026.02.11-155702
 Contact: support@asserts.ai
 */
 
@@ -41,7 +41,7 @@ var (
 	queryDescape    = strings.NewReplacer("%5B", "[", "%5D", "]")
 )
 
-// APIClient manages communication with the Asserts, Inc API v2026.02.03-072313
+// APIClient manages communication with the Asserts, Inc API v2026.02.11-155702
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration
@@ -68,6 +68,8 @@ type APIClient struct {
 	ConfigExportImportControllerAPI *ConfigExportImportControllerAPIService
 
 	CustomDashConfigControllerAPI *CustomDashConfigControllerAPIService
+
+	CustomRcaPatternControllerAPI *CustomRcaPatternControllerAPIService
 
 	CustomerMetricControllerAPI *CustomerMetricControllerAPIService
 
@@ -180,6 +182,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.AutoCompleteControllerAPI = (*AutoCompleteControllerAPIService)(&c.common)
 	c.ConfigExportImportControllerAPI = (*ConfigExportImportControllerAPIService)(&c.common)
 	c.CustomDashConfigControllerAPI = (*CustomDashConfigControllerAPIService)(&c.common)
+	c.CustomRcaPatternControllerAPI = (*CustomRcaPatternControllerAPIService)(&c.common)
 	c.CustomerMetricControllerAPI = (*CustomerMetricControllerAPIService)(&c.common)
 	c.DataSourcesConfigControllerAPI = (*DataSourcesConfigControllerAPIService)(&c.common)
 	c.DrilldownConfigMigrationControllerAPI = (*DrilldownConfigMigrationControllerAPIService)(&c.common)

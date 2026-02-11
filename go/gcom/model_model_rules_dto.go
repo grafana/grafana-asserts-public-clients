@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.02.03-072313
+API version: 2026.02.11-155702
 Contact: support@asserts.ai
 */
 
@@ -20,10 +20,14 @@ var _ MappedNullable = &ModelRulesDto{}
 
 // ModelRulesDto The model rules configuration to create or update
 type ModelRulesDto struct {
-	Name                 *string           `json:"name,omitempty"`
-	Entities             []EntityRuleDto   `json:"entities,omitempty"`
-	Relations            []RelationRuleDto `json:"relations,omitempty"`
-	ManagedBy            *string           `json:"managedBy,omitempty"`
+	// Configuration name
+	Name string `json:"name"`
+	// Entity type definitions
+	Entities []EntityRuleDto `json:"entities,omitempty"`
+	// Relationship rules between entities
+	Relations []RelationRuleDto `json:"relations,omitempty"`
+	// Management source: 'terraform' for Terraform-managed, null for UI-managed
+	ManagedBy            *string `json:"managedBy,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -33,8 +37,9 @@ type _ModelRulesDto ModelRulesDto
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewModelRulesDto() *ModelRulesDto {
+func NewModelRulesDto(name string) *ModelRulesDto {
 	this := ModelRulesDto{}
+	this.Name = name
 	return &this
 }
 
@@ -46,36 +51,28 @@ func NewModelRulesDtoWithDefaults() *ModelRulesDto {
 	return &this
 }
 
-// GetName returns the Name field value if set, zero value otherwise.
+// GetName returns the Name field value
 func (o *ModelRulesDto) GetName() string {
-	if o == nil || IsNil(o.Name) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Name
+
+	return o.Name
 }
 
-// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *ModelRulesDto) GetNameOk() (*string, bool) {
-	if o == nil || IsNil(o.Name) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Name, true
+	return &o.Name, true
 }
 
-// HasName returns a boolean if a field has been set.
-func (o *ModelRulesDto) HasName() bool {
-	if o != nil && !IsNil(o.Name) {
-		return true
-	}
-
-	return false
-}
-
-// SetName gets a reference to the given string and assigns it to the Name field.
+// SetName sets field value
 func (o *ModelRulesDto) SetName(v string) {
-	o.Name = &v
+	o.Name = v
 }
 
 // GetEntities returns the Entities field value if set, zero value otherwise.
@@ -184,9 +181,7 @@ func (o ModelRulesDto) MarshalJSON() ([]byte, error) {
 
 func (o ModelRulesDto) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Name) {
-		toSerialize["name"] = o.Name
-	}
+	toSerialize["name"] = o.Name
 	if !IsNil(o.Entities) {
 		toSerialize["entities"] = o.Entities
 	}
@@ -205,6 +200,14 @@ func (o ModelRulesDto) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *ModelRulesDto) UnmarshalJSON(data []byte) (err error) {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
 	varModelRulesDto := _ModelRulesDto{}
 
 	err = json.Unmarshal(data, &varModelRulesDto)

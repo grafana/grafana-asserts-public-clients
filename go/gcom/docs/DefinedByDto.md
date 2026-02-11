@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**StaticProperties** | Pointer to **map[string]interface{}** |  | [optional] 
+**StaticProperties** | Pointer to **map[string]interface{}** | Static properties to attach to the relation | [optional] 
 **Source** | **string** |  | 
 
 ## Methods

@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Pattern** | Pointer to **string** |  | [optional] 
-**StartEntityMatchers** | Pointer to **map[string]string** |  | [optional] 
-**EndEntityMatchers** | Pointer to **map[string]string** |  | [optional] 
+**Pattern** | **string** | PromQL pattern to match metrics | 
+**StartEntityMatchers** | Pointer to **map[string]string** | Label matchers for start entity | [optional] 
+**EndEntityMatchers** | Pointer to **map[string]string** | Label matchers for end entity | [optional] 
 
 ## Methods
 
 ### NewDefinedByMetricsDto
 
-`func NewDefinedByMetricsDto() *DefinedByMetricsDto`
+`func NewDefinedByMetricsDto(pattern string, ) *DefinedByMetricsDto`
 
 NewDefinedByMetricsDto instantiates a new DefinedByMetricsDto object
 This constructor will assign default values to properties that have it defined,
@@ -46,11 +46,6 @@ and a boolean to check if the value has been set.
 
 SetPattern sets Pattern field to given value.
 
-### HasPattern
-
-`func (o *DefinedByMetricsDto) HasPattern() bool`
-
-HasPattern returns a boolean if a field has been set.
 
 ### GetStartEntityMatchers
 

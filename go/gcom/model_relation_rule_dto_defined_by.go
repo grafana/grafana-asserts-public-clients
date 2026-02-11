@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.02.03-072313
+API version: 2026.02.11-155702
 Contact: support@asserts.ai
 */
 
@@ -18,7 +18,7 @@ import (
 	"gopkg.in/validator.v2"
 )
 
-// RelationRuleDtoDefinedBy - struct for RelationRuleDtoDefinedBy
+// RelationRuleDtoDefinedBy - Relation definition (polymorphic: METRICS or PROPERTY_MATCH)
 type RelationRuleDtoDefinedBy struct {
 	DefinedByMetricsDto       *DefinedByMetricsDto
 	DefinedByPropertyMatchDto *DefinedByPropertyMatchDto

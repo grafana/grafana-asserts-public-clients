@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.02.03-072313
+API version: 2026.02.11-155702
 Contact: support@asserts.ai
 */
 
@@ -18,16 +18,24 @@ import (
 // checks if the PrometheusRuleDto type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &PrometheusRuleDto{}
 
-// PrometheusRuleDto struct for PrometheusRuleDto
+// PrometheusRuleDto A Prometheus alert or recording rule
 type PrometheusRuleDto struct {
-	Active               *bool             `json:"active,omitempty"`
-	Record               *string           `json:"record,omitempty"`
-	Alert                *string           `json:"alert,omitempty"`
-	Expr                 *string           `json:"expr,omitempty"`
-	Annotations          map[string]string `json:"annotations,omitempty"`
-	Labels               map[string]string `json:"labels,omitempty"`
-	DisableInGroups      []string          `json:"disableInGroups,omitempty"`
-	For                  *string           `json:"for,omitempty"`
+	// Whether this rule is active
+	Active *bool `json:"active,omitempty"`
+	// Metric name for recording rules (mutually exclusive with 'alert')
+	Record *string `json:"record,omitempty"`
+	// Alert name for alert rules (mutually exclusive with 'record')
+	Alert *string `json:"alert,omitempty"`
+	// PromQL expression to evaluate
+	Expr string `json:"expr"`
+	// Annotations for alert rules (e.g., summary, description)
+	Annotations map[string]string `json:"annotations,omitempty"`
+	// Labels to attach to the alert/metric. For alerts, must include 'asserts_severity' and 'asserts_alert_category'
+	Labels map[string]string `json:"labels,omitempty"`
+	// List of rule groups where this rule should be disabled
+	DisableInGroups []string `json:"disableInGroups,omitempty"`
+	// Duration the expression must be true before firing (alert rules only)
+	For                  *string `json:"for,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -37,8 +45,11 @@ type _PrometheusRuleDto PrometheusRuleDto
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPrometheusRuleDto() *PrometheusRuleDto {
+func NewPrometheusRuleDto(expr string) *PrometheusRuleDto {
 	this := PrometheusRuleDto{}
+	var active bool = true
+	this.Active = &active
+	this.Expr = expr
 	return &this
 }
 
@@ -47,6 +58,8 @@ func NewPrometheusRuleDto() *PrometheusRuleDto {
 // but it doesn't guarantee that properties required by API are set
 func NewPrometheusRuleDtoWithDefaults() *PrometheusRuleDto {
 	this := PrometheusRuleDto{}
+	var active bool = true
+	this.Active = &active
 	return &this
 }
 
@@ -146,36 +159,28 @@ func (o *PrometheusRuleDto) SetAlert(v string) {
 	o.Alert = &v
 }
 
-// GetExpr returns the Expr field value if set, zero value otherwise.
+// GetExpr returns the Expr field value
 func (o *PrometheusRuleDto) GetExpr() string {
-	if o == nil || IsNil(o.Expr) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Expr
+
+	return o.Expr
 }
 
-// GetExprOk returns a tuple with the Expr field value if set, nil otherwise
+// GetExprOk returns a tuple with the Expr field value
 // and a boolean to check if the value has been set.
 func (o *PrometheusRuleDto) GetExprOk() (*string, bool) {
-	if o == nil || IsNil(o.Expr) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Expr, true
+	return &o.Expr, true
 }
 
-// HasExpr returns a boolean if a field has been set.
-func (o *PrometheusRuleDto) HasExpr() bool {
-	if o != nil && !IsNil(o.Expr) {
-		return true
-	}
-
-	return false
-}
-
-// SetExpr gets a reference to the given string and assigns it to the Expr field.
+// SetExpr sets field value
 func (o *PrometheusRuleDto) SetExpr(v string) {
-	o.Expr = &v
+	o.Expr = v
 }
 
 // GetAnnotations returns the Annotations field value if set, zero value otherwise.
@@ -325,9 +330,7 @@ func (o PrometheusRuleDto) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Alert) {
 		toSerialize["alert"] = o.Alert
 	}
-	if !IsNil(o.Expr) {
-		toSerialize["expr"] = o.Expr
-	}
+	toSerialize["expr"] = o.Expr
 	if !IsNil(o.Annotations) {
 		toSerialize["annotations"] = o.Annotations
 	}
@@ -349,6 +352,14 @@ func (o PrometheusRuleDto) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *PrometheusRuleDto) UnmarshalJSON(data []byte) (err error) {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
 	varPrometheusRuleDto := _PrometheusRuleDto{}
 
 	err = json.Unmarshal(data, &varPrometheusRuleDto)

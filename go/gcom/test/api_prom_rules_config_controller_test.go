@@ -115,6 +115,18 @@ func Test_gcom_PromRulesConfigControllerAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test PromRulesConfigControllerAPIService GetPrometheusRulesSchema", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		resp, httpRes, err := apiClient.PromRulesConfigControllerAPI.GetPrometheusRulesSchema(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test PromRulesConfigControllerAPIService GetValidation", func(t *testing.T) {
 
 		t.Skip("skip test") // remove to run test

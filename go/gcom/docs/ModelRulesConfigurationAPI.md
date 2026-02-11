@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**DeleteModelRules**](ModelRulesConfigurationAPI.md#DeleteModelRules) | **Delete** /v1/config/model-rules/{name} | Delete custom model rules by name
 [**GetModelRules**](ModelRulesConfigurationAPI.md#GetModelRules) | **Get** /v1/config/model-rules/{name} | Get custom model rules by name
 [**GetModelRulesByType**](ModelRulesConfigurationAPI.md#GetModelRulesByType) | **Get** /v1/config/model-rules-types/{type} | Get base, active, or custom model rules
+[**GetModelRulesSchema**](ModelRulesConfigurationAPI.md#GetModelRulesSchema) | **Get** /v1/config/model-rules/schema | Get JSON Schema for Model Rules configuration
 [**ListModelRules**](ModelRulesConfigurationAPI.md#ListModelRules) | **Get** /v1/config/model-rules | List all custom model rule names
 [**PutModelRules**](ModelRulesConfigurationAPI.md#PutModelRules) | **Put** /v1/config/model-rules | Create or update custom model rules
 [**PutModelRules1**](ModelRulesConfigurationAPI.md#PutModelRules1) | **Put** /v1/config/model-rules/{name} | Create or update custom model rules by name
@@ -227,6 +228,72 @@ No authorization required
 [[Back to README]](../README.md)
 
 
+## GetModelRulesSchema
+
+> map[string]interface{} GetModelRulesSchema(ctx).XScopeOrgID(xScopeOrgID).Execute()
+
+Get JSON Schema for Model Rules configuration
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/grafana/grafana-asserts-public-clients/go/gcom"
+)
+
+func main() {
+	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ModelRulesConfigurationAPI.GetModelRulesSchema(context.Background()).XScopeOrgID(xScopeOrgID).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ModelRulesConfigurationAPI.GetModelRulesSchema``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetModelRulesSchema`: map[string]interface{}
+	fmt.Fprintf(os.Stdout, "Response from `ModelRulesConfigurationAPI.GetModelRulesSchema`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetModelRulesSchemaRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
+
+### Return type
+
+**map[string]interface{}**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## ListModelRules
 
 > ModelRuleNamesDto ListModelRules(ctx).XScopeOrgID(xScopeOrgID).Execute()
@@ -314,7 +381,7 @@ import (
 )
 
 func main() {
-	modelRulesDto := *openapiclient.NewModelRulesDto() // ModelRulesDto | 
+	modelRulesDto := *openapiclient.NewModelRulesDto("Name_example") // ModelRulesDto | 
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -381,7 +448,7 @@ import (
 
 func main() {
 	name := "name_example" // string | The name of the model rules configuration
-	modelRulesDto := *openapiclient.NewModelRulesDto() // ModelRulesDto | 
+	modelRulesDto := *openapiclient.NewModelRulesDto("Name_example") // ModelRulesDto | 
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
 	configuration := openapiclient.NewConfiguration()

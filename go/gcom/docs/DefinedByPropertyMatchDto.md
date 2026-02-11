@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**StartEntityProperties** | Pointer to **[]string** |  | [optional] 
-**EndEntityProperties** | Pointer to **[]string** |  | [optional] 
+**StartEntityProperties** | Pointer to **[]string** | Properties from start entity to match | [optional] 
+**EndEntityProperties** | Pointer to **[]string** | Properties from end entity to match | [optional] 
 
 ## Methods
 
