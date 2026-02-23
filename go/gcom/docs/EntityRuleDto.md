@@ -4,19 +4,19 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | Pointer to **string** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**Scope** | Pointer to **map[string]string** |  | [optional] 
-**Lookup** | Pointer to **map[string]string** |  | [optional] 
-**DefinedBy** | Pointer to [**[]PropertyRuleDto**](PropertyRuleDto.md) |  | [optional] 
-**EnrichedBy** | Pointer to [**[]PropertyRuleDto**](PropertyRuleDto.md) |  | [optional] 
-**Disabled** | Pointer to **bool** |  | [optional] 
+**Type** | **string** | Entity type name (e.g., &#39;Service&#39;, &#39;Pod&#39;, &#39;Jvm&#39;) | 
+**Name** | **string** | Entity name pattern | 
+**Scope** | Pointer to **map[string]string** | Scope definitions for the entity | [optional] 
+**Lookup** | Pointer to **map[string]string** | Lookup mappings | [optional] 
+**DefinedBy** | Pointer to [**[]PropertyRuleDto**](PropertyRuleDto.md) | Query/metric definitions that define this entity | [optional] 
+**EnrichedBy** | Pointer to [**[]PropertyRuleDto**](PropertyRuleDto.md) | Enrichment rules for this entity | [optional] 
+**Disabled** | Pointer to **bool** | Whether this entity rule is disabled | [optional] 
 
 ## Methods
 
 ### NewEntityRuleDto
 
-`func NewEntityRuleDto() *EntityRuleDto`
+`func NewEntityRuleDto(type_ string, name string, ) *EntityRuleDto`
 
 NewEntityRuleDto instantiates a new EntityRuleDto object
 This constructor will assign default values to properties that have it defined,
@@ -50,11 +50,6 @@ and a boolean to check if the value has been set.
 
 SetType sets Type field to given value.
 
-### HasType
-
-`func (o *EntityRuleDto) HasType() bool`
-
-HasType returns a boolean if a field has been set.
 
 ### GetName
 
@@ -75,11 +70,6 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
-### HasName
-
-`func (o *EntityRuleDto) HasName() bool`
-
-HasName returns a boolean if a field has been set.
 
 ### GetScope
 

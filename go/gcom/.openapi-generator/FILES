@@ -13,6 +13,7 @@ api_assertion_search_controller.go
 api_auto_complete_controller.go
 api_config_export_import_controller.go
 api_custom_dash_config_controller.go
+api_custom_rca_pattern_controller.go
 api_customer_metric_controller.go
 api_data_sources_config_controller.go
 api_drilldown_config_migration_controller.go
@@ -128,6 +129,7 @@ docs/CustomDashConfigControllerAPI.md
 docs/CustomDashConfigDto.md
 docs/CustomDashConfigsDto.md
 docs/CustomKpiDashConfigDto.md
+docs/CustomRcaPatternControllerAPI.md
 docs/CustomerMetricControllerAPI.md
 docs/CustomerMetricRequestDto.md
 docs/CustomerMetricResponseDto.md
@@ -169,6 +171,8 @@ docs/EntityKpiScopeDto.md
 docs/EntityMatcherDto.md
 docs/EntityMonitoringStatusDto.md
 docs/EntityPropertyDto.md
+docs/EntityPropertyValuesDto.md
+docs/EntityPropertyValuesRequestDto.md
 docs/EntityRuleDto.md
 docs/EntityScopeControllerAPI.md
 docs/EntityScopesRequestDto.md
@@ -227,6 +231,7 @@ docs/LogConfigPriorityDto.md
 docs/LogDrilldownConfigControllerAPI.md
 docs/LogDrilldownConfigDto.md
 docs/MetricDto.md
+docs/MetricMatchDto.md
 docs/MetricSanityCheckDto.md
 docs/MetricSanityCheckResult.md
 docs/MetricSanityCheckStepResult.md
@@ -258,6 +263,7 @@ docs/MonitoringStatusResponseDto.md
 docs/OccurrenceSliConfigDto.md
 docs/OtelCollectorConfigDto.md
 docs/OtelConfigControllerAPI.md
+docs/PatternDto.md
 docs/ProductActivationControllerAPI.md
 docs/ProductActivationDto.md
 docs/ProfileConfigPriorityDto.md
@@ -476,6 +482,8 @@ model_entity_kpi_scope_dto.go
 model_entity_matcher_dto.go
 model_entity_monitoring_status_dto.go
 model_entity_property_dto.go
+model_entity_property_values_dto.go
+model_entity_property_values_request_dto.go
 model_entity_rule_dto.go
 model_entity_scopes_request_dto.go
 model_entity_scopes_response_dto.go
@@ -524,6 +532,7 @@ model_log_config_dto.go
 model_log_config_priority_dto.go
 model_log_drilldown_config_dto.go
 model_metric_dto.go
+model_metric_match_dto.go
 model_metric_sanity_check_dto.go
 model_metric_sanity_check_result.go
 model_metric_sanity_check_step_result.go
@@ -550,6 +559,7 @@ model_monitoring_status_request_dto.go
 model_monitoring_status_response_dto.go
 model_occurrence_sli_config_dto.go
 model_otel_collector_config_dto.go
+model_pattern_dto.go
 model_product_activation_dto.go
 model_profile_config_priority_dto.go
 model_profile_drilldown_config_dto.go
@@ -659,6 +669,7 @@ test/api_assertion_search_controller_test.go
 test/api_auto_complete_controller_test.go
 test/api_config_export_import_controller_test.go
 test/api_custom_dash_config_controller_test.go
+test/api_custom_rca_pattern_controller_test.go
 test/api_customer_metric_controller_test.go
 test/api_data_sources_config_controller_test.go
 test/api_drilldown_config_migration_controller_test.go

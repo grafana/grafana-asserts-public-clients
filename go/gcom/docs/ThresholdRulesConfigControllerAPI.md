@@ -32,7 +32,7 @@ import (
 )
 
 func main() {
-	prometheusRuleDto := *openapiclient.NewPrometheusRuleDto() // PrometheusRuleDto | 
+	prometheusRuleDto := *openapiclient.NewPrometheusRuleDto("probe_success == 0") // PrometheusRuleDto | 
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -288,7 +288,7 @@ import (
 )
 
 func main() {
-	prometheusRuleDto := *openapiclient.NewPrometheusRuleDto() // PrometheusRuleDto | 
+	prometheusRuleDto := *openapiclient.NewPrometheusRuleDto("probe_success == 0") // PrometheusRuleDto | 
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -352,7 +352,7 @@ import (
 )
 
 func main() {
-	prometheusRulesDto := *openapiclient.NewPrometheusRulesDto() // PrometheusRulesDto | 
+	prometheusRulesDto := *openapiclient.NewPrometheusRulesDto("Name_example", []openapiclient.PrometheusRuleGroupDto{*openapiclient.NewPrometheusRuleGroupDto("Name_example", []openapiclient.PrometheusRuleDto{*openapiclient.NewPrometheusRuleDto("probe_success == 0")})}) // PrometheusRulesDto | 
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
 	configuration := openapiclient.NewConfiguration()
