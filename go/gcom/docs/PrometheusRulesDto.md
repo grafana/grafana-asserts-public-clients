@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Active** | Pointer to **bool** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**Groups** | Pointer to [**[]PrometheusRuleGroupDto**](PrometheusRuleGroupDto.md) |  | [optional] 
-**ManagedBy** | Pointer to **string** |  | [optional] 
+**Active** | Pointer to **bool** | Whether this configuration is active | [optional] [default to true]
+**Name** | **string** | Configuration name for the Prometheus rule file | 
+**Groups** | [**[]PrometheusRuleGroupDto**](PrometheusRuleGroupDto.md) | List of rule groups containing alert and recording rules | 
+**ManagedBy** | Pointer to **string** | Management source: &#39;terraform&#39; for Terraform-managed, null for UI-managed | [optional] 
 
 ## Methods
 
 ### NewPrometheusRulesDto
 
-`func NewPrometheusRulesDto() *PrometheusRulesDto`
+`func NewPrometheusRulesDto(name string, groups []PrometheusRuleGroupDto, ) *PrometheusRulesDto`
 
 NewPrometheusRulesDto instantiates a new PrometheusRulesDto object
 This constructor will assign default values to properties that have it defined,
@@ -72,11 +72,6 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
-### HasName
-
-`func (o *PrometheusRulesDto) HasName() bool`
-
-HasName returns a boolean if a field has been set.
 
 ### GetGroups
 
@@ -97,11 +92,6 @@ and a boolean to check if the value has been set.
 
 SetGroups sets Groups field to given value.
 
-### HasGroups
-
-`func (o *PrometheusRulesDto) HasGroups() bool`
-
-HasGroups returns a boolean if a field has been set.
 
 ### GetManagedBy
 
