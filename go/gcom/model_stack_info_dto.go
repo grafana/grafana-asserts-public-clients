@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.02.03-072313
+API version: 2026.03.02-104252
 Contact: support@asserts.ai
 */
 
@@ -20,21 +20,20 @@ var _ MappedNullable = &StackInfoDto{}
 
 // StackInfoDto struct for StackInfoDto
 type StackInfoDto struct {
-	StackId                   *int32  `json:"stackId,omitempty"`
-	Slug                      *string `json:"slug,omitempty"`
-	OrgId                     *int32  `json:"orgId,omitempty"`
-	OrgSlug                   *string `json:"orgSlug,omitempty"`
-	GcomToken                 *string `json:"gcomToken,omitempty"`
-	MimirToken                *string `json:"mimirToken,omitempty"`
-	AssertionDetectorToken    *string `json:"assertionDetectorToken,omitempty"`
-	Enabled                   *bool   `json:"enabled,omitempty"`
-	Dormant                   *bool   `json:"dormant,omitempty"`
-	AlertManagerConfigured    *bool   `json:"alertManagerConfigured,omitempty"`
-	GraphInstanceCreated      *bool   `json:"graphInstanceCreated,omitempty"`
-	UseGrafanaManagedAlerts   *bool   `json:"useGrafanaManagedAlerts,omitempty"`
-	ProcessAlertsInEnrichment *bool   `json:"processAlertsInEnrichment,omitempty"`
-	ContactPointUID           *string `json:"contactPointUID,omitempty"`
-	AdditionalProperties      map[string]interface{}
+	StackId                 *int32  `json:"stackId,omitempty"`
+	Slug                    *string `json:"slug,omitempty"`
+	OrgId                   *int32  `json:"orgId,omitempty"`
+	OrgSlug                 *string `json:"orgSlug,omitempty"`
+	GcomToken               *string `json:"gcomToken,omitempty"`
+	MimirToken              *string `json:"mimirToken,omitempty"`
+	AssertionDetectorToken  *string `json:"assertionDetectorToken,omitempty"`
+	Enabled                 *bool   `json:"enabled,omitempty"`
+	Dormant                 *bool   `json:"dormant,omitempty"`
+	AlertManagerConfigured  *bool   `json:"alertManagerConfigured,omitempty"`
+	GraphInstanceCreated    *bool   `json:"graphInstanceCreated,omitempty"`
+	UseGrafanaManagedAlerts *bool   `json:"useGrafanaManagedAlerts,omitempty"`
+	ContactPointUID         *string `json:"contactPointUID,omitempty"`
+	AdditionalProperties    map[string]interface{}
 }
 
 type _StackInfoDto StackInfoDto
@@ -440,38 +439,6 @@ func (o *StackInfoDto) SetUseGrafanaManagedAlerts(v bool) {
 	o.UseGrafanaManagedAlerts = &v
 }
 
-// GetProcessAlertsInEnrichment returns the ProcessAlertsInEnrichment field value if set, zero value otherwise.
-func (o *StackInfoDto) GetProcessAlertsInEnrichment() bool {
-	if o == nil || IsNil(o.ProcessAlertsInEnrichment) {
-		var ret bool
-		return ret
-	}
-	return *o.ProcessAlertsInEnrichment
-}
-
-// GetProcessAlertsInEnrichmentOk returns a tuple with the ProcessAlertsInEnrichment field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *StackInfoDto) GetProcessAlertsInEnrichmentOk() (*bool, bool) {
-	if o == nil || IsNil(o.ProcessAlertsInEnrichment) {
-		return nil, false
-	}
-	return o.ProcessAlertsInEnrichment, true
-}
-
-// HasProcessAlertsInEnrichment returns a boolean if a field has been set.
-func (o *StackInfoDto) HasProcessAlertsInEnrichment() bool {
-	if o != nil && !IsNil(o.ProcessAlertsInEnrichment) {
-		return true
-	}
-
-	return false
-}
-
-// SetProcessAlertsInEnrichment gets a reference to the given bool and assigns it to the ProcessAlertsInEnrichment field.
-func (o *StackInfoDto) SetProcessAlertsInEnrichment(v bool) {
-	o.ProcessAlertsInEnrichment = &v
-}
-
 // GetContactPointUID returns the ContactPointUID field value if set, zero value otherwise.
 func (o *StackInfoDto) GetContactPointUID() string {
 	if o == nil || IsNil(o.ContactPointUID) {
@@ -550,9 +517,6 @@ func (o StackInfoDto) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UseGrafanaManagedAlerts) {
 		toSerialize["useGrafanaManagedAlerts"] = o.UseGrafanaManagedAlerts
 	}
-	if !IsNil(o.ProcessAlertsInEnrichment) {
-		toSerialize["processAlertsInEnrichment"] = o.ProcessAlertsInEnrichment
-	}
 	if !IsNil(o.ContactPointUID) {
 		toSerialize["contactPointUID"] = o.ContactPointUID
 	}
@@ -590,7 +554,6 @@ func (o *StackInfoDto) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "alertManagerConfigured")
 		delete(additionalProperties, "graphInstanceCreated")
 		delete(additionalProperties, "useGrafanaManagedAlerts")
-		delete(additionalProperties, "processAlertsInEnrichment")
 		delete(additionalProperties, "contactPointUID")
 		o.AdditionalProperties = additionalProperties
 	}

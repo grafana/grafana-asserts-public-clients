@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.02.03-072313
+API version: 2026.03.02-104252
 Contact: support@asserts.ai
 */
 
@@ -17,54 +17,59 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"strings"
 )
 
-// AlertManagerConfigControllerAPIService AlertManagerConfigControllerAPI service
-type AlertManagerConfigControllerAPIService service
+// CustomRcaPatternControllerAPIService CustomRcaPatternControllerAPI service
+type CustomRcaPatternControllerAPIService service
 
-type ApiDeleteAlertManagerConfigRequest struct {
+type ApiDeleteCustomRequest struct {
 	ctx         context.Context
-	ApiService  *AlertManagerConfigControllerAPIService
+	ApiService  *CustomRcaPatternControllerAPIService
+	name        string
 	xScopeOrgID *string
 }
 
 // Grafana Tenant/Stack ID
-func (r ApiDeleteAlertManagerConfigRequest) XScopeOrgID(xScopeOrgID string) ApiDeleteAlertManagerConfigRequest {
+func (r ApiDeleteCustomRequest) XScopeOrgID(xScopeOrgID string) ApiDeleteCustomRequest {
 	r.xScopeOrgID = &xScopeOrgID
 	return r
 }
 
-func (r ApiDeleteAlertManagerConfigRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteAlertManagerConfigExecute(r)
+func (r ApiDeleteCustomRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteCustomExecute(r)
 }
 
 /*
-DeleteAlertManagerConfig Method for DeleteAlertManagerConfig
+DeleteCustom Method for DeleteCustom
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiDeleteAlertManagerConfigRequest
+	@param name
+	@return ApiDeleteCustomRequest
 */
-func (a *AlertManagerConfigControllerAPIService) DeleteAlertManagerConfig(ctx context.Context) ApiDeleteAlertManagerConfigRequest {
-	return ApiDeleteAlertManagerConfigRequest{
+func (a *CustomRcaPatternControllerAPIService) DeleteCustom(ctx context.Context, name string) ApiDeleteCustomRequest {
+	return ApiDeleteCustomRequest{
 		ApiService: a,
 		ctx:        ctx,
+		name:       name,
 	}
 }
 
 // Execute executes the request
-func (a *AlertManagerConfigControllerAPIService) DeleteAlertManagerConfigExecute(r ApiDeleteAlertManagerConfigRequest) (*http.Response, error) {
+func (a *CustomRcaPatternControllerAPIService) DeleteCustomExecute(r ApiDeleteCustomRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AlertManagerConfigControllerAPIService.DeleteAlertManagerConfig")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomRcaPatternControllerAPIService.DeleteCustom")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/alertmanager"
+	localVarPath := localBasePath + "/v1/patterns/custom/{name}"
+	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -118,30 +123,30 @@ func (a *AlertManagerConfigControllerAPIService) DeleteAlertManagerConfigExecute
 	return localVarHTTPResponse, nil
 }
 
-type ApiGetAlertManagerConfigRequest struct {
+type ApiListCustomRequest struct {
 	ctx         context.Context
-	ApiService  *AlertManagerConfigControllerAPIService
+	ApiService  *CustomRcaPatternControllerAPIService
 	xScopeOrgID *string
 }
 
 // Grafana Tenant/Stack ID
-func (r ApiGetAlertManagerConfigRequest) XScopeOrgID(xScopeOrgID string) ApiGetAlertManagerConfigRequest {
+func (r ApiListCustomRequest) XScopeOrgID(xScopeOrgID string) ApiListCustomRequest {
 	r.xScopeOrgID = &xScopeOrgID
 	return r
 }
 
-func (r ApiGetAlertManagerConfigRequest) Execute() (*AlertManagerConfig, *http.Response, error) {
-	return r.ApiService.GetAlertManagerConfigExecute(r)
+func (r ApiListCustomRequest) Execute() ([]PatternDto, *http.Response, error) {
+	return r.ApiService.ListCustomExecute(r)
 }
 
 /*
-GetAlertManagerConfig Method for GetAlertManagerConfig
+ListCustom Method for ListCustom
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetAlertManagerConfigRequest
+	@return ApiListCustomRequest
 */
-func (a *AlertManagerConfigControllerAPIService) GetAlertManagerConfig(ctx context.Context) ApiGetAlertManagerConfigRequest {
-	return ApiGetAlertManagerConfigRequest{
+func (a *CustomRcaPatternControllerAPIService) ListCustom(ctx context.Context) ApiListCustomRequest {
+	return ApiListCustomRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -149,21 +154,21 @@ func (a *AlertManagerConfigControllerAPIService) GetAlertManagerConfig(ctx conte
 
 // Execute executes the request
 //
-//	@return AlertManagerConfig
-func (a *AlertManagerConfigControllerAPIService) GetAlertManagerConfigExecute(r ApiGetAlertManagerConfigRequest) (*AlertManagerConfig, *http.Response, error) {
+//	@return []PatternDto
+func (a *CustomRcaPatternControllerAPIService) ListCustomExecute(r ApiListCustomRequest) ([]PatternDto, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AlertManagerConfig
+		localVarReturnValue []PatternDto
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AlertManagerConfigControllerAPIService.GetAlertManagerConfig")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomRcaPatternControllerAPIService.ListCustom")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/alertmanager"
+	localVarPath := localBasePath + "/v1/patterns/custom"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -226,64 +231,61 @@ func (a *AlertManagerConfigControllerAPIService) GetAlertManagerConfigExecute(r 
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiUpdateAlertManagerConfigRequest struct {
-	ctx                context.Context
-	ApiService         *AlertManagerConfigControllerAPIService
-	alertManagerConfig *AlertManagerConfig
-	xScopeOrgID        *string
+type ApiPutCustomRequest struct {
+	ctx         context.Context
+	ApiService  *CustomRcaPatternControllerAPIService
+	patternDto  *PatternDto
+	xScopeOrgID *string
 }
 
-func (r ApiUpdateAlertManagerConfigRequest) AlertManagerConfig(alertManagerConfig AlertManagerConfig) ApiUpdateAlertManagerConfigRequest {
-	r.alertManagerConfig = &alertManagerConfig
+func (r ApiPutCustomRequest) PatternDto(patternDto PatternDto) ApiPutCustomRequest {
+	r.patternDto = &patternDto
 	return r
 }
 
 // Grafana Tenant/Stack ID
-func (r ApiUpdateAlertManagerConfigRequest) XScopeOrgID(xScopeOrgID string) ApiUpdateAlertManagerConfigRequest {
+func (r ApiPutCustomRequest) XScopeOrgID(xScopeOrgID string) ApiPutCustomRequest {
 	r.xScopeOrgID = &xScopeOrgID
 	return r
 }
 
-func (r ApiUpdateAlertManagerConfigRequest) Execute() (*AlertManagerConfig, *http.Response, error) {
-	return r.ApiService.UpdateAlertManagerConfigExecute(r)
+func (r ApiPutCustomRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PutCustomExecute(r)
 }
 
 /*
-UpdateAlertManagerConfig Method for UpdateAlertManagerConfig
+PutCustom Method for PutCustom
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiUpdateAlertManagerConfigRequest
+	@return ApiPutCustomRequest
 */
-func (a *AlertManagerConfigControllerAPIService) UpdateAlertManagerConfig(ctx context.Context) ApiUpdateAlertManagerConfigRequest {
-	return ApiUpdateAlertManagerConfigRequest{
+func (a *CustomRcaPatternControllerAPIService) PutCustom(ctx context.Context) ApiPutCustomRequest {
+	return ApiPutCustomRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//
-//	@return AlertManagerConfig
-func (a *AlertManagerConfigControllerAPIService) UpdateAlertManagerConfigExecute(r ApiUpdateAlertManagerConfigRequest) (*AlertManagerConfig, *http.Response, error) {
+func (a *CustomRcaPatternControllerAPIService) PutCustomExecute(r ApiPutCustomRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *AlertManagerConfig
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AlertManagerConfigControllerAPIService.UpdateAlertManagerConfig")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomRcaPatternControllerAPIService.PutCustom")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/alertmanager"
+	localVarPath := localBasePath + "/v1/patterns/custom"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.alertManagerConfig == nil {
-		return localVarReturnValue, nil, reportError("alertManagerConfig is required and must be specified")
+	if r.patternDto == nil {
+		return nil, reportError("patternDto is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -296,7 +298,7 @@ func (a *AlertManagerConfigControllerAPIService) UpdateAlertManagerConfigExecute
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "application/x-yml", "application/x-yaml"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -307,22 +309,22 @@ func (a *AlertManagerConfigControllerAPIService) UpdateAlertManagerConfigExecute
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Scope-OrgID", r.xScopeOrgID, "")
 	}
 	// body params
-	localVarPostBody = r.alertManagerConfig
+	localVarPostBody = r.patternDto
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -330,17 +332,8 @@ func (a *AlertManagerConfigControllerAPIService) UpdateAlertManagerConfigExecute
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }

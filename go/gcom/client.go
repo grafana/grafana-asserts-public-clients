@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.02.03-072313
+API version: 2026.03.02-104252
 Contact: support@asserts.ai
 */
 
@@ -41,7 +41,7 @@ var (
 	queryDescape    = strings.NewReplacer("%5B", "[", "%5D", "]")
 )
 
-// APIClient manages communication with the Asserts, Inc API v2026.02.03-072313
+// APIClient manages communication with the Asserts, Inc API v2026.03.02-104252
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration
@@ -52,10 +52,6 @@ type APIClient struct {
 	AlertConfigurationAPI *AlertConfigurationAPIService
 
 	AlertEntityControllerAPI *AlertEntityControllerAPIService
-
-	AlertManagerConfigControllerAPI *AlertManagerConfigControllerAPIService
-
-	AlertManagerVersionedConfigControllerAPI *AlertManagerVersionedConfigControllerAPIService
 
 	AssertionInfoControllerAPI *AssertionInfoControllerAPIService
 
@@ -68,6 +64,8 @@ type APIClient struct {
 	ConfigExportImportControllerAPI *ConfigExportImportControllerAPIService
 
 	CustomDashConfigControllerAPI *CustomDashConfigControllerAPIService
+
+	CustomRcaPatternControllerAPI *CustomRcaPatternControllerAPIService
 
 	CustomerMetricControllerAPI *CustomerMetricControllerAPIService
 
@@ -172,14 +170,13 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	// API Services
 	c.AlertConfigurationAPI = (*AlertConfigurationAPIService)(&c.common)
 	c.AlertEntityControllerAPI = (*AlertEntityControllerAPIService)(&c.common)
-	c.AlertManagerConfigControllerAPI = (*AlertManagerConfigControllerAPIService)(&c.common)
-	c.AlertManagerVersionedConfigControllerAPI = (*AlertManagerVersionedConfigControllerAPIService)(&c.common)
 	c.AssertionInfoControllerAPI = (*AssertionInfoControllerAPIService)(&c.common)
 	c.AssertionScoreControllerAPI = (*AssertionScoreControllerAPIService)(&c.common)
 	c.AssertionSearchControllerAPI = (*AssertionSearchControllerAPIService)(&c.common)
 	c.AutoCompleteControllerAPI = (*AutoCompleteControllerAPIService)(&c.common)
 	c.ConfigExportImportControllerAPI = (*ConfigExportImportControllerAPIService)(&c.common)
 	c.CustomDashConfigControllerAPI = (*CustomDashConfigControllerAPIService)(&c.common)
+	c.CustomRcaPatternControllerAPI = (*CustomRcaPatternControllerAPIService)(&c.common)
 	c.CustomerMetricControllerAPI = (*CustomerMetricControllerAPIService)(&c.common)
 	c.DataSourcesConfigControllerAPI = (*DataSourcesConfigControllerAPIService)(&c.common)
 	c.DrilldownConfigMigrationControllerAPI = (*DrilldownConfigMigrationControllerAPIService)(&c.common)

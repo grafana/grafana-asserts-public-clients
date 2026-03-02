@@ -16,7 +16,6 @@ Name | Type | Description | Notes
 **AlertManagerConfigured** | Pointer to **bool** |  | [optional] 
 **GraphInstanceCreated** | Pointer to **bool** |  | [optional] 
 **UseGrafanaManagedAlerts** | Pointer to **bool** |  | [optional] 
-**ProcessAlertsInEnrichment** | Pointer to **bool** |  | [optional] 
 **ContactPointUID** | Pointer to **string** |  | [optional] 
 
 ## Methods
@@ -337,31 +336,6 @@ SetUseGrafanaManagedAlerts sets UseGrafanaManagedAlerts field to given value.
 `func (o *StackInfoDto) HasUseGrafanaManagedAlerts() bool`
 
 HasUseGrafanaManagedAlerts returns a boolean if a field has been set.
-
-### GetProcessAlertsInEnrichment
-
-`func (o *StackInfoDto) GetProcessAlertsInEnrichment() bool`
-
-GetProcessAlertsInEnrichment returns the ProcessAlertsInEnrichment field if non-nil, zero value otherwise.
-
-### GetProcessAlertsInEnrichmentOk
-
-`func (o *StackInfoDto) GetProcessAlertsInEnrichmentOk() (*bool, bool)`
-
-GetProcessAlertsInEnrichmentOk returns a tuple with the ProcessAlertsInEnrichment field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetProcessAlertsInEnrichment
-
-`func (o *StackInfoDto) SetProcessAlertsInEnrichment(v bool)`
-
-SetProcessAlertsInEnrichment sets ProcessAlertsInEnrichment field to given value.
-
-### HasProcessAlertsInEnrichment
-
-`func (o *StackInfoDto) HasProcessAlertsInEnrichment() bool`
-
-HasProcessAlertsInEnrichment returns a boolean if a field has been set.
 
 ### GetContactPointUID
 

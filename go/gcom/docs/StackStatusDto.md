@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **SanityCheckResults** | Pointer to [**[]MetricSanityCheckResult**](MetricSanityCheckResult.md) |  | [optional] 
 **Version** | Pointer to **int32** |  | [optional] 
 **UseGrafanaManagedAlerts** | Pointer to **bool** |  | [optional] 
-**ProcessAlertsInEnrichment** | Pointer to **bool** |  | [optional] 
+**ContactPointUID** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -233,30 +233,30 @@ SetUseGrafanaManagedAlerts sets UseGrafanaManagedAlerts field to given value.
 
 HasUseGrafanaManagedAlerts returns a boolean if a field has been set.
 
-### GetProcessAlertsInEnrichment
+### GetContactPointUID
 
-`func (o *StackStatusDto) GetProcessAlertsInEnrichment() bool`
+`func (o *StackStatusDto) GetContactPointUID() string`
 
-GetProcessAlertsInEnrichment returns the ProcessAlertsInEnrichment field if non-nil, zero value otherwise.
+GetContactPointUID returns the ContactPointUID field if non-nil, zero value otherwise.
 
-### GetProcessAlertsInEnrichmentOk
+### GetContactPointUIDOk
 
-`func (o *StackStatusDto) GetProcessAlertsInEnrichmentOk() (*bool, bool)`
+`func (o *StackStatusDto) GetContactPointUIDOk() (*string, bool)`
 
-GetProcessAlertsInEnrichmentOk returns a tuple with the ProcessAlertsInEnrichment field if it's non-nil, zero value otherwise
+GetContactPointUIDOk returns a tuple with the ContactPointUID field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetProcessAlertsInEnrichment
+### SetContactPointUID
 
-`func (o *StackStatusDto) SetProcessAlertsInEnrichment(v bool)`
+`func (o *StackStatusDto) SetContactPointUID(v string)`
 
-SetProcessAlertsInEnrichment sets ProcessAlertsInEnrichment field to given value.
+SetContactPointUID sets ContactPointUID field to given value.
 
-### HasProcessAlertsInEnrichment
+### HasContactPointUID
 
-`func (o *StackStatusDto) HasProcessAlertsInEnrichment() bool`
+`func (o *StackStatusDto) HasContactPointUID() bool`
 
-HasProcessAlertsInEnrichment returns a boolean if a field has been set.
+HasContactPointUID returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

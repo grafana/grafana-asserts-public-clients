@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | Pointer to **string** |  | [optional] 
-**StartEntityType** | Pointer to **string** |  | [optional] 
-**EndEntityType** | Pointer to **string** |  | [optional] 
-**DefinedBy** | Pointer to [**RelationRuleDtoDefinedBy**](RelationRuleDtoDefinedBy.md) |  | [optional] 
+**Type** | **string** | Relation type (e.g., &#39;CALLS&#39;, &#39;HOSTS&#39;, &#39;ROUTES&#39;) | 
+**StartEntityType** | **string** | Source entity type | 
+**EndEntityType** | **string** | Target entity type | 
+**DefinedBy** | [**RelationRuleDtoDefinedBy**](RelationRuleDtoDefinedBy.md) |  | 
 
 ## Methods
 
 ### NewRelationRuleDto
 
-`func NewRelationRuleDto() *RelationRuleDto`
+`func NewRelationRuleDto(type_ string, startEntityType string, endEntityType string, definedBy RelationRuleDtoDefinedBy, ) *RelationRuleDto`
 
 NewRelationRuleDto instantiates a new RelationRuleDto object
 This constructor will assign default values to properties that have it defined,
@@ -47,11 +47,6 @@ and a boolean to check if the value has been set.
 
 SetType sets Type field to given value.
 
-### HasType
-
-`func (o *RelationRuleDto) HasType() bool`
-
-HasType returns a boolean if a field has been set.
 
 ### GetStartEntityType
 
@@ -72,11 +67,6 @@ and a boolean to check if the value has been set.
 
 SetStartEntityType sets StartEntityType field to given value.
 
-### HasStartEntityType
-
-`func (o *RelationRuleDto) HasStartEntityType() bool`
-
-HasStartEntityType returns a boolean if a field has been set.
 
 ### GetEndEntityType
 
@@ -97,11 +87,6 @@ and a boolean to check if the value has been set.
 
 SetEndEntityType sets EndEntityType field to given value.
 
-### HasEndEntityType
-
-`func (o *RelationRuleDto) HasEndEntityType() bool`
-
-HasEndEntityType returns a boolean if a field has been set.
 
 ### GetDefinedBy
 
@@ -122,11 +107,6 @@ and a boolean to check if the value has been set.
 
 SetDefinedBy sets DefinedBy field to given value.
 
-### HasDefinedBy
-
-`func (o *RelationRuleDto) HasDefinedBy() bool`
-
-HasDefinedBy returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
