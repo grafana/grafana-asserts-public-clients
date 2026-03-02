@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**GetAll**](EntityTypeControllerAPI.md#GetAll) | **Get** /v1/entity_type | 
 [**GetCountByEntityType**](EntityTypeControllerAPI.md#GetCountByEntityType) | **Post** /v1/entity_type/count | 
 [**GetEntityType**](EntityTypeControllerAPI.md#GetEntityType) | **Get** /v1/entity_type/{type} | 
+[**GetPropertyValues**](EntityTypeControllerAPI.md#GetPropertyValues) | **Post** /v1/entity_type/property_values | 
 
 
 
@@ -209,6 +210,72 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetPropertyValues
+
+> EntityPropertyValuesDto GetPropertyValues(ctx).EntityPropertyValuesRequestDto(entityPropertyValuesRequestDto).XScopeOrgID(xScopeOrgID).Execute()
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/grafana/grafana-asserts-public-clients/go/gcom"
+)
+
+func main() {
+	entityPropertyValuesRequestDto := *openapiclient.NewEntityPropertyValuesRequestDto() // EntityPropertyValuesRequestDto | 
+	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.EntityTypeControllerAPI.GetPropertyValues(context.Background()).EntityPropertyValuesRequestDto(entityPropertyValuesRequestDto).XScopeOrgID(xScopeOrgID).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `EntityTypeControllerAPI.GetPropertyValues``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetPropertyValues`: EntityPropertyValuesDto
+	fmt.Fprintf(os.Stdout, "Response from `EntityTypeControllerAPI.GetPropertyValues`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetPropertyValuesRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **entityPropertyValuesRequestDto** | [**EntityPropertyValuesRequestDto**](EntityPropertyValuesRequestDto.md) |  | 
+ **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
+
+### Return type
+
+[**EntityPropertyValuesDto**](EntityPropertyValuesDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

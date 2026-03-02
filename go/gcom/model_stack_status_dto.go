@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.02.03-072313
+API version: 2026.03.02-104252
 Contact: support@asserts.ai
 */
 
@@ -21,16 +21,16 @@ var _ MappedNullable = &StackStatusDto{}
 
 // StackStatusDto struct for StackStatusDto
 type StackStatusDto struct {
-	Status                    *string                   `json:"status,omitempty"`
-	DisabledTime              *time.Time                `json:"disabledTime,omitempty"`
-	Enabled                   *bool                     `json:"enabled,omitempty"`
-	AlertManagerConfigured    *bool                     `json:"alertManagerConfigured,omitempty"`
-	GraphInstanceCreated      *bool                     `json:"graphInstanceCreated,omitempty"`
-	SanityCheckResults        []MetricSanityCheckResult `json:"sanityCheckResults,omitempty"`
-	Version                   *int32                    `json:"version,omitempty"`
-	UseGrafanaManagedAlerts   *bool                     `json:"useGrafanaManagedAlerts,omitempty"`
-	ProcessAlertsInEnrichment *bool                     `json:"processAlertsInEnrichment,omitempty"`
-	AdditionalProperties      map[string]interface{}
+	Status                  *string                   `json:"status,omitempty"`
+	DisabledTime            *time.Time                `json:"disabledTime,omitempty"`
+	Enabled                 *bool                     `json:"enabled,omitempty"`
+	AlertManagerConfigured  *bool                     `json:"alertManagerConfigured,omitempty"`
+	GraphInstanceCreated    *bool                     `json:"graphInstanceCreated,omitempty"`
+	SanityCheckResults      []MetricSanityCheckResult `json:"sanityCheckResults,omitempty"`
+	Version                 *int32                    `json:"version,omitempty"`
+	UseGrafanaManagedAlerts *bool                     `json:"useGrafanaManagedAlerts,omitempty"`
+	ContactPointUID         *string                   `json:"contactPointUID,omitempty"`
+	AdditionalProperties    map[string]interface{}
 }
 
 type _StackStatusDto StackStatusDto
@@ -308,36 +308,36 @@ func (o *StackStatusDto) SetUseGrafanaManagedAlerts(v bool) {
 	o.UseGrafanaManagedAlerts = &v
 }
 
-// GetProcessAlertsInEnrichment returns the ProcessAlertsInEnrichment field value if set, zero value otherwise.
-func (o *StackStatusDto) GetProcessAlertsInEnrichment() bool {
-	if o == nil || IsNil(o.ProcessAlertsInEnrichment) {
-		var ret bool
+// GetContactPointUID returns the ContactPointUID field value if set, zero value otherwise.
+func (o *StackStatusDto) GetContactPointUID() string {
+	if o == nil || IsNil(o.ContactPointUID) {
+		var ret string
 		return ret
 	}
-	return *o.ProcessAlertsInEnrichment
+	return *o.ContactPointUID
 }
 
-// GetProcessAlertsInEnrichmentOk returns a tuple with the ProcessAlertsInEnrichment field value if set, nil otherwise
+// GetContactPointUIDOk returns a tuple with the ContactPointUID field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *StackStatusDto) GetProcessAlertsInEnrichmentOk() (*bool, bool) {
-	if o == nil || IsNil(o.ProcessAlertsInEnrichment) {
+func (o *StackStatusDto) GetContactPointUIDOk() (*string, bool) {
+	if o == nil || IsNil(o.ContactPointUID) {
 		return nil, false
 	}
-	return o.ProcessAlertsInEnrichment, true
+	return o.ContactPointUID, true
 }
 
-// HasProcessAlertsInEnrichment returns a boolean if a field has been set.
-func (o *StackStatusDto) HasProcessAlertsInEnrichment() bool {
-	if o != nil && !IsNil(o.ProcessAlertsInEnrichment) {
+// HasContactPointUID returns a boolean if a field has been set.
+func (o *StackStatusDto) HasContactPointUID() bool {
+	if o != nil && !IsNil(o.ContactPointUID) {
 		return true
 	}
 
 	return false
 }
 
-// SetProcessAlertsInEnrichment gets a reference to the given bool and assigns it to the ProcessAlertsInEnrichment field.
-func (o *StackStatusDto) SetProcessAlertsInEnrichment(v bool) {
-	o.ProcessAlertsInEnrichment = &v
+// SetContactPointUID gets a reference to the given string and assigns it to the ContactPointUID field.
+func (o *StackStatusDto) SetContactPointUID(v string) {
+	o.ContactPointUID = &v
 }
 
 func (o StackStatusDto) MarshalJSON() ([]byte, error) {
@@ -374,8 +374,8 @@ func (o StackStatusDto) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UseGrafanaManagedAlerts) {
 		toSerialize["useGrafanaManagedAlerts"] = o.UseGrafanaManagedAlerts
 	}
-	if !IsNil(o.ProcessAlertsInEnrichment) {
-		toSerialize["processAlertsInEnrichment"] = o.ProcessAlertsInEnrichment
+	if !IsNil(o.ContactPointUID) {
+		toSerialize["contactPointUID"] = o.ContactPointUID
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -407,7 +407,7 @@ func (o *StackStatusDto) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "sanityCheckResults")
 		delete(additionalProperties, "version")
 		delete(additionalProperties, "useGrafanaManagedAlerts")
-		delete(additionalProperties, "processAlertsInEnrichment")
+		delete(additionalProperties, "contactPointUID")
 		o.AdditionalProperties = additionalProperties
 	}
 

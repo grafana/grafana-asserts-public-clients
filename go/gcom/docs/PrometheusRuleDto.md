@@ -4,20 +4,20 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Active** | Pointer to **bool** |  | [optional] 
-**Record** | Pointer to **string** |  | [optional] 
-**Alert** | Pointer to **string** |  | [optional] 
-**Expr** | Pointer to **string** |  | [optional] 
-**Annotations** | Pointer to **map[string]string** |  | [optional] 
-**Labels** | Pointer to **map[string]string** |  | [optional] 
-**DisableInGroups** | Pointer to **[]string** |  | [optional] 
-**For** | Pointer to **string** |  | [optional] 
+**Active** | Pointer to **bool** | Whether this rule is active | [optional] [default to true]
+**Record** | Pointer to **string** | Metric name for recording rules (mutually exclusive with &#39;alert&#39;) | [optional] 
+**Alert** | Pointer to **string** | Alert name for alert rules (mutually exclusive with &#39;record&#39;) | [optional] 
+**Expr** | **string** | PromQL expression to evaluate | 
+**Annotations** | Pointer to **map[string]string** | Annotations for alert rules (e.g., summary, description) | [optional] 
+**Labels** | Pointer to **map[string]string** | Labels to attach to the alert/metric. For alerts, must include &#39;asserts_severity&#39; and &#39;asserts_alert_category&#39; | [optional] 
+**DisableInGroups** | Pointer to **[]string** | List of rule groups where this rule should be disabled | [optional] 
+**For** | Pointer to **string** | Duration the expression must be true before firing (alert rules only) | [optional] 
 
 ## Methods
 
 ### NewPrometheusRuleDto
 
-`func NewPrometheusRuleDto() *PrometheusRuleDto`
+`func NewPrometheusRuleDto(expr string, ) *PrometheusRuleDto`
 
 NewPrometheusRuleDto instantiates a new PrometheusRuleDto object
 This constructor will assign default values to properties that have it defined,
@@ -126,11 +126,6 @@ and a boolean to check if the value has been set.
 
 SetExpr sets Expr field to given value.
 
-### HasExpr
-
-`func (o *PrometheusRuleDto) HasExpr() bool`
-
-HasExpr returns a boolean if a field has been set.
 
 ### GetAnnotations
 

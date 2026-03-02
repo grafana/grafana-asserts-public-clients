@@ -16,10 +16,10 @@ Name | Type | Description | Notes
 **AlertManagerConfigured** | Pointer to **bool** |  | [optional] 
 **GraphInstanceCreated** | Pointer to **bool** |  | [optional] 
 **UseGrafanaManagedAlerts** | Pointer to **bool** |  | [optional] 
-**ProcessAlertsInEnrichment** | Pointer to **bool** |  | [optional] 
 **Status** | Pointer to **string** |  | [optional] 
 **DisabledTime** | Pointer to **time.Time** |  | [optional] 
 **Version** | Pointer to **int32** |  | [optional] 
+**ContactPointUID** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -340,31 +340,6 @@ SetUseGrafanaManagedAlerts sets UseGrafanaManagedAlerts field to given value.
 
 HasUseGrafanaManagedAlerts returns a boolean if a field has been set.
 
-### GetProcessAlertsInEnrichment
-
-`func (o *StackDetailDto) GetProcessAlertsInEnrichment() bool`
-
-GetProcessAlertsInEnrichment returns the ProcessAlertsInEnrichment field if non-nil, zero value otherwise.
-
-### GetProcessAlertsInEnrichmentOk
-
-`func (o *StackDetailDto) GetProcessAlertsInEnrichmentOk() (*bool, bool)`
-
-GetProcessAlertsInEnrichmentOk returns a tuple with the ProcessAlertsInEnrichment field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetProcessAlertsInEnrichment
-
-`func (o *StackDetailDto) SetProcessAlertsInEnrichment(v bool)`
-
-SetProcessAlertsInEnrichment sets ProcessAlertsInEnrichment field to given value.
-
-### HasProcessAlertsInEnrichment
-
-`func (o *StackDetailDto) HasProcessAlertsInEnrichment() bool`
-
-HasProcessAlertsInEnrichment returns a boolean if a field has been set.
-
 ### GetStatus
 
 `func (o *StackDetailDto) GetStatus() string`
@@ -439,6 +414,31 @@ SetVersion sets Version field to given value.
 `func (o *StackDetailDto) HasVersion() bool`
 
 HasVersion returns a boolean if a field has been set.
+
+### GetContactPointUID
+
+`func (o *StackDetailDto) GetContactPointUID() string`
+
+GetContactPointUID returns the ContactPointUID field if non-nil, zero value otherwise.
+
+### GetContactPointUIDOk
+
+`func (o *StackDetailDto) GetContactPointUIDOk() (*string, bool)`
+
+GetContactPointUIDOk returns a tuple with the ContactPointUID field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetContactPointUID
+
+`func (o *StackDetailDto) SetContactPointUID(v string)`
+
+SetContactPointUID sets ContactPointUID field to given value.
+
+### HasContactPointUID
+
+`func (o *StackDetailDto) HasContactPointUID() bool`
+
+HasContactPointUID returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
