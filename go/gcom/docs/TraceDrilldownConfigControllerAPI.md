@@ -32,7 +32,7 @@ import (
 )
 
 func main() {
-	name := "name_example" // string | Name of the trace configuration to delete
+	name := "name_example" // string | Name of the trace configuration to delete (default to "##default")
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -51,7 +51,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**name** | **string** | Name of the trace configuration to delete | 
+**name** | **string** | Name of the trace configuration to delete | [default to &quot;##default&quot;]
 
 ### Other Parameters
 
@@ -83,7 +83,7 @@ No authorization required
 
 ## GetTenantTraceConfig
 
-> TenantTraceConfigResponseDto GetTenantTraceConfig(ctx).XScopeOrgID(xScopeOrgID).Execute()
+> TenantTraceConfigResponseDto[string]interface{} GetTenantTraceConfig(ctx).XScopeOrgID(xScopeOrgID).Execute()
 
 Get tenant trace configuration
 
@@ -111,7 +111,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `TraceDrilldownConfigControllerAPI.GetTenantTraceConfig``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetTenantTraceConfig`: TenantTraceConfigResponseDto
+	// response from `GetTenantTraceConfig`: TenantTraceConfigResponseDto[string]interface{}
 	fmt.Fprintf(os.Stdout, "Response from `TraceDrilldownConfigControllerAPI.GetTenantTraceConfig`: %v\n", resp)
 }
 ```
@@ -131,7 +131,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TenantTraceConfigResponseDto**](TenantTraceConfigResponseDto.md)
+**TenantTraceConfigResponseDto[string]interface{}**
 
 ### Authorization
 
@@ -149,7 +149,7 @@ No authorization required
 
 ## ReorderTraceConfigPriorities
 
-> TenantTraceConfigResponseDto ReorderTraceConfigPriorities(ctx).ReorderTraceConfigRequestDto(reorderTraceConfigRequestDto).XScopeOrgID(xScopeOrgID).Execute()
+> TenantTraceConfigResponseDto ReorderTraceConfigPriorities(ctx).Body(body).XScopeOrgID(xScopeOrgID).Execute()
 
 Reorder trace drilldown configuration priorities
 
@@ -168,12 +168,12 @@ import (
 )
 
 func main() {
-	reorderTraceConfigRequestDto := *openapiclient.NewReorderTraceConfigRequestDto([]openapiclient.TraceConfigPriorityDto{*openapiclient.NewTraceConfigPriorityDto()}) // ReorderTraceConfigRequestDto | 
+	body := "body_example" // string | 
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TraceDrilldownConfigControllerAPI.ReorderTraceConfigPriorities(context.Background()).ReorderTraceConfigRequestDto(reorderTraceConfigRequestDto).XScopeOrgID(xScopeOrgID).Execute()
+	resp, r, err := apiClient.TraceDrilldownConfigControllerAPI.ReorderTraceConfigPriorities(context.Background()).Body(body).XScopeOrgID(xScopeOrgID).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `TraceDrilldownConfigControllerAPI.ReorderTraceConfigPriorities``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -194,7 +194,7 @@ Other parameters are passed through a pointer to a apiReorderTraceConfigPrioriti
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **reorderTraceConfigRequestDto** | [**ReorderTraceConfigRequestDto**](ReorderTraceConfigRequestDto.md) |  | 
+ **body** | **string** |  | 
  **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
 
 ### Return type
@@ -217,7 +217,7 @@ No authorization required
 
 ## UpsertTraceDrilldownConfig
 
-> UpsertTraceDrilldownConfig(ctx).TraceDrilldownConfigDto(traceDrilldownConfigDto).XScopeOrgID(xScopeOrgID).Execute()
+> UpsertTraceDrilldownConfig(ctx).Body(body).XScopeOrgID(xScopeOrgID).Execute()
 
 Upsert trace drilldown configuration
 
@@ -236,12 +236,12 @@ import (
 )
 
 func main() {
-	traceDrilldownConfigDto := *openapiclient.NewTraceDrilldownConfigDto() // TraceDrilldownConfigDto | 
+	body := "body_example" // string | 
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.TraceDrilldownConfigControllerAPI.UpsertTraceDrilldownConfig(context.Background()).TraceDrilldownConfigDto(traceDrilldownConfigDto).XScopeOrgID(xScopeOrgID).Execute()
+	r, err := apiClient.TraceDrilldownConfigControllerAPI.UpsertTraceDrilldownConfig(context.Background()).Body(body).XScopeOrgID(xScopeOrgID).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `TraceDrilldownConfigControllerAPI.UpsertTraceDrilldownConfig``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -260,7 +260,7 @@ Other parameters are passed through a pointer to a apiUpsertTraceDrilldownConfig
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **traceDrilldownConfigDto** | [**TraceDrilldownConfigDto**](TraceDrilldownConfigDto.md) |  | 
+ **body** | **string** |  | 
  **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
 
 ### Return type
