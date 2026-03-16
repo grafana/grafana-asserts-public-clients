@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.03.02-104252
+API version: 2026.03.16-090824
 Contact: support@asserts.ai
 */
 
@@ -50,6 +50,8 @@ func NewDefinedByMetricsDto(pattern string, source string) *DefinedByMetricsDto 
 // but it doesn't guarantee that properties required by API are set
 func NewDefinedByMetricsDtoWithDefaults() *DefinedByMetricsDto {
 	this := DefinedByMetricsDto{}
+	var pattern string = "##default"
+	this.Pattern = pattern
 	return &this
 }
 
