@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.03.02-104252
+API version: 2026.03.19-151442
 Contact: support@asserts.ai
 */
 
@@ -49,7 +49,13 @@ func NewPrometheusRuleDto(expr string) *PrometheusRuleDto {
 	this := PrometheusRuleDto{}
 	var active bool = true
 	this.Active = &active
+	var record string = "##default"
+	this.Record = &record
+	var alert string = "##default"
+	this.Alert = &alert
 	this.Expr = expr
+	var for_ string = "##default"
+	this.For = &for_
 	return &this
 }
 
@@ -60,6 +66,14 @@ func NewPrometheusRuleDtoWithDefaults() *PrometheusRuleDto {
 	this := PrometheusRuleDto{}
 	var active bool = true
 	this.Active = &active
+	var record string = "##default"
+	this.Record = &record
+	var alert string = "##default"
+	this.Alert = &alert
+	var expr string = "##default"
+	this.Expr = expr
+	var for_ string = "##default"
+	this.For = &for_
 	return &this
 }
 

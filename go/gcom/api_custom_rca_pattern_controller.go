@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.03.02-104252
+API version: 2026.03.19-151442
 Contact: support@asserts.ai
 */
 
@@ -74,6 +74,9 @@ func (a *CustomRcaPatternControllerAPIService) DeleteCustomExecute(r ApiDeleteCu
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if strlen(r.name) < 1 {
+		return nil, reportError("name must have at least 1 elements")
+	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
