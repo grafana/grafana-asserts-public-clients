@@ -7,7 +7,7 @@ info:
     name: Support
     url: "https://www.grafana.com"
     email: support@asserts.ai
-  version: 2026.03.02-104252
+  version: 2026.03.19-151442
 servers:
   - url: http://localhost:8030/asserts/api-server
     description: Generated server url
@@ -69,13 +69,19 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ReorderTraceConfigRequestDto"
+              type: string
+              default: "##default"
+              description: Trace drilldown configuration priority data
           application/x-yml:
             schema:
-              $ref: "#/components/schemas/ReorderTraceConfigRequestDto"
+              type: string
+              default: "##default"
+              description: Trace drilldown configuration priority data
           application/yaml:
             schema:
-              $ref: "#/components/schemas/ReorderTraceConfigRequestDto"
+              type: string
+              default: "##default"
+              description: Trace drilldown configuration priority data
         required: true
       responses:
         "200":
@@ -96,12 +102,39 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
             application/yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
   /v2/config/relabel-rules/prologue:
     get:
       tags:
@@ -222,13 +255,19 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ReorderConfigRequestDto"
+              type: string
+              default: "##default"
+              description: Profile drilldown configuration data
           application/x-yml:
             schema:
-              $ref: "#/components/schemas/ReorderConfigRequestDto"
+              type: string
+              default: "##default"
+              description: Profile drilldown configuration data
           application/yaml:
             schema:
-              $ref: "#/components/schemas/ReorderConfigRequestDto"
+              type: string
+              default: "##default"
+              description: Profile drilldown configuration data
         required: true
       responses:
         "200":
@@ -249,12 +288,39 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
             application/yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
   /v2/config/log/reorder:
     put:
       tags:
@@ -269,13 +335,19 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ReorderLogConfigRequestDto"
+              type: string
+              default: "##default"
+              description: Log drilldown configuration priority data
           application/x-yml:
             schema:
-              $ref: "#/components/schemas/ReorderLogConfigRequestDto"
+              type: string
+              default: "##default"
+              description: Log drilldown configuration priority data
           application/x-yaml:
             schema:
-              $ref: "#/components/schemas/ReorderLogConfigRequestDto"
+              type: string
+              default: "##default"
+              description: Log drilldown configuration priority data
         required: true
       responses:
         "200":
@@ -296,12 +368,39 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
   /v1/stack:
     get:
       tags:
@@ -507,13 +606,19 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ModelRulesDto"
+              type: string
+              default: "##default"
+              description: The model rules configuration to create or update
           application/x-yml:
             schema:
-              $ref: "#/components/schemas/ModelRulesDto"
+              type: string
+              default: "##default"
+              description: The model rules configuration to create or update
           application/x-yaml:
             schema:
-              $ref: "#/components/schemas/ModelRulesDto"
+              type: string
+              default: "##default"
+              description: The model rules configuration to create or update
         required: true
       responses:
         "200":
@@ -524,24 +629,78 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
         "500":
           description: Internal server error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
   /v1/config/model-rules/{name}:
     get:
       tags:
@@ -556,6 +715,7 @@ paths:
           required: true
           schema:
             type: string
+            default: "##default"
         - in: header
           $ref: "#/components/parameters/TenantId"
       responses:
@@ -596,13 +756,16 @@ paths:
           required: true
           schema:
             type: string
+            default: "##default"
         - in: header
           $ref: "#/components/parameters/TenantId"
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ModelRulesDto"
+              type: string
+              default: "##default"
+              description: The model rules configuration to create or update
         required: true
       responses:
         "200":
@@ -613,24 +776,78 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
         "500":
           description: Internal server error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
     delete:
       tags:
         - Model Rules Configuration
@@ -644,6 +861,7 @@ paths:
           required: true
           schema:
             type: string
+            default: "##default"
         - in: header
           $ref: "#/components/parameters/TenantId"
       responses:
@@ -800,6 +1018,53 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/LatencyThresholdsDto"
+  /v2/entity_scope:
+    get:
+      tags:
+        - entity-scope-controller
+      operationId: getAllEntityScopesV2
+      parameters:
+        - name: start
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int64
+        - name: end
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int64
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EntityScopesV2ResponseDto"
+    post:
+      tags:
+        - entity-scope-controller
+      operationId: getEntityScopesV2
+      parameters:
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EntityScopesRequestDto"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EntityScopesV2ResponseDto"
   /v2/config/trace:
     get:
       tags:
@@ -817,6 +1082,15 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/TenantTraceConfigResponseDto"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
     post:
       tags:
         - trace-drilldown-config-controller
@@ -830,13 +1104,19 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/TraceDrilldownConfigDto"
+              type: string
+              default: "##default"
+              description: Trace drilldown configuration data
           application/x-yml:
             schema:
-              $ref: "#/components/schemas/TraceDrilldownConfigDto"
+              type: string
+              default: "##default"
+              description: Trace drilldown configuration data
           application/yaml:
             schema:
-              $ref: "#/components/schemas/TraceDrilldownConfigDto"
+              type: string
+              default: "##default"
+              description: Trace drilldown configuration data
         required: true
       responses:
         "200":
@@ -847,12 +1127,39 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
             application/yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
   /v2/config/threshold:
     get:
       tags:
@@ -973,6 +1280,15 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/TenantProfileConfigResponseDto"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
     post:
       tags:
         - profile-drilldown-config-controller
@@ -986,13 +1302,19 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ProfileDrilldownConfigDto"
+              type: string
+              default: "##default"
+              description: Profile drilldown configuration data
           application/x-yml:
             schema:
-              $ref: "#/components/schemas/ProfileDrilldownConfigDto"
+              type: string
+              default: "##default"
+              description: Profile drilldown configuration data
           application/yaml:
             schema:
-              $ref: "#/components/schemas/ProfileDrilldownConfigDto"
+              type: string
+              default: "##default"
+              description: Profile drilldown configuration data
         required: true
       responses:
         "200":
@@ -1003,12 +1325,39 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
             application/yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
   /v2/config/log:
     get:
       tags:
@@ -1026,6 +1375,15 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/TenantLogConfigResponseDto"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
     post:
       tags:
         - log-drilldown-config-controller
@@ -1039,13 +1397,19 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/LogDrilldownConfigDto"
+              type: string
+              default: "##default"
+              description: Log drilldown configuration data
           application/x-yml:
             schema:
-              $ref: "#/components/schemas/LogDrilldownConfigDto"
+              type: string
+              default: "##default"
+              description: Log drilldown configuration data
           application/x-yaml:
             schema:
-              $ref: "#/components/schemas/LogDrilldownConfigDto"
+              type: string
+              default: "##default"
+              description: Log drilldown configuration data
         required: true
       responses:
         "200":
@@ -1056,12 +1420,39 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
   /v2/config/drilldown-migration:
     post:
       tags:
@@ -2543,18 +2934,54 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/DisabledAlertConfigsDto"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
         "500":
           description: Internal server error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
     post:
       tags:
         - Alert Configuration
@@ -2585,24 +3012,78 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
         "500":
           description: Internal server error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
   /v1/config/disabled-alert:
     post:
       tags:
@@ -2634,24 +3115,78 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
         "500":
           description: Internal server error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
   /v1/config/dashboard/{entity_type}:
     get:
       tags:
@@ -2732,18 +3267,54 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AlertConfigsDto"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
         "500":
           description: Internal server error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
     post:
       tags:
         - Alert Configuration
@@ -2774,24 +3345,78 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
         "500":
           description: Internal server error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
   /v1/config/alert:
     post:
       tags:
@@ -2823,24 +3448,78 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
         "500":
           description: Internal server error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
   /v1/assertions:
     post:
       tags:
@@ -3898,6 +4577,15 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
   /v1/config/model-rules-types/{type}:
     get:
       tags:
@@ -3939,13 +4627,15 @@ paths:
           description: Set to true to fetch only custom failure rules
           required: false
           schema:
-            type: boolean
+            type: string
+            default: "##default"
         - name: allFailureRuleGroups
           in: query
           description: Set to true to fetch all failure rule groups (custom and default)
           required: false
           schema:
-            type: boolean
+            type: string
+            default: "##default"
         - in: header
           $ref: "#/components/parameters/TenantId"
       responses:
@@ -3955,12 +4645,30 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PrometheusRuleGroupDto"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
         "500":
           description: Internal server error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
   /v1/config/export:
     get:
       tags:
@@ -4004,12 +4712,30 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/DisabledAlertConfigsDto"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
         "500":
           description: Internal server error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
   /v1/config/disabled-alerts/request:
     get:
       tags:
@@ -4027,12 +4753,30 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/DisabledAlertConfigsDto"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
         "500":
           description: Internal server error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
   /v1/config/disabled-alerts/health:
     get:
       tags:
@@ -4050,12 +4794,30 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/DisabledAlertConfigsDto"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
         "500":
           description: Internal server error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
   /v1/config/datasource/prometheus:
     get:
       tags:
@@ -4109,12 +4871,30 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AlertConfigsDto"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
         "500":
           description: Internal server error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
   /v1/config/alerts/resource:
     get:
       tags:
@@ -4132,12 +4912,30 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AlertConfigsDto"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
         "500":
           description: Internal server error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
   /v1/config/alerts/request:
     get:
       tags:
@@ -4155,12 +4953,30 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AlertConfigsDto"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
         "500":
           description: Internal server error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
   /v1/config/alerts/health:
     get:
       tags:
@@ -4178,12 +4994,30 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AlertConfigsDto"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
         "500":
           description: Internal server error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
   /v1/assertion/alert-affected-entity:
     get:
       tags:
@@ -4220,6 +5054,7 @@ paths:
           required: true
           schema:
             type: string
+            default: "##default"
         - in: header
           $ref: "#/components/parameters/TenantId"
       responses:
@@ -4239,6 +5074,7 @@ paths:
           required: true
           schema:
             type: string
+            default: "##default"
         - in: header
           $ref: "#/components/parameters/TenantId"
       responses:
@@ -4258,6 +5094,7 @@ paths:
           required: true
           schema:
             type: string
+            default: "##default"
         - in: header
           $ref: "#/components/parameters/TenantId"
       responses:
@@ -4274,6 +5111,7 @@ paths:
           required: true
           schema:
             type: string
+            minLength: 1
         - in: header
           $ref: "#/components/parameters/TenantId"
       responses:
@@ -4357,6 +5195,7 @@ paths:
           required: true
           schema:
             type: string
+            default: "##default"
         - in: header
           $ref: "#/components/parameters/TenantId"
       responses:
@@ -4368,12 +5207,39 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
   /v1/config/alert/{name}:
     delete:
       tags:
@@ -4388,6 +5254,7 @@ paths:
           required: true
           schema:
             type: string
+            default: "##default"
         - in: header
           $ref: "#/components/parameters/TenantId"
       responses:
@@ -4399,12 +5266,39 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: "##default"
+                contains:
+                  default: "##default"
+                default: "##default"
+                items:
+                  default: "##default"
+                unevaluatedItems:
+                  default: "##default"
 components:
   schemas:
     StackDto:
@@ -4635,24 +5529,6 @@ components:
           type: boolean
         is3xxRedirection:
           type: boolean
-    ReorderTraceConfigRequestDto:
-      type: object
-      description: Trace drilldown configuration priority data
-      properties:
-        orderedConfigs:
-          type: array
-          items:
-            $ref: "#/components/schemas/TraceConfigPriorityDto"
-      required:
-        - orderedConfigs
-    TraceConfigPriorityDto:
-      type: object
-      properties:
-        name:
-          type: string
-        priority:
-          type: integer
-          format: int32
     PropertyMatchEntryDto:
       type: object
       properties:
@@ -4734,24 +5610,6 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/MimirRelabelRuleDto"
-    ProfileConfigPriorityDto:
-      type: object
-      properties:
-        name:
-          type: string
-        priority:
-          type: integer
-          format: int32
-    ReorderConfigRequestDto:
-      type: object
-      description: Profile drilldown configuration data
-      properties:
-        orderedConfigs:
-          type: array
-          items:
-            $ref: "#/components/schemas/ProfileConfigPriorityDto"
-      required:
-        - orderedConfigs
     ProfileDrilldownConfigDto:
       type: object
       properties:
@@ -4781,24 +5639,6 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/ProfileDrilldownConfigDto"
-    LogConfigPriorityDto:
-      type: object
-      properties:
-        name:
-          type: string
-        priority:
-          type: integer
-          format: int32
-    ReorderLogConfigRequestDto:
-      type: object
-      description: Log drilldown configuration priority data
-      properties:
-        orderedConfigs:
-          type: array
-          items:
-            $ref: "#/components/schemas/LogConfigPriorityDto"
-      required:
-        - orderedConfigs
     LogDrilldownConfigDto:
       type: object
       properties:
@@ -4926,6 +5766,7 @@ components:
         - product
     PrometheusRuleDto:
       type: object
+      default: "##default"
       description: A Prometheus alert or recording rule
       properties:
         active:
@@ -4934,48 +5775,59 @@ components:
           description: Whether this rule is active
         record:
           type: string
+          default: "##default"
           description: Metric name for recording rules (mutually exclusive with 'alert')
         alert:
           type: string
+          default: "##default"
           description: Alert name for alert rules (mutually exclusive with 'record')
         expr:
           type: string
+          default: "##default"
           description: PromQL expression to evaluate
           example: probe_success == 0
         annotations:
           type: object
           additionalProperties:
             type: string
+          default: "##default"
           description: "Annotations for alert rules (e.g., summary, description)"
         labels:
           type: object
           additionalProperties:
             type: string
+          default: "##default"
           description: "Labels to attach to the alert/metric. For alerts, must include 'asserts_severity' and 'asserts_alert_category'"
         disableInGroups:
           type: array
+          default: "##default"
           description: List of rule groups where this rule should be disabled
           items:
             type: string
         for:
           type: string
+          default: "##default"
           description: Duration the expression must be true before firing (alert rules only)
           example: 5m
       required:
         - expr
     PrometheusRuleGroupDto:
       type: object
+      default: "##default"
       description: A group of related Prometheus rules
       properties:
         name:
           type: string
+          default: "##default"
           description: Group name
         interval:
           type: string
+          default: "##default"
           description: "Evaluation interval (e.g., '30s', '1m')"
           example: 30s
         rules:
           type: array
+          default: "##default"
           description: List of alert and recording rules in this group
           items:
             $ref: "#/components/schemas/PrometheusRuleDto"
@@ -4984,6 +5836,7 @@ components:
         - rules
     PrometheusRulesDto:
       type: object
+      default: "##default"
       description: Prometheus rules configuration containing alert and recording rules
       properties:
         active:
@@ -4992,167 +5845,21 @@ components:
           description: Whether this configuration is active
         name:
           type: string
+          default: "##default"
           description: Configuration name for the Prometheus rule file
         groups:
           type: array
+          default: "##default"
           description: List of rule groups containing alert and recording rules
           items:
             $ref: "#/components/schemas/PrometheusRuleGroupDto"
         managedBy:
           type: string
+          default: "##default"
           description: "Management source: 'terraform' for Terraform-managed, null for UI-managed"
       required:
         - groups
         - name
-    DefinedByDto:
-      type: object
-      description: Base class for relation definitions
-      discriminator:
-        propertyName: source
-      properties:
-        staticProperties:
-          type: object
-          additionalProperties: {}
-          description: Static properties to attach to the relation
-        source:
-          type: string
-      required:
-        - source
-    DefinedByMetricsDto:
-      allOf:
-        - $ref: "#/components/schemas/DefinedByDto"
-        - type: object
-          properties:
-            pattern:
-              type: string
-              description: PromQL pattern to match metrics
-            startEntityMatchers:
-              type: object
-              additionalProperties:
-                type: string
-              description: Label matchers for start entity
-            endEntityMatchers:
-              type: object
-              additionalProperties:
-                type: string
-              description: Label matchers for end entity
-      description: Metrics-based relation definition
-      required:
-        - pattern
-    DefinedByPropertyMatchDto:
-      allOf:
-        - $ref: "#/components/schemas/DefinedByDto"
-        - type: object
-          properties:
-            startEntityProperties:
-              type: array
-              description: Properties from start entity to match
-              items:
-                type: string
-            endEntityProperties:
-              type: array
-              description: Properties from end entity to match
-              items:
-                type: string
-      description: Property-match based relation definition
-    EntityRuleDto:
-      type: object
-      description: Entity type rule definition
-      properties:
-        type:
-          type: string
-          description: "Entity type name (e.g., 'Service', 'Pod', 'Jvm')"
-        name:
-          type: string
-          description: Entity name pattern
-        scope:
-          type: object
-          additionalProperties:
-            type: string
-          description: Scope definitions for the entity
-        lookup:
-          type: object
-          additionalProperties:
-            type: string
-          description: Lookup mappings
-        definedBy:
-          type: array
-          description: Query/metric definitions that define this entity
-          items:
-            $ref: "#/components/schemas/PropertyRuleDto"
-        enrichedBy:
-          type: array
-          description: Enrichment rules for this entity
-          items:
-            $ref: "#/components/schemas/PropertyRuleDto"
-        disabled:
-          type: boolean
-          description: Whether this entity rule is disabled
-      required:
-        - name
-        - type
-    ModelRulesDto:
-      type: object
-      description: The model rules configuration to create or update
-      properties:
-        name:
-          type: string
-          description: Configuration name
-        entities:
-          type: array
-          description: Entity type definitions
-          items:
-            $ref: "#/components/schemas/EntityRuleDto"
-        relations:
-          type: array
-          description: Relationship rules between entities
-          items:
-            $ref: "#/components/schemas/RelationRuleDto"
-        managedBy:
-          type: string
-          description: "Management source: 'terraform' for Terraform-managed, null for UI-managed"
-      required:
-        - name
-    PropertyRuleDto:
-      type: object
-      properties:
-        query:
-          type: string
-        labelValues:
-          type: object
-          additionalProperties:
-            type: string
-        literals:
-          type: object
-          additionalProperties:
-            type: string
-        metricValue:
-          type: string
-        disabled:
-          type: boolean
-    RelationRuleDto:
-      type: object
-      description: Relationship rule definition between entities
-      properties:
-        type:
-          type: string
-          description: "Relation type (e.g., 'CALLS', 'HOSTS', 'ROUTES')"
-        startEntityType:
-          type: string
-          description: Source entity type
-        endEntityType:
-          type: string
-          description: Target entity type
-        definedBy:
-          description: "Relation definition (polymorphic: METRICS or PROPERTY_MATCH)"
-          oneOf:
-            - $ref: "#/components/schemas/DefinedByMetricsDto"
-            - $ref: "#/components/schemas/DefinedByPropertyMatchDto"
-      required:
-        - definedBy
-        - endEntityType
-        - startEntityType
-        - type
     ModelMappingDto:
       type: object
       properties:
@@ -5340,6 +6047,8 @@ components:
             type: string
         requestContextJoin:
           type: string
+          maxLength: 1
+          minLength: 0
         filters:
           type: array
           items:
@@ -5403,6 +6112,39 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/LatencyThresholdDto"
+    EntityScopesRequestDto:
+      type: object
+      properties:
+        start:
+          type: integer
+          format: int64
+        end:
+          type: integer
+          format: int64
+        conditions:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+    EntityScopesV2ResponseDto:
+      type: object
+      properties:
+        scopeValues:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: "#/components/schemas/ScopeValueDto"
+    ScopeValueDto:
+      type: object
+      properties:
+        value:
+          type: string
+        sources:
+          type: array
+          items:
+            type: string
     HealthThresholdV2Dto:
       type: object
       properties:
@@ -6580,21 +7322,6 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/PropertyMatcherDto"
-    EntityScopesRequestDto:
-      type: object
-      properties:
-        start:
-          type: integer
-          format: int64
-        end:
-          type: integer
-          format: int64
-        conditions:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: string
     EntityScopesResponseDto:
       type: object
       properties:
@@ -8110,6 +8837,180 @@ components:
           type: array
           items:
             type: string
+    DefinedByDto:
+      type: object
+      default: "##default"
+      description: Base class for relation definitions
+      discriminator:
+        propertyName: source
+      properties:
+        staticProperties:
+          type: object
+          additionalProperties: {}
+          default: "##default"
+          description: Static properties to attach to the relation
+        source:
+          type: string
+      required:
+        - source
+    DefinedByMetricsDto:
+      allOf:
+        - $ref: "#/components/schemas/DefinedByDto"
+        - type: object
+          properties:
+            pattern:
+              type: string
+              default: "##default"
+              description: PromQL pattern to match metrics
+            startEntityMatchers:
+              type: object
+              additionalProperties:
+                type: string
+              default: "##default"
+              description: Label matchers for start entity
+            endEntityMatchers:
+              type: object
+              additionalProperties:
+                type: string
+              default: "##default"
+              description: Label matchers for end entity
+      description: Metrics-based relation definition
+      required:
+        - pattern
+    DefinedByPropertyMatchDto:
+      allOf:
+        - $ref: "#/components/schemas/DefinedByDto"
+        - type: object
+          properties:
+            startEntityProperties:
+              type: array
+              default: "##default"
+              description: Properties from start entity to match
+              items:
+                type: string
+            endEntityProperties:
+              type: array
+              default: "##default"
+              description: Properties from end entity to match
+              items:
+                type: string
+      description: Property-match based relation definition
+    EntityRuleDto:
+      type: object
+      default: "##default"
+      description: Entity type rule definition
+      properties:
+        type:
+          type: string
+          default: "##default"
+          description: "Entity type name (e.g., 'Service', 'Pod', 'Jvm')"
+        name:
+          type: string
+          default: "##default"
+          description: Entity name pattern
+        scope:
+          type: object
+          additionalProperties:
+            type: string
+          default: "##default"
+          description: Scope definitions for the entity
+        lookup:
+          type: object
+          additionalProperties:
+            type: string
+          default: "##default"
+          description: Lookup mappings
+        definedBy:
+          type: array
+          default: "##default"
+          description: Query/metric definitions that define this entity
+          items:
+            $ref: "#/components/schemas/PropertyRuleDto"
+        enrichedBy:
+          type: array
+          default: "##default"
+          description: Enrichment rules for this entity
+          items:
+            $ref: "#/components/schemas/PropertyRuleDto"
+        disabled:
+          type: boolean
+          default: false
+          description: Whether this entity rule is disabled
+      required:
+        - name
+        - type
+    ModelRulesDto:
+      type: object
+      default: "##default"
+      description: Model rules configuration defining entities and their relationships
+      properties:
+        name:
+          type: string
+          default: "##default"
+          description: Configuration name
+        entities:
+          type: array
+          default: "##default"
+          description: Entity type definitions
+          items:
+            $ref: "#/components/schemas/EntityRuleDto"
+        relations:
+          type: array
+          default: "##default"
+          description: Relationship rules between entities
+          items:
+            $ref: "#/components/schemas/RelationRuleDto"
+        managedBy:
+          type: string
+          default: "##default"
+          description: "Management source: 'terraform' for Terraform-managed, null for UI-managed"
+      required:
+        - name
+    PropertyRuleDto:
+      type: object
+      properties:
+        query:
+          type: string
+        labelValues:
+          type: object
+          additionalProperties:
+            type: string
+        literals:
+          type: object
+          additionalProperties:
+            type: string
+        metricValue:
+          type: string
+        disabled:
+          type: boolean
+    RelationRuleDto:
+      type: object
+      default: "##default"
+      description: Relationship rule definition between entities
+      properties:
+        type:
+          type: string
+          default: "##default"
+          description: "Relation type (e.g., 'CALLS', 'HOSTS', 'ROUTES')"
+        startEntityType:
+          type: string
+          default: "##default"
+          description: Source entity type
+        endEntityType:
+          type: string
+          default: "##default"
+          description: Target entity type
+        definedBy:
+          default: "##default"
+          description: "Relation definition (polymorphic: METRICS or PROPERTY_MATCH)"
+          oneOf:
+            - $ref: "#/components/schemas/DefinedByMetricsDto"
+            - $ref: "#/components/schemas/DefinedByPropertyMatchDto"
+      required:
+        - definedBy
+        - endEntityType
+        - startEntityType
+        - type
     TenantEnvConfigResponseDto:
       type: object
       properties:
