@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | **string** | Relation type (e.g., &#39;CALLS&#39;, &#39;HOSTS&#39;, &#39;ROUTES&#39;) | 
-**StartEntityType** | **string** | Source entity type | 
-**EndEntityType** | **string** | Target entity type | 
-**DefinedBy** | [**RelationRuleDtoDefinedBy**](RelationRuleDtoDefinedBy.md) |  | 
+**Type** | **string** | Relation type (e.g., &#39;CALLS&#39;, &#39;HOSTS&#39;, &#39;ROUTES&#39;) | [default to "##default"]
+**StartEntityType** | **string** | Source entity type | [default to "##default"]
+**EndEntityType** | **string** | Target entity type | [default to "##default"]
+**DefinedBy** | [**RelationRuleDtoDefinedBy**](RelationRuleDtoDefinedBy.md) |  | [default to ##default]
 
 ## Methods
 

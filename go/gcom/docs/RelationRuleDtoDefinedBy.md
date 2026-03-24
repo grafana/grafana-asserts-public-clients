@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**StaticProperties** | Pointer to **map[string]interface{}** | Static properties to attach to the relation | [optional] 
+**StaticProperties** | Pointer to **map[string]interface{}** | Static properties to attach to the relation | [optional] [default to ##default]
 **Source** | **string** |  | 
-**StartEntityProperties** | Pointer to **[]string** | Properties from start entity to match | [optional] 
-**EndEntityProperties** | Pointer to **[]string** | Properties from end entity to match | [optional] 
+**StartEntityProperties** | Pointer to **[]string** | Properties from start entity to match | [optional] [default to ##default]
+**EndEntityProperties** | Pointer to **[]string** | Properties from end entity to match | [optional] [default to ##default]
 
 ## Methods
 
