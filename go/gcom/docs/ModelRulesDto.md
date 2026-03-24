@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** | Configuration name | 
-**Entities** | Pointer to [**[]EntityRuleDto**](EntityRuleDto.md) | Entity type definitions | [optional] 
-**Relations** | Pointer to [**[]RelationRuleDto**](RelationRuleDto.md) | Relationship rules between entities | [optional] 
-**ManagedBy** | Pointer to **string** | Management source: &#39;terraform&#39; for Terraform-managed, null for UI-managed | [optional] 
+**Name** | **string** | Configuration name | [default to "##default"]
+**Entities** | Pointer to [**[]EntityRuleDto**](EntityRuleDto.md) | Entity type definitions | [optional] [default to ##default]
+**Relations** | Pointer to [**[]RelationRuleDto**](RelationRuleDto.md) | Relationship rules between entities | [optional] [default to ##default]
+**ManagedBy** | Pointer to **string** | Management source: &#39;terraform&#39; for Terraform-managed, null for UI-managed | [optional] [default to "##default"]
 
 ## Methods
 

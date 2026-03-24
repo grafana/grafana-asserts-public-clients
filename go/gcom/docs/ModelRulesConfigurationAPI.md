@@ -35,7 +35,7 @@ import (
 )
 
 func main() {
-	name := "name_example" // string | The name of the model rules configuration to delete
+	name := "name_example" // string | The name of the model rules configuration to delete (default to "##default")
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -54,7 +54,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**name** | **string** | The name of the model rules configuration to delete | 
+**name** | **string** | The name of the model rules configuration to delete | [default to &quot;##default&quot;]
 
 ### Other Parameters
 
@@ -105,7 +105,7 @@ import (
 )
 
 func main() {
-	name := "name_example" // string | The name of the model rules configuration to retrieve
+	name := "name_example" // string | The name of the model rules configuration to retrieve (default to "##default")
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -126,7 +126,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**name** | **string** | The name of the model rules configuration to retrieve | 
+**name** | **string** | The name of the model rules configuration to retrieve | [default to &quot;##default&quot;]
 
 ### Other Parameters
 
@@ -362,7 +362,7 @@ No authorization required
 
 ## PutModelRules
 
-> PutModelRules(ctx).ModelRulesDto(modelRulesDto).XScopeOrgID(xScopeOrgID).Execute()
+> PutModelRules(ctx).Body(body).XScopeOrgID(xScopeOrgID).Execute()
 
 Create or update custom model rules
 
@@ -381,12 +381,12 @@ import (
 )
 
 func main() {
-	modelRulesDto := *openapiclient.NewModelRulesDto("Name_example") // ModelRulesDto | 
+	body := "body_example" // string | 
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ModelRulesConfigurationAPI.PutModelRules(context.Background()).ModelRulesDto(modelRulesDto).XScopeOrgID(xScopeOrgID).Execute()
+	r, err := apiClient.ModelRulesConfigurationAPI.PutModelRules(context.Background()).Body(body).XScopeOrgID(xScopeOrgID).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ModelRulesConfigurationAPI.PutModelRules``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -405,7 +405,7 @@ Other parameters are passed through a pointer to a apiPutModelRulesRequest struc
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **modelRulesDto** | [**ModelRulesDto**](ModelRulesDto.md) |  | 
+ **body** | **string** |  | 
  **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
 
 ### Return type
@@ -428,7 +428,7 @@ No authorization required
 
 ## PutModelRules1
 
-> PutModelRules1(ctx, name).ModelRulesDto(modelRulesDto).XScopeOrgID(xScopeOrgID).Execute()
+> PutModelRules1(ctx, name).Body(body).XScopeOrgID(xScopeOrgID).Execute()
 
 Create or update custom model rules by name
 
@@ -447,13 +447,13 @@ import (
 )
 
 func main() {
-	name := "name_example" // string | The name of the model rules configuration
-	modelRulesDto := *openapiclient.NewModelRulesDto("Name_example") // ModelRulesDto | 
+	name := "name_example" // string | The name of the model rules configuration (default to "##default")
+	body := "body_example" // string | 
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ModelRulesConfigurationAPI.PutModelRules1(context.Background(), name).ModelRulesDto(modelRulesDto).XScopeOrgID(xScopeOrgID).Execute()
+	r, err := apiClient.ModelRulesConfigurationAPI.PutModelRules1(context.Background(), name).Body(body).XScopeOrgID(xScopeOrgID).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ModelRulesConfigurationAPI.PutModelRules1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -467,7 +467,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**name** | **string** | The name of the model rules configuration | 
+**name** | **string** | The name of the model rules configuration | [default to &quot;##default&quot;]
 
 ### Other Parameters
 
@@ -477,7 +477,7 @@ Other parameters are passed through a pointer to a apiPutModelRules1Request stru
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **modelRulesDto** | [**ModelRulesDto**](ModelRulesDto.md) |  | 
+ **body** | **string** |  | 
  **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
 
 ### Return type

@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.03.02-104252
+API version: 2026.03.24-105337
 Contact: support@asserts.ai
 */
 
@@ -20,8 +20,10 @@ var _ MappedNullable = &DrilldownConfigMigrationDto{}
 
 // DrilldownConfigMigrationDto struct for DrilldownConfigMigrationDto
 type DrilldownConfigMigrationDto struct {
-	DryRun               *bool `json:"dryRun,omitempty"`
-	AdditionalProperties map[string]interface{}
+	DryRun                 *bool `json:"dryRun,omitempty"`
+	RecreateDefaultConfigs *bool `json:"recreateDefaultConfigs,omitempty"`
+	RecreateOtelLogConfig  *bool `json:"recreateOtelLogConfig,omitempty"`
+	AdditionalProperties   map[string]interface{}
 }
 
 type _DrilldownConfigMigrationDto DrilldownConfigMigrationDto
@@ -75,6 +77,70 @@ func (o *DrilldownConfigMigrationDto) SetDryRun(v bool) {
 	o.DryRun = &v
 }
 
+// GetRecreateDefaultConfigs returns the RecreateDefaultConfigs field value if set, zero value otherwise.
+func (o *DrilldownConfigMigrationDto) GetRecreateDefaultConfigs() bool {
+	if o == nil || IsNil(o.RecreateDefaultConfigs) {
+		var ret bool
+		return ret
+	}
+	return *o.RecreateDefaultConfigs
+}
+
+// GetRecreateDefaultConfigsOk returns a tuple with the RecreateDefaultConfigs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DrilldownConfigMigrationDto) GetRecreateDefaultConfigsOk() (*bool, bool) {
+	if o == nil || IsNil(o.RecreateDefaultConfigs) {
+		return nil, false
+	}
+	return o.RecreateDefaultConfigs, true
+}
+
+// HasRecreateDefaultConfigs returns a boolean if a field has been set.
+func (o *DrilldownConfigMigrationDto) HasRecreateDefaultConfigs() bool {
+	if o != nil && !IsNil(o.RecreateDefaultConfigs) {
+		return true
+	}
+
+	return false
+}
+
+// SetRecreateDefaultConfigs gets a reference to the given bool and assigns it to the RecreateDefaultConfigs field.
+func (o *DrilldownConfigMigrationDto) SetRecreateDefaultConfigs(v bool) {
+	o.RecreateDefaultConfigs = &v
+}
+
+// GetRecreateOtelLogConfig returns the RecreateOtelLogConfig field value if set, zero value otherwise.
+func (o *DrilldownConfigMigrationDto) GetRecreateOtelLogConfig() bool {
+	if o == nil || IsNil(o.RecreateOtelLogConfig) {
+		var ret bool
+		return ret
+	}
+	return *o.RecreateOtelLogConfig
+}
+
+// GetRecreateOtelLogConfigOk returns a tuple with the RecreateOtelLogConfig field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DrilldownConfigMigrationDto) GetRecreateOtelLogConfigOk() (*bool, bool) {
+	if o == nil || IsNil(o.RecreateOtelLogConfig) {
+		return nil, false
+	}
+	return o.RecreateOtelLogConfig, true
+}
+
+// HasRecreateOtelLogConfig returns a boolean if a field has been set.
+func (o *DrilldownConfigMigrationDto) HasRecreateOtelLogConfig() bool {
+	if o != nil && !IsNil(o.RecreateOtelLogConfig) {
+		return true
+	}
+
+	return false
+}
+
+// SetRecreateOtelLogConfig gets a reference to the given bool and assigns it to the RecreateOtelLogConfig field.
+func (o *DrilldownConfigMigrationDto) SetRecreateOtelLogConfig(v bool) {
+	o.RecreateOtelLogConfig = &v
+}
+
 func (o DrilldownConfigMigrationDto) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -87,6 +153,12 @@ func (o DrilldownConfigMigrationDto) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.DryRun) {
 		toSerialize["dryRun"] = o.DryRun
+	}
+	if !IsNil(o.RecreateDefaultConfigs) {
+		toSerialize["recreateDefaultConfigs"] = o.RecreateDefaultConfigs
+	}
+	if !IsNil(o.RecreateOtelLogConfig) {
+		toSerialize["recreateOtelLogConfig"] = o.RecreateOtelLogConfig
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -111,6 +183,8 @@ func (o *DrilldownConfigMigrationDto) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "dryRun")
+		delete(additionalProperties, "recreateDefaultConfigs")
+		delete(additionalProperties, "recreateOtelLogConfig")
 		o.AdditionalProperties = additionalProperties
 	}
 
