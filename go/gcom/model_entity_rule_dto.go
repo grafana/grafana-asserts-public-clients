@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.03.02-104252
+API version: 2026.03.27-112916
 Contact: support@asserts.ai
 */
 
@@ -47,6 +47,8 @@ func NewEntityRuleDto(type_ string, name string) *EntityRuleDto {
 	this := EntityRuleDto{}
 	this.Type = type_
 	this.Name = name
+	var disabled bool = false
+	this.Disabled = &disabled
 	return &this
 }
 
@@ -55,6 +57,12 @@ func NewEntityRuleDto(type_ string, name string) *EntityRuleDto {
 // but it doesn't guarantee that properties required by API are set
 func NewEntityRuleDtoWithDefaults() *EntityRuleDto {
 	this := EntityRuleDto{}
+	var type_ string = "##default"
+	this.Type = type_
+	var name string = "##default"
+	this.Name = name
+	var disabled bool = false
+	this.Disabled = &disabled
 	return &this
 }
 
