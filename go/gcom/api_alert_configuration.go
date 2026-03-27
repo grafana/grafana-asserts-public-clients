@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.03.02-104252
+API version: 2026.03.27-102850
 Contact: support@asserts.ai
 */
 
@@ -20,13 +20,14 @@ import (
 	"strings"
 )
 
+
 // AlertConfigurationAPIService AlertConfigurationAPI service
 type AlertConfigurationAPIService service
 
 type ApiDeleteAlertConfigRequest struct {
-	ctx         context.Context
-	ApiService  *AlertConfigurationAPIService
-	name        string
+	ctx context.Context
+	ApiService *AlertConfigurationAPIService
+	name string
 	xScopeOrgID *string
 }
 
@@ -45,24 +46,24 @@ DeleteAlertConfig Delete an alert configuration by name
 
 Deletes a specific alert configuration identified by its name.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param name The name of the alert configuration to delete
-	@return ApiDeleteAlertConfigRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param name The name of the alert configuration to delete
+ @return ApiDeleteAlertConfigRequest
 */
 func (a *AlertConfigurationAPIService) DeleteAlertConfig(ctx context.Context, name string) ApiDeleteAlertConfigRequest {
 	return ApiDeleteAlertConfigRequest{
 		ApiService: a,
-		ctx:        ctx,
-		name:       name,
+		ctx: ctx,
+		name: name,
 	}
 }
 
 // Execute executes the request
 func (a *AlertConfigurationAPIService) DeleteAlertConfigExecute(r ApiDeleteAlertConfigRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod   = http.MethodDelete
+		localVarPostBody     interface{}
+		formFiles            []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AlertConfigurationAPIService.DeleteAlertConfig")
@@ -120,14 +121,14 @@ func (a *AlertConfigurationAPIService) DeleteAlertConfigExecute(r ApiDeleteAlert
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
-			var v ApiError
+			var v ApiError[string]interface{}
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarHTTPResponse, newErr
 	}
@@ -136,9 +137,9 @@ func (a *AlertConfigurationAPIService) DeleteAlertConfigExecute(r ApiDeleteAlert
 }
 
 type ApiDeleteDisabledAlertConfigRequest struct {
-	ctx         context.Context
-	ApiService  *AlertConfigurationAPIService
-	name        string
+	ctx context.Context
+	ApiService *AlertConfigurationAPIService
+	name string
 	xScopeOrgID *string
 }
 
@@ -157,24 +158,24 @@ DeleteDisabledAlertConfig Re-enable an alert configuration by name
 
 Deletes a 'disabled' configuration, which re-enables the alert.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param name The name of the disabled alert to re-enable
-	@return ApiDeleteDisabledAlertConfigRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param name The name of the disabled alert to re-enable
+ @return ApiDeleteDisabledAlertConfigRequest
 */
 func (a *AlertConfigurationAPIService) DeleteDisabledAlertConfig(ctx context.Context, name string) ApiDeleteDisabledAlertConfigRequest {
 	return ApiDeleteDisabledAlertConfigRequest{
 		ApiService: a,
-		ctx:        ctx,
-		name:       name,
+		ctx: ctx,
+		name: name,
 	}
 }
 
 // Execute executes the request
 func (a *AlertConfigurationAPIService) DeleteDisabledAlertConfigExecute(r ApiDeleteDisabledAlertConfigRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod   = http.MethodDelete
+		localVarPostBody     interface{}
+		formFiles            []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AlertConfigurationAPIService.DeleteDisabledAlertConfig")
@@ -232,14 +233,14 @@ func (a *AlertConfigurationAPIService) DeleteDisabledAlertConfigExecute(r ApiDel
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
-			var v ApiError
+			var v ApiError[string]interface{}
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarHTTPResponse, newErr
 	}
@@ -248,8 +249,8 @@ func (a *AlertConfigurationAPIService) DeleteDisabledAlertConfigExecute(r ApiDel
 }
 
 type ApiGetAllAlertConfigsRequest struct {
-	ctx         context.Context
-	ApiService  *AlertConfigurationAPIService
+	ctx context.Context
+	ApiService *AlertConfigurationAPIService
 	xScopeOrgID *string
 }
 
@@ -259,7 +260,7 @@ func (r ApiGetAllAlertConfigsRequest) XScopeOrgID(xScopeOrgID string) ApiGetAllA
 	return r
 }
 
-func (r ApiGetAllAlertConfigsRequest) Execute() (*AlertConfigsDto, *http.Response, error) {
+func (r ApiGetAllAlertConfigsRequest) Execute() (AlertConfigsDto[string]interface{}, *http.Response, error) {
 	return r.ApiService.GetAllAlertConfigsExecute(r)
 }
 
@@ -268,25 +269,24 @@ GetAllAlertConfigs Get all alert configurations
 
 Retrieves a list of all alert configurations for the tenant.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetAllAlertConfigsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiGetAllAlertConfigsRequest
 */
 func (a *AlertConfigurationAPIService) GetAllAlertConfigs(ctx context.Context) ApiGetAllAlertConfigsRequest {
 	return ApiGetAllAlertConfigsRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-//
-//	@return AlertConfigsDto
-func (a *AlertConfigurationAPIService) GetAllAlertConfigsExecute(r ApiGetAllAlertConfigsRequest) (*AlertConfigsDto, *http.Response, error) {
+//  @return AlertConfigsDto[string]interface{}
+func (a *AlertConfigurationAPIService) GetAllAlertConfigsExecute(r ApiGetAllAlertConfigsRequest) (AlertConfigsDto[string]interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *AlertConfigsDto
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  AlertConfigsDto[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AlertConfigurationAPIService.GetAllAlertConfigs")
@@ -343,14 +343,14 @@ func (a *AlertConfigurationAPIService) GetAllAlertConfigsExecute(r ApiGetAllAler
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
-			var v ApiError
+			var v ApiError[string]interface{}
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -368,8 +368,8 @@ func (a *AlertConfigurationAPIService) GetAllAlertConfigsExecute(r ApiGetAllAler
 }
 
 type ApiGetAllDisabledAlertConfigsRequest struct {
-	ctx         context.Context
-	ApiService  *AlertConfigurationAPIService
+	ctx context.Context
+	ApiService *AlertConfigurationAPIService
 	xScopeOrgID *string
 }
 
@@ -379,7 +379,7 @@ func (r ApiGetAllDisabledAlertConfigsRequest) XScopeOrgID(xScopeOrgID string) Ap
 	return r
 }
 
-func (r ApiGetAllDisabledAlertConfigsRequest) Execute() (*DisabledAlertConfigsDto, *http.Response, error) {
+func (r ApiGetAllDisabledAlertConfigsRequest) Execute() (DisabledAlertConfigsDto[string]interface{}, *http.Response, error) {
 	return r.ApiService.GetAllDisabledAlertConfigsExecute(r)
 }
 
@@ -388,25 +388,24 @@ GetAllDisabledAlertConfigs Get all disabled alert configurations
 
 Retrieves a list of all currently disabled alert configurations for the tenant.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetAllDisabledAlertConfigsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiGetAllDisabledAlertConfigsRequest
 */
 func (a *AlertConfigurationAPIService) GetAllDisabledAlertConfigs(ctx context.Context) ApiGetAllDisabledAlertConfigsRequest {
 	return ApiGetAllDisabledAlertConfigsRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-//
-//	@return DisabledAlertConfigsDto
-func (a *AlertConfigurationAPIService) GetAllDisabledAlertConfigsExecute(r ApiGetAllDisabledAlertConfigsRequest) (*DisabledAlertConfigsDto, *http.Response, error) {
+//  @return DisabledAlertConfigsDto[string]interface{}
+func (a *AlertConfigurationAPIService) GetAllDisabledAlertConfigsExecute(r ApiGetAllDisabledAlertConfigsRequest) (DisabledAlertConfigsDto[string]interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *DisabledAlertConfigsDto
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  DisabledAlertConfigsDto[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AlertConfigurationAPIService.GetAllDisabledAlertConfigs")
@@ -463,14 +462,14 @@ func (a *AlertConfigurationAPIService) GetAllDisabledAlertConfigsExecute(r ApiGe
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
-			var v ApiError
+			var v ApiError[string]interface{}
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -488,8 +487,8 @@ func (a *AlertConfigurationAPIService) GetAllDisabledAlertConfigsExecute(r ApiGe
 }
 
 type ApiGetDisabledHealthAlertConfigsRequest struct {
-	ctx         context.Context
-	ApiService  *AlertConfigurationAPIService
+	ctx context.Context
+	ApiService *AlertConfigurationAPIService
 	xScopeOrgID *string
 }
 
@@ -499,7 +498,7 @@ func (r ApiGetDisabledHealthAlertConfigsRequest) XScopeOrgID(xScopeOrgID string)
 	return r
 }
 
-func (r ApiGetDisabledHealthAlertConfigsRequest) Execute() (*DisabledAlertConfigsDto, *http.Response, error) {
+func (r ApiGetDisabledHealthAlertConfigsRequest) Execute() (DisabledAlertConfigsDto[string]interface{}, *http.Response, error) {
 	return r.ApiService.GetDisabledHealthAlertConfigsExecute(r)
 }
 
@@ -508,25 +507,24 @@ GetDisabledHealthAlertConfigs Get disabled health-based alert configurations
 
 Retrieves disabled alert configurations related to system health.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetDisabledHealthAlertConfigsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiGetDisabledHealthAlertConfigsRequest
 */
 func (a *AlertConfigurationAPIService) GetDisabledHealthAlertConfigs(ctx context.Context) ApiGetDisabledHealthAlertConfigsRequest {
 	return ApiGetDisabledHealthAlertConfigsRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-//
-//	@return DisabledAlertConfigsDto
-func (a *AlertConfigurationAPIService) GetDisabledHealthAlertConfigsExecute(r ApiGetDisabledHealthAlertConfigsRequest) (*DisabledAlertConfigsDto, *http.Response, error) {
+//  @return DisabledAlertConfigsDto[string]interface{}
+func (a *AlertConfigurationAPIService) GetDisabledHealthAlertConfigsExecute(r ApiGetDisabledHealthAlertConfigsRequest) (DisabledAlertConfigsDto[string]interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *DisabledAlertConfigsDto
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  DisabledAlertConfigsDto[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AlertConfigurationAPIService.GetDisabledHealthAlertConfigs")
@@ -583,14 +581,14 @@ func (a *AlertConfigurationAPIService) GetDisabledHealthAlertConfigsExecute(r Ap
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
-			var v ApiError
+			var v ApiError[string]interface{}
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -608,8 +606,8 @@ func (a *AlertConfigurationAPIService) GetDisabledHealthAlertConfigsExecute(r Ap
 }
 
 type ApiGetDisabledRequestAlertConfigsRequest struct {
-	ctx         context.Context
-	ApiService  *AlertConfigurationAPIService
+	ctx context.Context
+	ApiService *AlertConfigurationAPIService
 	xScopeOrgID *string
 }
 
@@ -619,7 +617,7 @@ func (r ApiGetDisabledRequestAlertConfigsRequest) XScopeOrgID(xScopeOrgID string
 	return r
 }
 
-func (r ApiGetDisabledRequestAlertConfigsRequest) Execute() (*DisabledAlertConfigsDto, *http.Response, error) {
+func (r ApiGetDisabledRequestAlertConfigsRequest) Execute() (DisabledAlertConfigsDto[string]interface{}, *http.Response, error) {
 	return r.ApiService.GetDisabledRequestAlertConfigsExecute(r)
 }
 
@@ -628,25 +626,24 @@ GetDisabledRequestAlertConfigs Get disabled request-based alert configurations
 
 Retrieves disabled alert configurations specifically for requests.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetDisabledRequestAlertConfigsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiGetDisabledRequestAlertConfigsRequest
 */
 func (a *AlertConfigurationAPIService) GetDisabledRequestAlertConfigs(ctx context.Context) ApiGetDisabledRequestAlertConfigsRequest {
 	return ApiGetDisabledRequestAlertConfigsRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-//
-//	@return DisabledAlertConfigsDto
-func (a *AlertConfigurationAPIService) GetDisabledRequestAlertConfigsExecute(r ApiGetDisabledRequestAlertConfigsRequest) (*DisabledAlertConfigsDto, *http.Response, error) {
+//  @return DisabledAlertConfigsDto[string]interface{}
+func (a *AlertConfigurationAPIService) GetDisabledRequestAlertConfigsExecute(r ApiGetDisabledRequestAlertConfigsRequest) (DisabledAlertConfigsDto[string]interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *DisabledAlertConfigsDto
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  DisabledAlertConfigsDto[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AlertConfigurationAPIService.GetDisabledRequestAlertConfigs")
@@ -703,14 +700,14 @@ func (a *AlertConfigurationAPIService) GetDisabledRequestAlertConfigsExecute(r A
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
-			var v ApiError
+			var v ApiError[string]interface{}
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -728,8 +725,8 @@ func (a *AlertConfigurationAPIService) GetDisabledRequestAlertConfigsExecute(r A
 }
 
 type ApiGetDisabledResourceAlertConfigsRequest struct {
-	ctx         context.Context
-	ApiService  *AlertConfigurationAPIService
+	ctx context.Context
+	ApiService *AlertConfigurationAPIService
 	xScopeOrgID *string
 }
 
@@ -739,7 +736,7 @@ func (r ApiGetDisabledResourceAlertConfigsRequest) XScopeOrgID(xScopeOrgID strin
 	return r
 }
 
-func (r ApiGetDisabledResourceAlertConfigsRequest) Execute() (*DisabledAlertConfigsDto, *http.Response, error) {
+func (r ApiGetDisabledResourceAlertConfigsRequest) Execute() (DisabledAlertConfigsDto[string]interface{}, *http.Response, error) {
 	return r.ApiService.GetDisabledResourceAlertConfigsExecute(r)
 }
 
@@ -748,25 +745,24 @@ GetDisabledResourceAlertConfigs Get disabled resource-based alert configurations
 
 Retrieves disabled alert configurations specifically for resources.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetDisabledResourceAlertConfigsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiGetDisabledResourceAlertConfigsRequest
 */
 func (a *AlertConfigurationAPIService) GetDisabledResourceAlertConfigs(ctx context.Context) ApiGetDisabledResourceAlertConfigsRequest {
 	return ApiGetDisabledResourceAlertConfigsRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-//
-//	@return DisabledAlertConfigsDto
-func (a *AlertConfigurationAPIService) GetDisabledResourceAlertConfigsExecute(r ApiGetDisabledResourceAlertConfigsRequest) (*DisabledAlertConfigsDto, *http.Response, error) {
+//  @return DisabledAlertConfigsDto[string]interface{}
+func (a *AlertConfigurationAPIService) GetDisabledResourceAlertConfigsExecute(r ApiGetDisabledResourceAlertConfigsRequest) (DisabledAlertConfigsDto[string]interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *DisabledAlertConfigsDto
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  DisabledAlertConfigsDto[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AlertConfigurationAPIService.GetDisabledResourceAlertConfigs")
@@ -823,14 +819,14 @@ func (a *AlertConfigurationAPIService) GetDisabledResourceAlertConfigsExecute(r 
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
-			var v ApiError
+			var v ApiError[string]interface{}
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -848,21 +844,21 @@ func (a *AlertConfigurationAPIService) GetDisabledResourceAlertConfigsExecute(r 
 }
 
 type ApiGetFailureRuleGroupsRequest struct {
-	ctx                  context.Context
-	ApiService           *AlertConfigurationAPIService
-	customFailureRules   *bool
-	allFailureRuleGroups *bool
-	xScopeOrgID          *string
+	ctx context.Context
+	ApiService *AlertConfigurationAPIService
+	customFailureRules *string
+	allFailureRuleGroups *string
+	xScopeOrgID *string
 }
 
 // Set to true to fetch only custom failure rules
-func (r ApiGetFailureRuleGroupsRequest) CustomFailureRules(customFailureRules bool) ApiGetFailureRuleGroupsRequest {
+func (r ApiGetFailureRuleGroupsRequest) CustomFailureRules(customFailureRules string) ApiGetFailureRuleGroupsRequest {
 	r.customFailureRules = &customFailureRules
 	return r
 }
 
 // Set to true to fetch all failure rule groups (custom and default)
-func (r ApiGetFailureRuleGroupsRequest) AllFailureRuleGroups(allFailureRuleGroups bool) ApiGetFailureRuleGroupsRequest {
+func (r ApiGetFailureRuleGroupsRequest) AllFailureRuleGroups(allFailureRuleGroups string) ApiGetFailureRuleGroupsRequest {
 	r.allFailureRuleGroups = &allFailureRuleGroups
 	return r
 }
@@ -873,7 +869,7 @@ func (r ApiGetFailureRuleGroupsRequest) XScopeOrgID(xScopeOrgID string) ApiGetFa
 	return r
 }
 
-func (r ApiGetFailureRuleGroupsRequest) Execute() (*PrometheusRuleGroupDto, *http.Response, error) {
+func (r ApiGetFailureRuleGroupsRequest) Execute() (PrometheusRuleGroupDto[string]interface{}, *http.Response, error) {
 	return r.ApiService.GetFailureRuleGroupsExecute(r)
 }
 
@@ -882,25 +878,24 @@ GetFailureRuleGroups Get Prometheus failure rule groups
 
 Retrieves Prometheus rule groups related to failures. Can be filtered for custom or all rules.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetFailureRuleGroupsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiGetFailureRuleGroupsRequest
 */
 func (a *AlertConfigurationAPIService) GetFailureRuleGroups(ctx context.Context) ApiGetFailureRuleGroupsRequest {
 	return ApiGetFailureRuleGroupsRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-//
-//	@return PrometheusRuleGroupDto
-func (a *AlertConfigurationAPIService) GetFailureRuleGroupsExecute(r ApiGetFailureRuleGroupsRequest) (*PrometheusRuleGroupDto, *http.Response, error) {
+//  @return PrometheusRuleGroupDto[string]interface{}
+func (a *AlertConfigurationAPIService) GetFailureRuleGroupsExecute(r ApiGetFailureRuleGroupsRequest) (PrometheusRuleGroupDto[string]interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PrometheusRuleGroupDto
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  PrometheusRuleGroupDto[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AlertConfigurationAPIService.GetFailureRuleGroups")
@@ -916,9 +911,15 @@ func (a *AlertConfigurationAPIService) GetFailureRuleGroupsExecute(r ApiGetFailu
 
 	if r.customFailureRules != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "customFailureRules", r.customFailureRules, "")
+	} else {
+		var defaultValue string = "##default"
+		r.customFailureRules = &defaultValue
 	}
 	if r.allFailureRuleGroups != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "allFailureRuleGroups", r.allFailureRuleGroups, "")
+	} else {
+		var defaultValue string = "##default"
+		r.allFailureRuleGroups = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -963,14 +964,14 @@ func (a *AlertConfigurationAPIService) GetFailureRuleGroupsExecute(r ApiGetFailu
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
-			var v ApiError
+			var v ApiError[string]interface{}
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -988,8 +989,8 @@ func (a *AlertConfigurationAPIService) GetFailureRuleGroupsExecute(r ApiGetFailu
 }
 
 type ApiGetHealthAlertConfigsRequest struct {
-	ctx         context.Context
-	ApiService  *AlertConfigurationAPIService
+	ctx context.Context
+	ApiService *AlertConfigurationAPIService
 	xScopeOrgID *string
 }
 
@@ -999,7 +1000,7 @@ func (r ApiGetHealthAlertConfigsRequest) XScopeOrgID(xScopeOrgID string) ApiGetH
 	return r
 }
 
-func (r ApiGetHealthAlertConfigsRequest) Execute() (*AlertConfigsDto, *http.Response, error) {
+func (r ApiGetHealthAlertConfigsRequest) Execute() (AlertConfigsDto[string]interface{}, *http.Response, error) {
 	return r.ApiService.GetHealthAlertConfigsExecute(r)
 }
 
@@ -1008,25 +1009,24 @@ GetHealthAlertConfigs Get health-based alert configurations
 
 Retrieves alert configurations related to system health.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetHealthAlertConfigsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiGetHealthAlertConfigsRequest
 */
 func (a *AlertConfigurationAPIService) GetHealthAlertConfigs(ctx context.Context) ApiGetHealthAlertConfigsRequest {
 	return ApiGetHealthAlertConfigsRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-//
-//	@return AlertConfigsDto
-func (a *AlertConfigurationAPIService) GetHealthAlertConfigsExecute(r ApiGetHealthAlertConfigsRequest) (*AlertConfigsDto, *http.Response, error) {
+//  @return AlertConfigsDto[string]interface{}
+func (a *AlertConfigurationAPIService) GetHealthAlertConfigsExecute(r ApiGetHealthAlertConfigsRequest) (AlertConfigsDto[string]interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *AlertConfigsDto
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  AlertConfigsDto[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AlertConfigurationAPIService.GetHealthAlertConfigs")
@@ -1083,14 +1083,14 @@ func (a *AlertConfigurationAPIService) GetHealthAlertConfigsExecute(r ApiGetHeal
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
-			var v ApiError
+			var v ApiError[string]interface{}
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1108,8 +1108,8 @@ func (a *AlertConfigurationAPIService) GetHealthAlertConfigsExecute(r ApiGetHeal
 }
 
 type ApiGetRequestAlertConfigsRequest struct {
-	ctx         context.Context
-	ApiService  *AlertConfigurationAPIService
+	ctx context.Context
+	ApiService *AlertConfigurationAPIService
 	xScopeOrgID *string
 }
 
@@ -1119,7 +1119,7 @@ func (r ApiGetRequestAlertConfigsRequest) XScopeOrgID(xScopeOrgID string) ApiGet
 	return r
 }
 
-func (r ApiGetRequestAlertConfigsRequest) Execute() (*AlertConfigsDto, *http.Response, error) {
+func (r ApiGetRequestAlertConfigsRequest) Execute() (AlertConfigsDto[string]interface{}, *http.Response, error) {
 	return r.ApiService.GetRequestAlertConfigsExecute(r)
 }
 
@@ -1128,25 +1128,24 @@ GetRequestAlertConfigs Get request-based alert configurations
 
 Retrieves alert configurations specifically for requests.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetRequestAlertConfigsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiGetRequestAlertConfigsRequest
 */
 func (a *AlertConfigurationAPIService) GetRequestAlertConfigs(ctx context.Context) ApiGetRequestAlertConfigsRequest {
 	return ApiGetRequestAlertConfigsRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-//
-//	@return AlertConfigsDto
-func (a *AlertConfigurationAPIService) GetRequestAlertConfigsExecute(r ApiGetRequestAlertConfigsRequest) (*AlertConfigsDto, *http.Response, error) {
+//  @return AlertConfigsDto[string]interface{}
+func (a *AlertConfigurationAPIService) GetRequestAlertConfigsExecute(r ApiGetRequestAlertConfigsRequest) (AlertConfigsDto[string]interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *AlertConfigsDto
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  AlertConfigsDto[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AlertConfigurationAPIService.GetRequestAlertConfigs")
@@ -1203,14 +1202,14 @@ func (a *AlertConfigurationAPIService) GetRequestAlertConfigsExecute(r ApiGetReq
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
-			var v ApiError
+			var v ApiError[string]interface{}
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1228,8 +1227,8 @@ func (a *AlertConfigurationAPIService) GetRequestAlertConfigsExecute(r ApiGetReq
 }
 
 type ApiGetResourceAlertConfigsRequest struct {
-	ctx         context.Context
-	ApiService  *AlertConfigurationAPIService
+	ctx context.Context
+	ApiService *AlertConfigurationAPIService
 	xScopeOrgID *string
 }
 
@@ -1239,7 +1238,7 @@ func (r ApiGetResourceAlertConfigsRequest) XScopeOrgID(xScopeOrgID string) ApiGe
 	return r
 }
 
-func (r ApiGetResourceAlertConfigsRequest) Execute() (*AlertConfigsDto, *http.Response, error) {
+func (r ApiGetResourceAlertConfigsRequest) Execute() (AlertConfigsDto[string]interface{}, *http.Response, error) {
 	return r.ApiService.GetResourceAlertConfigsExecute(r)
 }
 
@@ -1248,25 +1247,24 @@ GetResourceAlertConfigs Get resource-based alert configurations
 
 Retrieves alert configurations specifically for resources.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetResourceAlertConfigsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiGetResourceAlertConfigsRequest
 */
 func (a *AlertConfigurationAPIService) GetResourceAlertConfigs(ctx context.Context) ApiGetResourceAlertConfigsRequest {
 	return ApiGetResourceAlertConfigsRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-//
-//	@return AlertConfigsDto
-func (a *AlertConfigurationAPIService) GetResourceAlertConfigsExecute(r ApiGetResourceAlertConfigsRequest) (*AlertConfigsDto, *http.Response, error) {
+//  @return AlertConfigsDto[string]interface{}
+func (a *AlertConfigurationAPIService) GetResourceAlertConfigsExecute(r ApiGetResourceAlertConfigsRequest) (AlertConfigsDto[string]interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *AlertConfigsDto
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  AlertConfigsDto[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AlertConfigurationAPIService.GetResourceAlertConfigs")
@@ -1323,14 +1321,14 @@ func (a *AlertConfigurationAPIService) GetResourceAlertConfigsExecute(r ApiGetRe
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
-			var v ApiError
+			var v ApiError[string]interface{}
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1348,8 +1346,8 @@ func (a *AlertConfigurationAPIService) GetResourceAlertConfigsExecute(r ApiGetRe
 }
 
 type ApiGetSloAlertConfigsRequest struct {
-	ctx         context.Context
-	ApiService  *AlertConfigurationAPIService
+	ctx context.Context
+	ApiService *AlertConfigurationAPIService
 	xScopeOrgID *string
 }
 
@@ -1359,7 +1357,7 @@ func (r ApiGetSloAlertConfigsRequest) XScopeOrgID(xScopeOrgID string) ApiGetSloA
 	return r
 }
 
-func (r ApiGetSloAlertConfigsRequest) Execute() (*AlertConfigsDto, *http.Response, error) {
+func (r ApiGetSloAlertConfigsRequest) Execute() (AlertConfigsDto[string]interface{}, *http.Response, error) {
 	return r.ApiService.GetSloAlertConfigsExecute(r)
 }
 
@@ -1368,25 +1366,24 @@ GetSloAlertConfigs Get SLO-based alert configurations
 
 Retrieves alert configurations related to Service Level Objectives.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetSloAlertConfigsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiGetSloAlertConfigsRequest
 */
 func (a *AlertConfigurationAPIService) GetSloAlertConfigs(ctx context.Context) ApiGetSloAlertConfigsRequest {
 	return ApiGetSloAlertConfigsRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-//
-//	@return AlertConfigsDto
-func (a *AlertConfigurationAPIService) GetSloAlertConfigsExecute(r ApiGetSloAlertConfigsRequest) (*AlertConfigsDto, *http.Response, error) {
+//  @return AlertConfigsDto[string]interface{}
+func (a *AlertConfigurationAPIService) GetSloAlertConfigsExecute(r ApiGetSloAlertConfigsRequest) (AlertConfigsDto[string]interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *AlertConfigsDto
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  AlertConfigsDto[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AlertConfigurationAPIService.GetSloAlertConfigs")
@@ -1443,14 +1440,14 @@ func (a *AlertConfigurationAPIService) GetSloAlertConfigsExecute(r ApiGetSloAler
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
-			var v ApiError
+			var v ApiError[string]interface{}
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1468,10 +1465,10 @@ func (a *AlertConfigurationAPIService) GetSloAlertConfigsExecute(r ApiGetSloAler
 }
 
 type ApiPutAlertConfigRequest struct {
-	ctx            context.Context
-	ApiService     *AlertConfigurationAPIService
+	ctx context.Context
+	ApiService *AlertConfigurationAPIService
 	alertConfigDto *AlertConfigDto
-	xScopeOrgID    *string
+	xScopeOrgID *string
 }
 
 func (r ApiPutAlertConfigRequest) AlertConfigDto(alertConfigDto AlertConfigDto) ApiPutAlertConfigRequest {
@@ -1494,22 +1491,22 @@ PutAlertConfig Create or update a single alert configuration
 
 Creates a new alert configuration or updates an existing one based on the provided data.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiPutAlertConfigRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiPutAlertConfigRequest
 */
 func (a *AlertConfigurationAPIService) PutAlertConfig(ctx context.Context) ApiPutAlertConfigRequest {
 	return ApiPutAlertConfigRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 	}
 }
 
 // Execute executes the request
 func (a *AlertConfigurationAPIService) PutAlertConfigExecute(r ApiPutAlertConfigRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AlertConfigurationAPIService.PutAlertConfig")
@@ -1571,25 +1568,25 @@ func (a *AlertConfigurationAPIService) PutAlertConfigExecute(r ApiPutAlertConfig
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiError
+			var v ApiError[string]interface{}
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
-			var v ApiError
+			var v ApiError[string]interface{}
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarHTTPResponse, newErr
 	}
@@ -1598,10 +1595,10 @@ func (a *AlertConfigurationAPIService) PutAlertConfigExecute(r ApiPutAlertConfig
 }
 
 type ApiPutAlertConfigsRequest struct {
-	ctx             context.Context
-	ApiService      *AlertConfigurationAPIService
+	ctx context.Context
+	ApiService *AlertConfigurationAPIService
 	alertConfigsDto *AlertConfigsDto
-	xScopeOrgID     *string
+	xScopeOrgID *string
 }
 
 func (r ApiPutAlertConfigsRequest) AlertConfigsDto(alertConfigsDto AlertConfigsDto) ApiPutAlertConfigsRequest {
@@ -1624,22 +1621,22 @@ PutAlertConfigs Create or update multiple alert configurations
 
 Creates or updates a batch of alert configurations.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiPutAlertConfigsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiPutAlertConfigsRequest
 */
 func (a *AlertConfigurationAPIService) PutAlertConfigs(ctx context.Context) ApiPutAlertConfigsRequest {
 	return ApiPutAlertConfigsRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 	}
 }
 
 // Execute executes the request
 func (a *AlertConfigurationAPIService) PutAlertConfigsExecute(r ApiPutAlertConfigsRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AlertConfigurationAPIService.PutAlertConfigs")
@@ -1701,25 +1698,25 @@ func (a *AlertConfigurationAPIService) PutAlertConfigsExecute(r ApiPutAlertConfi
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiError
+			var v ApiError[string]interface{}
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
-			var v ApiError
+			var v ApiError[string]interface{}
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarHTTPResponse, newErr
 	}
@@ -1728,10 +1725,10 @@ func (a *AlertConfigurationAPIService) PutAlertConfigsExecute(r ApiPutAlertConfi
 }
 
 type ApiPutDisabledAlertConfigRequest struct {
-	ctx                    context.Context
-	ApiService             *AlertConfigurationAPIService
+	ctx context.Context
+	ApiService *AlertConfigurationAPIService
 	disabledAlertConfigDto *DisabledAlertConfigDto
-	xScopeOrgID            *string
+	xScopeOrgID *string
 }
 
 func (r ApiPutDisabledAlertConfigRequest) DisabledAlertConfigDto(disabledAlertConfigDto DisabledAlertConfigDto) ApiPutDisabledAlertConfigRequest {
@@ -1754,22 +1751,22 @@ PutDisabledAlertConfig Disable a single alert configuration
 
 Creates a new disabled alert configuration, effectively silencing it.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiPutDisabledAlertConfigRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiPutDisabledAlertConfigRequest
 */
 func (a *AlertConfigurationAPIService) PutDisabledAlertConfig(ctx context.Context) ApiPutDisabledAlertConfigRequest {
 	return ApiPutDisabledAlertConfigRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 	}
 }
 
 // Execute executes the request
 func (a *AlertConfigurationAPIService) PutDisabledAlertConfigExecute(r ApiPutDisabledAlertConfigRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AlertConfigurationAPIService.PutDisabledAlertConfig")
@@ -1831,25 +1828,25 @@ func (a *AlertConfigurationAPIService) PutDisabledAlertConfigExecute(r ApiPutDis
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiError
+			var v ApiError[string]interface{}
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
-			var v ApiError
+			var v ApiError[string]interface{}
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarHTTPResponse, newErr
 	}
@@ -1858,10 +1855,10 @@ func (a *AlertConfigurationAPIService) PutDisabledAlertConfigExecute(r ApiPutDis
 }
 
 type ApiPutDisabledAlertConfigsRequest struct {
-	ctx                     context.Context
-	ApiService              *AlertConfigurationAPIService
+	ctx context.Context
+	ApiService *AlertConfigurationAPIService
 	disabledAlertConfigsDto *DisabledAlertConfigsDto
-	xScopeOrgID             *string
+	xScopeOrgID *string
 }
 
 func (r ApiPutDisabledAlertConfigsRequest) DisabledAlertConfigsDto(disabledAlertConfigsDto DisabledAlertConfigsDto) ApiPutDisabledAlertConfigsRequest {
@@ -1884,22 +1881,22 @@ PutDisabledAlertConfigs Disable multiple alert configurations
 
 Creates or updates a batch of disabled alert configurations.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiPutDisabledAlertConfigsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiPutDisabledAlertConfigsRequest
 */
 func (a *AlertConfigurationAPIService) PutDisabledAlertConfigs(ctx context.Context) ApiPutDisabledAlertConfigsRequest {
 	return ApiPutDisabledAlertConfigsRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 	}
 }
 
 // Execute executes the request
 func (a *AlertConfigurationAPIService) PutDisabledAlertConfigsExecute(r ApiPutDisabledAlertConfigsRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AlertConfigurationAPIService.PutDisabledAlertConfigs")
@@ -1961,25 +1958,25 @@ func (a *AlertConfigurationAPIService) PutDisabledAlertConfigsExecute(r ApiPutDi
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiError
+			var v ApiError[string]interface{}
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
-			var v ApiError
+			var v ApiError[string]interface{}
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarHTTPResponse, newErr
 	}
