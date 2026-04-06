@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **FilterCriteria** | Pointer to [**[]EntityMatcherDto**](EntityMatcherDto.md) |  | [optional] 
 **HideAssertionsOlderThanNHours** | Pointer to **int32** |  | [optional] 
 **AlertCategories** | Pointer to **[]string** |  | [optional] 
+**SeverityFilter** | Pointer to **[]string** |  | [optional] 
 **Query** | Pointer to **string** |  | [optional] 
 **CurrentWBEntityCount** | Pointer to **int32** |  | [optional] 
 **HideAssertionsPresentMoreThanPercentageOfTime** | Pointer to **int32** |  | [optional] 
@@ -236,6 +237,31 @@ SetAlertCategories sets AlertCategories field to given value.
 `func (o *LlmRcaSummarySearchReqDto) HasAlertCategories() bool`
 
 HasAlertCategories returns a boolean if a field has been set.
+
+### GetSeverityFilter
+
+`func (o *LlmRcaSummarySearchReqDto) GetSeverityFilter() []string`
+
+GetSeverityFilter returns the SeverityFilter field if non-nil, zero value otherwise.
+
+### GetSeverityFilterOk
+
+`func (o *LlmRcaSummarySearchReqDto) GetSeverityFilterOk() (*[]string, bool)`
+
+GetSeverityFilterOk returns a tuple with the SeverityFilter field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSeverityFilter
+
+`func (o *LlmRcaSummarySearchReqDto) SetSeverityFilter(v []string)`
+
+SetSeverityFilter sets SeverityFilter field to given value.
+
+### HasSeverityFilter
+
+`func (o *LlmRcaSummarySearchReqDto) HasSeverityFilter() bool`
+
+HasSeverityFilter returns a boolean if a field has been set.
 
 ### GetQuery
 

@@ -36,6 +36,20 @@ func Test_gcom_CustomRcaPatternControllerAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test CustomRcaPatternControllerAPIService GetCustomByName", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		var name string
+
+		resp, httpRes, err := apiClient.CustomRcaPatternControllerAPI.GetCustomByName(context.Background(), name).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test CustomRcaPatternControllerAPIService ListCustom", func(t *testing.T) {
 
 		t.Skip("skip test") // remove to run test
