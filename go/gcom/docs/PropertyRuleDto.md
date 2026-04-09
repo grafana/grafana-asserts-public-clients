@@ -9,6 +9,12 @@ Name | Type | Description | Notes
 **Literals** | Pointer to **map[string]string** |  | [optional] 
 **MetricValue** | Pointer to **string** |  | [optional] 
 **Disabled** | Pointer to **bool** |  | [optional] 
+**Source** | Pointer to **string** |  | [optional] 
+**Url** | Pointer to **string** |  | [optional] 
+**File** | Pointer to **string** |  | [optional] 
+**Headers** | Pointer to **map[string]string** |  | [optional] 
+**ResponseMapping** | Pointer to **string** |  | [optional] 
+**RefreshInterval** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -153,6 +159,156 @@ SetDisabled sets Disabled field to given value.
 `func (o *PropertyRuleDto) HasDisabled() bool`
 
 HasDisabled returns a boolean if a field has been set.
+
+### GetSource
+
+`func (o *PropertyRuleDto) GetSource() string`
+
+GetSource returns the Source field if non-nil, zero value otherwise.
+
+### GetSourceOk
+
+`func (o *PropertyRuleDto) GetSourceOk() (*string, bool)`
+
+GetSourceOk returns a tuple with the Source field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSource
+
+`func (o *PropertyRuleDto) SetSource(v string)`
+
+SetSource sets Source field to given value.
+
+### HasSource
+
+`func (o *PropertyRuleDto) HasSource() bool`
+
+HasSource returns a boolean if a field has been set.
+
+### GetUrl
+
+`func (o *PropertyRuleDto) GetUrl() string`
+
+GetUrl returns the Url field if non-nil, zero value otherwise.
+
+### GetUrlOk
+
+`func (o *PropertyRuleDto) GetUrlOk() (*string, bool)`
+
+GetUrlOk returns a tuple with the Url field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUrl
+
+`func (o *PropertyRuleDto) SetUrl(v string)`
+
+SetUrl sets Url field to given value.
+
+### HasUrl
+
+`func (o *PropertyRuleDto) HasUrl() bool`
+
+HasUrl returns a boolean if a field has been set.
+
+### GetFile
+
+`func (o *PropertyRuleDto) GetFile() string`
+
+GetFile returns the File field if non-nil, zero value otherwise.
+
+### GetFileOk
+
+`func (o *PropertyRuleDto) GetFileOk() (*string, bool)`
+
+GetFileOk returns a tuple with the File field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFile
+
+`func (o *PropertyRuleDto) SetFile(v string)`
+
+SetFile sets File field to given value.
+
+### HasFile
+
+`func (o *PropertyRuleDto) HasFile() bool`
+
+HasFile returns a boolean if a field has been set.
+
+### GetHeaders
+
+`func (o *PropertyRuleDto) GetHeaders() map[string]string`
+
+GetHeaders returns the Headers field if non-nil, zero value otherwise.
+
+### GetHeadersOk
+
+`func (o *PropertyRuleDto) GetHeadersOk() (*map[string]string, bool)`
+
+GetHeadersOk returns a tuple with the Headers field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetHeaders
+
+`func (o *PropertyRuleDto) SetHeaders(v map[string]string)`
+
+SetHeaders sets Headers field to given value.
+
+### HasHeaders
+
+`func (o *PropertyRuleDto) HasHeaders() bool`
+
+HasHeaders returns a boolean if a field has been set.
+
+### GetResponseMapping
+
+`func (o *PropertyRuleDto) GetResponseMapping() string`
+
+GetResponseMapping returns the ResponseMapping field if non-nil, zero value otherwise.
+
+### GetResponseMappingOk
+
+`func (o *PropertyRuleDto) GetResponseMappingOk() (*string, bool)`
+
+GetResponseMappingOk returns a tuple with the ResponseMapping field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetResponseMapping
+
+`func (o *PropertyRuleDto) SetResponseMapping(v string)`
+
+SetResponseMapping sets ResponseMapping field to given value.
+
+### HasResponseMapping
+
+`func (o *PropertyRuleDto) HasResponseMapping() bool`
+
+HasResponseMapping returns a boolean if a field has been set.
+
+### GetRefreshInterval
+
+`func (o *PropertyRuleDto) GetRefreshInterval() string`
+
+GetRefreshInterval returns the RefreshInterval field if non-nil, zero value otherwise.
+
+### GetRefreshIntervalOk
+
+`func (o *PropertyRuleDto) GetRefreshIntervalOk() (*string, bool)`
+
+GetRefreshIntervalOk returns a tuple with the RefreshInterval field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRefreshInterval
+
+`func (o *PropertyRuleDto) SetRefreshInterval(v string)`
+
+SetRefreshInterval sets RefreshInterval field to given value.
+
+### HasRefreshInterval
+
+`func (o *PropertyRuleDto) HasRefreshInterval() bool`
+
+HasRefreshInterval returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.03.02-104252
+API version: 2026.04.09-111419
 Contact: support@asserts.ai
 */
 
@@ -13,6 +13,7 @@ package gcom
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the RelationRuleDto type satisfies the MappedNullable interface at compile time
@@ -25,8 +26,8 @@ type RelationRuleDto struct {
 	// Source entity type
 	StartEntityType string `json:"startEntityType"`
 	// Target entity type
-	EndEntityType        string                   `json:"endEntityType"`
-	DefinedBy            RelationRuleDtoDefinedBy `json:"definedBy"`
+	EndEntityType string `json:"endEntityType"`
+	DefinedBy RelationRuleDtoDefinedBy `json:"definedBy"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -50,6 +51,14 @@ func NewRelationRuleDto(type_ string, startEntityType string, endEntityType stri
 // but it doesn't guarantee that properties required by API are set
 func NewRelationRuleDtoWithDefaults() *RelationRuleDto {
 	this := RelationRuleDto{}
+	var type_ string = "##default"
+	this.Type = type_
+	var startEntityType string = "##default"
+	this.StartEntityType = startEntityType
+	var endEntityType string = "##default"
+	this.EndEntityType = endEntityType
+	var definedBy RelationRuleDtoDefinedBy = ##default
+	this.DefinedBy = definedBy
 	return &this
 }
 
@@ -150,7 +159,7 @@ func (o *RelationRuleDto) SetDefinedBy(v RelationRuleDtoDefinedBy) {
 }
 
 func (o RelationRuleDto) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -177,7 +186,7 @@ func (o *RelationRuleDto) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
 	varRelationRuleDto := _RelationRuleDto{}
@@ -238,3 +247,5 @@ func (v *NullableRelationRuleDto) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.03.02-104252
+API version: 2026.04.09-111419
 Contact: support@asserts.ai
 */
 
@@ -24,6 +24,7 @@ type StackDto struct {
 	MimirToken             *string `json:"mimirToken,omitempty"`
 	AssertionDetectorToken *string `json:"assertionDetectorToken,omitempty"`
 	GrafanaToken           *string `json:"grafanaToken,omitempty"`
+	LokiToken              *string `json:"lokiToken,omitempty"`
 	AdditionalProperties   map[string]interface{}
 }
 
@@ -174,6 +175,38 @@ func (o *StackDto) SetGrafanaToken(v string) {
 	o.GrafanaToken = &v
 }
 
+// GetLokiToken returns the LokiToken field value if set, zero value otherwise.
+func (o *StackDto) GetLokiToken() string {
+	if o == nil || IsNil(o.LokiToken) {
+		var ret string
+		return ret
+	}
+	return *o.LokiToken
+}
+
+// GetLokiTokenOk returns a tuple with the LokiToken field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *StackDto) GetLokiTokenOk() (*string, bool) {
+	if o == nil || IsNil(o.LokiToken) {
+		return nil, false
+	}
+	return o.LokiToken, true
+}
+
+// HasLokiToken returns a boolean if a field has been set.
+func (o *StackDto) HasLokiToken() bool {
+	if o != nil && !IsNil(o.LokiToken) {
+		return true
+	}
+
+	return false
+}
+
+// SetLokiToken gets a reference to the given string and assigns it to the LokiToken field.
+func (o *StackDto) SetLokiToken(v string) {
+	o.LokiToken = &v
+}
+
 func (o StackDto) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -195,6 +228,9 @@ func (o StackDto) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.GrafanaToken) {
 		toSerialize["grafanaToken"] = o.GrafanaToken
+	}
+	if !IsNil(o.LokiToken) {
+		toSerialize["lokiToken"] = o.LokiToken
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -222,6 +258,7 @@ func (o *StackDto) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "mimirToken")
 		delete(additionalProperties, "assertionDetectorToken")
 		delete(additionalProperties, "grafanaToken")
+		delete(additionalProperties, "lokiToken")
 		o.AdditionalProperties = additionalProperties
 	}
 
