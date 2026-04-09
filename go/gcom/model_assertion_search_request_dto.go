@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.03.02-104252
+API version: 2026.04.09-111419
 Contact: support@asserts.ai
 */
 
@@ -28,6 +28,7 @@ type AssertionSearchRequestDto struct {
 	FilterCriteria                                []EntityMatcherDto `json:"filterCriteria,omitempty"`
 	HideAssertionsOlderThanNHours                 *int32             `json:"hideAssertionsOlderThanNHours,omitempty"`
 	AlertCategories                               []string           `json:"alertCategories,omitempty"`
+	SeverityFilter                                []string           `json:"severityFilter,omitempty"`
 	Query                                         *string            `json:"query,omitempty"`
 	CurrentWBEntityCount                          *int32             `json:"currentWBEntityCount,omitempty"`
 	HideAssertionsPresentMoreThanPercentageOfTime *int32             `json:"hideAssertionsPresentMoreThanPercentageOfTime,omitempty"`
@@ -309,6 +310,38 @@ func (o *AssertionSearchRequestDto) SetAlertCategories(v []string) {
 	o.AlertCategories = v
 }
 
+// GetSeverityFilter returns the SeverityFilter field value if set, zero value otherwise.
+func (o *AssertionSearchRequestDto) GetSeverityFilter() []string {
+	if o == nil || IsNil(o.SeverityFilter) {
+		var ret []string
+		return ret
+	}
+	return o.SeverityFilter
+}
+
+// GetSeverityFilterOk returns a tuple with the SeverityFilter field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AssertionSearchRequestDto) GetSeverityFilterOk() ([]string, bool) {
+	if o == nil || IsNil(o.SeverityFilter) {
+		return nil, false
+	}
+	return o.SeverityFilter, true
+}
+
+// HasSeverityFilter returns a boolean if a field has been set.
+func (o *AssertionSearchRequestDto) HasSeverityFilter() bool {
+	if o != nil && !IsNil(o.SeverityFilter) {
+		return true
+	}
+
+	return false
+}
+
+// SetSeverityFilter gets a reference to the given []string and assigns it to the SeverityFilter field.
+func (o *AssertionSearchRequestDto) SetSeverityFilter(v []string) {
+	o.SeverityFilter = v
+}
+
 // GetQuery returns the Query field value if set, zero value otherwise.
 func (o *AssertionSearchRequestDto) GetQuery() string {
 	if o == nil || IsNil(o.Query) {
@@ -439,6 +472,9 @@ func (o AssertionSearchRequestDto) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.AlertCategories) {
 		toSerialize["alertCategories"] = o.AlertCategories
 	}
+	if !IsNil(o.SeverityFilter) {
+		toSerialize["severityFilter"] = o.SeverityFilter
+	}
 	if !IsNil(o.Query) {
 		toSerialize["query"] = o.Query
 	}
@@ -478,6 +514,7 @@ func (o *AssertionSearchRequestDto) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "filterCriteria")
 		delete(additionalProperties, "hideAssertionsOlderThanNHours")
 		delete(additionalProperties, "alertCategories")
+		delete(additionalProperties, "severityFilter")
 		delete(additionalProperties, "query")
 		delete(additionalProperties, "currentWBEntityCount")
 		delete(additionalProperties, "hideAssertionsPresentMoreThanPercentageOfTime")

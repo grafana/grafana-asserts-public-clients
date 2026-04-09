@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.03.02-104252
+API version: 2026.04.09-111419
 Contact: support@asserts.ai
 */
 
@@ -25,6 +25,12 @@ type PropertyRuleDto struct {
 	Literals             map[string]string `json:"literals,omitempty"`
 	MetricValue          *string           `json:"metricValue,omitempty"`
 	Disabled             *bool             `json:"disabled,omitempty"`
+	Source               *string           `json:"source,omitempty"`
+	Url                  *string           `json:"url,omitempty"`
+	File                 *string           `json:"file,omitempty"`
+	Headers              map[string]string `json:"headers,omitempty"`
+	ResponseMapping      *string           `json:"responseMapping,omitempty"`
+	RefreshInterval      *string           `json:"refreshInterval,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -207,6 +213,198 @@ func (o *PropertyRuleDto) SetDisabled(v bool) {
 	o.Disabled = &v
 }
 
+// GetSource returns the Source field value if set, zero value otherwise.
+func (o *PropertyRuleDto) GetSource() string {
+	if o == nil || IsNil(o.Source) {
+		var ret string
+		return ret
+	}
+	return *o.Source
+}
+
+// GetSourceOk returns a tuple with the Source field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyRuleDto) GetSourceOk() (*string, bool) {
+	if o == nil || IsNil(o.Source) {
+		return nil, false
+	}
+	return o.Source, true
+}
+
+// HasSource returns a boolean if a field has been set.
+func (o *PropertyRuleDto) HasSource() bool {
+	if o != nil && !IsNil(o.Source) {
+		return true
+	}
+
+	return false
+}
+
+// SetSource gets a reference to the given string and assigns it to the Source field.
+func (o *PropertyRuleDto) SetSource(v string) {
+	o.Source = &v
+}
+
+// GetUrl returns the Url field value if set, zero value otherwise.
+func (o *PropertyRuleDto) GetUrl() string {
+	if o == nil || IsNil(o.Url) {
+		var ret string
+		return ret
+	}
+	return *o.Url
+}
+
+// GetUrlOk returns a tuple with the Url field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyRuleDto) GetUrlOk() (*string, bool) {
+	if o == nil || IsNil(o.Url) {
+		return nil, false
+	}
+	return o.Url, true
+}
+
+// HasUrl returns a boolean if a field has been set.
+func (o *PropertyRuleDto) HasUrl() bool {
+	if o != nil && !IsNil(o.Url) {
+		return true
+	}
+
+	return false
+}
+
+// SetUrl gets a reference to the given string and assigns it to the Url field.
+func (o *PropertyRuleDto) SetUrl(v string) {
+	o.Url = &v
+}
+
+// GetFile returns the File field value if set, zero value otherwise.
+func (o *PropertyRuleDto) GetFile() string {
+	if o == nil || IsNil(o.File) {
+		var ret string
+		return ret
+	}
+	return *o.File
+}
+
+// GetFileOk returns a tuple with the File field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyRuleDto) GetFileOk() (*string, bool) {
+	if o == nil || IsNil(o.File) {
+		return nil, false
+	}
+	return o.File, true
+}
+
+// HasFile returns a boolean if a field has been set.
+func (o *PropertyRuleDto) HasFile() bool {
+	if o != nil && !IsNil(o.File) {
+		return true
+	}
+
+	return false
+}
+
+// SetFile gets a reference to the given string and assigns it to the File field.
+func (o *PropertyRuleDto) SetFile(v string) {
+	o.File = &v
+}
+
+// GetHeaders returns the Headers field value if set, zero value otherwise.
+func (o *PropertyRuleDto) GetHeaders() map[string]string {
+	if o == nil || IsNil(o.Headers) {
+		var ret map[string]string
+		return ret
+	}
+	return o.Headers
+}
+
+// GetHeadersOk returns a tuple with the Headers field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyRuleDto) GetHeadersOk() (map[string]string, bool) {
+	if o == nil || IsNil(o.Headers) {
+		return map[string]string{}, false
+	}
+	return o.Headers, true
+}
+
+// HasHeaders returns a boolean if a field has been set.
+func (o *PropertyRuleDto) HasHeaders() bool {
+	if o != nil && !IsNil(o.Headers) {
+		return true
+	}
+
+	return false
+}
+
+// SetHeaders gets a reference to the given map[string]string and assigns it to the Headers field.
+func (o *PropertyRuleDto) SetHeaders(v map[string]string) {
+	o.Headers = v
+}
+
+// GetResponseMapping returns the ResponseMapping field value if set, zero value otherwise.
+func (o *PropertyRuleDto) GetResponseMapping() string {
+	if o == nil || IsNil(o.ResponseMapping) {
+		var ret string
+		return ret
+	}
+	return *o.ResponseMapping
+}
+
+// GetResponseMappingOk returns a tuple with the ResponseMapping field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyRuleDto) GetResponseMappingOk() (*string, bool) {
+	if o == nil || IsNil(o.ResponseMapping) {
+		return nil, false
+	}
+	return o.ResponseMapping, true
+}
+
+// HasResponseMapping returns a boolean if a field has been set.
+func (o *PropertyRuleDto) HasResponseMapping() bool {
+	if o != nil && !IsNil(o.ResponseMapping) {
+		return true
+	}
+
+	return false
+}
+
+// SetResponseMapping gets a reference to the given string and assigns it to the ResponseMapping field.
+func (o *PropertyRuleDto) SetResponseMapping(v string) {
+	o.ResponseMapping = &v
+}
+
+// GetRefreshInterval returns the RefreshInterval field value if set, zero value otherwise.
+func (o *PropertyRuleDto) GetRefreshInterval() string {
+	if o == nil || IsNil(o.RefreshInterval) {
+		var ret string
+		return ret
+	}
+	return *o.RefreshInterval
+}
+
+// GetRefreshIntervalOk returns a tuple with the RefreshInterval field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyRuleDto) GetRefreshIntervalOk() (*string, bool) {
+	if o == nil || IsNil(o.RefreshInterval) {
+		return nil, false
+	}
+	return o.RefreshInterval, true
+}
+
+// HasRefreshInterval returns a boolean if a field has been set.
+func (o *PropertyRuleDto) HasRefreshInterval() bool {
+	if o != nil && !IsNil(o.RefreshInterval) {
+		return true
+	}
+
+	return false
+}
+
+// SetRefreshInterval gets a reference to the given string and assigns it to the RefreshInterval field.
+func (o *PropertyRuleDto) SetRefreshInterval(v string) {
+	o.RefreshInterval = &v
+}
+
 func (o PropertyRuleDto) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -231,6 +429,24 @@ func (o PropertyRuleDto) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Disabled) {
 		toSerialize["disabled"] = o.Disabled
+	}
+	if !IsNil(o.Source) {
+		toSerialize["source"] = o.Source
+	}
+	if !IsNil(o.Url) {
+		toSerialize["url"] = o.Url
+	}
+	if !IsNil(o.File) {
+		toSerialize["file"] = o.File
+	}
+	if !IsNil(o.Headers) {
+		toSerialize["headers"] = o.Headers
+	}
+	if !IsNil(o.ResponseMapping) {
+		toSerialize["responseMapping"] = o.ResponseMapping
+	}
+	if !IsNil(o.RefreshInterval) {
+		toSerialize["refreshInterval"] = o.RefreshInterval
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -259,6 +475,12 @@ func (o *PropertyRuleDto) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "literals")
 		delete(additionalProperties, "metricValue")
 		delete(additionalProperties, "disabled")
+		delete(additionalProperties, "source")
+		delete(additionalProperties, "url")
+		delete(additionalProperties, "file")
+		delete(additionalProperties, "headers")
+		delete(additionalProperties, "responseMapping")
+		delete(additionalProperties, "refreshInterval")
 		o.AdditionalProperties = additionalProperties
 	}
 

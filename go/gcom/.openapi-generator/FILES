@@ -132,6 +132,7 @@ docs/EntityAssertionSummaryTimeLineDto.md
 docs/EntityAssertionsControllerAPI.md
 docs/EntityAssertionsGraphDto.md
 docs/EntityControllerAPI.md
+docs/EntityCountDto.md
 docs/EntityCountRequestDto.md
 docs/EntityDisplayConfigDto.md
 docs/EntityKeyDto.md
@@ -146,6 +147,7 @@ docs/EntityRuleDto.md
 docs/EntityScopeControllerAPI.md
 docs/EntityScopesRequestDto.md
 docs/EntityScopesResponseDto.md
+docs/EntityScopesV2ResponseDto.md
 docs/EntityTypeControllerAPI.md
 docs/EntityTypeDto.md
 docs/EntityTypesDto.md
@@ -160,6 +162,7 @@ docs/GraphDisplayConfigDto.md
 docs/GraphEntity.md
 docs/GraphEntityKpiValue.md
 docs/GraphEntityScope.md
+docs/GroupedEntityCountDto.md
 docs/HealthThresholdV2Dto.md
 docs/HttpStatus.md
 docs/HttpStatusCode.md
@@ -173,6 +176,7 @@ docs/IncidentRequestDto.md
 docs/IncidentSummaryDto.md
 docs/IncidentSummaryListDto.md
 docs/IndexMappingDto.md
+docs/InsightCriteriaDto.md
 docs/KGEntityKey.md
 docs/KGScope.md
 docs/KpiDisplayConfigControllerAPI.md
@@ -196,7 +200,6 @@ docs/LlmRcaSummaryReqDto.md
 docs/LlmRcaSummarySearchReqDto.md
 docs/LogConfigControllerAPI.md
 docs/LogConfigDto.md
-docs/LogConfigPriorityDto.md
 docs/LogDrilldownConfigControllerAPI.md
 docs/LogDrilldownConfigDto.md
 docs/MetricDto.md
@@ -235,7 +238,6 @@ docs/OtelConfigControllerAPI.md
 docs/PatternDto.md
 docs/ProductActivationControllerAPI.md
 docs/ProductActivationDto.md
-docs/ProfileConfigPriorityDto.md
 docs/ProfileDrilldownConfigControllerAPI.md
 docs/ProfileDrilldownConfigDto.md
 docs/PromQlValidationControllerAPI.md
@@ -257,9 +259,6 @@ docs/RcaPatternSearchResponseDto.md
 docs/RecordingRuleControllerAPI.md
 docs/RelationRuleDto.md
 docs/RelationRuleDtoDefinedBy.md
-docs/ReorderConfigRequestDto.md
-docs/ReorderLogConfigRequestDto.md
-docs/ReorderTraceConfigRequestDto.md
 docs/RequestSliConfigDto.md
 docs/RequestThresholdV2Dto.md
 docs/ResourceThresholdV2Dto.md
@@ -274,7 +273,13 @@ docs/SampleSearchControllerAPI.md
 docs/SampleSearchRequestDto.md
 docs/SampleSearchResponseDto.md
 docs/ScopeCriteriaDto.md
+docs/ScopeValueDto.md
 docs/SearchControllerAPI.md
+docs/SearchCountRequestDto.md
+docs/SearchCountRequestDtoScopeCriteria.md
+docs/SearchCountRequestDtoTimeCriteria.md
+docs/SearchCountRequestEntryDto.md
+docs/SearchCountRequestEntryDtoNameMatcher.md
 docs/SearchDefinitionBindingDto.md
 docs/SearchDefinitionControllerAPI.md
 docs/SearchDefinitionDto.md
@@ -335,7 +340,6 @@ docs/TimeCriteriaDto.md
 docs/TimeWindowDto.md
 docs/TraceConfigControllerAPI.md
 docs/TraceConfigDto.md
-docs/TraceConfigPriorityDto.md
 docs/TraceControllerAPI.md
 docs/TraceDrilldownConfigControllerAPI.md
 docs/TraceDrilldownConfigDto.md
@@ -416,6 +420,7 @@ model_entity_assertion_summaries_dto.go
 model_entity_assertion_summary_dto.go
 model_entity_assertion_summary_time_line_dto.go
 model_entity_assertions_graph_dto.go
+model_entity_count_dto.go
 model_entity_count_request_dto.go
 model_entity_display_config_dto.go
 model_entity_key_dto.go
@@ -428,6 +433,7 @@ model_entity_property_values_request_dto.go
 model_entity_rule_dto.go
 model_entity_scopes_request_dto.go
 model_entity_scopes_response_dto.go
+model_entity_scopes_v2_response_dto.go
 model_entity_type_dto.go
 model_entity_types_dto.go
 model_environment_dto.go
@@ -439,6 +445,7 @@ model_graph_display_config_dto.go
 model_graph_entity.go
 model_graph_entity_kpi_value.go
 model_graph_entity_scope.go
+model_grouped_entity_count_dto.go
 model_health_threshold_v2_dto.go
 model_http_status.go
 model_http_status_code.go
@@ -451,6 +458,7 @@ model_incident_request_dto.go
 model_incident_summary_dto.go
 model_incident_summary_list_dto.go
 model_index_mapping_dto.go
+model_insight_criteria_dto.go
 model_kg_entity_key.go
 model_kg_scope.go
 model_kpi_display_config_dto.go
@@ -470,7 +478,6 @@ model_llm_rca_summaries_dto.go
 model_llm_rca_summary_req_dto.go
 model_llm_rca_summary_search_req_dto.go
 model_log_config_dto.go
-model_log_config_priority_dto.go
 model_log_drilldown_config_dto.go
 model_metric_dto.go
 model_metric_match_dto.go
@@ -502,7 +509,6 @@ model_occurrence_sli_config_dto.go
 model_otel_collector_config_dto.go
 model_pattern_dto.go
 model_product_activation_dto.go
-model_profile_config_priority_dto.go
 model_profile_drilldown_config_dto.go
 model_prometheus_rule.go
 model_prometheus_rule_annotations.go
@@ -519,9 +525,6 @@ model_rca_pattern_search_request_dto.go
 model_rca_pattern_search_response_dto.go
 model_relation_rule_dto.go
 model_relation_rule_dto_defined_by.go
-model_reorder_config_request_dto.go
-model_reorder_log_config_request_dto.go
-model_reorder_trace_config_request_dto.go
 model_request_sli_config_dto.go
 model_request_threshold_v2_dto.go
 model_resource_threshold_v2_dto.go
@@ -534,6 +537,12 @@ model_sample_entity_dto.go
 model_sample_search_request_dto.go
 model_sample_search_response_dto.go
 model_scope_criteria_dto.go
+model_scope_value_dto.go
+model_search_count_request_dto.go
+model_search_count_request_dto_scope_criteria.go
+model_search_count_request_dto_time_criteria.go
+model_search_count_request_entry_dto.go
+model_search_count_request_entry_dto_name_matcher.go
 model_search_definition_binding_dto.go
 model_search_definition_dto.go
 model_search_definition_item_dto.go
@@ -585,7 +594,6 @@ model_thresholds_v2_dto.go
 model_time_criteria_dto.go
 model_time_window_dto.go
 model_trace_config_dto.go
-model_trace_config_priority_dto.go
 model_trace_drilldown_config_dto.go
 model_trace_env_config_dto.go
 model_trace_env_config_response_dto.go
