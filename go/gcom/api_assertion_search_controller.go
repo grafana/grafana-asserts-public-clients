@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.03.02-104252
+API version: 2026.04.10-144303
 Contact: support@asserts.ai
 */
 
@@ -22,36 +22,36 @@ import (
 // AssertionSearchControllerAPIService AssertionSearchControllerAPI service
 type AssertionSearchControllerAPIService service
 
-type ApiSearch2Request struct {
+type ApiSearch3Request struct {
 	ctx                       context.Context
 	ApiService                *AssertionSearchControllerAPIService
 	assertionSearchRequestDto *AssertionSearchRequestDto
 	xScopeOrgID               *string
 }
 
-func (r ApiSearch2Request) AssertionSearchRequestDto(assertionSearchRequestDto AssertionSearchRequestDto) ApiSearch2Request {
+func (r ApiSearch3Request) AssertionSearchRequestDto(assertionSearchRequestDto AssertionSearchRequestDto) ApiSearch3Request {
 	r.assertionSearchRequestDto = &assertionSearchRequestDto
 	return r
 }
 
 // Grafana Tenant/Stack ID
-func (r ApiSearch2Request) XScopeOrgID(xScopeOrgID string) ApiSearch2Request {
+func (r ApiSearch3Request) XScopeOrgID(xScopeOrgID string) ApiSearch3Request {
 	r.xScopeOrgID = &xScopeOrgID
 	return r
 }
 
-func (r ApiSearch2Request) Execute() ([]EntityKeyDto, *http.Response, error) {
-	return r.ApiService.Search2Execute(r)
+func (r ApiSearch3Request) Execute() ([]EntityKeyDto, *http.Response, error) {
+	return r.ApiService.Search3Execute(r)
 }
 
 /*
-Search2 Method for Search2
+Search3 Method for Search3
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiSearch2Request
+	@return ApiSearch3Request
 */
-func (a *AssertionSearchControllerAPIService) Search2(ctx context.Context) ApiSearch2Request {
-	return ApiSearch2Request{
+func (a *AssertionSearchControllerAPIService) Search3(ctx context.Context) ApiSearch3Request {
+	return ApiSearch3Request{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -60,7 +60,7 @@ func (a *AssertionSearchControllerAPIService) Search2(ctx context.Context) ApiSe
 // Execute executes the request
 //
 //	@return []EntityKeyDto
-func (a *AssertionSearchControllerAPIService) Search2Execute(r ApiSearch2Request) ([]EntityKeyDto, *http.Response, error) {
+func (a *AssertionSearchControllerAPIService) Search3Execute(r ApiSearch3Request) ([]EntityKeyDto, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -68,7 +68,7 @@ func (a *AssertionSearchControllerAPIService) Search2Execute(r ApiSearch2Request
 		localVarReturnValue []EntityKeyDto
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AssertionSearchControllerAPIService.Search2")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AssertionSearchControllerAPIService.Search3")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}

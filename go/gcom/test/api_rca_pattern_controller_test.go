@@ -35,11 +35,11 @@ func Test_gcom_RcaPatternControllerAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test RcaPatternControllerAPIService Search1", func(t *testing.T) {
+	t.Run("Test RcaPatternControllerAPIService Search2", func(t *testing.T) {
 
 		t.Skip("skip test") // remove to run test
 
-		resp, httpRes, err := apiClient.RcaPatternControllerAPI.Search1(context.Background()).Execute()
+		resp, httpRes, err := apiClient.RcaPatternControllerAPI.Search2(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

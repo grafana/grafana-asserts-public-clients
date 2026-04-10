@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.03.02-104252
+API version: 2026.04.10-144303
 Contact: support@asserts.ai
 */
 
@@ -18,7 +18,7 @@ import (
 // checks if the ModelRulesDto type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ModelRulesDto{}
 
-// ModelRulesDto The model rules configuration to create or update
+// ModelRulesDto Model rules configuration defining entities and their relationships
 type ModelRulesDto struct {
 	// Configuration name
 	Name string `json:"name"`
@@ -40,6 +40,8 @@ type _ModelRulesDto ModelRulesDto
 func NewModelRulesDto(name string) *ModelRulesDto {
 	this := ModelRulesDto{}
 	this.Name = name
+	var managedBy string = "##default"
+	this.ManagedBy = &managedBy
 	return &this
 }
 
@@ -48,6 +50,10 @@ func NewModelRulesDto(name string) *ModelRulesDto {
 // but it doesn't guarantee that properties required by API are set
 func NewModelRulesDtoWithDefaults() *ModelRulesDto {
 	this := ModelRulesDto{}
+	var name string = "##default"
+	this.Name = name
+	var managedBy string = "##default"
+	this.ManagedBy = &managedBy
 	return &this
 }
 
