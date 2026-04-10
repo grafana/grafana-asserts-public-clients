@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.03.02-104252
+API version: 2026.04.10-122016
 Contact: support@asserts.ai
 */
 
@@ -141,36 +141,36 @@ func (a *RcaPatternControllerAPIService) ListExecute(r ApiListRequest) ([]string
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiSearch1Request struct {
+type ApiSearch2Request struct {
 	ctx                        context.Context
 	ApiService                 *RcaPatternControllerAPIService
 	rcaPatternSearchRequestDto *RcaPatternSearchRequestDto
 	xScopeOrgID                *string
 }
 
-func (r ApiSearch1Request) RcaPatternSearchRequestDto(rcaPatternSearchRequestDto RcaPatternSearchRequestDto) ApiSearch1Request {
+func (r ApiSearch2Request) RcaPatternSearchRequestDto(rcaPatternSearchRequestDto RcaPatternSearchRequestDto) ApiSearch2Request {
 	r.rcaPatternSearchRequestDto = &rcaPatternSearchRequestDto
 	return r
 }
 
 // Grafana Tenant/Stack ID
-func (r ApiSearch1Request) XScopeOrgID(xScopeOrgID string) ApiSearch1Request {
+func (r ApiSearch2Request) XScopeOrgID(xScopeOrgID string) ApiSearch2Request {
 	r.xScopeOrgID = &xScopeOrgID
 	return r
 }
 
-func (r ApiSearch1Request) Execute() (*RcaPatternSearchResponseDto, *http.Response, error) {
-	return r.ApiService.Search1Execute(r)
+func (r ApiSearch2Request) Execute() (*RcaPatternSearchResponseDto, *http.Response, error) {
+	return r.ApiService.Search2Execute(r)
 }
 
 /*
-Search1 Method for Search1
+Search2 Method for Search2
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiSearch1Request
+	@return ApiSearch2Request
 */
-func (a *RcaPatternControllerAPIService) Search1(ctx context.Context) ApiSearch1Request {
-	return ApiSearch1Request{
+func (a *RcaPatternControllerAPIService) Search2(ctx context.Context) ApiSearch2Request {
+	return ApiSearch2Request{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -179,7 +179,7 @@ func (a *RcaPatternControllerAPIService) Search1(ctx context.Context) ApiSearch1
 // Execute executes the request
 //
 //	@return RcaPatternSearchResponseDto
-func (a *RcaPatternControllerAPIService) Search1Execute(r ApiSearch1Request) (*RcaPatternSearchResponseDto, *http.Response, error) {
+func (a *RcaPatternControllerAPIService) Search2Execute(r ApiSearch2Request) (*RcaPatternSearchResponseDto, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -187,7 +187,7 @@ func (a *RcaPatternControllerAPIService) Search1Execute(r ApiSearch1Request) (*R
 		localVarReturnValue *RcaPatternSearchResponseDto
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RcaPatternControllerAPIService.Search1")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RcaPatternControllerAPIService.Search2")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
