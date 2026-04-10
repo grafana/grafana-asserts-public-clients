@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.03.02-104252
+API version: 2026.04.10-122016
 Contact: support@asserts.ai
 */
 
@@ -20,11 +20,12 @@ var _ MappedNullable = &EntityMatcherDto{}
 
 // EntityMatcherDto struct for EntityMatcherDto
 type EntityMatcherDto struct {
-	EntityType           string               `json:"entityType"`
-	PropertyMatchers     []PropertyMatcherDto `json:"propertyMatchers,omitempty"`
-	ConnectToEntityTypes []string             `json:"connectToEntityTypes,omitempty"`
-	HavingAssertion      *bool                `json:"havingAssertion,omitempty"`
-	AdditionalProperties map[string]interface{}
+	EntityType                 string               `json:"entityType"`
+	PropertyMatchers           []PropertyMatcherDto `json:"propertyMatchers,omitempty"`
+	ConnectToEntityTypes       []string             `json:"connectToEntityTypes,omitempty"`
+	HavingAssertion            *bool                `json:"havingAssertion,omitempty"`
+	HavingPropagatedAssertions *bool                `json:"havingPropagatedAssertions,omitempty"`
+	AdditionalProperties       map[string]interface{}
 }
 
 type _EntityMatcherDto EntityMatcherDto
@@ -167,6 +168,38 @@ func (o *EntityMatcherDto) SetHavingAssertion(v bool) {
 	o.HavingAssertion = &v
 }
 
+// GetHavingPropagatedAssertions returns the HavingPropagatedAssertions field value if set, zero value otherwise.
+func (o *EntityMatcherDto) GetHavingPropagatedAssertions() bool {
+	if o == nil || IsNil(o.HavingPropagatedAssertions) {
+		var ret bool
+		return ret
+	}
+	return *o.HavingPropagatedAssertions
+}
+
+// GetHavingPropagatedAssertionsOk returns a tuple with the HavingPropagatedAssertions field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EntityMatcherDto) GetHavingPropagatedAssertionsOk() (*bool, bool) {
+	if o == nil || IsNil(o.HavingPropagatedAssertions) {
+		return nil, false
+	}
+	return o.HavingPropagatedAssertions, true
+}
+
+// HasHavingPropagatedAssertions returns a boolean if a field has been set.
+func (o *EntityMatcherDto) HasHavingPropagatedAssertions() bool {
+	if o != nil && !IsNil(o.HavingPropagatedAssertions) {
+		return true
+	}
+
+	return false
+}
+
+// SetHavingPropagatedAssertions gets a reference to the given bool and assigns it to the HavingPropagatedAssertions field.
+func (o *EntityMatcherDto) SetHavingPropagatedAssertions(v bool) {
+	o.HavingPropagatedAssertions = &v
+}
+
 func (o EntityMatcherDto) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -186,6 +219,9 @@ func (o EntityMatcherDto) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.HavingAssertion) {
 		toSerialize["havingAssertion"] = o.HavingAssertion
+	}
+	if !IsNil(o.HavingPropagatedAssertions) {
+		toSerialize["havingPropagatedAssertions"] = o.HavingPropagatedAssertions
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -221,6 +257,7 @@ func (o *EntityMatcherDto) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "propertyMatchers")
 		delete(additionalProperties, "connectToEntityTypes")
 		delete(additionalProperties, "havingAssertion")
+		delete(additionalProperties, "havingPropagatedAssertions")
 		o.AdditionalProperties = additionalProperties
 	}
 

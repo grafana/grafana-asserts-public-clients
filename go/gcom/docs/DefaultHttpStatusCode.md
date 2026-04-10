@@ -5,11 +5,11 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Error** | Pointer to **bool** |  | [optional] 
+**Is3xxRedirection** | Pointer to **bool** |  | [optional] 
 **Is5xxServerError** | Pointer to **bool** |  | [optional] 
 **Is2xxSuccessful** | Pointer to **bool** |  | [optional] 
 **Is4xxClientError** | Pointer to **bool** |  | [optional] 
 **Is1xxInformational** | Pointer to **bool** |  | [optional] 
-**Is3xxRedirection** | Pointer to **bool** |  | [optional] 
 
 ## Methods
 
@@ -54,6 +54,31 @@ SetError sets Error field to given value.
 `func (o *DefaultHttpStatusCode) HasError() bool`
 
 HasError returns a boolean if a field has been set.
+
+### GetIs3xxRedirection
+
+`func (o *DefaultHttpStatusCode) GetIs3xxRedirection() bool`
+
+GetIs3xxRedirection returns the Is3xxRedirection field if non-nil, zero value otherwise.
+
+### GetIs3xxRedirectionOk
+
+`func (o *DefaultHttpStatusCode) GetIs3xxRedirectionOk() (*bool, bool)`
+
+GetIs3xxRedirectionOk returns a tuple with the Is3xxRedirection field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIs3xxRedirection
+
+`func (o *DefaultHttpStatusCode) SetIs3xxRedirection(v bool)`
+
+SetIs3xxRedirection sets Is3xxRedirection field to given value.
+
+### HasIs3xxRedirection
+
+`func (o *DefaultHttpStatusCode) HasIs3xxRedirection() bool`
+
+HasIs3xxRedirection returns a boolean if a field has been set.
 
 ### GetIs5xxServerError
 
@@ -154,31 +179,6 @@ SetIs1xxInformational sets Is1xxInformational field to given value.
 `func (o *DefaultHttpStatusCode) HasIs1xxInformational() bool`
 
 HasIs1xxInformational returns a boolean if a field has been set.
-
-### GetIs3xxRedirection
-
-`func (o *DefaultHttpStatusCode) GetIs3xxRedirection() bool`
-
-GetIs3xxRedirection returns the Is3xxRedirection field if non-nil, zero value otherwise.
-
-### GetIs3xxRedirectionOk
-
-`func (o *DefaultHttpStatusCode) GetIs3xxRedirectionOk() (*bool, bool)`
-
-GetIs3xxRedirectionOk returns a tuple with the Is3xxRedirection field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetIs3xxRedirection
-
-`func (o *DefaultHttpStatusCode) SetIs3xxRedirection(v bool)`
-
-SetIs3xxRedirection sets Is3xxRedirection field to given value.
-
-### HasIs3xxRedirection
-
-`func (o *DefaultHttpStatusCode) HasIs3xxRedirection() bool`
-
-HasIs3xxRedirection returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

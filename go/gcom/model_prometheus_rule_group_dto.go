@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.03.02-104252
+API version: 2026.04.10-122016
 Contact: support@asserts.ai
 */
 
@@ -38,6 +38,8 @@ type _PrometheusRuleGroupDto PrometheusRuleGroupDto
 func NewPrometheusRuleGroupDto(name string, rules []PrometheusRuleDto) *PrometheusRuleGroupDto {
 	this := PrometheusRuleGroupDto{}
 	this.Name = name
+	var interval string = "##default"
+	this.Interval = &interval
 	this.Rules = rules
 	return &this
 }
@@ -47,6 +49,10 @@ func NewPrometheusRuleGroupDto(name string, rules []PrometheusRuleDto) *Promethe
 // but it doesn't guarantee that properties required by API are set
 func NewPrometheusRuleGroupDtoWithDefaults() *PrometheusRuleGroupDto {
 	this := PrometheusRuleGroupDto{}
+	var name string = "##default"
+	this.Name = name
+	var interval string = "##default"
+	this.Interval = &interval
 	return &this
 }
 

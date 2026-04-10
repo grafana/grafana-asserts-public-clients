@@ -5,13 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Active** | Pointer to **bool** | Whether this rule is active | [optional] [default to true]
-**Record** | Pointer to **string** | Metric name for recording rules (mutually exclusive with &#39;alert&#39;) | [optional] 
-**Alert** | Pointer to **string** | Alert name for alert rules (mutually exclusive with &#39;record&#39;) | [optional] 
-**Expr** | **string** | PromQL expression to evaluate | 
-**Annotations** | Pointer to **map[string]string** | Annotations for alert rules (e.g., summary, description) | [optional] 
-**Labels** | Pointer to **map[string]string** | Labels to attach to the alert/metric. For alerts, must include &#39;asserts_severity&#39; and &#39;asserts_alert_category&#39; | [optional] 
-**DisableInGroups** | Pointer to **[]string** | List of rule groups where this rule should be disabled | [optional] 
-**For** | Pointer to **string** | Duration the expression must be true before firing (alert rules only) | [optional] 
+**Record** | Pointer to **string** | Metric name for recording rules (mutually exclusive with &#39;alert&#39;) | [optional] [default to "##default"]
+**Alert** | Pointer to **string** | Alert name for alert rules (mutually exclusive with &#39;record&#39;) | [optional] [default to "##default"]
+**Expr** | **string** | PromQL expression to evaluate | [default to "##default"]
+**Annotations** | Pointer to **map[string]string** | Annotations for alert rules (e.g., summary, description) | [optional] [default to ##default]
+**Labels** | Pointer to **map[string]string** | Labels to attach to the alert/metric. For alerts, must include &#39;asserts_severity&#39; and &#39;asserts_alert_category&#39; | [optional] [default to ##default]
+**DisableInGroups** | Pointer to **[]string** | List of rule groups where this rule should be disabled | [optional] [default to ##default]
+**For** | Pointer to **string** | Duration the expression must be true before firing (alert rules only) | [optional] [default to "##default"]
 
 ## Methods
 

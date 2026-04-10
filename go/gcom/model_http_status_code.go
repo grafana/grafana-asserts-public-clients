@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.03.02-104252
+API version: 2026.04.10-122016
 Contact: support@asserts.ai
 */
 
@@ -21,11 +21,11 @@ var _ MappedNullable = &HttpStatusCode{}
 // HttpStatusCode struct for HttpStatusCode
 type HttpStatusCode struct {
 	Error                *bool `json:"error,omitempty"`
+	Is3xxRedirection     *bool `json:"is3xxRedirection,omitempty"`
 	Is5xxServerError     *bool `json:"is5xxServerError,omitempty"`
 	Is2xxSuccessful      *bool `json:"is2xxSuccessful,omitempty"`
 	Is4xxClientError     *bool `json:"is4xxClientError,omitempty"`
 	Is1xxInformational   *bool `json:"is1xxInformational,omitempty"`
-	Is3xxRedirection     *bool `json:"is3xxRedirection,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -78,6 +78,38 @@ func (o *HttpStatusCode) HasError() bool {
 // SetError gets a reference to the given bool and assigns it to the Error field.
 func (o *HttpStatusCode) SetError(v bool) {
 	o.Error = &v
+}
+
+// GetIs3xxRedirection returns the Is3xxRedirection field value if set, zero value otherwise.
+func (o *HttpStatusCode) GetIs3xxRedirection() bool {
+	if o == nil || IsNil(o.Is3xxRedirection) {
+		var ret bool
+		return ret
+	}
+	return *o.Is3xxRedirection
+}
+
+// GetIs3xxRedirectionOk returns a tuple with the Is3xxRedirection field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *HttpStatusCode) GetIs3xxRedirectionOk() (*bool, bool) {
+	if o == nil || IsNil(o.Is3xxRedirection) {
+		return nil, false
+	}
+	return o.Is3xxRedirection, true
+}
+
+// HasIs3xxRedirection returns a boolean if a field has been set.
+func (o *HttpStatusCode) HasIs3xxRedirection() bool {
+	if o != nil && !IsNil(o.Is3xxRedirection) {
+		return true
+	}
+
+	return false
+}
+
+// SetIs3xxRedirection gets a reference to the given bool and assigns it to the Is3xxRedirection field.
+func (o *HttpStatusCode) SetIs3xxRedirection(v bool) {
+	o.Is3xxRedirection = &v
 }
 
 // GetIs5xxServerError returns the Is5xxServerError field value if set, zero value otherwise.
@@ -208,38 +240,6 @@ func (o *HttpStatusCode) SetIs1xxInformational(v bool) {
 	o.Is1xxInformational = &v
 }
 
-// GetIs3xxRedirection returns the Is3xxRedirection field value if set, zero value otherwise.
-func (o *HttpStatusCode) GetIs3xxRedirection() bool {
-	if o == nil || IsNil(o.Is3xxRedirection) {
-		var ret bool
-		return ret
-	}
-	return *o.Is3xxRedirection
-}
-
-// GetIs3xxRedirectionOk returns a tuple with the Is3xxRedirection field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *HttpStatusCode) GetIs3xxRedirectionOk() (*bool, bool) {
-	if o == nil || IsNil(o.Is3xxRedirection) {
-		return nil, false
-	}
-	return o.Is3xxRedirection, true
-}
-
-// HasIs3xxRedirection returns a boolean if a field has been set.
-func (o *HttpStatusCode) HasIs3xxRedirection() bool {
-	if o != nil && !IsNil(o.Is3xxRedirection) {
-		return true
-	}
-
-	return false
-}
-
-// SetIs3xxRedirection gets a reference to the given bool and assigns it to the Is3xxRedirection field.
-func (o *HttpStatusCode) SetIs3xxRedirection(v bool) {
-	o.Is3xxRedirection = &v
-}
-
 func (o HttpStatusCode) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -253,6 +253,9 @@ func (o HttpStatusCode) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Error) {
 		toSerialize["error"] = o.Error
 	}
+	if !IsNil(o.Is3xxRedirection) {
+		toSerialize["is3xxRedirection"] = o.Is3xxRedirection
+	}
 	if !IsNil(o.Is5xxServerError) {
 		toSerialize["is5xxServerError"] = o.Is5xxServerError
 	}
@@ -264,9 +267,6 @@ func (o HttpStatusCode) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Is1xxInformational) {
 		toSerialize["is1xxInformational"] = o.Is1xxInformational
-	}
-	if !IsNil(o.Is3xxRedirection) {
-		toSerialize["is3xxRedirection"] = o.Is3xxRedirection
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -291,11 +291,11 @@ func (o *HttpStatusCode) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "error")
+		delete(additionalProperties, "is3xxRedirection")
 		delete(additionalProperties, "is5xxServerError")
 		delete(additionalProperties, "is2xxSuccessful")
 		delete(additionalProperties, "is4xxClientError")
 		delete(additionalProperties, "is1xxInformational")
-		delete(additionalProperties, "is3xxRedirection")
 		o.AdditionalProperties = additionalProperties
 	}
 
