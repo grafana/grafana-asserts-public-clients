@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.03.02-104252
+API version: 2026.04.10-144303
 Contact: support@asserts.ai
 */
 
@@ -148,6 +148,132 @@ func (a *EntityScopeControllerAPIService) GetAllEntityScopesExecute(r ApiGetAllE
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiGetAllEntityScopesV2Request struct {
+	ctx         context.Context
+	ApiService  *EntityScopeControllerAPIService
+	start       *int64
+	end         *int64
+	xScopeOrgID *string
+}
+
+func (r ApiGetAllEntityScopesV2Request) Start(start int64) ApiGetAllEntityScopesV2Request {
+	r.start = &start
+	return r
+}
+
+func (r ApiGetAllEntityScopesV2Request) End(end int64) ApiGetAllEntityScopesV2Request {
+	r.end = &end
+	return r
+}
+
+// Grafana Tenant/Stack ID
+func (r ApiGetAllEntityScopesV2Request) XScopeOrgID(xScopeOrgID string) ApiGetAllEntityScopesV2Request {
+	r.xScopeOrgID = &xScopeOrgID
+	return r
+}
+
+func (r ApiGetAllEntityScopesV2Request) Execute() (*EntityScopesV2ResponseDto, *http.Response, error) {
+	return r.ApiService.GetAllEntityScopesV2Execute(r)
+}
+
+/*
+GetAllEntityScopesV2 Method for GetAllEntityScopesV2
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetAllEntityScopesV2Request
+*/
+func (a *EntityScopeControllerAPIService) GetAllEntityScopesV2(ctx context.Context) ApiGetAllEntityScopesV2Request {
+	return ApiGetAllEntityScopesV2Request{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return EntityScopesV2ResponseDto
+func (a *EntityScopeControllerAPIService) GetAllEntityScopesV2Execute(r ApiGetAllEntityScopesV2Request) (*EntityScopesV2ResponseDto, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *EntityScopesV2ResponseDto
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EntityScopeControllerAPIService.GetAllEntityScopesV2")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v2/entity_scope"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.start != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "start", r.start, "")
+	}
+	if r.end != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "end", r.end, "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.xScopeOrgID != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Scope-OrgID", r.xScopeOrgID, "")
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiGetEntityScopesRequest struct {
 	ctx                    context.Context
 	ApiService             *EntityScopeControllerAPIService
@@ -200,6 +326,125 @@ func (a *EntityScopeControllerAPIService) GetEntityScopesExecute(r ApiGetEntityS
 	}
 
 	localVarPath := localBasePath + "/v1/entity_scope"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.entityScopesRequestDto == nil {
+		return localVarReturnValue, nil, reportError("entityScopesRequestDto is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.xScopeOrgID != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Scope-OrgID", r.xScopeOrgID, "")
+	}
+	// body params
+	localVarPostBody = r.entityScopesRequestDto
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetEntityScopesV2Request struct {
+	ctx                    context.Context
+	ApiService             *EntityScopeControllerAPIService
+	entityScopesRequestDto *EntityScopesRequestDto
+	xScopeOrgID            *string
+}
+
+func (r ApiGetEntityScopesV2Request) EntityScopesRequestDto(entityScopesRequestDto EntityScopesRequestDto) ApiGetEntityScopesV2Request {
+	r.entityScopesRequestDto = &entityScopesRequestDto
+	return r
+}
+
+// Grafana Tenant/Stack ID
+func (r ApiGetEntityScopesV2Request) XScopeOrgID(xScopeOrgID string) ApiGetEntityScopesV2Request {
+	r.xScopeOrgID = &xScopeOrgID
+	return r
+}
+
+func (r ApiGetEntityScopesV2Request) Execute() (*EntityScopesV2ResponseDto, *http.Response, error) {
+	return r.ApiService.GetEntityScopesV2Execute(r)
+}
+
+/*
+GetEntityScopesV2 Method for GetEntityScopesV2
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetEntityScopesV2Request
+*/
+func (a *EntityScopeControllerAPIService) GetEntityScopesV2(ctx context.Context) ApiGetEntityScopesV2Request {
+	return ApiGetEntityScopesV2Request{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return EntityScopesV2ResponseDto
+func (a *EntityScopeControllerAPIService) GetEntityScopesV2Execute(r ApiGetEntityScopesV2Request) (*EntityScopesV2ResponseDto, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *EntityScopesV2ResponseDto
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EntityScopeControllerAPIService.GetEntityScopesV2")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v2/entity_scope"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

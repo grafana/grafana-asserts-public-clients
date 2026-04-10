@@ -5,7 +5,7 @@ All URIs are relative to *http://localhost:8030/asserts/api-server*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**List**](RcaPatternControllerAPI.md#List) | **Post** /v1/patterns/list | 
-[**Search1**](RcaPatternControllerAPI.md#Search1) | **Post** /v1/patterns/search | 
+[**Search2**](RcaPatternControllerAPI.md#Search2) | **Post** /v1/patterns/search | 
 
 
 
@@ -75,9 +75,9 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## Search1
+## Search2
 
-> RcaPatternSearchResponseDto Search1(ctx).RcaPatternSearchRequestDto(rcaPatternSearchRequestDto).XScopeOrgID(xScopeOrgID).Execute()
+> RcaPatternSearchResponseDto Search2(ctx).RcaPatternSearchRequestDto(rcaPatternSearchRequestDto).XScopeOrgID(xScopeOrgID).Execute()
 
 
 
@@ -99,13 +99,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RcaPatternControllerAPI.Search1(context.Background()).RcaPatternSearchRequestDto(rcaPatternSearchRequestDto).XScopeOrgID(xScopeOrgID).Execute()
+	resp, r, err := apiClient.RcaPatternControllerAPI.Search2(context.Background()).RcaPatternSearchRequestDto(rcaPatternSearchRequestDto).XScopeOrgID(xScopeOrgID).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RcaPatternControllerAPI.Search1``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `RcaPatternControllerAPI.Search2``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `Search1`: RcaPatternSearchResponseDto
-	fmt.Fprintf(os.Stdout, "Response from `RcaPatternControllerAPI.Search1`: %v\n", resp)
+	// response from `Search2`: RcaPatternSearchResponseDto
+	fmt.Fprintf(os.Stdout, "Response from `RcaPatternControllerAPI.Search2`: %v\n", resp)
 }
 ```
 
@@ -115,7 +115,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiSearch1Request struct via the builder pattern
+Other parameters are passed through a pointer to a apiSearch2Request struct via the builder pattern
 
 
 Name | Type | Description  | Notes

@@ -4,13 +4,13 @@ All URIs are relative to *http://localhost:8030/asserts/api-server*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Search2**](AssertionSearchControllerAPI.md#Search2) | **Post** /v1/assertions/search | 
+[**Search3**](AssertionSearchControllerAPI.md#Search3) | **Post** /v1/assertions/search | 
 
 
 
-## Search2
+## Search3
 
-> []EntityKeyDto Search2(ctx).AssertionSearchRequestDto(assertionSearchRequestDto).XScopeOrgID(xScopeOrgID).Execute()
+> []EntityKeyDto Search3(ctx).AssertionSearchRequestDto(assertionSearchRequestDto).XScopeOrgID(xScopeOrgID).Execute()
 
 
 
@@ -32,13 +32,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AssertionSearchControllerAPI.Search2(context.Background()).AssertionSearchRequestDto(assertionSearchRequestDto).XScopeOrgID(xScopeOrgID).Execute()
+	resp, r, err := apiClient.AssertionSearchControllerAPI.Search3(context.Background()).AssertionSearchRequestDto(assertionSearchRequestDto).XScopeOrgID(xScopeOrgID).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AssertionSearchControllerAPI.Search2``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AssertionSearchControllerAPI.Search3``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `Search2`: []EntityKeyDto
-	fmt.Fprintf(os.Stdout, "Response from `AssertionSearchControllerAPI.Search2`: %v\n", resp)
+	// response from `Search3`: []EntityKeyDto
+	fmt.Fprintf(os.Stdout, "Response from `AssertionSearchControllerAPI.Search3`: %v\n", resp)
 }
 ```
 
@@ -48,7 +48,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiSearch2Request struct via the builder pattern
+Other parameters are passed through a pointer to a apiSearch3Request struct via the builder pattern
 
 
 Name | Type | Description  | Notes
