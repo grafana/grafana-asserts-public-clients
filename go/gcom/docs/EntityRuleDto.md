@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | **string** | Entity type name (e.g., &#39;Service&#39;, &#39;Pod&#39;, &#39;Jvm&#39;) | 
-**Name** | **string** | Entity name pattern | 
-**Scope** | Pointer to **map[string]string** | Scope definitions for the entity | [optional] 
-**Lookup** | Pointer to **map[string]string** | Lookup mappings | [optional] 
-**DefinedBy** | Pointer to [**[]PropertyRuleDto**](PropertyRuleDto.md) | Query/metric definitions that define this entity | [optional] 
-**EnrichedBy** | Pointer to [**[]PropertyRuleDto**](PropertyRuleDto.md) | Enrichment rules for this entity | [optional] 
-**Disabled** | Pointer to **bool** | Whether this entity rule is disabled | [optional] 
+**Type** | **string** | Entity type name (e.g., &#39;Service&#39;, &#39;Pod&#39;, &#39;Jvm&#39;) | [default to ""]
+**Name** | **string** | Entity name pattern | [default to ""]
+**Scope** | Pointer to **map[string]string** | Scope definitions for the entity | [optional] [default to ]
+**Lookup** | Pointer to **map[string]string** | Lookup mappings | [optional] [default to ]
+**DefinedBy** | Pointer to [**[]PropertyRuleDto**](PropertyRuleDto.md) | Query/metric definitions that define this entity | [optional] [default to ]
+**EnrichedBy** | Pointer to [**[]PropertyRuleDto**](PropertyRuleDto.md) | Enrichment rules for this entity | [optional] [default to ]
+**Disabled** | Pointer to **bool** | Whether this entity rule is disabled | [optional] [default to false]
 
 ## Methods
 

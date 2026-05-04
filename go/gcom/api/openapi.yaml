@@ -7,7 +7,7 @@ info:
   description: Asserts Public API
   termsOfService: https://www.asserts.ai/terms-of-service
   title: "Asserts, Inc"
-  version: 2026.03.02-104252
+  version: 2026.05.04-140135
 servers:
 - description: Generated server url
   url: http://localhost:8030/asserts/api-server
@@ -64,13 +64,19 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ReorderTraceConfigRequestDto'
+              default: ""
+              description: Trace drilldown configuration priority data
+              type: string
           application/x-yml:
             schema:
-              $ref: '#/components/schemas/ReorderTraceConfigRequestDto'
+              default: ""
+              description: Trace drilldown configuration priority data
+              type: string
           application/yaml:
             schema:
-              $ref: '#/components/schemas/ReorderTraceConfigRequestDto'
+              default: ""
+              description: Trace drilldown configuration priority data
+              type: string
         required: true
       responses:
         "200":
@@ -211,13 +217,19 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ReorderConfigRequestDto'
+              default: ""
+              description: Profile drilldown configuration data
+              type: string
           application/x-yml:
             schema:
-              $ref: '#/components/schemas/ReorderConfigRequestDto'
+              default: ""
+              description: Profile drilldown configuration data
+              type: string
           application/yaml:
             schema:
-              $ref: '#/components/schemas/ReorderConfigRequestDto'
+              default: ""
+              description: Profile drilldown configuration data
+              type: string
         required: true
       responses:
         "200":
@@ -258,13 +270,19 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ReorderLogConfigRequestDto'
+              default: ""
+              description: Log drilldown configuration priority data
+              type: string
           application/x-yml:
             schema:
-              $ref: '#/components/schemas/ReorderLogConfigRequestDto'
+              default: ""
+              description: Log drilldown configuration priority data
+              type: string
           application/x-yaml:
             schema:
-              $ref: '#/components/schemas/ReorderLogConfigRequestDto'
+              default: ""
+              description: Log drilldown configuration priority data
+              type: string
         required: true
       responses:
         "200":
@@ -493,13 +511,19 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ModelRulesDto'
+              default: ""
+              description: The model rules configuration to create or update
+              type: string
           application/x-yml:
             schema:
-              $ref: '#/components/schemas/ModelRulesDto'
+              default: ""
+              description: The model rules configuration to create or update
+              type: string
           application/x-yaml:
             schema:
-              $ref: '#/components/schemas/ModelRulesDto'
+              default: ""
+              description: The model rules configuration to create or update
+              type: string
         required: true
       responses:
         "200":
@@ -543,6 +567,7 @@ paths:
         name: name
         required: true
         schema:
+          default: ""
           type: string
         style: simple
       - $ref: '#/components/parameters/TenantId'
@@ -562,6 +587,7 @@ paths:
         name: name
         required: true
         schema:
+          default: ""
           type: string
         style: simple
       - $ref: '#/components/parameters/TenantId'
@@ -604,6 +630,7 @@ paths:
         name: name
         required: true
         schema:
+          default: ""
           type: string
         style: simple
       - $ref: '#/components/parameters/TenantId'
@@ -611,7 +638,9 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ModelRulesDto'
+              default: ""
+              description: The model rules configuration to create or update
+              type: string
         required: true
       responses:
         "200":
@@ -761,6 +790,7 @@ paths:
                   - kubernetes
                   - prometheus
                   - otel
+                  - hosto11y
                   - aws
                   - azure
                   - gcp
@@ -795,6 +825,55 @@ paths:
           description: OK
       tags:
       - latency-threshold-controller
+  /v2/entity_scope:
+    get:
+      operationId: getAllEntityScopesV2
+      parameters:
+      - explode: true
+        in: query
+        name: start
+        required: false
+        schema:
+          format: int64
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: end
+        required: false
+        schema:
+          format: int64
+          type: integer
+        style: form
+      - $ref: '#/components/parameters/TenantId'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityScopesV2ResponseDto'
+          description: OK
+      tags:
+      - entity-scope-controller
+    post:
+      operationId: getEntityScopesV2
+      parameters:
+      - $ref: '#/components/parameters/TenantId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EntityScopesRequestDto'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityScopesV2ResponseDto'
+          description: OK
+      tags:
+      - entity-scope-controller
   /v2/config/trace:
     get:
       description: Retrieves all the trace drilldown configuration entries for the
@@ -822,13 +901,19 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/TraceDrilldownConfigDto'
+              default: ""
+              description: Trace drilldown configuration data
+              type: string
           application/x-yml:
             schema:
-              $ref: '#/components/schemas/TraceDrilldownConfigDto'
+              default: ""
+              description: Trace drilldown configuration data
+              type: string
           application/yaml:
             schema:
-              $ref: '#/components/schemas/TraceDrilldownConfigDto'
+              default: ""
+              description: Trace drilldown configuration data
+              type: string
         required: true
       responses:
         "200":
@@ -972,13 +1057,19 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ProfileDrilldownConfigDto'
+              default: ""
+              description: Profile drilldown configuration data
+              type: string
           application/x-yml:
             schema:
-              $ref: '#/components/schemas/ProfileDrilldownConfigDto'
+              default: ""
+              description: Profile drilldown configuration data
+              type: string
           application/yaml:
             schema:
-              $ref: '#/components/schemas/ProfileDrilldownConfigDto'
+              default: ""
+              description: Profile drilldown configuration data
+              type: string
         required: true
       responses:
         "200":
@@ -1024,13 +1115,19 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/LogDrilldownConfigDto'
+              default: ""
+              description: Log drilldown configuration data
+              type: string
           application/x-yml:
             schema:
-              $ref: '#/components/schemas/LogDrilldownConfigDto'
+              default: ""
+              description: Log drilldown configuration data
+              type: string
           application/x-yaml:
             schema:
-              $ref: '#/components/schemas/LogDrilldownConfigDto'
+              default: ""
+              description: Log drilldown configuration data
+              type: string
         required: true
       responses:
         "200":
@@ -1435,6 +1532,53 @@ paths:
           description: OK
       tags:
       - search-definition-controller
+  /v1/search/cypher:
+    post:
+      operationId: search_1
+      parameters:
+      - $ref: '#/components/parameters/TenantId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CypherSearchRequestDto'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CypherSearchResponseDto'
+            application/x-yml:
+              schema:
+                $ref: '#/components/schemas/CypherSearchResponseDto'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/CypherSearchResponseDto'
+          description: OK
+      tags:
+      - cypher-search-controller
+  /v1/search/count:
+    post:
+      operationId: searchCount
+      parameters:
+      - $ref: '#/components/parameters/TenantId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchCountRequestDto'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  $ref: '#/components/schemas/EntityCountDto'
+          description: OK
+      tags:
+      - search-controller
   /v1/search/assertions:
     post:
       operationId: searchAssertions
@@ -1517,7 +1661,7 @@ paths:
       - llm-rca-controller
   /v1/patterns/search:
     post:
-      operationId: search_1
+      operationId: search_2
       parameters:
       - $ref: '#/components/parameters/TenantId'
       requestBody:
@@ -2557,6 +2701,43 @@ paths:
       summary: Disable multiple alert configurations
       tags:
       - Alert Configuration
+  /v1/config/disabled-alerts-validate:
+    post:
+      description: "Validates a batch of disabled alert configurations without persisting\
+        \ them. Returns 200 if valid, 422 with error details if invalid."
+      operationId: validateDisabledAlertConfigs
+      parameters:
+      - $ref: '#/components/parameters/TenantId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DisabledAlertConfigsDto'
+          application/x-yml:
+            schema:
+              $ref: '#/components/schemas/DisabledAlertConfigsDto'
+          application/x-yaml:
+            schema:
+              $ref: '#/components/schemas/DisabledAlertConfigsDto'
+        required: true
+      responses:
+        "200":
+          description: Configuration is valid
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Invalid configuration provided
+      summary: Validate disabled alert configurations
+      tags:
+      - Alert Configuration
   /v1/config/disabled-alert:
     post:
       description: "Creates a new disabled alert configuration, effectively silencing\
@@ -2604,6 +2785,43 @@ paths:
                 $ref: '#/components/schemas/ApiError'
           description: Internal server error
       summary: Disable a single alert configuration
+      tags:
+      - Alert Configuration
+  /v1/config/disabled-alert-validate:
+    post:
+      description: "Validates a single disabled alert configuration without persisting\
+        \ it. Returns 200 if valid, 422 with error details if invalid."
+      operationId: validateDisabledAlertConfig
+      parameters:
+      - $ref: '#/components/parameters/TenantId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DisabledAlertConfigDto'
+          application/x-yml:
+            schema:
+              $ref: '#/components/schemas/DisabledAlertConfigDto'
+          application/x-yaml:
+            schema:
+              $ref: '#/components/schemas/DisabledAlertConfigDto'
+        required: true
+      responses:
+        "200":
+          description: Configuration is valid
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Invalid configuration provided
+      summary: Validate a single disabled alert configuration
       tags:
       - Alert Configuration
   /v1/config/dashboard/{entity_type}:
@@ -2852,7 +3070,7 @@ paths:
       - entity-assertions-controller
   /v1/assertions/search:
     post:
-      operationId: search_2
+      operationId: search_3
       parameters:
       - $ref: '#/components/parameters/TenantId'
       requestBody:
@@ -3150,6 +3368,7 @@ paths:
           - kubernetes
           - prometheus
           - otel
+          - hosto11y
           - aws
           - azure
           - gcp
@@ -3179,6 +3398,7 @@ paths:
           - kubernetes
           - prometheus
           - otel
+          - hosto11y
           - aws
           - azure
           - gcp
@@ -3208,6 +3428,7 @@ paths:
           - kubernetes
           - prometheus
           - otel
+          - hosto11y
           - aws
           - azure
           - gcp
@@ -3438,6 +3659,7 @@ paths:
           enum:
           - appo11y
           - k8so11y
+          - hosto11y
           type: string
         style: simple
       - $ref: '#/components/parameters/TenantId'
@@ -3450,6 +3672,51 @@ paths:
           description: OK
       tags:
       - product-activation-controller
+  /v1/patterns/custom/{name}:
+    delete:
+      operationId: deleteCustom
+      parameters:
+      - explode: false
+        in: path
+        name: name
+        required: true
+        schema:
+          minLength: 1
+          type: string
+        style: simple
+      - $ref: '#/components/parameters/TenantId'
+      responses:
+        "200":
+          description: OK
+      tags:
+      - custom-rca-pattern-controller
+    get:
+      operationId: getCustomByName
+      parameters:
+      - explode: false
+        in: path
+        name: name
+        required: true
+        schema:
+          minLength: 1
+          type: string
+        style: simple
+      - $ref: '#/components/parameters/TenantId'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PatternDto'
+            application/x-yml:
+              schema:
+                $ref: '#/components/schemas/PatternDto'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/PatternDto'
+          description: OK
+      tags:
+      - custom-rca-pattern-controller
   /v1/kpi/list:
     get:
       operationId: getKpisByEntityType
@@ -3851,6 +4118,37 @@ paths:
           description: OK
       tags:
       - prom-rules-config-controller
+  /v1/config/model-rules/search:
+    get:
+      description: "Searches built-in and custom model rule files by case-insensitive\
+        \ substring match against filenames, entity type names, relationship entity\
+        \ types, and vendor keywords. Query must be at least 2 characters."
+      operationId: searchModelRules
+      parameters:
+      - explode: true
+        in: query
+        name: q
+        required: true
+        schema:
+          type: string
+        style: form
+      - $ref: '#/components/parameters/TenantId'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModelRulesSearchResultDto'
+          description: Search results returned successfully
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Query missing or shorter than 2 characters
+      summary: Search model rules by keyword
+      tags:
+      - Model Rules Configuration
   /v1/config/model-rules/schema:
     get:
       description: Returns a JSON Schema Draft 2020-12 document that describes the
@@ -3916,7 +4214,8 @@ paths:
         name: customFailureRules
         required: false
         schema:
-          type: boolean
+          default: ""
+          type: string
         style: form
       - description: Set to true to fetch all failure rule groups (custom and default)
         explode: true
@@ -3924,7 +4223,8 @@ paths:
         name: allFailureRuleGroups
         required: false
         schema:
-          type: boolean
+          default: ""
+          type: string
         style: form
       - $ref: '#/components/parameters/TenantId'
       responses:
@@ -4190,6 +4490,7 @@ paths:
         name: name
         required: true
         schema:
+          default: ""
           type: string
         style: simple
       - $ref: '#/components/parameters/TenantId'
@@ -4211,6 +4512,7 @@ paths:
         name: name
         required: true
         schema:
+          default: ""
           type: string
         style: simple
       - $ref: '#/components/parameters/TenantId'
@@ -4232,6 +4534,7 @@ paths:
         name: name
         required: true
         schema:
+          default: ""
           type: string
         style: simple
       - $ref: '#/components/parameters/TenantId'
@@ -4241,23 +4544,6 @@ paths:
       summary: Delete log drilldown configuration
       tags:
       - log-drilldown-config-controller
-  /v1/patterns/custom/{name}:
-    delete:
-      operationId: deleteCustom
-      parameters:
-      - explode: false
-        in: path
-        name: name
-        required: true
-        schema:
-          type: string
-        style: simple
-      - $ref: '#/components/parameters/TenantId'
-      responses:
-        "200":
-          description: OK
-      tags:
-      - custom-rca-pattern-controller
   /v1/config/trace/{name}:
     delete:
       operationId: deleteTraceConfig
@@ -4337,6 +4623,7 @@ paths:
         name: name
         required: true
         schema:
+          default: ""
           type: string
         style: simple
       - $ref: '#/components/parameters/TenantId'
@@ -4369,6 +4656,7 @@ paths:
         name: name
         required: true
         schema:
+          default: ""
           type: string
         style: simple
       - $ref: '#/components/parameters/TenantId'
@@ -4405,6 +4693,8 @@ components:
   schemas:
     StackDto:
       example:
+        pyroscopeToken: pyroscopeToken
+        lokiToken: lokiToken
         grafanaToken: grafanaToken
         gcomToken: gcomToken
         mimirToken: mimirToken
@@ -4417,6 +4707,10 @@ components:
         assertionDetectorToken:
           type: string
         grafanaToken:
+          type: string
+        lokiToken:
+          type: string
+        pyroscopeToken:
           type: string
     StackDatasetDto:
       example:
@@ -4471,6 +4765,7 @@ components:
           - kubernetes
           - prometheus
           - otel
+          - hosto11y
           - aws
           - azure
           - gcp
@@ -4775,6 +5070,8 @@ components:
       properties:
         error:
           type: boolean
+        is3xxRedirection:
+          type: boolean
         is5xxServerError:
           type: boolean
         is2xxSuccessful:
@@ -4783,33 +5080,6 @@ components:
           type: boolean
         is1xxInformational:
           type: boolean
-        is3xxRedirection:
-          type: boolean
-    ReorderTraceConfigRequestDto:
-      description: Trace drilldown configuration priority data
-      example:
-        orderedConfigs:
-        - name: name
-          priority: 0
-        - name: name
-          priority: 0
-      properties:
-        orderedConfigs:
-          items:
-            $ref: '#/components/schemas/TraceConfigPriorityDto'
-          type: array
-      required:
-      - orderedConfigs
-    TraceConfigPriorityDto:
-      example:
-        name: name
-        priority: 0
-      properties:
-        name:
-          type: string
-        priority:
-          format: int32
-          type: integer
     PropertyMatchEntryDto:
       example:
         op: op
@@ -4996,31 +5266,6 @@ components:
           items:
             $ref: '#/components/schemas/MimirRelabelRuleDto'
           type: array
-    ProfileConfigPriorityDto:
-      example:
-        name: name
-        priority: 0
-      properties:
-        name:
-          type: string
-        priority:
-          format: int32
-          type: integer
-    ReorderConfigRequestDto:
-      description: Profile drilldown configuration data
-      example:
-        orderedConfigs:
-        - name: name
-          priority: 0
-        - name: name
-          priority: 0
-      properties:
-        orderedConfigs:
-          items:
-            $ref: '#/components/schemas/ProfileConfigPriorityDto'
-          type: array
-      required:
-      - orderedConfigs
     ProfileDrilldownConfigDto:
       example:
         entityPropertyToProfileLabelMapping:
@@ -5104,31 +5349,6 @@ components:
           items:
             $ref: '#/components/schemas/ProfileDrilldownConfigDto'
           type: array
-    LogConfigPriorityDto:
-      example:
-        name: name
-        priority: 0
-      properties:
-        name:
-          type: string
-        priority:
-          format: int32
-          type: integer
-    ReorderLogConfigRequestDto:
-      description: Log drilldown configuration priority data
-      example:
-        orderedConfigs:
-        - name: name
-          priority: 0
-        - name: name
-          priority: 0
-      properties:
-        orderedConfigs:
-          items:
-            $ref: '#/components/schemas/LogConfigPriorityDto'
-          type: array
-      required:
-      - orderedConfigs
     LogDrilldownConfigDto:
       example:
         dataSourceUid: dataSourceUid
@@ -5243,6 +5463,7 @@ components:
           uom: MB
           name: name
           value: ""
+        havingPropagatedAssertions: true
       properties:
         entityType:
           minLength: 1
@@ -5257,6 +5478,8 @@ components:
           type: array
           uniqueItems: true
         havingAssertion:
+          type: boolean
+        havingPropagatedAssertions:
           type: boolean
       required:
       - entityType
@@ -5310,6 +5533,7 @@ components:
             uom: MB
             name: name
             value: ""
+          havingPropagatedAssertions: true
         - connectToEntityTypes:
           - connectToEntityTypes
           - connectToEntityTypes
@@ -5324,6 +5548,7 @@ components:
             uom: MB
             name: name
             value: ""
+          havingPropagatedAssertions: true
         indexed: true
         bindings:
           key:
@@ -5373,6 +5598,7 @@ components:
           enum:
           - appo11y
           - k8so11y
+          - hosto11y
           type: string
         enabled:
           type: boolean
@@ -5385,8 +5611,8 @@ components:
     PrometheusRuleDto:
       description: A Prometheus alert or recording rule
       example:
-        alert: alert
-        record: record
+        alert: ""
+        record: ""
         disableInGroups:
         - disableInGroups
         - disableInGroups
@@ -5403,30 +5629,37 @@ components:
           description: Whether this rule is active
           type: boolean
         record:
+          default: ""
           description: Metric name for recording rules (mutually exclusive with 'alert')
           type: string
         alert:
+          default: ""
           description: Alert name for alert rules (mutually exclusive with 'record')
           type: string
         expr:
+          default: ""
           description: PromQL expression to evaluate
           example: probe_success == 0
           type: string
         annotations:
           additionalProperties:
             type: string
+          default: ""
           description: "Annotations for alert rules (e.g., summary, description)"
         labels:
           additionalProperties:
             type: string
+          default: ""
           description: "Labels to attach to the alert/metric. For alerts, must include\
             \ 'asserts_severity' and 'asserts_alert_category'"
         disableInGroups:
+          default: ""
           description: List of rule groups where this rule should be disabled
           items:
             type: string
           type: array
         for:
+          default: ""
           description: Duration the expression must be true before firing (alert rules
             only)
           example: 5m
@@ -5436,11 +5669,11 @@ components:
     PrometheusRuleGroupDto:
       description: A group of related Prometheus rules
       example:
-        name: name
+        name: ""
         interval: 30s
         rules:
-        - alert: alert
-          record: record
+        - alert: ""
+          record: ""
           disableInGroups:
           - disableInGroups
           - disableInGroups
@@ -5451,8 +5684,8 @@ components:
           expr: probe_success == 0
           labels:
             key: labels
-        - alert: alert
-          record: record
+        - alert: ""
+          record: ""
           disableInGroups:
           - disableInGroups
           - disableInGroups
@@ -5465,13 +5698,16 @@ components:
             key: labels
       properties:
         name:
+          default: ""
           description: Group name
           type: string
         interval:
+          default: ""
           description: "Evaluation interval (e.g., '30s', '1m')"
           example: 30s
           type: string
         rules:
+          default: ""
           description: List of alert and recording rules in this group
           items:
             $ref: '#/components/schemas/PrometheusRuleDto'
@@ -5482,15 +5718,15 @@ components:
     PrometheusRulesDto:
       description: Prometheus rules configuration containing alert and recording rules
       example:
-        managedBy: managedBy
-        name: name
+        managedBy: ""
+        name: ""
         active: true
         groups:
-        - name: name
+        - name: ""
           interval: 30s
           rules:
-          - alert: alert
-            record: record
+          - alert: ""
+            record: ""
             disableInGroups:
             - disableInGroups
             - disableInGroups
@@ -5501,8 +5737,8 @@ components:
             expr: probe_success == 0
             labels:
               key: labels
-          - alert: alert
-            record: record
+          - alert: ""
+            record: ""
             disableInGroups:
             - disableInGroups
             - disableInGroups
@@ -5513,11 +5749,11 @@ components:
             expr: probe_success == 0
             labels:
               key: labels
-        - name: name
+        - name: ""
           interval: 30s
           rules:
-          - alert: alert
-            record: record
+          - alert: ""
+            record: ""
             disableInGroups:
             - disableInGroups
             - disableInGroups
@@ -5528,8 +5764,8 @@ components:
             expr: probe_success == 0
             labels:
               key: labels
-          - alert: alert
-            record: record
+          - alert: ""
+            record: ""
             disableInGroups:
             - disableInGroups
             - disableInGroups
@@ -5546,324 +5782,23 @@ components:
           description: Whether this configuration is active
           type: boolean
         name:
+          default: ""
           description: Configuration name for the Prometheus rule file
           type: string
         groups:
+          default: ""
           description: List of rule groups containing alert and recording rules
           items:
             $ref: '#/components/schemas/PrometheusRuleGroupDto'
           type: array
         managedBy:
+          default: ""
           description: "Management source: 'terraform' for Terraform-managed, null\
             \ for UI-managed"
           type: string
       required:
       - groups
       - name
-    DefinedByDto:
-      description: Base class for relation definitions
-      discriminator:
-        propertyName: source
-      properties:
-        staticProperties:
-          additionalProperties: {}
-          description: Static properties to attach to the relation
-        source:
-          type: string
-      required:
-      - source
-    DefinedByMetricsDto:
-      allOf:
-      - $ref: '#/components/schemas/DefinedByDto'
-      - properties:
-          pattern:
-            description: PromQL pattern to match metrics
-            type: string
-          startEntityMatchers:
-            additionalProperties:
-              type: string
-            description: Label matchers for start entity
-          endEntityMatchers:
-            additionalProperties:
-              type: string
-            description: Label matchers for end entity
-      description: Metrics-based relation definition
-      example:
-        pattern: pattern
-        staticProperties:
-          key: ""
-        startEntityMatchers:
-          key: startEntityMatchers
-        source: source
-        endEntityMatchers:
-          key: endEntityMatchers
-      required:
-      - pattern
-    DefinedByPropertyMatchDto:
-      allOf:
-      - $ref: '#/components/schemas/DefinedByDto'
-      - properties:
-          startEntityProperties:
-            description: Properties from start entity to match
-            items:
-              type: string
-            type: array
-          endEntityProperties:
-            description: Properties from end entity to match
-            items:
-              type: string
-            type: array
-      description: Property-match based relation definition
-    EntityRuleDto:
-      description: Entity type rule definition
-      example:
-        lookup:
-          key: lookup
-        enrichedBy:
-        - labelValues:
-            key: labelValues
-          query: query
-          literals:
-            key: literals
-          metricValue: metricValue
-          disabled: true
-        - labelValues:
-            key: labelValues
-          query: query
-          literals:
-            key: literals
-          metricValue: metricValue
-          disabled: true
-        scope:
-          key: scope
-        name: name
-        definedBy:
-        - labelValues:
-            key: labelValues
-          query: query
-          literals:
-            key: literals
-          metricValue: metricValue
-          disabled: true
-        - labelValues:
-            key: labelValues
-          query: query
-          literals:
-            key: literals
-          metricValue: metricValue
-          disabled: true
-        disabled: true
-        type: type
-      properties:
-        type:
-          description: "Entity type name (e.g., 'Service', 'Pod', 'Jvm')"
-          type: string
-        name:
-          description: Entity name pattern
-          type: string
-        scope:
-          additionalProperties:
-            type: string
-          description: Scope definitions for the entity
-        lookup:
-          additionalProperties:
-            type: string
-          description: Lookup mappings
-        definedBy:
-          description: Query/metric definitions that define this entity
-          items:
-            $ref: '#/components/schemas/PropertyRuleDto'
-          type: array
-        enrichedBy:
-          description: Enrichment rules for this entity
-          items:
-            $ref: '#/components/schemas/PropertyRuleDto'
-          type: array
-        disabled:
-          description: Whether this entity rule is disabled
-          type: boolean
-      required:
-      - name
-      - type
-    ModelRulesDto:
-      description: The model rules configuration to create or update
-      example:
-        entities:
-        - lookup:
-            key: lookup
-          enrichedBy:
-          - labelValues:
-              key: labelValues
-            query: query
-            literals:
-              key: literals
-            metricValue: metricValue
-            disabled: true
-          - labelValues:
-              key: labelValues
-            query: query
-            literals:
-              key: literals
-            metricValue: metricValue
-            disabled: true
-          scope:
-            key: scope
-          name: name
-          definedBy:
-          - labelValues:
-              key: labelValues
-            query: query
-            literals:
-              key: literals
-            metricValue: metricValue
-            disabled: true
-          - labelValues:
-              key: labelValues
-            query: query
-            literals:
-              key: literals
-            metricValue: metricValue
-            disabled: true
-          disabled: true
-          type: type
-        - lookup:
-            key: lookup
-          enrichedBy:
-          - labelValues:
-              key: labelValues
-            query: query
-            literals:
-              key: literals
-            metricValue: metricValue
-            disabled: true
-          - labelValues:
-              key: labelValues
-            query: query
-            literals:
-              key: literals
-            metricValue: metricValue
-            disabled: true
-          scope:
-            key: scope
-          name: name
-          definedBy:
-          - labelValues:
-              key: labelValues
-            query: query
-            literals:
-              key: literals
-            metricValue: metricValue
-            disabled: true
-          - labelValues:
-              key: labelValues
-            query: query
-            literals:
-              key: literals
-            metricValue: metricValue
-            disabled: true
-          disabled: true
-          type: type
-        managedBy: managedBy
-        name: name
-        relations:
-        - startEntityType: startEntityType
-          endEntityType: endEntityType
-          definedBy:
-            pattern: pattern
-            staticProperties:
-              key: ""
-            startEntityMatchers:
-              key: startEntityMatchers
-            source: source
-            endEntityMatchers:
-              key: endEntityMatchers
-          type: type
-        - startEntityType: startEntityType
-          endEntityType: endEntityType
-          definedBy:
-            pattern: pattern
-            staticProperties:
-              key: ""
-            startEntityMatchers:
-              key: startEntityMatchers
-            source: source
-            endEntityMatchers:
-              key: endEntityMatchers
-          type: type
-      properties:
-        name:
-          description: Configuration name
-          type: string
-        entities:
-          description: Entity type definitions
-          items:
-            $ref: '#/components/schemas/EntityRuleDto'
-          type: array
-        relations:
-          description: Relationship rules between entities
-          items:
-            $ref: '#/components/schemas/RelationRuleDto'
-          type: array
-        managedBy:
-          description: "Management source: 'terraform' for Terraform-managed, null\
-            \ for UI-managed"
-          type: string
-      required:
-      - name
-    PropertyRuleDto:
-      example:
-        labelValues:
-          key: labelValues
-        query: query
-        literals:
-          key: literals
-        metricValue: metricValue
-        disabled: true
-      properties:
-        query:
-          type: string
-        labelValues:
-          additionalProperties:
-            type: string
-        literals:
-          additionalProperties:
-            type: string
-        metricValue:
-          type: string
-        disabled:
-          type: boolean
-    RelationRuleDto:
-      description: Relationship rule definition between entities
-      example:
-        startEntityType: startEntityType
-        endEntityType: endEntityType
-        definedBy:
-          pattern: pattern
-          staticProperties:
-            key: ""
-          startEntityMatchers:
-            key: startEntityMatchers
-          source: source
-          endEntityMatchers:
-            key: endEntityMatchers
-        type: type
-      properties:
-        type:
-          description: "Relation type (e.g., 'CALLS', 'HOSTS', 'ROUTES')"
-          type: string
-        startEntityType:
-          description: Source entity type
-          type: string
-        endEntityType:
-          description: Target entity type
-          type: string
-        definedBy:
-          $ref: '#/components/schemas/RelationRuleDto_definedBy'
-      required:
-      - definedBy
-      - endEntityType
-      - startEntityType
-      - type
     ModelMappingDto:
       example:
         entities:
@@ -6292,6 +6227,8 @@ components:
             type: string
           type: array
         requestContextJoin:
+          maxLength: 1
+          minLength: 0
           type: string
         filters:
           items:
@@ -6417,6 +6354,55 @@ components:
           items:
             $ref: '#/components/schemas/LatencyThresholdDto'
           type: array
+    EntityScopesRequestDto:
+      example:
+        start: 0
+        end: 6
+        conditions:
+          key:
+          - conditions
+          - conditions
+      properties:
+        start:
+          format: int64
+          type: integer
+        end:
+          format: int64
+          type: integer
+        conditions:
+          additionalProperties:
+            items:
+              type: string
+    EntityScopesV2ResponseDto:
+      example:
+        scopeValues:
+          key:
+          - sources:
+            - sources
+            - sources
+            value: value
+          - sources:
+            - sources
+            - sources
+            value: value
+      properties:
+        scopeValues:
+          additionalProperties:
+            items:
+              $ref: '#/components/schemas/ScopeValueDto'
+    ScopeValueDto:
+      example:
+        sources:
+        - sources
+        - sources
+        value: value
+      properties:
+        value:
+          type: string
+        sources:
+          items:
+            type: string
+          type: array
     HealthThresholdV2Dto:
       example:
         expression: expression
@@ -6539,8 +6525,14 @@ components:
     DrilldownConfigMigrationDto:
       example:
         dryRun: true
+        recreateDefaultConfigs: true
+        recreateOtelLogConfig: true
       properties:
         dryRun:
+          type: boolean
+        recreateDefaultConfigs:
+          type: boolean
+        recreateOtelLogConfig:
           type: boolean
     MetricSanityCheckResult:
       example:
@@ -6597,7 +6589,6 @@ components:
           type: array
     StackStatusDto:
       example:
-        contactPointUID: contactPointUID
         alertManagerConfigured: true
         sanityCheckResults:
         - stepResults:
@@ -6665,8 +6656,6 @@ components:
           type: integer
         useGrafanaManagedAlerts:
           type: boolean
-        contactPointUID:
-          type: string
     StackMigrationDto:
       example:
         dryRun: true
@@ -7376,6 +7365,7 @@ components:
             uom: MB
             name: name
             value: ""
+          havingPropagatedAssertions: true
         - connectToEntityTypes:
           - connectToEntityTypes
           - connectToEntityTypes
@@ -7390,6 +7380,7 @@ components:
             uom: MB
             name: name
             value: ""
+          havingPropagatedAssertions: true
         bindings:
           key: bindings
         timeCriteria:
@@ -7481,6 +7472,7 @@ components:
             uom: MB
             name: name
             value: ""
+          havingPropagatedAssertions: true
         - connectToEntityTypes:
           - connectToEntityTypes
           - connectToEntityTypes
@@ -7495,6 +7487,7 @@ components:
             uom: MB
             name: name
             value: ""
+          havingPropagatedAssertions: true
         timeCriteria:
           start: 6
           end: 1
@@ -7562,6 +7555,385 @@ components:
           items:
             $ref: '#/components/schemas/SampleEntityDto'
           type: array
+    CypherSearchRequestDto:
+      example:
+        cypherQuery: cypherQuery
+        timeCriteria:
+          start: 6
+          end: 1
+          instant: 0
+        pageNum: 0
+        scopeCriteria:
+          scopeCriteriaMap:
+            key:
+            - scopeCriteriaMap
+            - scopeCriteriaMap
+          nameAndValues:
+            key:
+            - nameAndValues
+            - nameAndValues
+        withInsights: true
+      properties:
+        cypherQuery:
+          maxLength: 8192
+          minLength: 0
+          type: string
+        timeCriteria:
+          $ref: '#/components/schemas/TimeCriteriaDto'
+        scopeCriteria:
+          $ref: '#/components/schemas/ScopeCriteriaDto'
+        pageNum:
+          format: int32
+          minimum: 0
+          type: integer
+        withInsights:
+          type: boolean
+      required:
+      - cypherQuery
+    CypherSearchEdgeDto:
+      example:
+        sourceType: sourceType
+        destinationName: destinationName
+        destinationType: destinationType
+        sourceScope:
+          key: ""
+        sourceName: sourceName
+        type: type
+        destinationScope:
+          key: ""
+      properties:
+        type:
+          type: string
+        sourceName:
+          type: string
+        sourceType:
+          type: string
+        sourceScope:
+          additionalProperties: {}
+        destinationName:
+          type: string
+        destinationType:
+          type: string
+        destinationScope:
+          additionalProperties: {}
+    CypherSearchEntityDto:
+      example:
+        connectedInsights:
+        - severity: severity
+          name: name
+          category: category
+        - severity: severity
+          name: name
+          category: category
+        insights:
+        - severity: severity
+          name: name
+          category: category
+        - severity: severity
+          name: name
+          category: category
+        scope:
+          key: ""
+        name: name
+        type: type
+        properties:
+          key: ""
+      properties:
+        type:
+          type: string
+        name:
+          type: string
+        scope:
+          additionalProperties: {}
+        properties:
+          additionalProperties: {}
+        insights:
+          items:
+            $ref: '#/components/schemas/CypherSearchInsightDto'
+          type: array
+        connectedInsights:
+          items:
+            $ref: '#/components/schemas/CypherSearchInsightDto'
+          type: array
+    CypherSearchInsightDto:
+      example:
+        severity: severity
+        name: name
+        category: category
+      properties:
+        name:
+          type: string
+        severity:
+          type: string
+        category:
+          type: string
+    CypherSearchResponseDto:
+      example:
+        lastPage: true
+        entities:
+        - connectedInsights:
+          - severity: severity
+            name: name
+            category: category
+          - severity: severity
+            name: name
+            category: category
+          insights:
+          - severity: severity
+            name: name
+            category: category
+          - severity: severity
+            name: name
+            category: category
+          scope:
+            key: ""
+          name: name
+          type: type
+          properties:
+            key: ""
+        - connectedInsights:
+          - severity: severity
+            name: name
+            category: category
+          - severity: severity
+            name: name
+            category: category
+          insights:
+          - severity: severity
+            name: name
+            category: category
+          - severity: severity
+            name: name
+            category: category
+          scope:
+            key: ""
+          name: name
+          type: type
+          properties:
+            key: ""
+        edges:
+        - sourceType: sourceType
+          destinationName: destinationName
+          destinationType: destinationType
+          sourceScope:
+            key: ""
+          sourceName: sourceName
+          type: type
+          destinationScope:
+            key: ""
+        - sourceType: sourceType
+          destinationName: destinationName
+          destinationType: destinationType
+          sourceScope:
+            key: ""
+          sourceName: sourceName
+          type: type
+          destinationScope:
+            key: ""
+        pageNum: 0
+      properties:
+        entities:
+          items:
+            $ref: '#/components/schemas/CypherSearchEntityDto'
+          type: array
+        edges:
+          items:
+            $ref: '#/components/schemas/CypherSearchEdgeDto'
+          type: array
+        pageNum:
+          format: int32
+          type: integer
+        lastPage:
+          type: boolean
+    InsightCriteriaDto:
+      properties:
+        insightSource:
+          enum:
+          - SELF
+          - PROPAGATED
+          - SELF_OR_PROPAGATED
+          type: string
+        alertCategories:
+          items:
+            enum:
+            - saturation
+            - anomaly
+            - amend
+            - failure
+            - error
+            type: string
+          type: array
+      required:
+      - insightSource
+    SearchCountRequestDto:
+      example:
+        timeCriteria:
+          start: 0
+          end: 6
+        items:
+        - entityType: entityType
+          groupBy:
+          - groupBy
+          - groupBy
+          nameMatcher: ""
+          withInsights: ""
+        - entityType: entityType
+          groupBy:
+          - groupBy
+          - groupBy
+          nameMatcher: ""
+          withInsights: ""
+        scopeCriteria: ""
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/SearchCountRequestEntryDto'
+          type: array
+        timeCriteria:
+          $ref: '#/components/schemas/SearchCountRequestDtoTimeCriteria'
+        scopeCriteria:
+          properties:
+            nameAndValues:
+              additionalProperties:
+                items:
+                  type: string
+      required:
+      - items
+      - timeCriteria
+    SearchCountRequestDtoScopeCriteria:
+      properties:
+        nameAndValues:
+          additionalProperties:
+            items:
+              type: string
+    SearchCountRequestDtoTimeCriteria:
+      example:
+        start: 0
+        end: 6
+      properties:
+        start:
+          format: int64
+          type: integer
+        end:
+          format: int64
+          type: integer
+      required:
+      - end
+      - start
+    SearchCountRequestEntryDto:
+      example:
+        entityType: entityType
+        groupBy:
+        - groupBy
+        - groupBy
+        nameMatcher: ""
+        withInsights: ""
+      properties:
+        entityType:
+          type: string
+        nameMatcher:
+          properties:
+            name:
+              type: string
+            value:
+              nullable: true
+            op:
+              enum:
+              - EQUALS
+              - NOT_EQUALS
+              - LESS_THAN
+              - GREATER_THAN
+              - LESS_THAN_EQUAL
+              - GREATER_THAN_EQUAL
+              - IS_NULL
+              - IS_NOT_NULL
+              - STARTS_WITH
+              - ENDS_WITH
+              - CONTAINS
+              - IN
+              type: string
+          required:
+          - name
+          - op
+        withInsights:
+          properties:
+            insightSource:
+              enum:
+              - SELF
+              - PROPAGATED
+              - SELF_OR_PROPAGATED
+              type: string
+            alertCategories:
+              items:
+                enum:
+                - saturation
+                - anomaly
+                - amend
+                - failure
+                - error
+                type: string
+              type: array
+          required:
+          - insightSource
+        groupBy:
+          items:
+            type: string
+          type: array
+      required:
+      - entityType
+    SearchCountRequestEntryDtoNameMatcher:
+      properties:
+        name:
+          type: string
+        value:
+          nullable: true
+        op:
+          enum:
+          - EQUALS
+          - NOT_EQUALS
+          - LESS_THAN
+          - GREATER_THAN
+          - LESS_THAN_EQUAL
+          - GREATER_THAN_EQUAL
+          - IS_NULL
+          - IS_NOT_NULL
+          - STARTS_WITH
+          - ENDS_WITH
+          - CONTAINS
+          - IN
+          type: string
+      required:
+      - name
+      - op
+    EntityCountDto:
+      properties:
+        total:
+          format: int64
+          type: integer
+        withInsights:
+          format: int64
+          nullable: true
+          type: integer
+        groupBy:
+          items:
+            $ref: '#/components/schemas/GroupedEntityCountDto'
+          type: array
+      required:
+      - total
+    GroupedEntityCountDto:
+      properties:
+        total:
+          format: int64
+          type: integer
+        withInsights:
+          format: int64
+          nullable: true
+          type: integer
+        groupedBy:
+          additionalProperties:
+            type: string
+      required:
+      - total
     AssertionSearchRequestDto:
       example:
         filterCriteria:
@@ -7579,6 +7951,7 @@ components:
             uom: MB
             name: name
             value: ""
+          havingPropagatedAssertions: true
         - connectToEntityTypes:
           - connectToEntityTypes
           - connectToEntityTypes
@@ -7593,6 +7966,7 @@ components:
             uom: MB
             name: name
             value: ""
+          havingPropagatedAssertions: true
         currentWBEntityCount: 5
         hideAssertionsOlderThanNHours: 1
         alertCategories:
@@ -7601,6 +7975,9 @@ components:
         bindings:
           key: bindings
         query: query
+        severityFilter:
+        - severityFilter
+        - severityFilter
         timeCriteria:
           start: 6
           end: 1
@@ -7640,6 +8017,11 @@ components:
           format: int32
           type: integer
         alertCategories:
+          items:
+            type: string
+          type: array
+          uniqueItems: true
+        severityFilter:
           items:
             type: string
           type: array
@@ -8210,6 +8592,7 @@ components:
             uom: MB
             name: name
             value: ""
+          havingPropagatedAssertions: true
         - connectToEntityTypes:
           - connectToEntityTypes
           - connectToEntityTypes
@@ -8224,6 +8607,7 @@ components:
             uom: MB
             name: name
             value: ""
+          havingPropagatedAssertions: true
         hideAssertionsOlderThanNHours: 1
         alertCategories:
         - alertCategories
@@ -8231,6 +8615,9 @@ components:
         bindings:
           key: bindings
         query: query
+        severityFilter:
+        - severityFilter
+        - severityFilter
         includeRcaPatterns: true
         timeCriteria:
           start: 6
@@ -8273,6 +8660,11 @@ components:
           format: int32
           type: integer
         alertCategories:
+          items:
+            type: string
+          type: array
+          uniqueItems: true
+        severityFilter:
           items:
             type: string
           type: array
@@ -9184,25 +9576,6 @@ components:
           items:
             $ref: '#/components/schemas/PropertyMatcherDto'
           type: array
-    EntityScopesRequestDto:
-      example:
-        start: 0
-        end: 6
-        conditions:
-          key:
-          - conditions
-          - conditions
-      properties:
-        start:
-          format: int64
-          type: integer
-        end:
-          format: int64
-          type: integer
-        conditions:
-          additionalProperties:
-            items:
-              type: string
     EntityScopesResponseDto:
       example:
         scopeValues:
@@ -12619,6 +12992,7 @@ components:
             uom: MB
             name: name
             value: ""
+          havingPropagatedAssertions: true
         - connectToEntityTypes:
           - connectToEntityTypes
           - connectToEntityTypes
@@ -12633,6 +13007,7 @@ components:
             uom: MB
             name: name
             value: ""
+          havingPropagatedAssertions: true
         bindings:
           key: ""
         boundDescription: boundDescription
@@ -12681,6 +13056,7 @@ components:
               uom: MB
               name: name
               value: ""
+            havingPropagatedAssertions: true
           - connectToEntityTypes:
             - connectToEntityTypes
             - connectToEntityTypes
@@ -12695,6 +13071,7 @@ components:
               uom: MB
               name: name
               value: ""
+            havingPropagatedAssertions: true
           bindings:
             key: ""
           boundDescription: boundDescription
@@ -12717,6 +13094,7 @@ components:
               uom: MB
               name: name
               value: ""
+            havingPropagatedAssertions: true
           - connectToEntityTypes:
             - connectToEntityTypes
             - connectToEntityTypes
@@ -12731,6 +13109,7 @@ components:
               uom: MB
               name: name
               value: ""
+            havingPropagatedAssertions: true
           bindings:
             key: ""
           boundDescription: boundDescription
@@ -13146,8 +13525,8 @@ components:
     ThresholdRulesDto:
       example:
         globalThresholds:
-        - alert: alert
-          record: record
+        - alert: ""
+          record: ""
           disableInGroups:
           - disableInGroups
           - disableInGroups
@@ -13158,8 +13537,8 @@ components:
           expr: probe_success == 0
           labels:
             key: labels
-        - alert: alert
-          record: record
+        - alert: ""
+          record: ""
           disableInGroups:
           - disableInGroups
           - disableInGroups
@@ -13171,8 +13550,8 @@ components:
           labels:
             key: labels
         customThresholds:
-        - alert: alert
-          record: record
+        - alert: ""
+          record: ""
           disableInGroups:
           - disableInGroups
           - disableInGroups
@@ -13183,8 +13562,8 @@ components:
           expr: probe_success == 0
           labels:
             key: labels
-        - alert: alert
-          record: record
+        - alert: ""
+          record: ""
           disableInGroups:
           - disableInGroups
           - disableInGroups
@@ -13273,6 +13652,707 @@ components:
         ruleNames:
           items:
             type: string
+          type: array
+    DefinedByDto:
+      description: Base class for relation definitions
+      discriminator:
+        propertyName: source
+      properties:
+        staticProperties:
+          additionalProperties: {}
+          default: ""
+          description: Static properties to attach to the relation
+        source:
+          type: string
+      required:
+      - source
+    DefinedByMetricsDto:
+      allOf:
+      - $ref: '#/components/schemas/DefinedByDto'
+      - properties:
+          pattern:
+            default: ""
+            description: PromQL pattern to match metrics
+            type: string
+          startEntityMatchers:
+            additionalProperties:
+              type: string
+            default: ""
+            description: Label matchers for start entity
+          endEntityMatchers:
+            additionalProperties:
+              type: string
+            default: ""
+            description: Label matchers for end entity
+      description: Metrics-based relation definition
+      example:
+        pattern: ""
+        staticProperties:
+          key: ""
+        startEntityMatchers:
+          key: startEntityMatchers
+        source: source
+        endEntityMatchers:
+          key: endEntityMatchers
+      required:
+      - pattern
+    DefinedByPropertyMatchDto:
+      allOf:
+      - $ref: '#/components/schemas/DefinedByDto'
+      - properties:
+          startEntityProperties:
+            default: ""
+            description: Properties from start entity to match
+            items:
+              type: string
+            type: array
+          endEntityProperties:
+            default: ""
+            description: Properties from end entity to match
+            items:
+              type: string
+            type: array
+      description: Property-match based relation definition
+    EntityRuleDto:
+      description: Entity type rule definition
+      example:
+        lookup:
+          key: lookup
+        enrichedBy:
+        - labelValues:
+            key: labelValues
+          query: query
+          literals:
+            key: literals
+          metricValue: metricValue
+          disabled: true
+        - labelValues:
+            key: labelValues
+          query: query
+          literals:
+            key: literals
+          metricValue: metricValue
+          disabled: true
+        scope:
+          key: scope
+        name: ""
+        definedBy:
+        - labelValues:
+            key: labelValues
+          query: query
+          literals:
+            key: literals
+          metricValue: metricValue
+          disabled: true
+        - labelValues:
+            key: labelValues
+          query: query
+          literals:
+            key: literals
+          metricValue: metricValue
+          disabled: true
+        disabled: false
+        type: ""
+      properties:
+        type:
+          default: ""
+          description: "Entity type name (e.g., 'Service', 'Pod', 'Jvm')"
+          type: string
+        name:
+          default: ""
+          description: Entity name pattern
+          type: string
+        scope:
+          additionalProperties:
+            type: string
+          default: ""
+          description: Scope definitions for the entity
+        lookup:
+          additionalProperties:
+            type: string
+          default: ""
+          description: Lookup mappings
+        definedBy:
+          default: ""
+          description: Query/metric definitions that define this entity
+          items:
+            $ref: '#/components/schemas/PropertyRuleDto'
+          type: array
+        enrichedBy:
+          default: ""
+          description: Enrichment rules for this entity
+          items:
+            $ref: '#/components/schemas/PropertyRuleDto'
+          type: array
+        disabled:
+          default: false
+          description: Whether this entity rule is disabled
+          type: boolean
+      required:
+      - name
+      - type
+    ModelRulesDto:
+      description: Model rules configuration defining entities and their relationships
+      example:
+        entities:
+        - lookup:
+            key: lookup
+          enrichedBy:
+          - labelValues:
+              key: labelValues
+            query: query
+            literals:
+              key: literals
+            metricValue: metricValue
+            disabled: true
+          - labelValues:
+              key: labelValues
+            query: query
+            literals:
+              key: literals
+            metricValue: metricValue
+            disabled: true
+          scope:
+            key: scope
+          name: ""
+          definedBy:
+          - labelValues:
+              key: labelValues
+            query: query
+            literals:
+              key: literals
+            metricValue: metricValue
+            disabled: true
+          - labelValues:
+              key: labelValues
+            query: query
+            literals:
+              key: literals
+            metricValue: metricValue
+            disabled: true
+          disabled: false
+          type: ""
+        - lookup:
+            key: lookup
+          enrichedBy:
+          - labelValues:
+              key: labelValues
+            query: query
+            literals:
+              key: literals
+            metricValue: metricValue
+            disabled: true
+          - labelValues:
+              key: labelValues
+            query: query
+            literals:
+              key: literals
+            metricValue: metricValue
+            disabled: true
+          scope:
+            key: scope
+          name: ""
+          definedBy:
+          - labelValues:
+              key: labelValues
+            query: query
+            literals:
+              key: literals
+            metricValue: metricValue
+            disabled: true
+          - labelValues:
+              key: labelValues
+            query: query
+            literals:
+              key: literals
+            metricValue: metricValue
+            disabled: true
+          disabled: false
+          type: ""
+        managedBy: ""
+        name: ""
+        relations:
+        - startEntityType: ""
+          endEntityType: ""
+          definedBy:
+            pattern: ""
+            staticProperties:
+              key: ""
+            startEntityMatchers:
+              key: startEntityMatchers
+            source: source
+            endEntityMatchers:
+              key: endEntityMatchers
+          type: ""
+        - startEntityType: ""
+          endEntityType: ""
+          definedBy:
+            pattern: ""
+            staticProperties:
+              key: ""
+            startEntityMatchers:
+              key: startEntityMatchers
+            source: source
+            endEntityMatchers:
+              key: endEntityMatchers
+          type: ""
+      properties:
+        name:
+          default: ""
+          description: Configuration name
+          type: string
+        entities:
+          default: ""
+          description: Entity type definitions
+          items:
+            $ref: '#/components/schemas/EntityRuleDto'
+          type: array
+        relations:
+          default: ""
+          description: Relationship rules between entities
+          items:
+            $ref: '#/components/schemas/RelationRuleDto'
+          type: array
+        managedBy:
+          default: ""
+          description: "Management source: 'terraform' for Terraform-managed, null\
+            \ for UI-managed"
+          type: string
+      required:
+      - name
+    PropertyRuleDto:
+      example:
+        labelValues:
+          key: labelValues
+        query: query
+        literals:
+          key: literals
+        metricValue: metricValue
+        disabled: true
+      properties:
+        query:
+          type: string
+        labelValues:
+          additionalProperties:
+            type: string
+        literals:
+          additionalProperties:
+            type: string
+        metricValue:
+          type: string
+        disabled:
+          type: boolean
+    RelationRuleDto:
+      description: Relationship rule definition between entities
+      example:
+        startEntityType: ""
+        endEntityType: ""
+        definedBy:
+          pattern: ""
+          staticProperties:
+            key: ""
+          startEntityMatchers:
+            key: startEntityMatchers
+          source: source
+          endEntityMatchers:
+            key: endEntityMatchers
+        type: ""
+      properties:
+        type:
+          default: ""
+          description: "Relation type (e.g., 'CALLS', 'HOSTS', 'ROUTES')"
+          type: string
+        startEntityType:
+          default: ""
+          description: Source entity type
+          type: string
+        endEntityType:
+          default: ""
+          description: Target entity type
+          type: string
+        definedBy:
+          $ref: '#/components/schemas/RelationRuleDto_definedBy'
+      required:
+      - definedBy
+      - endEntityType
+      - startEntityType
+      - type
+    ModelRulesSearchMatchDto:
+      description: A single model rule search match
+      example:
+        fileName: ""
+        entityTypes:
+        - entityTypes
+        - entityTypes
+        rules:
+          entities:
+          - lookup:
+              key: lookup
+            enrichedBy:
+            - labelValues:
+                key: labelValues
+              query: query
+              literals:
+                key: literals
+              metricValue: metricValue
+              disabled: true
+            - labelValues:
+                key: labelValues
+              query: query
+              literals:
+                key: literals
+              metricValue: metricValue
+              disabled: true
+            scope:
+              key: scope
+            name: ""
+            definedBy:
+            - labelValues:
+                key: labelValues
+              query: query
+              literals:
+                key: literals
+              metricValue: metricValue
+              disabled: true
+            - labelValues:
+                key: labelValues
+              query: query
+              literals:
+                key: literals
+              metricValue: metricValue
+              disabled: true
+            disabled: false
+            type: ""
+          - lookup:
+              key: lookup
+            enrichedBy:
+            - labelValues:
+                key: labelValues
+              query: query
+              literals:
+                key: literals
+              metricValue: metricValue
+              disabled: true
+            - labelValues:
+                key: labelValues
+              query: query
+              literals:
+                key: literals
+              metricValue: metricValue
+              disabled: true
+            scope:
+              key: scope
+            name: ""
+            definedBy:
+            - labelValues:
+                key: labelValues
+              query: query
+              literals:
+                key: literals
+              metricValue: metricValue
+              disabled: true
+            - labelValues:
+                key: labelValues
+              query: query
+              literals:
+                key: literals
+              metricValue: metricValue
+              disabled: true
+            disabled: false
+            type: ""
+          managedBy: ""
+          name: ""
+          relations:
+          - startEntityType: ""
+            endEntityType: ""
+            definedBy:
+              pattern: ""
+              staticProperties:
+                key: ""
+              startEntityMatchers:
+                key: startEntityMatchers
+              source: source
+              endEntityMatchers:
+                key: endEntityMatchers
+            type: ""
+          - startEntityType: ""
+            endEntityType: ""
+            definedBy:
+              pattern: ""
+              staticProperties:
+                key: ""
+              startEntityMatchers:
+                key: startEntityMatchers
+              source: source
+              endEntityMatchers:
+                key: endEntityMatchers
+            type: ""
+        source: ""
+        vendors:
+        - vendors
+        - vendors
+      properties:
+        fileName:
+          default: ""
+          description: "Rule identifier: builtin rules use the file name (e.g., entities_awsapp_sqs.yml),\
+            \ custom rules use the config name (e.g., my_custom_redis)"
+          type: string
+        source:
+          default: ""
+          description: "Source of the rule: 'builtin' or 'custom'"
+          type: string
+        entityTypes:
+          default: ""
+          description: Entity types referenced in this rule (from entity definitions
+            and relationship start/end types)
+          items:
+            type: string
+          type: array
+        vendors:
+          default: ""
+          description: Vendor keywords from the 'when' clause
+          items:
+            type: string
+          type: array
+        rules:
+          $ref: '#/components/schemas/ModelRulesDto'
+    ModelRulesSearchResultDto:
+      description: Search results for model rules matching a keyword query
+      example:
+        query: ""
+        results:
+        - fileName: ""
+          entityTypes:
+          - entityTypes
+          - entityTypes
+          rules:
+            entities:
+            - lookup:
+                key: lookup
+              enrichedBy:
+              - labelValues:
+                  key: labelValues
+                query: query
+                literals:
+                  key: literals
+                metricValue: metricValue
+                disabled: true
+              - labelValues:
+                  key: labelValues
+                query: query
+                literals:
+                  key: literals
+                metricValue: metricValue
+                disabled: true
+              scope:
+                key: scope
+              name: ""
+              definedBy:
+              - labelValues:
+                  key: labelValues
+                query: query
+                literals:
+                  key: literals
+                metricValue: metricValue
+                disabled: true
+              - labelValues:
+                  key: labelValues
+                query: query
+                literals:
+                  key: literals
+                metricValue: metricValue
+                disabled: true
+              disabled: false
+              type: ""
+            - lookup:
+                key: lookup
+              enrichedBy:
+              - labelValues:
+                  key: labelValues
+                query: query
+                literals:
+                  key: literals
+                metricValue: metricValue
+                disabled: true
+              - labelValues:
+                  key: labelValues
+                query: query
+                literals:
+                  key: literals
+                metricValue: metricValue
+                disabled: true
+              scope:
+                key: scope
+              name: ""
+              definedBy:
+              - labelValues:
+                  key: labelValues
+                query: query
+                literals:
+                  key: literals
+                metricValue: metricValue
+                disabled: true
+              - labelValues:
+                  key: labelValues
+                query: query
+                literals:
+                  key: literals
+                metricValue: metricValue
+                disabled: true
+              disabled: false
+              type: ""
+            managedBy: ""
+            name: ""
+            relations:
+            - startEntityType: ""
+              endEntityType: ""
+              definedBy:
+                pattern: ""
+                staticProperties:
+                  key: ""
+                startEntityMatchers:
+                  key: startEntityMatchers
+                source: source
+                endEntityMatchers:
+                  key: endEntityMatchers
+              type: ""
+            - startEntityType: ""
+              endEntityType: ""
+              definedBy:
+                pattern: ""
+                staticProperties:
+                  key: ""
+                startEntityMatchers:
+                  key: startEntityMatchers
+                source: source
+                endEntityMatchers:
+                  key: endEntityMatchers
+              type: ""
+          source: ""
+          vendors:
+          - vendors
+          - vendors
+        - fileName: ""
+          entityTypes:
+          - entityTypes
+          - entityTypes
+          rules:
+            entities:
+            - lookup:
+                key: lookup
+              enrichedBy:
+              - labelValues:
+                  key: labelValues
+                query: query
+                literals:
+                  key: literals
+                metricValue: metricValue
+                disabled: true
+              - labelValues:
+                  key: labelValues
+                query: query
+                literals:
+                  key: literals
+                metricValue: metricValue
+                disabled: true
+              scope:
+                key: scope
+              name: ""
+              definedBy:
+              - labelValues:
+                  key: labelValues
+                query: query
+                literals:
+                  key: literals
+                metricValue: metricValue
+                disabled: true
+              - labelValues:
+                  key: labelValues
+                query: query
+                literals:
+                  key: literals
+                metricValue: metricValue
+                disabled: true
+              disabled: false
+              type: ""
+            - lookup:
+                key: lookup
+              enrichedBy:
+              - labelValues:
+                  key: labelValues
+                query: query
+                literals:
+                  key: literals
+                metricValue: metricValue
+                disabled: true
+              - labelValues:
+                  key: labelValues
+                query: query
+                literals:
+                  key: literals
+                metricValue: metricValue
+                disabled: true
+              scope:
+                key: scope
+              name: ""
+              definedBy:
+              - labelValues:
+                  key: labelValues
+                query: query
+                literals:
+                  key: literals
+                metricValue: metricValue
+                disabled: true
+              - labelValues:
+                  key: labelValues
+                query: query
+                literals:
+                  key: literals
+                metricValue: metricValue
+                disabled: true
+              disabled: false
+              type: ""
+            managedBy: ""
+            name: ""
+            relations:
+            - startEntityType: ""
+              endEntityType: ""
+              definedBy:
+                pattern: ""
+                staticProperties:
+                  key: ""
+                startEntityMatchers:
+                  key: startEntityMatchers
+                source: source
+                endEntityMatchers:
+                  key: endEntityMatchers
+              type: ""
+            - startEntityType: ""
+              endEntityType: ""
+              definedBy:
+                pattern: ""
+                staticProperties:
+                  key: ""
+                startEntityMatchers:
+                  key: startEntityMatchers
+                source: source
+                endEntityMatchers:
+                  key: endEntityMatchers
+              type: ""
+          source: ""
+          vendors:
+          - vendors
+          - vendors
+      properties:
+        query:
+          default: ""
+          description: The search query that was used
+          type: string
+        results:
+          default: ""
+          description: List of matching model rule files
+          items:
+            $ref: '#/components/schemas/ModelRulesSearchMatchDto'
           type: array
     TenantEnvConfigResponseDto:
       example:
@@ -13528,11 +14608,6 @@ components:
       oneOf:
       - $ref: '#/components/schemas/ApiSubError'
       - $ref: '#/components/schemas/ApiValidationError'
-    RelationRuleDto_definedBy:
-      description: "Relation definition (polymorphic: METRICS or PROPERTY_MATCH)"
-      oneOf:
-      - $ref: '#/components/schemas/DefinedByMetricsDto'
-      - $ref: '#/components/schemas/DefinedByPropertyMatchDto'
     ModelMappingEntityDto_signals_inner:
       oneOf:
       - $ref: '#/components/schemas/ModelMappingHistogramDto'
@@ -13565,3 +14640,9 @@ components:
         empty: true
       properties:
         empty: {}
+    RelationRuleDto_definedBy:
+      default: ""
+      description: "Relation definition (polymorphic: METRICS or PROPERTY_MATCH)"
+      oneOf:
+      - $ref: '#/components/schemas/DefinedByMetricsDto'
+      - $ref: '#/components/schemas/DefinedByPropertyMatchDto'
