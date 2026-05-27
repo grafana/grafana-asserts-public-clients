@@ -229,7 +229,7 @@ func (o *AssertionScoresDto) GetGraphDataOk() (*interface{}, bool) {
 
 // HasGraphData returns a boolean if a field has been set.
 func (o *AssertionScoresDto) HasGraphData() bool {
-	if o != nil && IsNil(o.GraphData) {
+	if o != nil && !IsNil(o.GraphData) {
 		return true
 	}
 

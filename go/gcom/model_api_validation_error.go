@@ -130,7 +130,7 @@ func (o *ApiValidationError) GetRejectedValueOk() (*interface{}, bool) {
 
 // HasRejectedValue returns a boolean if a field has been set.
 func (o *ApiValidationError) HasRejectedValue() bool {
-	if o != nil && IsNil(o.RejectedValue) {
+	if o != nil && !IsNil(o.RejectedValue) {
 		return true
 	}
 
