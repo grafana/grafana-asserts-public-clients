@@ -25,6 +25,8 @@ jobs:
 
       - name: Generate Client
         uses: grafana/shared-workflows/actions/generate-openapi-clients@8ef55db5803bf7fc92e32ca4a4f488657f3f53fe #v1.1.0
+        env:
+          REPO_NAME: ${{ github.event.repository.name }}
         with:
           package-name: gcom
           spec-path: openapi.yaml
