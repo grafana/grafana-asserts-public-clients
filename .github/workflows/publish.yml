@@ -21,7 +21,7 @@ jobs:
           persist-credentials: true
       - uses: actions/setup-go@4a3601121dd01d1626a1e23e37211e3254c1c06c # v6.4.0
         with:
-          go-version: 1.23
+          go-version: 1.25
 
       - name: Generate Client
         uses: grafana/shared-workflows/actions/generate-openapi-clients@8ef55db5803bf7fc92e32ca4a4f488657f3f53fe #v1.1.0
