@@ -4,13 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | **string** | Entity type name (e.g., &#39;Service&#39;, &#39;Pod&#39;, &#39;Jvm&#39;) | 
-**Name** | **string** | Entity name pattern | 
-**Scope** | Pointer to **map[string]string** | Scope definitions for the entity | [optional] 
-**Lookup** | Pointer to **map[string]string** | Lookup mappings | [optional] 
-**DefinedBy** | Pointer to [**[]PropertyRuleDto**](PropertyRuleDto.md) | Query/metric definitions that define this entity | [optional] 
-**EnrichedBy** | Pointer to [**[]PropertyRuleDto**](PropertyRuleDto.md) | Enrichment rules for this entity | [optional] 
-**Disabled** | Pointer to **bool** | Whether this entity rule is disabled | [optional] 
+**Type** | **string** | Entity type name (e.g., &#39;Service&#39;, &#39;Pod&#39;, &#39;Jvm&#39;) | [default to ""]
+**Name** | **string** | Entity name pattern | [default to ""]
+**Scope** | Pointer to **map[string]string** | Scope definitions for the entity | [optional] [default to ]
+**Lookup** | Pointer to **map[string]string** | Lookup mappings | [optional] [default to ]
+**DefinedBy** | Pointer to [**[]PropertyRuleDto**](PropertyRuleDto.md) | Query/metric definitions that define this entity | [optional] [default to ]
+**EnrichedBy** | Pointer to [**[]PropertyRuleDto**](PropertyRuleDto.md) | Enrichment rules for this entity | [optional] [default to ]
+**DefinedStatically** | Pointer to [**[]StaticEntityDto**](StaticEntityDto.md) | Literal entity records that create and keep this type alive (mutually exclusive with definedBy) | [optional] [default to ]
+**EnrichedStatically** | Pointer to [**[]StaticEnrichmentDto**](StaticEnrichmentDto.md) | Literal enrichment records that patch existing entities of this type without keeping them alive | [optional] [default to ]
+**Disabled** | Pointer to **bool** | Whether this entity rule is disabled | [optional] [default to false]
 
 ## Methods
 
@@ -170,6 +172,56 @@ SetEnrichedBy sets EnrichedBy field to given value.
 `func (o *EntityRuleDto) HasEnrichedBy() bool`
 
 HasEnrichedBy returns a boolean if a field has been set.
+
+### GetDefinedStatically
+
+`func (o *EntityRuleDto) GetDefinedStatically() []StaticEntityDto`
+
+GetDefinedStatically returns the DefinedStatically field if non-nil, zero value otherwise.
+
+### GetDefinedStaticallyOk
+
+`func (o *EntityRuleDto) GetDefinedStaticallyOk() (*[]StaticEntityDto, bool)`
+
+GetDefinedStaticallyOk returns a tuple with the DefinedStatically field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDefinedStatically
+
+`func (o *EntityRuleDto) SetDefinedStatically(v []StaticEntityDto)`
+
+SetDefinedStatically sets DefinedStatically field to given value.
+
+### HasDefinedStatically
+
+`func (o *EntityRuleDto) HasDefinedStatically() bool`
+
+HasDefinedStatically returns a boolean if a field has been set.
+
+### GetEnrichedStatically
+
+`func (o *EntityRuleDto) GetEnrichedStatically() []StaticEnrichmentDto`
+
+GetEnrichedStatically returns the EnrichedStatically field if non-nil, zero value otherwise.
+
+### GetEnrichedStaticallyOk
+
+`func (o *EntityRuleDto) GetEnrichedStaticallyOk() (*[]StaticEnrichmentDto, bool)`
+
+GetEnrichedStaticallyOk returns a tuple with the EnrichedStatically field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEnrichedStatically
+
+`func (o *EntityRuleDto) SetEnrichedStatically(v []StaticEnrichmentDto)`
+
+SetEnrichedStatically sets EnrichedStatically field to given value.
+
+### HasEnrichedStatically
+
+`func (o *EntityRuleDto) HasEnrichedStatically() bool`
+
+HasEnrichedStatically returns a boolean if a field has been set.
 
 ### GetDisabled
 

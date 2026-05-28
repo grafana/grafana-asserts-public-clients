@@ -23,11 +23,11 @@ func Test_gcom_AssertionSearchControllerAPIService(t *testing.T) {
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
-	t.Run("Test AssertionSearchControllerAPIService Search2", func(t *testing.T) {
+	t.Run("Test AssertionSearchControllerAPIService Search3", func(t *testing.T) {
 
 		t.Skip("skip test") // remove to run test
 
-		resp, httpRes, err := apiClient.AssertionSearchControllerAPI.Search2(context.Background()).Execute()
+		resp, httpRes, err := apiClient.AssertionSearchControllerAPI.Search3(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

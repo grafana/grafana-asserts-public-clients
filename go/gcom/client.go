@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.03.02-104252
+API version: 2026.05.28-151524
 Contact: support@asserts.ai
 */
 
@@ -41,7 +41,7 @@ var (
 	queryDescape    = strings.NewReplacer("%5B", "[", "%5D", "]")
 )
 
-// APIClient manages communication with the Asserts, Inc API v2026.03.02-104252
+// APIClient manages communication with the Asserts, Inc API v2026.05.28-151524
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration
@@ -65,9 +65,13 @@ type APIClient struct {
 
 	CustomDashConfigControllerAPI *CustomDashConfigControllerAPIService
 
+	CustomLabelRetentionAPI *CustomLabelRetentionAPIService
+
 	CustomRcaPatternControllerAPI *CustomRcaPatternControllerAPIService
 
 	CustomerMetricControllerAPI *CustomerMetricControllerAPIService
+
+	CypherSearchControllerAPI *CypherSearchControllerAPIService
 
 	DataSourcesConfigControllerAPI *DataSourcesConfigControllerAPIService
 
@@ -91,6 +95,8 @@ type APIClient struct {
 
 	KpiDisplayConfigControllerAPI *KpiDisplayConfigControllerAPIService
 
+	KubernetesEventsAPI *KubernetesEventsAPIService
+
 	LatencyThresholdControllerAPI *LatencyThresholdControllerAPIService
 
 	LlmRcaControllerAPI *LlmRcaControllerAPIService
@@ -106,8 +112,6 @@ type APIClient struct {
 	ModelRulesConfigurationAPI *ModelRulesConfigurationAPIService
 
 	MonitoringStatusControllerAPI *MonitoringStatusControllerAPIService
-
-	OtelConfigControllerAPI *OtelConfigControllerAPIService
 
 	ProductActivationControllerAPI *ProductActivationControllerAPIService
 
@@ -135,8 +139,6 @@ type APIClient struct {
 
 	StackControllerAPI *StackControllerAPIService
 
-	StackInfoControllerAPI *StackInfoControllerAPIService
-
 	StackMigrationControllerAPI *StackMigrationControllerAPIService
 
 	ThresholdRulesConfigControllerAPI *ThresholdRulesConfigControllerAPIService
@@ -148,8 +150,6 @@ type APIClient struct {
 	TraceControllerAPI *TraceControllerAPIService
 
 	TraceDrilldownConfigControllerAPI *TraceDrilldownConfigControllerAPIService
-
-	VersionControllerAPI *VersionControllerAPIService
 }
 
 type service struct {
@@ -176,8 +176,10 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.AutoCompleteControllerAPI = (*AutoCompleteControllerAPIService)(&c.common)
 	c.ConfigExportImportControllerAPI = (*ConfigExportImportControllerAPIService)(&c.common)
 	c.CustomDashConfigControllerAPI = (*CustomDashConfigControllerAPIService)(&c.common)
+	c.CustomLabelRetentionAPI = (*CustomLabelRetentionAPIService)(&c.common)
 	c.CustomRcaPatternControllerAPI = (*CustomRcaPatternControllerAPIService)(&c.common)
 	c.CustomerMetricControllerAPI = (*CustomerMetricControllerAPIService)(&c.common)
+	c.CypherSearchControllerAPI = (*CypherSearchControllerAPIService)(&c.common)
 	c.DataSourcesConfigControllerAPI = (*DataSourcesConfigControllerAPIService)(&c.common)
 	c.DrilldownConfigMigrationControllerAPI = (*DrilldownConfigMigrationControllerAPIService)(&c.common)
 	c.EntityAssertionsControllerAPI = (*EntityAssertionsControllerAPIService)(&c.common)
@@ -189,6 +191,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.GraphDisplayConfigControllerAPI = (*GraphDisplayConfigControllerAPIService)(&c.common)
 	c.IncidentControllerAPI = (*IncidentControllerAPIService)(&c.common)
 	c.KpiDisplayConfigControllerAPI = (*KpiDisplayConfigControllerAPIService)(&c.common)
+	c.KubernetesEventsAPI = (*KubernetesEventsAPIService)(&c.common)
 	c.LatencyThresholdControllerAPI = (*LatencyThresholdControllerAPIService)(&c.common)
 	c.LlmRcaControllerAPI = (*LlmRcaControllerAPIService)(&c.common)
 	c.LogConfigControllerAPI = (*LogConfigControllerAPIService)(&c.common)
@@ -197,7 +200,6 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.ModelMappingControllerAPI = (*ModelMappingControllerAPIService)(&c.common)
 	c.ModelRulesConfigurationAPI = (*ModelRulesConfigurationAPIService)(&c.common)
 	c.MonitoringStatusControllerAPI = (*MonitoringStatusControllerAPIService)(&c.common)
-	c.OtelConfigControllerAPI = (*OtelConfigControllerAPIService)(&c.common)
 	c.ProductActivationControllerAPI = (*ProductActivationControllerAPIService)(&c.common)
 	c.ProfileDrilldownConfigControllerAPI = (*ProfileDrilldownConfigControllerAPIService)(&c.common)
 	c.PromQlValidationControllerAPI = (*PromQlValidationControllerAPIService)(&c.common)
@@ -211,14 +213,12 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.ServiceLevelControllerAPI = (*ServiceLevelControllerAPIService)(&c.common)
 	c.SloConfigControllerAPI = (*SloConfigControllerAPIService)(&c.common)
 	c.StackControllerAPI = (*StackControllerAPIService)(&c.common)
-	c.StackInfoControllerAPI = (*StackInfoControllerAPIService)(&c.common)
 	c.StackMigrationControllerAPI = (*StackMigrationControllerAPIService)(&c.common)
 	c.ThresholdRulesConfigControllerAPI = (*ThresholdRulesConfigControllerAPIService)(&c.common)
 	c.ThresholdsV2ConfigControllerAPI = (*ThresholdsV2ConfigControllerAPIService)(&c.common)
 	c.TraceConfigControllerAPI = (*TraceConfigControllerAPIService)(&c.common)
 	c.TraceControllerAPI = (*TraceControllerAPIService)(&c.common)
 	c.TraceDrilldownConfigControllerAPI = (*TraceDrilldownConfigControllerAPIService)(&c.common)
-	c.VersionControllerAPI = (*VersionControllerAPIService)(&c.common)
 
 	return c
 }

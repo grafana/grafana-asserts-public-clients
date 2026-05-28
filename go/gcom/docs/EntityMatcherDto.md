@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **PropertyMatchers** | Pointer to [**[]PropertyMatcherDto**](PropertyMatcherDto.md) |  | [optional] 
 **ConnectToEntityTypes** | Pointer to **[]string** |  | [optional] 
 **HavingAssertion** | Pointer to **bool** |  | [optional] 
+**HavingPropagatedAssertions** | Pointer to **bool** |  | [optional] 
 
 ## Methods
 
@@ -122,6 +123,31 @@ SetHavingAssertion sets HavingAssertion field to given value.
 `func (o *EntityMatcherDto) HasHavingAssertion() bool`
 
 HasHavingAssertion returns a boolean if a field has been set.
+
+### GetHavingPropagatedAssertions
+
+`func (o *EntityMatcherDto) GetHavingPropagatedAssertions() bool`
+
+GetHavingPropagatedAssertions returns the HavingPropagatedAssertions field if non-nil, zero value otherwise.
+
+### GetHavingPropagatedAssertionsOk
+
+`func (o *EntityMatcherDto) GetHavingPropagatedAssertionsOk() (*bool, bool)`
+
+GetHavingPropagatedAssertionsOk returns a tuple with the HavingPropagatedAssertions field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetHavingPropagatedAssertions
+
+`func (o *EntityMatcherDto) SetHavingPropagatedAssertions(v bool)`
+
+SetHavingPropagatedAssertions sets HavingPropagatedAssertions field to given value.
+
+### HasHavingPropagatedAssertions
+
+`func (o *EntityMatcherDto) HasHavingPropagatedAssertions() bool`
+
+HasHavingPropagatedAssertions returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
