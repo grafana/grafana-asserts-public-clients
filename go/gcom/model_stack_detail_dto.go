@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.03.02-104252
+API version: 2026.05.28-150714
 Contact: support@asserts.ai
 */
 
@@ -21,23 +21,25 @@ var _ MappedNullable = &StackDetailDto{}
 
 // StackDetailDto struct for StackDetailDto
 type StackDetailDto struct {
-	StackId                 *int32     `json:"stackId,omitempty"`
-	Slug                    *string    `json:"slug,omitempty"`
-	OrgId                   *int32     `json:"orgId,omitempty"`
-	OrgSlug                 *string    `json:"orgSlug,omitempty"`
-	GcomToken               *string    `json:"gcomToken,omitempty"`
-	MimirToken              *string    `json:"mimirToken,omitempty"`
-	AssertionDetectorToken  *string    `json:"assertionDetectorToken,omitempty"`
-	GrafanaToken            *string    `json:"grafanaToken,omitempty"`
-	Enabled                 *bool      `json:"enabled,omitempty"`
-	AlertManagerConfigured  *bool      `json:"alertManagerConfigured,omitempty"`
-	GraphInstanceCreated    *bool      `json:"graphInstanceCreated,omitempty"`
-	UseGrafanaManagedAlerts *bool      `json:"useGrafanaManagedAlerts,omitempty"`
-	Status                  *string    `json:"status,omitempty"`
-	DisabledTime            *time.Time `json:"disabledTime,omitempty"`
-	Version                 *int32     `json:"version,omitempty"`
-	ContactPointUID         *string    `json:"contactPointUID,omitempty"`
-	AdditionalProperties    map[string]interface{}
+	StackId                    *int32     `json:"stackId,omitempty"`
+	Slug                       *string    `json:"slug,omitempty"`
+	OrgId                      *int32     `json:"orgId,omitempty"`
+	OrgSlug                    *string    `json:"orgSlug,omitempty"`
+	GcomToken                  *string    `json:"gcomToken,omitempty"`
+	MimirToken                 *string    `json:"mimirToken,omitempty"`
+	AssertionDetectorToken     *string    `json:"assertionDetectorToken,omitempty"`
+	GrafanaToken               *string    `json:"grafanaToken,omitempty"`
+	Enabled                    *bool      `json:"enabled,omitempty"`
+	AlertManagerConfigured     *bool      `json:"alertManagerConfigured,omitempty"`
+	GraphInstanceCreated       *bool      `json:"graphInstanceCreated,omitempty"`
+	UseGrafanaManagedAlerts    *bool      `json:"useGrafanaManagedAlerts,omitempty"`
+	Status                     *string    `json:"status,omitempty"`
+	DisabledTime               *time.Time `json:"disabledTime,omitempty"`
+	Version                    *int32     `json:"version,omitempty"`
+	ContactPointUID            *string    `json:"contactPointUID,omitempty"`
+	AllowLargeTenantOnboarding *bool      `json:"allowLargeTenantOnboarding,omitempty"`
+	CurrentActiveSeries        *int32     `json:"currentActiveSeries,omitempty"`
+	AdditionalProperties       map[string]interface{}
 }
 
 type _StackDetailDto StackDetailDto
@@ -571,6 +573,70 @@ func (o *StackDetailDto) SetContactPointUID(v string) {
 	o.ContactPointUID = &v
 }
 
+// GetAllowLargeTenantOnboarding returns the AllowLargeTenantOnboarding field value if set, zero value otherwise.
+func (o *StackDetailDto) GetAllowLargeTenantOnboarding() bool {
+	if o == nil || IsNil(o.AllowLargeTenantOnboarding) {
+		var ret bool
+		return ret
+	}
+	return *o.AllowLargeTenantOnboarding
+}
+
+// GetAllowLargeTenantOnboardingOk returns a tuple with the AllowLargeTenantOnboarding field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *StackDetailDto) GetAllowLargeTenantOnboardingOk() (*bool, bool) {
+	if o == nil || IsNil(o.AllowLargeTenantOnboarding) {
+		return nil, false
+	}
+	return o.AllowLargeTenantOnboarding, true
+}
+
+// HasAllowLargeTenantOnboarding returns a boolean if a field has been set.
+func (o *StackDetailDto) HasAllowLargeTenantOnboarding() bool {
+	if o != nil && !IsNil(o.AllowLargeTenantOnboarding) {
+		return true
+	}
+
+	return false
+}
+
+// SetAllowLargeTenantOnboarding gets a reference to the given bool and assigns it to the AllowLargeTenantOnboarding field.
+func (o *StackDetailDto) SetAllowLargeTenantOnboarding(v bool) {
+	o.AllowLargeTenantOnboarding = &v
+}
+
+// GetCurrentActiveSeries returns the CurrentActiveSeries field value if set, zero value otherwise.
+func (o *StackDetailDto) GetCurrentActiveSeries() int32 {
+	if o == nil || IsNil(o.CurrentActiveSeries) {
+		var ret int32
+		return ret
+	}
+	return *o.CurrentActiveSeries
+}
+
+// GetCurrentActiveSeriesOk returns a tuple with the CurrentActiveSeries field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *StackDetailDto) GetCurrentActiveSeriesOk() (*int32, bool) {
+	if o == nil || IsNil(o.CurrentActiveSeries) {
+		return nil, false
+	}
+	return o.CurrentActiveSeries, true
+}
+
+// HasCurrentActiveSeries returns a boolean if a field has been set.
+func (o *StackDetailDto) HasCurrentActiveSeries() bool {
+	if o != nil && !IsNil(o.CurrentActiveSeries) {
+		return true
+	}
+
+	return false
+}
+
+// SetCurrentActiveSeries gets a reference to the given int32 and assigns it to the CurrentActiveSeries field.
+func (o *StackDetailDto) SetCurrentActiveSeries(v int32) {
+	o.CurrentActiveSeries = &v
+}
+
 func (o StackDetailDto) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -629,6 +695,12 @@ func (o StackDetailDto) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ContactPointUID) {
 		toSerialize["contactPointUID"] = o.ContactPointUID
 	}
+	if !IsNil(o.AllowLargeTenantOnboarding) {
+		toSerialize["allowLargeTenantOnboarding"] = o.AllowLargeTenantOnboarding
+	}
+	if !IsNil(o.CurrentActiveSeries) {
+		toSerialize["currentActiveSeries"] = o.CurrentActiveSeries
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -667,6 +739,8 @@ func (o *StackDetailDto) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "disabledTime")
 		delete(additionalProperties, "version")
 		delete(additionalProperties, "contactPointUID")
+		delete(additionalProperties, "allowLargeTenantOnboarding")
+		delete(additionalProperties, "currentActiveSeries")
 		o.AdditionalProperties = additionalProperties
 	}
 
