@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Pattern** | **string** | PromQL pattern to match metrics | 
-**StartEntityMatchers** | Pointer to **map[string]string** | Label matchers for start entity | [optional] 
-**EndEntityMatchers** | Pointer to **map[string]string** | Label matchers for end entity | [optional] 
+**Pattern** | **string** | PromQL pattern to match metrics | [default to ""]
+**StartEntityMatchers** | Pointer to **map[string]string** | Label matchers for start entity | [optional] [default to ]
+**EndEntityMatchers** | Pointer to **map[string]string** | Label matchers for end entity | [optional] [default to ]
 
 ## Methods
 
