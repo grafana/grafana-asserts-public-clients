@@ -8,6 +8,8 @@ Name | Type | Description | Notes
 **MimirToken** | Pointer to **string** |  | [optional] 
 **AssertionDetectorToken** | Pointer to **string** |  | [optional] 
 **GrafanaToken** | Pointer to **string** |  | [optional] 
+**LokiToken** | Pointer to **string** |  | [optional] 
+**PyroscopeToken** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -127,6 +129,56 @@ SetGrafanaToken sets GrafanaToken field to given value.
 `func (o *StackDto) HasGrafanaToken() bool`
 
 HasGrafanaToken returns a boolean if a field has been set.
+
+### GetLokiToken
+
+`func (o *StackDto) GetLokiToken() string`
+
+GetLokiToken returns the LokiToken field if non-nil, zero value otherwise.
+
+### GetLokiTokenOk
+
+`func (o *StackDto) GetLokiTokenOk() (*string, bool)`
+
+GetLokiTokenOk returns a tuple with the LokiToken field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLokiToken
+
+`func (o *StackDto) SetLokiToken(v string)`
+
+SetLokiToken sets LokiToken field to given value.
+
+### HasLokiToken
+
+`func (o *StackDto) HasLokiToken() bool`
+
+HasLokiToken returns a boolean if a field has been set.
+
+### GetPyroscopeToken
+
+`func (o *StackDto) GetPyroscopeToken() string`
+
+GetPyroscopeToken returns the PyroscopeToken field if non-nil, zero value otherwise.
+
+### GetPyroscopeTokenOk
+
+`func (o *StackDto) GetPyroscopeTokenOk() (*string, bool)`
+
+GetPyroscopeTokenOk returns a tuple with the PyroscopeToken field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPyroscopeToken
+
+`func (o *StackDto) SetPyroscopeToken(v string)`
+
+SetPyroscopeToken sets PyroscopeToken field to given value.
+
+### HasPyroscopeToken
+
+`func (o *StackDto) HasPyroscopeToken() bool`
+
+HasPyroscopeToken returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

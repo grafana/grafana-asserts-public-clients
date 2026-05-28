@@ -12,7 +12,6 @@ Name | Type | Description | Notes
 **SanityCheckResults** | Pointer to [**[]MetricSanityCheckResult**](MetricSanityCheckResult.md) |  | [optional] 
 **Version** | Pointer to **int32** |  | [optional] 
 **UseGrafanaManagedAlerts** | Pointer to **bool** |  | [optional] 
-**ContactPointUID** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -232,31 +231,6 @@ SetUseGrafanaManagedAlerts sets UseGrafanaManagedAlerts field to given value.
 `func (o *StackStatusDto) HasUseGrafanaManagedAlerts() bool`
 
 HasUseGrafanaManagedAlerts returns a boolean if a field has been set.
-
-### GetContactPointUID
-
-`func (o *StackStatusDto) GetContactPointUID() string`
-
-GetContactPointUID returns the ContactPointUID field if non-nil, zero value otherwise.
-
-### GetContactPointUIDOk
-
-`func (o *StackStatusDto) GetContactPointUIDOk() (*string, bool)`
-
-GetContactPointUIDOk returns a tuple with the ContactPointUID field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetContactPointUID
-
-`func (o *StackStatusDto) SetContactPointUID(v string)`
-
-SetContactPointUID sets ContactPointUID field to given value.
-
-### HasContactPointUID
-
-`func (o *StackStatusDto) HasContactPointUID() bool`
-
-HasContactPointUID returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
