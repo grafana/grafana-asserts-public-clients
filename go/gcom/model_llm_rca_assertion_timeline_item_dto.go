@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.03.02-104252
+API version: 2026.05.28-150714
 Contact: support@asserts.ai
 */
 
@@ -20,11 +20,12 @@ var _ MappedNullable = &LlmRcaAssertionTimelineItemDto{}
 
 // LlmRcaAssertionTimelineItemDto struct for LlmRcaAssertionTimelineItemDto
 type LlmRcaAssertionTimelineItemDto struct {
-	AssertionName        *string                   `json:"assertionName,omitempty"`
-	Category             *string                   `json:"category,omitempty"`
-	AlertName            *string                   `json:"alertName,omitempty"`
-	HealthStates         []LlmRcaAssertionStateDto `json:"healthStates,omitempty"`
-	Labels               []map[string]string       `json:"labels,omitempty"`
+	AssertionName        *string                          `json:"assertionName,omitempty"`
+	Category             *string                          `json:"category,omitempty"`
+	AlertName            *string                          `json:"alertName,omitempty"`
+	HealthStates         []LlmRcaAssertionStateDto        `json:"healthStates,omitempty"`
+	Labels               []map[string]string              `json:"labels,omitempty"`
+	NestedTimelines      []LlmRcaAssertionTimelineItemDto `json:"nestedTimelines,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -207,6 +208,38 @@ func (o *LlmRcaAssertionTimelineItemDto) SetLabels(v []map[string]string) {
 	o.Labels = v
 }
 
+// GetNestedTimelines returns the NestedTimelines field value if set, zero value otherwise.
+func (o *LlmRcaAssertionTimelineItemDto) GetNestedTimelines() []LlmRcaAssertionTimelineItemDto {
+	if o == nil || IsNil(o.NestedTimelines) {
+		var ret []LlmRcaAssertionTimelineItemDto
+		return ret
+	}
+	return o.NestedTimelines
+}
+
+// GetNestedTimelinesOk returns a tuple with the NestedTimelines field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LlmRcaAssertionTimelineItemDto) GetNestedTimelinesOk() ([]LlmRcaAssertionTimelineItemDto, bool) {
+	if o == nil || IsNil(o.NestedTimelines) {
+		return nil, false
+	}
+	return o.NestedTimelines, true
+}
+
+// HasNestedTimelines returns a boolean if a field has been set.
+func (o *LlmRcaAssertionTimelineItemDto) HasNestedTimelines() bool {
+	if o != nil && !IsNil(o.NestedTimelines) {
+		return true
+	}
+
+	return false
+}
+
+// SetNestedTimelines gets a reference to the given []LlmRcaAssertionTimelineItemDto and assigns it to the NestedTimelines field.
+func (o *LlmRcaAssertionTimelineItemDto) SetNestedTimelines(v []LlmRcaAssertionTimelineItemDto) {
+	o.NestedTimelines = v
+}
+
 func (o LlmRcaAssertionTimelineItemDto) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -231,6 +264,9 @@ func (o LlmRcaAssertionTimelineItemDto) ToMap() (map[string]interface{}, error) 
 	}
 	if !IsNil(o.Labels) {
 		toSerialize["labels"] = o.Labels
+	}
+	if !IsNil(o.NestedTimelines) {
+		toSerialize["nestedTimelines"] = o.NestedTimelines
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -259,6 +295,7 @@ func (o *LlmRcaAssertionTimelineItemDto) UnmarshalJSON(data []byte) (err error) 
 		delete(additionalProperties, "alertName")
 		delete(additionalProperties, "healthStates")
 		delete(additionalProperties, "labels")
+		delete(additionalProperties, "nestedTimelines")
 		o.AdditionalProperties = additionalProperties
 	}
 

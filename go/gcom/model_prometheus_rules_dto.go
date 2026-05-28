@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.03.02-104252
+API version: 2026.05.28-150714
 Contact: support@asserts.ai
 */
 
@@ -43,6 +43,8 @@ func NewPrometheusRulesDto(name string, groups []PrometheusRuleGroupDto) *Promet
 	this.Active = &active
 	this.Name = name
 	this.Groups = groups
+	var managedBy string = ""
+	this.ManagedBy = &managedBy
 	return &this
 }
 
@@ -53,6 +55,10 @@ func NewPrometheusRulesDtoWithDefaults() *PrometheusRulesDto {
 	this := PrometheusRulesDto{}
 	var active bool = true
 	this.Active = &active
+	var name string = ""
+	this.Name = name
+	var managedBy string = ""
+	this.ManagedBy = &managedBy
 	return &this
 }
 
