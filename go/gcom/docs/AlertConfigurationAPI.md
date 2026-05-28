@@ -20,6 +20,8 @@ Method | HTTP request | Description
 [**PutAlertConfigs**](AlertConfigurationAPI.md#PutAlertConfigs) | **Post** /v1/config/alerts | Create or update multiple alert configurations
 [**PutDisabledAlertConfig**](AlertConfigurationAPI.md#PutDisabledAlertConfig) | **Post** /v1/config/disabled-alert | Disable a single alert configuration
 [**PutDisabledAlertConfigs**](AlertConfigurationAPI.md#PutDisabledAlertConfigs) | **Post** /v1/config/disabled-alerts | Disable multiple alert configurations
+[**ValidateDisabledAlertConfig**](AlertConfigurationAPI.md#ValidateDisabledAlertConfig) | **Post** /v1/config/disabled-alert-validate | Validate a single disabled alert configuration
+[**ValidateDisabledAlertConfigs**](AlertConfigurationAPI.md#ValidateDisabledAlertConfigs) | **Post** /v1/config/disabled-alerts-validate | Validate disabled alert configurations
 
 
 
@@ -44,7 +46,7 @@ import (
 )
 
 func main() {
-	name := "name_example" // string | The name of the alert configuration to delete
+	name := "name_example" // string | The name of the alert configuration to delete (default to "")
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -63,7 +65,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**name** | **string** | The name of the alert configuration to delete | 
+**name** | **string** | The name of the alert configuration to delete | [default to &quot;&quot;]
 
 ### Other Parameters
 
@@ -114,7 +116,7 @@ import (
 )
 
 func main() {
-	name := "name_example" // string | The name of the disabled alert to re-enable
+	name := "name_example" // string | The name of the disabled alert to re-enable (default to "")
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -133,7 +135,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**name** | **string** | The name of the disabled alert to re-enable | 
+**name** | **string** | The name of the disabled alert to re-enable | [default to &quot;&quot;]
 
 ### Other Parameters
 
@@ -165,7 +167,7 @@ No authorization required
 
 ## GetAllAlertConfigs
 
-> AlertConfigsDto GetAllAlertConfigs(ctx).XScopeOrgID(xScopeOrgID).Execute()
+> AlertConfigsDto[string]interface{} GetAllAlertConfigs(ctx).XScopeOrgID(xScopeOrgID).Execute()
 
 Get all alert configurations
 
@@ -193,7 +195,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `AlertConfigurationAPI.GetAllAlertConfigs``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetAllAlertConfigs`: AlertConfigsDto
+	// response from `GetAllAlertConfigs`: AlertConfigsDto[string]interface{}
 	fmt.Fprintf(os.Stdout, "Response from `AlertConfigurationAPI.GetAllAlertConfigs`: %v\n", resp)
 }
 ```
@@ -213,7 +215,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AlertConfigsDto**](AlertConfigsDto.md)
+**AlertConfigsDto[string]interface{}**
 
 ### Authorization
 
@@ -231,7 +233,7 @@ No authorization required
 
 ## GetAllDisabledAlertConfigs
 
-> DisabledAlertConfigsDto GetAllDisabledAlertConfigs(ctx).XScopeOrgID(xScopeOrgID).Execute()
+> DisabledAlertConfigsDto[string]interface{} GetAllDisabledAlertConfigs(ctx).XScopeOrgID(xScopeOrgID).Execute()
 
 Get all disabled alert configurations
 
@@ -259,7 +261,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `AlertConfigurationAPI.GetAllDisabledAlertConfigs``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetAllDisabledAlertConfigs`: DisabledAlertConfigsDto
+	// response from `GetAllDisabledAlertConfigs`: DisabledAlertConfigsDto[string]interface{}
 	fmt.Fprintf(os.Stdout, "Response from `AlertConfigurationAPI.GetAllDisabledAlertConfigs`: %v\n", resp)
 }
 ```
@@ -279,7 +281,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DisabledAlertConfigsDto**](DisabledAlertConfigsDto.md)
+**DisabledAlertConfigsDto[string]interface{}**
 
 ### Authorization
 
@@ -297,7 +299,7 @@ No authorization required
 
 ## GetDisabledHealthAlertConfigs
 
-> DisabledAlertConfigsDto GetDisabledHealthAlertConfigs(ctx).XScopeOrgID(xScopeOrgID).Execute()
+> DisabledAlertConfigsDto[string]interface{} GetDisabledHealthAlertConfigs(ctx).XScopeOrgID(xScopeOrgID).Execute()
 
 Get disabled health-based alert configurations
 
@@ -325,7 +327,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `AlertConfigurationAPI.GetDisabledHealthAlertConfigs``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetDisabledHealthAlertConfigs`: DisabledAlertConfigsDto
+	// response from `GetDisabledHealthAlertConfigs`: DisabledAlertConfigsDto[string]interface{}
 	fmt.Fprintf(os.Stdout, "Response from `AlertConfigurationAPI.GetDisabledHealthAlertConfigs`: %v\n", resp)
 }
 ```
@@ -345,7 +347,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DisabledAlertConfigsDto**](DisabledAlertConfigsDto.md)
+**DisabledAlertConfigsDto[string]interface{}**
 
 ### Authorization
 
@@ -363,7 +365,7 @@ No authorization required
 
 ## GetDisabledRequestAlertConfigs
 
-> DisabledAlertConfigsDto GetDisabledRequestAlertConfigs(ctx).XScopeOrgID(xScopeOrgID).Execute()
+> DisabledAlertConfigsDto[string]interface{} GetDisabledRequestAlertConfigs(ctx).XScopeOrgID(xScopeOrgID).Execute()
 
 Get disabled request-based alert configurations
 
@@ -391,7 +393,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `AlertConfigurationAPI.GetDisabledRequestAlertConfigs``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetDisabledRequestAlertConfigs`: DisabledAlertConfigsDto
+	// response from `GetDisabledRequestAlertConfigs`: DisabledAlertConfigsDto[string]interface{}
 	fmt.Fprintf(os.Stdout, "Response from `AlertConfigurationAPI.GetDisabledRequestAlertConfigs`: %v\n", resp)
 }
 ```
@@ -411,7 +413,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DisabledAlertConfigsDto**](DisabledAlertConfigsDto.md)
+**DisabledAlertConfigsDto[string]interface{}**
 
 ### Authorization
 
@@ -429,7 +431,7 @@ No authorization required
 
 ## GetDisabledResourceAlertConfigs
 
-> DisabledAlertConfigsDto GetDisabledResourceAlertConfigs(ctx).XScopeOrgID(xScopeOrgID).Execute()
+> DisabledAlertConfigsDto[string]interface{} GetDisabledResourceAlertConfigs(ctx).XScopeOrgID(xScopeOrgID).Execute()
 
 Get disabled resource-based alert configurations
 
@@ -457,7 +459,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `AlertConfigurationAPI.GetDisabledResourceAlertConfigs``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetDisabledResourceAlertConfigs`: DisabledAlertConfigsDto
+	// response from `GetDisabledResourceAlertConfigs`: DisabledAlertConfigsDto[string]interface{}
 	fmt.Fprintf(os.Stdout, "Response from `AlertConfigurationAPI.GetDisabledResourceAlertConfigs`: %v\n", resp)
 }
 ```
@@ -477,7 +479,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DisabledAlertConfigsDto**](DisabledAlertConfigsDto.md)
+**DisabledAlertConfigsDto[string]interface{}**
 
 ### Authorization
 
@@ -495,7 +497,7 @@ No authorization required
 
 ## GetFailureRuleGroups
 
-> PrometheusRuleGroupDto GetFailureRuleGroups(ctx).CustomFailureRules(customFailureRules).AllFailureRuleGroups(allFailureRuleGroups).XScopeOrgID(xScopeOrgID).Execute()
+> PrometheusRuleGroupDto[string]interface{} GetFailureRuleGroups(ctx).CustomFailureRules(customFailureRules).AllFailureRuleGroups(allFailureRuleGroups).XScopeOrgID(xScopeOrgID).Execute()
 
 Get Prometheus failure rule groups
 
@@ -514,8 +516,8 @@ import (
 )
 
 func main() {
-	customFailureRules := true // bool | Set to true to fetch only custom failure rules (optional)
-	allFailureRuleGroups := true // bool | Set to true to fetch all failure rule groups (custom and default) (optional)
+	customFailureRules := "customFailureRules_example" // string | Set to true to fetch only custom failure rules (optional) (default to "")
+	allFailureRuleGroups := "allFailureRuleGroups_example" // string | Set to true to fetch all failure rule groups (custom and default) (optional) (default to "")
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -525,7 +527,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `AlertConfigurationAPI.GetFailureRuleGroups``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetFailureRuleGroups`: PrometheusRuleGroupDto
+	// response from `GetFailureRuleGroups`: PrometheusRuleGroupDto[string]interface{}
 	fmt.Fprintf(os.Stdout, "Response from `AlertConfigurationAPI.GetFailureRuleGroups`: %v\n", resp)
 }
 ```
@@ -541,13 +543,13 @@ Other parameters are passed through a pointer to a apiGetFailureRuleGroupsReques
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **customFailureRules** | **bool** | Set to true to fetch only custom failure rules | 
- **allFailureRuleGroups** | **bool** | Set to true to fetch all failure rule groups (custom and default) | 
+ **customFailureRules** | **string** | Set to true to fetch only custom failure rules | [default to &quot;&quot;]
+ **allFailureRuleGroups** | **string** | Set to true to fetch all failure rule groups (custom and default) | [default to &quot;&quot;]
  **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
 
 ### Return type
 
-[**PrometheusRuleGroupDto**](PrometheusRuleGroupDto.md)
+**PrometheusRuleGroupDto[string]interface{}**
 
 ### Authorization
 
@@ -565,7 +567,7 @@ No authorization required
 
 ## GetHealthAlertConfigs
 
-> AlertConfigsDto GetHealthAlertConfigs(ctx).XScopeOrgID(xScopeOrgID).Execute()
+> AlertConfigsDto[string]interface{} GetHealthAlertConfigs(ctx).XScopeOrgID(xScopeOrgID).Execute()
 
 Get health-based alert configurations
 
@@ -593,7 +595,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `AlertConfigurationAPI.GetHealthAlertConfigs``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetHealthAlertConfigs`: AlertConfigsDto
+	// response from `GetHealthAlertConfigs`: AlertConfigsDto[string]interface{}
 	fmt.Fprintf(os.Stdout, "Response from `AlertConfigurationAPI.GetHealthAlertConfigs`: %v\n", resp)
 }
 ```
@@ -613,7 +615,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AlertConfigsDto**](AlertConfigsDto.md)
+**AlertConfigsDto[string]interface{}**
 
 ### Authorization
 
@@ -631,7 +633,7 @@ No authorization required
 
 ## GetRequestAlertConfigs
 
-> AlertConfigsDto GetRequestAlertConfigs(ctx).XScopeOrgID(xScopeOrgID).Execute()
+> AlertConfigsDto[string]interface{} GetRequestAlertConfigs(ctx).XScopeOrgID(xScopeOrgID).Execute()
 
 Get request-based alert configurations
 
@@ -659,7 +661,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `AlertConfigurationAPI.GetRequestAlertConfigs``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetRequestAlertConfigs`: AlertConfigsDto
+	// response from `GetRequestAlertConfigs`: AlertConfigsDto[string]interface{}
 	fmt.Fprintf(os.Stdout, "Response from `AlertConfigurationAPI.GetRequestAlertConfigs`: %v\n", resp)
 }
 ```
@@ -679,7 +681,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AlertConfigsDto**](AlertConfigsDto.md)
+**AlertConfigsDto[string]interface{}**
 
 ### Authorization
 
@@ -697,7 +699,7 @@ No authorization required
 
 ## GetResourceAlertConfigs
 
-> AlertConfigsDto GetResourceAlertConfigs(ctx).XScopeOrgID(xScopeOrgID).Execute()
+> AlertConfigsDto[string]interface{} GetResourceAlertConfigs(ctx).XScopeOrgID(xScopeOrgID).Execute()
 
 Get resource-based alert configurations
 
@@ -725,7 +727,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `AlertConfigurationAPI.GetResourceAlertConfigs``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetResourceAlertConfigs`: AlertConfigsDto
+	// response from `GetResourceAlertConfigs`: AlertConfigsDto[string]interface{}
 	fmt.Fprintf(os.Stdout, "Response from `AlertConfigurationAPI.GetResourceAlertConfigs`: %v\n", resp)
 }
 ```
@@ -745,7 +747,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AlertConfigsDto**](AlertConfigsDto.md)
+**AlertConfigsDto[string]interface{}**
 
 ### Authorization
 
@@ -763,7 +765,7 @@ No authorization required
 
 ## GetSloAlertConfigs
 
-> AlertConfigsDto GetSloAlertConfigs(ctx).XScopeOrgID(xScopeOrgID).Execute()
+> AlertConfigsDto[string]interface{} GetSloAlertConfigs(ctx).XScopeOrgID(xScopeOrgID).Execute()
 
 Get SLO-based alert configurations
 
@@ -791,7 +793,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `AlertConfigurationAPI.GetSloAlertConfigs``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetSloAlertConfigs`: AlertConfigsDto
+	// response from `GetSloAlertConfigs`: AlertConfigsDto[string]interface{}
 	fmt.Fprintf(os.Stdout, "Response from `AlertConfigurationAPI.GetSloAlertConfigs`: %v\n", resp)
 }
 ```
@@ -811,7 +813,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AlertConfigsDto**](AlertConfigsDto.md)
+**AlertConfigsDto[string]interface{}**
 
 ### Authorization
 
@@ -1066,6 +1068,138 @@ func main() {
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPutDisabledAlertConfigsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **disabledAlertConfigsDto** | [**DisabledAlertConfigsDto**](DisabledAlertConfigsDto.md) |  | 
+ **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json, application/x-yml, application/x-yaml
+- **Accept**: application/json, application/x-yml, application/x-yaml
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ValidateDisabledAlertConfig
+
+> ValidateDisabledAlertConfig(ctx).DisabledAlertConfigDto(disabledAlertConfigDto).XScopeOrgID(xScopeOrgID).Execute()
+
+Validate a single disabled alert configuration
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/grafana/grafana-asserts-public-clients/go/gcom"
+)
+
+func main() {
+	disabledAlertConfigDto := *openapiclient.NewDisabledAlertConfigDto() // DisabledAlertConfigDto | 
+	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.AlertConfigurationAPI.ValidateDisabledAlertConfig(context.Background()).DisabledAlertConfigDto(disabledAlertConfigDto).XScopeOrgID(xScopeOrgID).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AlertConfigurationAPI.ValidateDisabledAlertConfig``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiValidateDisabledAlertConfigRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **disabledAlertConfigDto** | [**DisabledAlertConfigDto**](DisabledAlertConfigDto.md) |  | 
+ **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json, application/x-yml, application/x-yaml
+- **Accept**: application/json, application/x-yml, application/x-yaml
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ValidateDisabledAlertConfigs
+
+> ValidateDisabledAlertConfigs(ctx).DisabledAlertConfigsDto(disabledAlertConfigsDto).XScopeOrgID(xScopeOrgID).Execute()
+
+Validate disabled alert configurations
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/grafana/grafana-asserts-public-clients/go/gcom"
+)
+
+func main() {
+	disabledAlertConfigsDto := *openapiclient.NewDisabledAlertConfigsDto() // DisabledAlertConfigsDto | 
+	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.AlertConfigurationAPI.ValidateDisabledAlertConfigs(context.Background()).DisabledAlertConfigsDto(disabledAlertConfigsDto).XScopeOrgID(xScopeOrgID).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AlertConfigurationAPI.ValidateDisabledAlertConfigs``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiValidateDisabledAlertConfigsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

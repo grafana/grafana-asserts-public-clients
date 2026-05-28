@@ -20,6 +20,8 @@ Name | Type | Description | Notes
 **DisabledTime** | Pointer to **time.Time** |  | [optional] 
 **Version** | Pointer to **int32** |  | [optional] 
 **ContactPointUID** | Pointer to **string** |  | [optional] 
+**AllowLargeTenantOnboarding** | Pointer to **bool** |  | [optional] 
+**CurrentActiveSeries** | Pointer to **int32** |  | [optional] 
 
 ## Methods
 
@@ -439,6 +441,56 @@ SetContactPointUID sets ContactPointUID field to given value.
 `func (o *StackDetailDto) HasContactPointUID() bool`
 
 HasContactPointUID returns a boolean if a field has been set.
+
+### GetAllowLargeTenantOnboarding
+
+`func (o *StackDetailDto) GetAllowLargeTenantOnboarding() bool`
+
+GetAllowLargeTenantOnboarding returns the AllowLargeTenantOnboarding field if non-nil, zero value otherwise.
+
+### GetAllowLargeTenantOnboardingOk
+
+`func (o *StackDetailDto) GetAllowLargeTenantOnboardingOk() (*bool, bool)`
+
+GetAllowLargeTenantOnboardingOk returns a tuple with the AllowLargeTenantOnboarding field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAllowLargeTenantOnboarding
+
+`func (o *StackDetailDto) SetAllowLargeTenantOnboarding(v bool)`
+
+SetAllowLargeTenantOnboarding sets AllowLargeTenantOnboarding field to given value.
+
+### HasAllowLargeTenantOnboarding
+
+`func (o *StackDetailDto) HasAllowLargeTenantOnboarding() bool`
+
+HasAllowLargeTenantOnboarding returns a boolean if a field has been set.
+
+### GetCurrentActiveSeries
+
+`func (o *StackDetailDto) GetCurrentActiveSeries() int32`
+
+GetCurrentActiveSeries returns the CurrentActiveSeries field if non-nil, zero value otherwise.
+
+### GetCurrentActiveSeriesOk
+
+`func (o *StackDetailDto) GetCurrentActiveSeriesOk() (*int32, bool)`
+
+GetCurrentActiveSeriesOk returns a tuple with the CurrentActiveSeries field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCurrentActiveSeries
+
+`func (o *StackDetailDto) SetCurrentActiveSeries(v int32)`
+
+SetCurrentActiveSeries sets CurrentActiveSeries field to given value.
+
+### HasCurrentActiveSeries
+
+`func (o *StackDetailDto) HasCurrentActiveSeries() bool`
+
+HasCurrentActiveSeries returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
