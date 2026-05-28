@@ -4,15 +4,15 @@ All URIs are relative to *http://localhost:8030/asserts/api-server*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteConfig3**](LogConfigControllerAPI.md#DeleteConfig3) | **Delete** /v1/config/environment/{name} | 
+[**DeleteConfig4**](LogConfigControllerAPI.md#DeleteConfig4) | **Delete** /v1/config/environment/{name} | 
 [**GetTenantEnvConfig**](LogConfigControllerAPI.md#GetTenantEnvConfig) | **Get** /v1/config/environment | 
 [**UpsertEnvironmentConfig**](LogConfigControllerAPI.md#UpsertEnvironmentConfig) | **Post** /v1/config/environment | 
 
 
 
-## DeleteConfig3
+## DeleteConfig4
 
-> DeleteConfig3(ctx, name).XScopeOrgID(xScopeOrgID).Execute()
+> DeleteConfig4(ctx, name).XScopeOrgID(xScopeOrgID).Execute()
 
 
 
@@ -34,9 +34,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.LogConfigControllerAPI.DeleteConfig3(context.Background(), name).XScopeOrgID(xScopeOrgID).Execute()
+	r, err := apiClient.LogConfigControllerAPI.DeleteConfig4(context.Background(), name).XScopeOrgID(xScopeOrgID).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `LogConfigControllerAPI.DeleteConfig3``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `LogConfigControllerAPI.DeleteConfig4``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -52,7 +52,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDeleteConfig3Request struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteConfig4Request struct via the builder pattern
 
 
 Name | Type | Description  | Notes
