@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **SanityCheckResults** | Pointer to [**[]MetricSanityCheckResult**](MetricSanityCheckResult.md) |  | [optional] 
 **Version** | Pointer to **int32** |  | [optional] 
 **UseGrafanaManagedAlerts** | Pointer to **bool** |  | [optional] 
-**ContactPointUID** | Pointer to **string** |  | [optional] 
+**OtelNative** | Pointer to **bool** |  | [optional] 
 
 ## Methods
 
@@ -233,30 +233,30 @@ SetUseGrafanaManagedAlerts sets UseGrafanaManagedAlerts field to given value.
 
 HasUseGrafanaManagedAlerts returns a boolean if a field has been set.
 
-### GetContactPointUID
+### GetOtelNative
 
-`func (o *StackStatusDto) GetContactPointUID() string`
+`func (o *StackStatusDto) GetOtelNative() bool`
 
-GetContactPointUID returns the ContactPointUID field if non-nil, zero value otherwise.
+GetOtelNative returns the OtelNative field if non-nil, zero value otherwise.
 
-### GetContactPointUIDOk
+### GetOtelNativeOk
 
-`func (o *StackStatusDto) GetContactPointUIDOk() (*string, bool)`
+`func (o *StackStatusDto) GetOtelNativeOk() (*bool, bool)`
 
-GetContactPointUIDOk returns a tuple with the ContactPointUID field if it's non-nil, zero value otherwise
+GetOtelNativeOk returns a tuple with the OtelNative field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetContactPointUID
+### SetOtelNative
 
-`func (o *StackStatusDto) SetContactPointUID(v string)`
+`func (o *StackStatusDto) SetOtelNative(v bool)`
 
-SetContactPointUID sets ContactPointUID field to given value.
+SetOtelNative sets OtelNative field to given value.
 
-### HasContactPointUID
+### HasOtelNative
 
-`func (o *StackStatusDto) HasContactPointUID() bool`
+`func (o *StackStatusDto) HasOtelNative() bool`
 
-HasContactPointUID returns a boolean if a field has been set.
+HasOtelNative returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

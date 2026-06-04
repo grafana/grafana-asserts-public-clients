@@ -4,6 +4,7 @@ All URIs are relative to *http://localhost:8030/asserts/api-server*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**AllowLargeTenantOnboarding**](StackControllerAPI.md#AllowLargeTenantOnboarding) | **Post** /v2/stack/allow-large-tenant-onboarding | 
 [**CreateStack**](StackControllerAPI.md#CreateStack) | **Post** /v1/stack | 
 [**DetectAndAutoConfigureDatasets**](StackControllerAPI.md#DetectAndAutoConfigureDatasets) | **Post** /v2/stack/datasets/auto-setup | 
 [**DisableStack**](StackControllerAPI.md#DisableStack) | **Post** /v1/stack/disable | 
@@ -25,6 +26,70 @@ Method | HTTP request | Description
 [**UpdateStack**](StackControllerAPI.md#UpdateStack) | **Put** /v1/stack | 
 [**UpdateStatus**](StackControllerAPI.md#UpdateStatus) | **Post** /v1/stack/status/{status} | 
 
+
+
+## AllowLargeTenantOnboarding
+
+> StackStatusDto AllowLargeTenantOnboarding(ctx).XScopeOrgID(xScopeOrgID).Execute()
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/grafana/grafana-asserts-public-clients/go/gcom"
+)
+
+func main() {
+	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.StackControllerAPI.AllowLargeTenantOnboarding(context.Background()).XScopeOrgID(xScopeOrgID).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `StackControllerAPI.AllowLargeTenantOnboarding``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `AllowLargeTenantOnboarding`: StackStatusDto
+	fmt.Fprintf(os.Stdout, "Response from `StackControllerAPI.AllowLargeTenantOnboarding`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiAllowLargeTenantOnboardingRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
+
+### Return type
+
+[**StackStatusDto**](StackStatusDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## CreateStack
