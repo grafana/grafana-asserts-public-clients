@@ -7,15 +7,19 @@ info:
     name: Support
     url: "https://www.grafana.com"
     email: support@asserts.ai
-  version: 2026.03.02-104252
+  version: 2026.06.04-081556
 servers:
   - url: http://localhost:8030/asserts/api-server
     description: Generated server url
 tags:
+  - name: Kubernetes Events
+    description: Query Kubernetes events for entities
   - name: Model Rules Configuration
     description: APIs for managing model rule configurations
   - name: Alert Configuration
     description: APIs for managing alert configurations
+  - name: Custom Label Retention
+    description: APIs for managing per-tenant retained Prometheus labels
 paths:
   /v2/stack:
     put:
@@ -69,13 +73,19 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ReorderTraceConfigRequestDto"
+              type: string
+              default: ""
+              description: Trace drilldown configuration priority data
           application/x-yml:
             schema:
-              $ref: "#/components/schemas/ReorderTraceConfigRequestDto"
+              type: string
+              default: ""
+              description: Trace drilldown configuration priority data
           application/yaml:
             schema:
-              $ref: "#/components/schemas/ReorderTraceConfigRequestDto"
+              type: string
+              default: ""
+              description: Trace drilldown configuration priority data
         required: true
       responses:
         "200":
@@ -96,12 +106,21 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
             application/yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
   /v2/config/relabel-rules/prologue:
     get:
       tags:
@@ -222,13 +241,19 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ReorderConfigRequestDto"
+              type: string
+              default: ""
+              description: Profile drilldown configuration data
           application/x-yml:
             schema:
-              $ref: "#/components/schemas/ReorderConfigRequestDto"
+              type: string
+              default: ""
+              description: Profile drilldown configuration data
           application/yaml:
             schema:
-              $ref: "#/components/schemas/ReorderConfigRequestDto"
+              type: string
+              default: ""
+              description: Profile drilldown configuration data
         required: true
       responses:
         "200":
@@ -249,12 +274,21 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
             application/yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
   /v2/config/log/reorder:
     put:
       tags:
@@ -269,13 +303,19 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ReorderLogConfigRequestDto"
+              type: string
+              default: ""
+              description: Log drilldown configuration priority data
           application/x-yml:
             schema:
-              $ref: "#/components/schemas/ReorderLogConfigRequestDto"
+              type: string
+              default: ""
+              description: Log drilldown configuration priority data
           application/x-yaml:
             schema:
-              $ref: "#/components/schemas/ReorderLogConfigRequestDto"
+              type: string
+              default: ""
+              description: Log drilldown configuration priority data
         required: true
       responses:
         "200":
@@ -296,12 +336,21 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
   /v1/stack:
     get:
       tags:
@@ -507,13 +556,19 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ModelRulesDto"
+              type: string
+              default: ""
+              description: The model rules configuration to create or update
           application/x-yml:
             schema:
-              $ref: "#/components/schemas/ModelRulesDto"
+              type: string
+              default: ""
+              description: The model rules configuration to create or update
           application/x-yaml:
             schema:
-              $ref: "#/components/schemas/ModelRulesDto"
+              type: string
+              default: ""
+              description: The model rules configuration to create or update
         required: true
       responses:
         "200":
@@ -524,24 +579,42 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
         "500":
           description: Internal server error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
   /v1/config/model-rules/{name}:
     get:
       tags:
@@ -556,6 +629,7 @@ paths:
           required: true
           schema:
             type: string
+            default: ""
         - in: header
           $ref: "#/components/parameters/TenantId"
       responses:
@@ -596,13 +670,16 @@ paths:
           required: true
           schema:
             type: string
+            default: ""
         - in: header
           $ref: "#/components/parameters/TenantId"
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ModelRulesDto"
+              type: string
+              default: ""
+              description: The model rules configuration to create or update
         required: true
       responses:
         "200":
@@ -613,24 +690,42 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
         "500":
           description: Internal server error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
     delete:
       tags:
         - Model Rules Configuration
@@ -644,6 +739,7 @@ paths:
           required: true
           schema:
             type: string
+            default: ""
         - in: header
           $ref: "#/components/parameters/TenantId"
       responses:
@@ -770,11 +866,27 @@ paths:
                     - kubernetes
                     - prometheus
                     - otel
+                    - hosto11y
                     - aws
                     - azure
                     - gcp
                     - custom
                 uniqueItems: true
+  /v2/stack/allow-large-tenant-onboarding:
+    post:
+      tags:
+        - stack-controller
+      operationId: allowLargeTenantOnboarding
+      parameters:
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StackStatusDto"
   /v2/latency-thresholds:
     post:
       tags:
@@ -800,6 +912,53 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/LatencyThresholdsDto"
+  /v2/entity_scope:
+    get:
+      tags:
+        - entity-scope-controller
+      operationId: getAllEntityScopesV2
+      parameters:
+        - name: start
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int64
+        - name: end
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int64
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EntityScopesV2ResponseDto"
+    post:
+      tags:
+        - entity-scope-controller
+      operationId: getEntityScopesV2
+      parameters:
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EntityScopesRequestDto"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EntityScopesV2ResponseDto"
   /v2/config/trace:
     get:
       tags:
@@ -817,6 +976,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/TenantTraceConfigResponseDto"
+                additionalProperties:
+                  default: ""
+                default: ""
     post:
       tags:
         - trace-drilldown-config-controller
@@ -830,13 +992,19 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/TraceDrilldownConfigDto"
+              type: string
+              default: ""
+              description: Trace drilldown configuration data
           application/x-yml:
             schema:
-              $ref: "#/components/schemas/TraceDrilldownConfigDto"
+              type: string
+              default: ""
+              description: Trace drilldown configuration data
           application/yaml:
             schema:
-              $ref: "#/components/schemas/TraceDrilldownConfigDto"
+              type: string
+              default: ""
+              description: Trace drilldown configuration data
         required: true
       responses:
         "200":
@@ -847,12 +1015,21 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
             application/yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
   /v2/config/threshold:
     get:
       tags:
@@ -973,6 +1150,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/TenantProfileConfigResponseDto"
+                additionalProperties:
+                  default: ""
+                default: ""
     post:
       tags:
         - profile-drilldown-config-controller
@@ -986,13 +1166,19 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ProfileDrilldownConfigDto"
+              type: string
+              default: ""
+              description: Profile drilldown configuration data
           application/x-yml:
             schema:
-              $ref: "#/components/schemas/ProfileDrilldownConfigDto"
+              type: string
+              default: ""
+              description: Profile drilldown configuration data
           application/yaml:
             schema:
-              $ref: "#/components/schemas/ProfileDrilldownConfigDto"
+              type: string
+              default: ""
+              description: Profile drilldown configuration data
         required: true
       responses:
         "200":
@@ -1003,12 +1189,21 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
             application/yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
   /v2/config/log:
     get:
       tags:
@@ -1026,6 +1221,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/TenantLogConfigResponseDto"
+                additionalProperties:
+                  default: ""
+                default: ""
     post:
       tags:
         - log-drilldown-config-controller
@@ -1039,13 +1237,19 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/LogDrilldownConfigDto"
+              type: string
+              default: ""
+              description: Log drilldown configuration data
           application/x-yml:
             schema:
-              $ref: "#/components/schemas/LogDrilldownConfigDto"
+              type: string
+              default: ""
+              description: Log drilldown configuration data
           application/x-yaml:
             schema:
-              $ref: "#/components/schemas/LogDrilldownConfigDto"
+              type: string
+              default: ""
+              description: Log drilldown configuration data
         required: true
       responses:
         "200":
@@ -1056,12 +1260,21 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
   /v2/config/drilldown-migration:
     post:
       tags:
@@ -1183,79 +1396,6 @@ paths:
       responses:
         "200":
           description: OK
-  /v1/stack-info:
-    get:
-      tags:
-        - stack-info-controller
-      operationId: getStackInfos
-      parameters:
-        - in: header
-          $ref: "#/components/parameters/TenantId"
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/StackInfosDto"
-      deprecated: true
-    post:
-      tags:
-        - stack-info-controller
-      operationId: upsertStackInfo
-      parameters:
-        - in: header
-          $ref: "#/components/parameters/TenantId"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/StackInfoDto"
-        required: true
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/StackInfoDto"
-      deprecated: true
-  /v1/stack-info/{id}/enable:
-    post:
-      tags:
-        - stack-info-controller
-      operationId: enableStackInfo
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int32
-        - in: header
-          $ref: "#/components/parameters/TenantId"
-      responses:
-        "200":
-          description: OK
-      deprecated: true
-  /v1/stack-info/{id}/disable:
-    post:
-      tags:
-        - stack-info-controller
-      operationId: disableStackInfo
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int32
-        - in: header
-          $ref: "#/components/parameters/TenantId"
-      responses:
-        "200":
-          description: OK
-      deprecated: true
   /v1/slo:
     post:
       tags:
@@ -1452,6 +1592,56 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/SearchDefinitionDto"
+  /v1/search/cypher:
+    post:
+      tags:
+        - cypher-search-controller
+      operationId: search_1
+      parameters:
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CypherSearchRequestDto"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CypherSearchResponseDto"
+            application/x-yml:
+              schema:
+                $ref: "#/components/schemas/CypherSearchResponseDto"
+            application/x-yaml:
+              schema:
+                $ref: "#/components/schemas/CypherSearchResponseDto"
+  /v1/search/count:
+    post:
+      tags:
+        - search-controller
+      operationId: searchCount
+      parameters:
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SearchCountRequestDto"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  $ref: "#/components/schemas/EntityCountDto"
   /v1/search/assertions:
     post:
       tags:
@@ -1535,7 +1725,7 @@ paths:
     post:
       tags:
         - rca-pattern-controller
-      operationId: search_1
+      operationId: search_2
       parameters:
         - in: header
           $ref: "#/components/parameters/TenantId"
@@ -2336,59 +2526,6 @@ paths:
       responses:
         "200":
           description: OK
-  /v1/config/otel-collector:
-    get:
-      tags:
-        - otel-config-controller
-      operationId: getOtelCollectorConfig
-      parameters:
-        - in: header
-          $ref: "#/components/parameters/TenantId"
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/OtelCollectorConfigDto"
-            application/x-yml:
-              schema:
-                $ref: "#/components/schemas/OtelCollectorConfigDto"
-            application/x-yaml:
-              schema:
-                $ref: "#/components/schemas/OtelCollectorConfigDto"
-    post:
-      tags:
-        - otel-config-controller
-      operationId: updateOtelCollectorConfig
-      parameters:
-        - in: header
-          $ref: "#/components/parameters/TenantId"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/OtelCollectorConfigDto"
-          application/x-yml:
-            schema:
-              $ref: "#/components/schemas/OtelCollectorConfigDto"
-          application/x-yaml:
-            schema:
-              $ref: "#/components/schemas/OtelCollectorConfigDto"
-        required: true
-      responses:
-        "200":
-          description: OK
-    delete:
-      tags:
-        - otel-config-controller
-      operationId: deleteOtelCollectorConfig
-      parameters:
-        - in: header
-          $ref: "#/components/parameters/TenantId"
-      responses:
-        "200":
-          description: OK
   /v1/config/import:
     post:
       tags:
@@ -2461,6 +2598,36 @@ paths:
             schema:
               $ref: "#/components/schemas/EnvironmentDto"
         required: true
+      responses:
+        "200":
+          description: OK
+  /v1/config/display/pinned-filters:
+    get:
+      tags:
+        - pinned-filters-config-controller
+      operationId: getPinnedFiltersConfig
+      parameters:
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PinnedFiltersConfig"
+    post:
+      tags:
+        - pinned-filters-config-controller
+      operationId: putPinnedFiltersConfig
+      parameters:
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PinnedFiltersConfig"
       responses:
         "200":
           description: OK
@@ -2543,18 +2710,30 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/DisabledAlertConfigsDto"
+                additionalProperties:
+                  default: ""
+                default: ""
         "500":
           description: Internal server error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
     post:
       tags:
         - Alert Configuration
@@ -2585,24 +2764,88 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
         "500":
           description: Internal server error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
+  /v1/config/disabled-alerts-validate:
+    post:
+      tags:
+        - Alert Configuration
+      summary: Validate disabled alert configurations
+      description: "Validates a batch of disabled alert configurations without persisting them. Returns 200 if valid, 422 with error details if invalid."
+      operationId: validateDisabledAlertConfigs
+      parameters:
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DisabledAlertConfigsDto"
+          application/x-yml:
+            schema:
+              $ref: "#/components/schemas/DisabledAlertConfigsDto"
+          application/x-yaml:
+            schema:
+              $ref: "#/components/schemas/DisabledAlertConfigsDto"
+        required: true
+      responses:
+        "200":
+          description: Configuration is valid
+        "422":
+          description: Invalid configuration provided
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
+            application/x-yml:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
+            application/x-yaml:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
   /v1/config/disabled-alert:
     post:
       tags:
@@ -2634,24 +2877,88 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
         "500":
           description: Internal server error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
+  /v1/config/disabled-alert-validate:
+    post:
+      tags:
+        - Alert Configuration
+      summary: Validate a single disabled alert configuration
+      description: "Validates a single disabled alert configuration without persisting it. Returns 200 if valid, 422 with error details if invalid."
+      operationId: validateDisabledAlertConfig
+      parameters:
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DisabledAlertConfigDto"
+          application/x-yml:
+            schema:
+              $ref: "#/components/schemas/DisabledAlertConfigDto"
+          application/x-yaml:
+            schema:
+              $ref: "#/components/schemas/DisabledAlertConfigDto"
+        required: true
+      responses:
+        "200":
+          description: Configuration is valid
+        "422":
+          description: Invalid configuration provided
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
+            application/x-yml:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
+            application/x-yaml:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
   /v1/config/dashboard/{entity_type}:
     get:
       tags:
@@ -2715,6 +3022,50 @@ paths:
       responses:
         "200":
           description: OK
+  /v1/config/custom-labels:
+    get:
+      tags:
+        - Custom Label Retention
+      summary: Get retained label config for the current tenant
+      operationId: getConfig
+      parameters:
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RetainedLabelConfig"
+    post:
+      tags:
+        - Custom Label Retention
+      summary: Create or update retained label config for the current tenant
+      operationId: putConfig
+      parameters:
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RetainedLabelConfig"
+        required: true
+      responses:
+        "200":
+          description: OK
+    delete:
+      tags:
+        - Custom Label Retention
+      summary: Delete retained label config for the current tenant
+      operationId: deleteConfig
+      parameters:
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      responses:
+        "200":
+          description: OK
   /v1/config/alerts:
     get:
       tags:
@@ -2732,18 +3083,30 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AlertConfigsDto"
+                additionalProperties:
+                  default: ""
+                default: ""
         "500":
           description: Internal server error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
     post:
       tags:
         - Alert Configuration
@@ -2774,24 +3137,42 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
         "500":
           description: Internal server error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
   /v1/config/alert:
     post:
       tags:
@@ -2823,24 +3204,42 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
         "500":
           description: Internal server error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
   /v1/assertions:
     post:
       tags:
@@ -2897,7 +3296,7 @@ paths:
     post:
       tags:
         - assertion-search-controller
-      operationId: search_2
+      operationId: search_3
       parameters:
         - in: header
           $ref: "#/components/parameters/TenantId"
@@ -3207,6 +3606,7 @@ paths:
               - kubernetes
               - prometheus
               - otel
+              - hosto11y
               - aws
               - azure
               - gcp
@@ -3235,6 +3635,7 @@ paths:
               - kubernetes
               - prometheus
               - otel
+              - hosto11y
               - aws
               - azure
               - gcp
@@ -3263,6 +3664,7 @@ paths:
               - kubernetes
               - prometheus
               - otel
+              - hosto11y
               - aws
               - azure
               - gcp
@@ -3297,22 +3699,6 @@ paths:
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/MimirRelabelRuleGroupDto"
-  /v1/version/ui:
-    get:
-      tags:
-        - version-controller
-      operationId: jarvisVersion
-      parameters:
-        - in: header
-          $ref: "#/components/parameters/TenantId"
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/VersionDto"
-      deprecated: true
   /v1/vendor-names:
     get:
       tags:
@@ -3399,45 +3785,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/MetricSanityCheckDto"
-  /v1/stack-info/{id}:
-    get:
-      tags:
-        - stack-info-controller
-      operationId: getStackInfo
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int32
-        - in: header
-          $ref: "#/components/parameters/TenantId"
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/StackInfoDto"
-      deprecated: true
-    delete:
-      tags:
-        - stack-info-controller
-      operationId: deleteStackInfo
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int32
-        - in: header
-          $ref: "#/components/parameters/TenantId"
-      responses:
-        "200":
-          description: OK
-      deprecated: true
   /v1/search/autocomplete/{index}:
     get:
       tags:
@@ -3488,6 +3835,8 @@ paths:
             enum:
               - appo11y
               - k8so11y
+              - hosto11y
+              - dbo11y
         - in: header
           $ref: "#/components/parameters/TenantId"
       responses:
@@ -3497,6 +3846,49 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ProductActivationDto"
+  /v1/patterns/custom/{name}:
+    get:
+      tags:
+        - custom-rca-pattern-controller
+      operationId: getCustomByName
+      parameters:
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: string
+            minLength: 1
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PatternDto"
+            application/x-yml:
+              schema:
+                $ref: "#/components/schemas/PatternDto"
+            application/x-yaml:
+              schema:
+                $ref: "#/components/schemas/PatternDto"
+    delete:
+      tags:
+        - custom-rca-pattern-controller
+      operationId: deleteCustom
+      parameters:
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: string
+            minLength: 1
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      responses:
+        "200":
+          description: OK
   /v1/kpi/list:
     get:
       tags:
@@ -3512,6 +3904,51 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/KpiListDto"
+  /v1/events:
+    get:
+      tags:
+        - Kubernetes Events
+      summary: Get all Kubernetes events
+      description: Returns all Kubernetes events within a time range (for debugging)
+      operationId: getAllEvents
+      parameters:
+        - name: tenant
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: start
+          in: query
+          description: Start time (milliseconds since epoch)
+          required: true
+          schema:
+            type: string
+            default: ""
+        - name: end
+          in: query
+          description: End time (milliseconds since epoch)
+          required: true
+          schema:
+            type: string
+            default: ""
+        - name: limit
+          in: query
+          description: Maximum number of events to return
+          required: false
+          schema:
+            type: string
+            default: ""
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/InfraEventDto"
   /v1/entity_type:
     get:
       tags:
@@ -3666,12 +4103,75 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/GraphEntity"
-  /v1/customer/metric/hosted:
+  /v1/entity/events:
     get:
       tags:
-        - customer-metric-controller
-      operationId: getRuleMetrics
+        - Kubernetes Events
+      summary: Get Kubernetes events for an entity
+      description: Returns Kubernetes change events associated with a specific entity within a time range
+      operationId: getEntityEvents
       parameters:
+        - name: tenant
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: entity_type
+          in: query
+          description: "Entity type (e.g., Service, Pod)"
+          required: true
+          schema:
+            type: string
+            default: ""
+        - name: entity_name
+          in: query
+          description: Entity name
+          required: true
+          schema:
+            type: string
+            default: ""
+        - name: namespace
+          in: query
+          description: Namespace
+          required: false
+          schema:
+            type: string
+            default: ""
+        - name: env
+          in: query
+          description: Environment/cluster
+          required: false
+          schema:
+            type: string
+            default: ""
+        - name: site
+          in: query
+          description: Site
+          required: false
+          schema:
+            type: string
+            default: ""
+        - name: start
+          in: query
+          description: Start time (milliseconds since epoch)
+          required: true
+          schema:
+            type: string
+            default: ""
+        - name: end
+          in: query
+          description: End time (milliseconds since epoch)
+          required: true
+          schema:
+            type: string
+            default: ""
+        - name: limit
+          in: query
+          description: Maximum number of events to return
+          required: false
+          schema:
+            type: string
+            default: ""
         - in: header
           $ref: "#/components/parameters/TenantId"
       responses:
@@ -3680,22 +4180,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/MetricSetsDto"
-  /v1/customer/metric/client:
-    get:
-      tags:
-        - customer-metric-controller
-      operationId: getClientMetrics
-      parameters:
-        - in: header
-          $ref: "#/components/parameters/TenantId"
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/MetricSetsDto"
+                $ref: "#/components/schemas/EntityEventsDto"
   /v1/config/types:
     get:
       tags:
@@ -3874,6 +4359,37 @@ paths:
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/DisabledRulesDto"
+  /v1/config/model-rules/search:
+    get:
+      tags:
+        - Model Rules Configuration
+      summary: Search model rules by keyword
+      description: "Searches built-in and custom model rule files by case-insensitive substring match against filenames, entity type names, relationship entity types, and vendor keywords. Query must be at least 2 characters."
+      operationId: searchModelRules
+      parameters:
+        - name: q
+          in: query
+          required: true
+          schema:
+            type: string
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      responses:
+        "200":
+          description: Search results returned successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ModelRulesSearchResultDto"
+        "422":
+          description: Query missing or shorter than 2 characters
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
   /v1/config/model-rules/schema:
     get:
       tags:
@@ -3898,6 +4414,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
   /v1/config/model-rules-types/{type}:
     get:
       tags:
@@ -3939,13 +4458,15 @@ paths:
           description: Set to true to fetch only custom failure rules
           required: false
           schema:
-            type: boolean
+            type: string
+            default: ""
         - name: allFailureRuleGroups
           in: query
           description: Set to true to fetch all failure rule groups (custom and default)
           required: false
           schema:
-            type: boolean
+            type: string
+            default: ""
         - in: header
           $ref: "#/components/parameters/TenantId"
       responses:
@@ -3955,12 +4476,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PrometheusRuleGroupDto"
+                additionalProperties:
+                  default: ""
+                default: ""
         "500":
           description: Internal server error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
   /v1/config/export:
     get:
       tags:
@@ -4004,12 +4531,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/DisabledAlertConfigsDto"
+                additionalProperties:
+                  default: ""
+                default: ""
         "500":
           description: Internal server error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
   /v1/config/disabled-alerts/request:
     get:
       tags:
@@ -4027,12 +4560,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/DisabledAlertConfigsDto"
+                additionalProperties:
+                  default: ""
+                default: ""
         "500":
           description: Internal server error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
   /v1/config/disabled-alerts/health:
     get:
       tags:
@@ -4050,12 +4589,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/DisabledAlertConfigsDto"
+                additionalProperties:
+                  default: ""
+                default: ""
         "500":
           description: Internal server error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
   /v1/config/datasource/prometheus:
     get:
       tags:
@@ -4109,12 +4654,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AlertConfigsDto"
+                additionalProperties:
+                  default: ""
+                default: ""
         "500":
           description: Internal server error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
   /v1/config/alerts/resource:
     get:
       tags:
@@ -4132,12 +4683,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AlertConfigsDto"
+                additionalProperties:
+                  default: ""
+                default: ""
         "500":
           description: Internal server error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
   /v1/config/alerts/request:
     get:
       tags:
@@ -4155,12 +4712,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AlertConfigsDto"
+                additionalProperties:
+                  default: ""
+                default: ""
         "500":
           description: Internal server error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
   /v1/config/alerts/health:
     get:
       tags:
@@ -4178,12 +4741,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AlertConfigsDto"
+                additionalProperties:
+                  default: ""
+                default: ""
         "500":
           description: Internal server error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
   /v1/assertion/alert-affected-entity:
     get:
       tags:
@@ -4212,7 +4781,7 @@ paths:
         - trace-drilldown-config-controller
       summary: Delete trace drilldown configuration
       description: Deletes the specified trace drilldown configuration entry for the tenant
-      operationId: deleteConfig
+      operationId: deleteConfig_1
       parameters:
         - name: name
           in: path
@@ -4220,6 +4789,7 @@ paths:
           required: true
           schema:
             type: string
+            default: ""
         - in: header
           $ref: "#/components/parameters/TenantId"
       responses:
@@ -4231,7 +4801,7 @@ paths:
         - profile-drilldown-config-controller
       summary: Delete profile drilldown configuration
       description: Deletes the specified profile drilldown configuration entry for the tenant
-      operationId: deleteConfig_1
+      operationId: deleteConfig_2
       parameters:
         - name: name
           in: path
@@ -4239,6 +4809,7 @@ paths:
           required: true
           schema:
             type: string
+            default: ""
         - in: header
           $ref: "#/components/parameters/TenantId"
       responses:
@@ -4250,7 +4821,7 @@ paths:
         - log-drilldown-config-controller
       summary: Delete log drilldown configuration
       description: Deletes the specified log drilldown configuration entry for the tenant
-      operationId: deleteConfig_2
+      operationId: deleteConfig_3
       parameters:
         - name: name
           in: path
@@ -4258,27 +4829,12 @@ paths:
           required: true
           schema:
             type: string
+            default: ""
         - in: header
           $ref: "#/components/parameters/TenantId"
       responses:
         "200":
           description: Configuration deleted successfully
-  /v1/patterns/custom/{name}:
-    delete:
-      tags:
-        - custom-rca-pattern-controller
-      operationId: deleteCustom
-      parameters:
-        - name: name
-          in: path
-          required: true
-          schema:
-            type: string
-        - in: header
-          $ref: "#/components/parameters/TenantId"
-      responses:
-        "200":
-          description: OK
   /v1/config/trace/{name}:
     delete:
       tags:
@@ -4299,7 +4855,7 @@ paths:
     delete:
       tags:
         - log-config-controller
-      operationId: deleteConfig_3
+      operationId: deleteConfig_4
       parameters:
         - name: name
           in: path
@@ -4357,6 +4913,7 @@ paths:
           required: true
           schema:
             type: string
+            default: ""
         - in: header
           $ref: "#/components/parameters/TenantId"
       responses:
@@ -4368,12 +4925,21 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
   /v1/config/alert/{name}:
     delete:
       tags:
@@ -4388,6 +4954,7 @@ paths:
           required: true
           schema:
             type: string
+            default: ""
         - in: header
           $ref: "#/components/parameters/TenantId"
       responses:
@@ -4399,12 +4966,21 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+                additionalProperties:
+                  default: ""
+                default: ""
 components:
   schemas:
     StackDto:
@@ -4418,6 +4994,10 @@ components:
           type: string
         grafanaToken:
           type: string
+        lokiToken:
+          type: string
+        pyroscopeToken:
+          type: string
     StackDatasetDto:
       type: object
       properties:
@@ -4427,6 +5007,7 @@ components:
             - kubernetes
             - prometheus
             - otel
+            - hosto11y
             - aws
             - azure
             - gcp
@@ -4625,34 +5206,16 @@ components:
       properties:
         error:
           type: boolean
-        is5xxServerError:
+        is3xxRedirection:
           type: boolean
-        is2xxSuccessful:
+        is5xxServerError:
           type: boolean
         is4xxClientError:
           type: boolean
+        is2xxSuccessful:
+          type: boolean
         is1xxInformational:
           type: boolean
-        is3xxRedirection:
-          type: boolean
-    ReorderTraceConfigRequestDto:
-      type: object
-      description: Trace drilldown configuration priority data
-      properties:
-        orderedConfigs:
-          type: array
-          items:
-            $ref: "#/components/schemas/TraceConfigPriorityDto"
-      required:
-        - orderedConfigs
-    TraceConfigPriorityDto:
-      type: object
-      properties:
-        name:
-          type: string
-        priority:
-          type: integer
-          format: int32
     PropertyMatchEntryDto:
       type: object
       properties:
@@ -4734,24 +5297,6 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/MimirRelabelRuleDto"
-    ProfileConfigPriorityDto:
-      type: object
-      properties:
-        name:
-          type: string
-        priority:
-          type: integer
-          format: int32
-    ReorderConfigRequestDto:
-      type: object
-      description: Profile drilldown configuration data
-      properties:
-        orderedConfigs:
-          type: array
-          items:
-            $ref: "#/components/schemas/ProfileConfigPriorityDto"
-      required:
-        - orderedConfigs
     ProfileDrilldownConfigDto:
       type: object
       properties:
@@ -4781,24 +5326,6 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/ProfileDrilldownConfigDto"
-    LogConfigPriorityDto:
-      type: object
-      properties:
-        name:
-          type: string
-        priority:
-          type: integer
-          format: int32
-    ReorderLogConfigRequestDto:
-      type: object
-      description: Log drilldown configuration priority data
-      properties:
-        orderedConfigs:
-          type: array
-          items:
-            $ref: "#/components/schemas/LogConfigPriorityDto"
-      required:
-        - orderedConfigs
     LogDrilldownConfigDto:
       type: object
       properties:
@@ -4844,6 +5371,8 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/PropertyMatcherDto"
+        matcherTree:
+          $ref: "#/components/schemas/MatcherTreeDto"
         connectToEntityTypes:
           type: array
           items:
@@ -4851,8 +5380,24 @@ components:
           uniqueItems: true
         havingAssertion:
           type: boolean
+        havingPropagatedAssertions:
+          type: boolean
       required:
         - entityType
+    MatcherTreeDto:
+      type: object
+      properties:
+        matcher:
+          $ref: "#/components/schemas/PropertyMatcherDto"
+        op:
+          type: string
+          enum:
+            - AND
+            - OR
+        children:
+          type: array
+          items:
+            $ref: "#/components/schemas/MatcherTreeDto"
     PropertyMatcherDto:
       type: object
       properties:
@@ -4916,6 +5461,8 @@ components:
           enum:
             - appo11y
             - k8so11y
+            - hosto11y
+            - dbo11y
         enabled:
           type: boolean
         createdAt:
@@ -4926,6 +5473,7 @@ components:
         - product
     PrometheusRuleDto:
       type: object
+      default: null
       description: A Prometheus alert or recording rule
       properties:
         active:
@@ -4934,48 +5482,59 @@ components:
           description: Whether this rule is active
         record:
           type: string
+          default: ""
           description: Metric name for recording rules (mutually exclusive with 'alert')
         alert:
           type: string
+          default: ""
           description: Alert name for alert rules (mutually exclusive with 'record')
         expr:
           type: string
+          default: ""
           description: PromQL expression to evaluate
           example: probe_success == 0
         annotations:
           type: object
           additionalProperties:
             type: string
+          default: ""
           description: "Annotations for alert rules (e.g., summary, description)"
         labels:
           type: object
           additionalProperties:
             type: string
+          default: ""
           description: "Labels to attach to the alert/metric. For alerts, must include 'asserts_severity' and 'asserts_alert_category'"
         disableInGroups:
           type: array
+          default: ""
           description: List of rule groups where this rule should be disabled
           items:
             type: string
         for:
           type: string
+          default: ""
           description: Duration the expression must be true before firing (alert rules only)
           example: 5m
       required:
         - expr
     PrometheusRuleGroupDto:
       type: object
+      default: null
       description: A group of related Prometheus rules
       properties:
         name:
           type: string
+          default: ""
           description: Group name
         interval:
           type: string
+          default: ""
           description: "Evaluation interval (e.g., '30s', '1m')"
           example: 30s
         rules:
           type: array
+          default: ""
           description: List of alert and recording rules in this group
           items:
             $ref: "#/components/schemas/PrometheusRuleDto"
@@ -4984,6 +5543,7 @@ components:
         - rules
     PrometheusRulesDto:
       type: object
+      default: null
       description: Prometheus rules configuration containing alert and recording rules
       properties:
         active:
@@ -4992,167 +5552,21 @@ components:
           description: Whether this configuration is active
         name:
           type: string
+          default: ""
           description: Configuration name for the Prometheus rule file
         groups:
           type: array
+          default: ""
           description: List of rule groups containing alert and recording rules
           items:
             $ref: "#/components/schemas/PrometheusRuleGroupDto"
         managedBy:
           type: string
+          default: ""
           description: "Management source: 'terraform' for Terraform-managed, null for UI-managed"
       required:
         - groups
         - name
-    DefinedByDto:
-      type: object
-      description: Base class for relation definitions
-      discriminator:
-        propertyName: source
-      properties:
-        staticProperties:
-          type: object
-          additionalProperties: {}
-          description: Static properties to attach to the relation
-        source:
-          type: string
-      required:
-        - source
-    DefinedByMetricsDto:
-      allOf:
-        - $ref: "#/components/schemas/DefinedByDto"
-        - type: object
-          properties:
-            pattern:
-              type: string
-              description: PromQL pattern to match metrics
-            startEntityMatchers:
-              type: object
-              additionalProperties:
-                type: string
-              description: Label matchers for start entity
-            endEntityMatchers:
-              type: object
-              additionalProperties:
-                type: string
-              description: Label matchers for end entity
-      description: Metrics-based relation definition
-      required:
-        - pattern
-    DefinedByPropertyMatchDto:
-      allOf:
-        - $ref: "#/components/schemas/DefinedByDto"
-        - type: object
-          properties:
-            startEntityProperties:
-              type: array
-              description: Properties from start entity to match
-              items:
-                type: string
-            endEntityProperties:
-              type: array
-              description: Properties from end entity to match
-              items:
-                type: string
-      description: Property-match based relation definition
-    EntityRuleDto:
-      type: object
-      description: Entity type rule definition
-      properties:
-        type:
-          type: string
-          description: "Entity type name (e.g., 'Service', 'Pod', 'Jvm')"
-        name:
-          type: string
-          description: Entity name pattern
-        scope:
-          type: object
-          additionalProperties:
-            type: string
-          description: Scope definitions for the entity
-        lookup:
-          type: object
-          additionalProperties:
-            type: string
-          description: Lookup mappings
-        definedBy:
-          type: array
-          description: Query/metric definitions that define this entity
-          items:
-            $ref: "#/components/schemas/PropertyRuleDto"
-        enrichedBy:
-          type: array
-          description: Enrichment rules for this entity
-          items:
-            $ref: "#/components/schemas/PropertyRuleDto"
-        disabled:
-          type: boolean
-          description: Whether this entity rule is disabled
-      required:
-        - name
-        - type
-    ModelRulesDto:
-      type: object
-      description: The model rules configuration to create or update
-      properties:
-        name:
-          type: string
-          description: Configuration name
-        entities:
-          type: array
-          description: Entity type definitions
-          items:
-            $ref: "#/components/schemas/EntityRuleDto"
-        relations:
-          type: array
-          description: Relationship rules between entities
-          items:
-            $ref: "#/components/schemas/RelationRuleDto"
-        managedBy:
-          type: string
-          description: "Management source: 'terraform' for Terraform-managed, null for UI-managed"
-      required:
-        - name
-    PropertyRuleDto:
-      type: object
-      properties:
-        query:
-          type: string
-        labelValues:
-          type: object
-          additionalProperties:
-            type: string
-        literals:
-          type: object
-          additionalProperties:
-            type: string
-        metricValue:
-          type: string
-        disabled:
-          type: boolean
-    RelationRuleDto:
-      type: object
-      description: Relationship rule definition between entities
-      properties:
-        type:
-          type: string
-          description: "Relation type (e.g., 'CALLS', 'HOSTS', 'ROUTES')"
-        startEntityType:
-          type: string
-          description: Source entity type
-        endEntityType:
-          type: string
-          description: Target entity type
-        definedBy:
-          description: "Relation definition (polymorphic: METRICS or PROPERTY_MATCH)"
-          oneOf:
-            - $ref: "#/components/schemas/DefinedByMetricsDto"
-            - $ref: "#/components/schemas/DefinedByPropertyMatchDto"
-      required:
-        - definedBy
-        - endEntityType
-        - startEntityType
-        - type
     ModelMappingDto:
       type: object
       properties:
@@ -5340,6 +5754,8 @@ components:
             type: string
         requestContextJoin:
           type: string
+          maxLength: 1
+          minLength: 0
         filters:
           type: array
           items:
@@ -5374,6 +5790,57 @@ components:
           type: object
           additionalProperties:
             $ref: "#/components/schemas/DatasetSanityChecksDto"
+    MetricSanityCheckResult:
+      type: object
+      properties:
+        checkName:
+          type: string
+        dataPresent:
+          type: boolean
+        stepResults:
+          type: array
+          items:
+            $ref: "#/components/schemas/MetricSanityCheckStepResult"
+    MetricSanityCheckStepResult:
+      type: object
+      properties:
+        name:
+          type: string
+        troubleshoot:
+          type: string
+        blockers:
+          type: array
+          items:
+            type: string
+        warnings:
+          type: array
+          items:
+            type: string
+    StackStatusDto:
+      type: object
+      properties:
+        status:
+          type: string
+        disabledTime:
+          type: string
+          format: date-time
+        enabled:
+          type: boolean
+        alertManagerConfigured:
+          type: boolean
+        graphInstanceCreated:
+          type: boolean
+        sanityCheckResults:
+          type: array
+          items:
+            $ref: "#/components/schemas/MetricSanityCheckResult"
+        version:
+          type: integer
+          format: int32
+        useGrafanaManagedAlerts:
+          type: boolean
+        otelNative:
+          type: boolean
     EntityKeyDto:
       type: object
       properties:
@@ -5403,6 +5870,39 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/LatencyThresholdDto"
+    EntityScopesRequestDto:
+      type: object
+      properties:
+        start:
+          type: integer
+          format: int64
+        end:
+          type: integer
+          format: int64
+        conditions:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+    EntityScopesV2ResponseDto:
+      type: object
+      properties:
+        scopeValues:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: "#/components/schemas/ScopeValueDto"
+    ScopeValueDto:
+      type: object
+      properties:
+        value:
+          type: string
+        sources:
+          type: array
+          items:
+            type: string
     HealthThresholdV2Dto:
       type: object
       properties:
@@ -5470,57 +5970,10 @@ components:
       properties:
         dryRun:
           type: boolean
-    MetricSanityCheckResult:
-      type: object
-      properties:
-        checkName:
-          type: string
-        dataPresent:
+        recreateDefaultConfigs:
           type: boolean
-        stepResults:
-          type: array
-          items:
-            $ref: "#/components/schemas/MetricSanityCheckStepResult"
-    MetricSanityCheckStepResult:
-      type: object
-      properties:
-        name:
-          type: string
-        troubleshoot:
-          type: string
-        blockers:
-          type: array
-          items:
-            type: string
-        warnings:
-          type: array
-          items:
-            type: string
-    StackStatusDto:
-      type: object
-      properties:
-        status:
-          type: string
-        disabledTime:
-          type: string
-          format: date-time
-        enabled:
+        recreateOtelLogConfig:
           type: boolean
-        alertManagerConfigured:
-          type: boolean
-        graphInstanceCreated:
-          type: boolean
-        sanityCheckResults:
-          type: array
-          items:
-            $ref: "#/components/schemas/MetricSanityCheckResult"
-        version:
-          type: integer
-          format: int32
-        useGrafanaManagedAlerts:
-          type: boolean
-        contactPointUID:
-          type: string
     StackMigrationDto:
       type: object
       properties:
@@ -5538,37 +5991,6 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/StackFilterGroupDto"
-    StackInfoDto:
-      type: object
-      properties:
-        stackId:
-          type: integer
-          format: int32
-        slug:
-          type: string
-        orgId:
-          type: integer
-          format: int32
-        orgSlug:
-          type: string
-        gcomToken:
-          type: string
-        mimirToken:
-          type: string
-        assertionDetectorToken:
-          type: string
-        enabled:
-          type: boolean
-        dormant:
-          type: boolean
-        alertManagerConfigured:
-          type: boolean
-        graphInstanceCreated:
-          type: boolean
-        useGrafanaManagedAlerts:
-          type: boolean
-        contactPointUID:
-          type: string
     ScopeCriteriaDto:
       type: object
       properties:
@@ -5917,6 +6339,220 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/SampleEntityDto"
+    CypherSearchRequestDto:
+      type: object
+      properties:
+        cypherQuery:
+          type: string
+          maxLength: 8192
+          minLength: 0
+        timeCriteria:
+          $ref: "#/components/schemas/TimeCriteriaDto"
+        scopeCriteria:
+          $ref: "#/components/schemas/ScopeCriteriaDto"
+        pageNum:
+          type: integer
+          format: int32
+          minimum: 0
+        withInsights:
+          type: boolean
+      required:
+        - cypherQuery
+    CypherSearchEdgeDto:
+      type: object
+      properties:
+        type:
+          type: string
+        sourceName:
+          type: string
+        sourceType:
+          type: string
+        sourceScope:
+          type: object
+          additionalProperties: {}
+        destinationName:
+          type: string
+        destinationType:
+          type: string
+        destinationScope:
+          type: object
+          additionalProperties: {}
+    CypherSearchEntityDto:
+      type: object
+      properties:
+        type:
+          type: string
+        name:
+          type: string
+        scope:
+          type: object
+          additionalProperties: {}
+        properties:
+          type: object
+          additionalProperties: {}
+        insights:
+          type: array
+          items:
+            $ref: "#/components/schemas/CypherSearchInsightDto"
+        connectedInsights:
+          type: array
+          items:
+            $ref: "#/components/schemas/CypherSearchInsightDto"
+    CypherSearchInsightDto:
+      type: object
+      properties:
+        name:
+          type: string
+        severity:
+          type: string
+        category:
+          type: string
+    CypherSearchResponseDto:
+      type: object
+      properties:
+        entities:
+          type: array
+          items:
+            $ref: "#/components/schemas/CypherSearchEntityDto"
+        edges:
+          type: array
+          items:
+            $ref: "#/components/schemas/CypherSearchEdgeDto"
+        pageNum:
+          type: integer
+          format: int32
+        lastPage:
+          type: boolean
+    InsightCriteriaDto:
+      type: "null"
+      properties:
+        insightSource:
+          type: string
+          enum:
+            - SELF
+            - PROPAGATED
+            - SELF_OR_PROPAGATED
+        alertCategories:
+          type: array
+          items:
+            type: string
+            enum:
+              - saturation
+              - anomaly
+              - amend
+              - failure
+              - error
+      required:
+        - insightSource
+    SearchCountRequestDto:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/SearchCountRequestEntryDto"
+        timeCriteria:
+          $ref: "#/components/schemas/SearchCountRequestDtoTimeCriteria"
+        scopeCriteria:
+          $ref: "#/components/schemas/SearchCountRequestDtoScopeCriteria"
+      required:
+        - items
+        - timeCriteria
+    SearchCountRequestDtoScopeCriteria:
+      type: "null"
+      properties:
+        nameAndValues:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+    SearchCountRequestDtoTimeCriteria:
+      type: object
+      properties:
+        start:
+          type: integer
+          format: int64
+        end:
+          type: integer
+          format: int64
+      required:
+        - end
+        - start
+    SearchCountRequestEntryDto:
+      type: object
+      properties:
+        entityType:
+          type: string
+        nameMatcher:
+          $ref: "#/components/schemas/SearchCountRequestEntryDtoNameMatcher"
+        withInsights:
+          $ref: "#/components/schemas/InsightCriteriaDto"
+        groupBy:
+          type: array
+          items:
+            type: string
+      required:
+        - entityType
+    SearchCountRequestEntryDtoNameMatcher:
+      type: "null"
+      properties:
+        name:
+          type: string
+        value:
+          type: "null"
+        op:
+          type: string
+          enum:
+            - EQUALS
+            - NOT_EQUALS
+            - LESS_THAN
+            - GREATER_THAN
+            - LESS_THAN_EQUAL
+            - GREATER_THAN_EQUAL
+            - IS_NULL
+            - IS_NOT_NULL
+            - STARTS_WITH
+            - ENDS_WITH
+            - CONTAINS
+            - IN
+      required:
+        - name
+        - op
+    EntityCountDto:
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int64
+        withInsights:
+          type:
+            - integer
+            - "null"
+          format: int64
+        groupBy:
+          type: array
+          items:
+            $ref: "#/components/schemas/GroupedEntityCountDto"
+      required:
+        - total
+    GroupedEntityCountDto:
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int64
+        withInsights:
+          type:
+            - integer
+            - "null"
+          format: int64
+        groupedBy:
+          type: object
+          additionalProperties:
+            type: string
+      required:
+        - total
     AssertionSearchRequestDto:
       type: object
       properties:
@@ -5943,6 +6579,11 @@ components:
           type: integer
           format: int32
         alertCategories:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+        severityFilter:
           type: array
           items:
             type: string
@@ -6119,6 +6760,11 @@ components:
           items:
             type: string
           uniqueItems: true
+        severityFilter:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
         query:
           type: string
         currentWBEntityCount:
@@ -6175,6 +6821,10 @@ components:
             type: object
             additionalProperties:
               type: string
+        nestedTimelines:
+          type: array
+          items:
+            $ref: "#/components/schemas/LlmRcaAssertionTimelineItemDto"
     LlmRcaGraphEntityDto:
       type: object
       properties:
@@ -6580,21 +7230,8 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/PropertyMatcherDto"
-    EntityScopesRequestDto:
-      type: object
-      properties:
-        start:
-          type: integer
-          format: int64
-        end:
-          type: integer
-          format: int64
-        conditions:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: string
+        matcherTree:
+          $ref: "#/components/schemas/MatcherTreeDto"
     EntityScopesResponseDto:
       type: object
       properties:
@@ -6925,72 +7562,6 @@ components:
           items:
             type: string
           uniqueItems: true
-    CustomAttributeConfigDto:
-      type: object
-      properties:
-        span_kinds:
-          type: array
-          items:
-            type: string
-        source_attributes:
-          type: array
-          items:
-            type: string
-        regex:
-          type: string
-        value_expr:
-          type: string
-    OtelCollectorConfigDto:
-      type: object
-      properties:
-        capture_metrics:
-          type: boolean
-        custom_attributes:
-          type: object
-          additionalProperties:
-            type: object
-            additionalProperties:
-              type: array
-              items:
-                $ref: "#/components/schemas/CustomAttributeConfigDto"
-        span_attributes:
-          type: array
-          items:
-            $ref: "#/components/schemas/SpanAttributeDto"
-        attributes_as_metric_labels:
-          type: array
-          items:
-            type: string
-        sampling_latency_threshold_seconds:
-          type: number
-          format: double
-        latency_histogram_buckets:
-          type: array
-          items:
-            type: number
-            format: double
-        ignore_client_errors:
-          type: boolean
-    SpanAttributeConfigDto:
-      type: object
-      properties:
-        namespace:
-          type: string
-        service:
-          type: string
-        rules:
-          type: array
-          items:
-            $ref: "#/components/schemas/CustomAttributeConfigDto"
-    SpanAttributeDto:
-      type: object
-      properties:
-        attr_name:
-          type: string
-        attr_configs:
-          type: array
-          items:
-            $ref: "#/components/schemas/SpanAttributeConfigDto"
     ConfigImportResultDto:
       type: object
       properties:
@@ -7081,6 +7652,13 @@ components:
           type: string
         dataSource:
           type: string
+    PinnedFiltersConfig:
+      type: object
+      properties:
+        filters:
+          type: array
+          items:
+            type: string
     KpiDisplayConfigDto:
       type: object
       properties:
@@ -7178,6 +7756,13 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/PropertyMatcherDto"
+    RetainedLabelConfig:
+      type: object
+      properties:
+        retainedLabels:
+          type: array
+          items:
+            type: string
     AlertConfigDto:
       type: object
       properties:
@@ -7738,11 +8323,6 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/DatasetVendorDto"
-    VersionDto:
-      type: object
-      properties:
-        version:
-          type: string
     VendorNamesDto:
       type: object
       properties:
@@ -7789,6 +8369,11 @@ components:
           format: int32
         contactPointUID:
           type: string
+        allowLargeTenantOnboarding:
+          type: boolean
+        currentActiveSeries:
+          type: integer
+          format: int32
     VendorIntegrationDto:
       type: object
       properties:
@@ -7828,13 +8413,6 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/MetricSanityCheckResult"
-    StackInfosDto:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: "#/components/schemas/StackInfoDto"
     SearchDefinitionItemDto:
       type: object
       properties:
@@ -7935,6 +8513,40 @@ components:
           type: string
         unit:
           type: string
+    InfraEventDto:
+      type: object
+      properties:
+        id:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        entityType:
+          type: string
+        entityName:
+          type: string
+        verb:
+          type: string
+        resourceType:
+          type: string
+        summary:
+          type: string
+        details:
+          type: string
+        changeCategory:
+          type: string
+        severity:
+          type: string
+        source:
+          type: string
+        cluster:
+          type: string
+        namespace:
+          type: string
+        labels:
+          type: object
+          additionalProperties:
+            type: string
     EntityPropertyDto:
       type: object
       properties:
@@ -7975,6 +8587,8 @@ components:
           type: array
           items:
             type: string
+        definitionMode:
+          type: string
     EntityTypesDto:
       type: object
       properties:
@@ -8047,6 +8661,30 @@ components:
           properties:
             empty:
               type: boolean
+    EntityEventsDto:
+      type: object
+      properties:
+        entityType:
+          type: string
+        entityName:
+          type: string
+        scope:
+          type: object
+          additionalProperties:
+            type: string
+        startTime:
+          type: integer
+          format: int64
+        endTime:
+          type: integer
+          format: int64
+        events:
+          type: array
+          items:
+            $ref: "#/components/schemas/InfraEventDto"
+        totalCount:
+          type: integer
+          format: int32
     TraceEnvConfigResponseDto:
       type: object
       properties:
@@ -8110,6 +8748,282 @@ components:
           type: array
           items:
             type: string
+    DefinedByDto:
+      type: object
+      default: null
+      description: Base class for relation definitions
+      discriminator:
+        propertyName: source
+      properties:
+        staticProperties:
+          type: object
+          additionalProperties: {}
+          default: ""
+          description: Static properties to attach to the relation
+        source:
+          type: string
+      required:
+        - source
+    DefinedByMetricsDto:
+      allOf:
+        - $ref: "#/components/schemas/DefinedByDto"
+        - type: object
+          properties:
+            pattern:
+              type: string
+              default: ""
+              description: PromQL pattern to match metrics
+            startEntityMatchers:
+              type: object
+              additionalProperties:
+                type: string
+              default: ""
+              description: Label matchers for start entity
+            endEntityMatchers:
+              type: object
+              additionalProperties:
+                type: string
+              default: ""
+              description: Label matchers for end entity
+      description: Metrics-based relation definition
+      required:
+        - pattern
+    DefinedByPropertyMatchDto:
+      allOf:
+        - $ref: "#/components/schemas/DefinedByDto"
+        - type: object
+          properties:
+            startEntityProperties:
+              type: array
+              default: ""
+              description: Properties from start entity to match
+              items:
+                type: string
+            endEntityProperties:
+              type: array
+              default: ""
+              description: Properties from end entity to match
+              items:
+                type: string
+      description: Property-match based relation definition
+    EntityRuleDto:
+      type: object
+      default: null
+      description: Entity type rule definition
+      properties:
+        type:
+          type: string
+          default: ""
+          description: "Entity type name (e.g., 'Service', 'Pod', 'Jvm')"
+        name:
+          type: string
+          default: ""
+          description: Entity name pattern
+        scope:
+          type: object
+          additionalProperties:
+            type: string
+          default: ""
+          description: Scope definitions for the entity
+        lookup:
+          type: object
+          additionalProperties:
+            type: string
+          default: ""
+          description: Lookup mappings
+        definedBy:
+          type: array
+          default: ""
+          description: Query/metric definitions that define this entity
+          items:
+            $ref: "#/components/schemas/PropertyRuleDto"
+        enrichedBy:
+          type: array
+          default: ""
+          description: Enrichment rules for this entity
+          items:
+            $ref: "#/components/schemas/PropertyRuleDto"
+        definedStatically:
+          type: array
+          default: ""
+          description: Literal entity records that create and keep this type alive (mutually exclusive with definedBy)
+          items:
+            $ref: "#/components/schemas/StaticEntityDto"
+        enrichedStatically:
+          type: array
+          default: ""
+          description: Literal enrichment records that patch existing entities of this type without keeping them alive
+          items:
+            $ref: "#/components/schemas/StaticEnrichmentDto"
+        disabled:
+          type: boolean
+          default: false
+          description: Whether this entity rule is disabled
+      required:
+        - name
+        - type
+    ModelRulesDto:
+      type: object
+      default: null
+      description: Model rules configuration defining entities and their relationships
+      properties:
+        name:
+          type: string
+          default: ""
+          description: Configuration name
+        entities:
+          type: array
+          default: ""
+          description: Entity type definitions
+          items:
+            $ref: "#/components/schemas/EntityRuleDto"
+        relations:
+          type: array
+          default: ""
+          description: Relationship rules between entities
+          items:
+            $ref: "#/components/schemas/RelationRuleDto"
+        managedBy:
+          type: string
+          default: ""
+          description: "Management source: 'terraform' for Terraform-managed, null for UI-managed"
+      required:
+        - name
+    PropertyRuleDto:
+      type: object
+      properties:
+        query:
+          type: string
+        labelValues:
+          type: object
+          additionalProperties:
+            type: string
+        literals:
+          type: object
+          additionalProperties:
+            type: string
+        metricValue:
+          type: string
+        disabled:
+          type: boolean
+    RelationRuleDto:
+      type: object
+      default: null
+      description: Relationship rule definition between entities
+      properties:
+        type:
+          type: string
+          default: ""
+          description: "Relation type (e.g., 'CALLS', 'HOSTS', 'ROUTES')"
+        startEntityType:
+          type: string
+          default: ""
+          description: Source entity type
+        endEntityType:
+          type: string
+          default: ""
+          description: Target entity type
+        definedBy:
+          default: ""
+          description: "Relation definition (polymorphic: METRICS or PROPERTY_MATCH)"
+          oneOf:
+            - $ref: "#/components/schemas/DefinedByMetricsDto"
+            - $ref: "#/components/schemas/DefinedByPropertyMatchDto"
+      required:
+        - definedBy
+        - endEntityType
+        - startEntityType
+        - type
+    StaticEnrichmentDto:
+      type: object
+      default: null
+      description: Literal enrichment record contributed by 'enrichedStatically'. Patches an existing entity but does not create or keep it alive.
+      properties:
+        name:
+          type: string
+          default: ""
+          description: Literal value used to match the target entity's name property
+        scope:
+          type: object
+          additionalProperties:
+            type: string
+          default: ""
+          description: Literal scope label values used to match the target entity
+        properties:
+          type: object
+          additionalProperties:
+            type: string
+          default: ""
+          description: Literal property keys and values to patch onto the target entity
+      required:
+        - name
+    StaticEntityDto:
+      type: object
+      default: null
+      description: Literal entity record contributed by 'definedStatically'.
+      properties:
+        name:
+          type: string
+          default: ""
+          description: Literal value for the entity's name property
+        scope:
+          type: object
+          additionalProperties:
+            type: string
+          default: ""
+          description: Literal scope label values; may be empty when the type has no scope
+        properties:
+          type: object
+          additionalProperties:
+            type: string
+          default: ""
+          description: Literal property keys and values to set on the upserted entity
+      required:
+        - name
+    ModelRulesSearchMatchDto:
+      type: object
+      default: null
+      description: A single model rule search match
+      properties:
+        fileName:
+          type: string
+          default: ""
+          description: "Rule identifier: builtin rules use the file name (e.g., entities_awsapp_sqs.yml), custom rules use the config name (e.g., my_custom_redis)"
+        source:
+          type: string
+          default: ""
+          description: "Source of the rule: 'builtin' or 'custom'"
+        entityTypes:
+          type: array
+          default: ""
+          description: Entity types referenced in this rule (from entity definitions and relationship start/end types)
+          items:
+            type: string
+        vendors:
+          type: array
+          default: ""
+          description: Vendor keywords from the 'when' clause
+          items:
+            type: string
+        rules:
+          $ref: "#/components/schemas/ModelRulesDto"
+          default: ""
+          description: Full rule content for this match
+    ModelRulesSearchResultDto:
+      type: object
+      default: null
+      description: Search results for model rules matching a keyword query
+      properties:
+        query:
+          type: string
+          default: ""
+          description: The search query that was used
+        results:
+          type: array
+          default: ""
+          description: List of matching model rule files
+          items:
+            $ref: "#/components/schemas/ModelRulesSearchMatchDto"
     TenantEnvConfigResponseDto:
       type: object
       properties:
