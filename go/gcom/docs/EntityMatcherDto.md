@@ -6,8 +6,10 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **EntityType** | **string** |  | 
 **PropertyMatchers** | Pointer to [**[]PropertyMatcherDto**](PropertyMatcherDto.md) |  | [optional] 
+**MatcherTree** | Pointer to [**MatcherTreeDto**](MatcherTreeDto.md) |  | [optional] 
 **ConnectToEntityTypes** | Pointer to **[]string** |  | [optional] 
 **HavingAssertion** | Pointer to **bool** |  | [optional] 
+**HavingPropagatedAssertions** | Pointer to **bool** |  | [optional] 
 
 ## Methods
 
@@ -73,6 +75,31 @@ SetPropertyMatchers sets PropertyMatchers field to given value.
 
 HasPropertyMatchers returns a boolean if a field has been set.
 
+### GetMatcherTree
+
+`func (o *EntityMatcherDto) GetMatcherTree() MatcherTreeDto`
+
+GetMatcherTree returns the MatcherTree field if non-nil, zero value otherwise.
+
+### GetMatcherTreeOk
+
+`func (o *EntityMatcherDto) GetMatcherTreeOk() (*MatcherTreeDto, bool)`
+
+GetMatcherTreeOk returns a tuple with the MatcherTree field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMatcherTree
+
+`func (o *EntityMatcherDto) SetMatcherTree(v MatcherTreeDto)`
+
+SetMatcherTree sets MatcherTree field to given value.
+
+### HasMatcherTree
+
+`func (o *EntityMatcherDto) HasMatcherTree() bool`
+
+HasMatcherTree returns a boolean if a field has been set.
+
 ### GetConnectToEntityTypes
 
 `func (o *EntityMatcherDto) GetConnectToEntityTypes() []string`
@@ -122,6 +149,31 @@ SetHavingAssertion sets HavingAssertion field to given value.
 `func (o *EntityMatcherDto) HasHavingAssertion() bool`
 
 HasHavingAssertion returns a boolean if a field has been set.
+
+### GetHavingPropagatedAssertions
+
+`func (o *EntityMatcherDto) GetHavingPropagatedAssertions() bool`
+
+GetHavingPropagatedAssertions returns the HavingPropagatedAssertions field if non-nil, zero value otherwise.
+
+### GetHavingPropagatedAssertionsOk
+
+`func (o *EntityMatcherDto) GetHavingPropagatedAssertionsOk() (*bool, bool)`
+
+GetHavingPropagatedAssertionsOk returns a tuple with the HavingPropagatedAssertions field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetHavingPropagatedAssertions
+
+`func (o *EntityMatcherDto) SetHavingPropagatedAssertions(v bool)`
+
+SetHavingPropagatedAssertions sets HavingPropagatedAssertions field to given value.
+
+### HasHavingPropagatedAssertions
+
+`func (o *EntityMatcherDto) HasHavingPropagatedAssertions() bool`
+
+HasHavingPropagatedAssertions returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

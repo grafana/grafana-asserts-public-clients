@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.03.02-104252
+API version: 2026.06.04-081556
 Contact: support@asserts.ai
 */
 
@@ -23,6 +23,7 @@ type EntityCountRequestDto struct {
 	TimeCriteria         *TimeCriteriaDto     `json:"timeCriteria,omitempty"`
 	ScopeCriteria        *ScopeCriteriaDto    `json:"scopeCriteria,omitempty"`
 	PropertyMatchers     []PropertyMatcherDto `json:"propertyMatchers,omitempty"`
+	MatcherTree          *MatcherTreeDto      `json:"matcherTree,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -141,6 +142,38 @@ func (o *EntityCountRequestDto) SetPropertyMatchers(v []PropertyMatcherDto) {
 	o.PropertyMatchers = v
 }
 
+// GetMatcherTree returns the MatcherTree field value if set, zero value otherwise.
+func (o *EntityCountRequestDto) GetMatcherTree() MatcherTreeDto {
+	if o == nil || IsNil(o.MatcherTree) {
+		var ret MatcherTreeDto
+		return ret
+	}
+	return *o.MatcherTree
+}
+
+// GetMatcherTreeOk returns a tuple with the MatcherTree field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EntityCountRequestDto) GetMatcherTreeOk() (*MatcherTreeDto, bool) {
+	if o == nil || IsNil(o.MatcherTree) {
+		return nil, false
+	}
+	return o.MatcherTree, true
+}
+
+// HasMatcherTree returns a boolean if a field has been set.
+func (o *EntityCountRequestDto) HasMatcherTree() bool {
+	if o != nil && !IsNil(o.MatcherTree) {
+		return true
+	}
+
+	return false
+}
+
+// SetMatcherTree gets a reference to the given MatcherTreeDto and assigns it to the MatcherTree field.
+func (o *EntityCountRequestDto) SetMatcherTree(v MatcherTreeDto) {
+	o.MatcherTree = &v
+}
+
 func (o EntityCountRequestDto) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -159,6 +192,9 @@ func (o EntityCountRequestDto) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.PropertyMatchers) {
 		toSerialize["propertyMatchers"] = o.PropertyMatchers
+	}
+	if !IsNil(o.MatcherTree) {
+		toSerialize["matcherTree"] = o.MatcherTree
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -185,6 +221,7 @@ func (o *EntityCountRequestDto) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "timeCriteria")
 		delete(additionalProperties, "scopeCriteria")
 		delete(additionalProperties, "propertyMatchers")
+		delete(additionalProperties, "matcherTree")
 		o.AdditionalProperties = additionalProperties
 	}
 
