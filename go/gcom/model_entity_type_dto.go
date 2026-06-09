@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.03.02-104252
+API version: 2026.06.09-164339
 Contact: support@asserts.ai
 */
 
@@ -28,6 +28,7 @@ type EntityTypeDto struct {
 	Updated              *int64              `json:"updated,omitempty"`
 	Active               *bool               `json:"active,omitempty"`
 	ConnectedEntityTypes []string            `json:"connectedEntityTypes,omitempty"`
+	DefinitionMode       *string             `json:"definitionMode,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -306,6 +307,38 @@ func (o *EntityTypeDto) SetConnectedEntityTypes(v []string) {
 	o.ConnectedEntityTypes = v
 }
 
+// GetDefinitionMode returns the DefinitionMode field value if set, zero value otherwise.
+func (o *EntityTypeDto) GetDefinitionMode() string {
+	if o == nil || IsNil(o.DefinitionMode) {
+		var ret string
+		return ret
+	}
+	return *o.DefinitionMode
+}
+
+// GetDefinitionModeOk returns a tuple with the DefinitionMode field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EntityTypeDto) GetDefinitionModeOk() (*string, bool) {
+	if o == nil || IsNil(o.DefinitionMode) {
+		return nil, false
+	}
+	return o.DefinitionMode, true
+}
+
+// HasDefinitionMode returns a boolean if a field has been set.
+func (o *EntityTypeDto) HasDefinitionMode() bool {
+	if o != nil && !IsNil(o.DefinitionMode) {
+		return true
+	}
+
+	return false
+}
+
+// SetDefinitionMode gets a reference to the given string and assigns it to the DefinitionMode field.
+func (o *EntityTypeDto) SetDefinitionMode(v string) {
+	o.DefinitionMode = &v
+}
+
 func (o EntityTypeDto) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -340,6 +373,9 @@ func (o EntityTypeDto) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ConnectedEntityTypes) {
 		toSerialize["connectedEntityTypes"] = o.ConnectedEntityTypes
 	}
+	if !IsNil(o.DefinitionMode) {
+		toSerialize["definitionMode"] = o.DefinitionMode
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -370,6 +406,7 @@ func (o *EntityTypeDto) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "updated")
 		delete(additionalProperties, "active")
 		delete(additionalProperties, "connectedEntityTypes")
+		delete(additionalProperties, "definitionMode")
 		o.AdditionalProperties = additionalProperties
 	}
 

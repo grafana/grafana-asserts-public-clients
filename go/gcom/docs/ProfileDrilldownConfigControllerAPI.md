@@ -4,16 +4,16 @@ All URIs are relative to *http://localhost:8030/asserts/api-server*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteConfig1**](ProfileDrilldownConfigControllerAPI.md#DeleteConfig1) | **Delete** /v2/config/profile/{name} | Delete profile drilldown configuration
+[**DeleteConfig2**](ProfileDrilldownConfigControllerAPI.md#DeleteConfig2) | **Delete** /v2/config/profile/{name} | Delete profile drilldown configuration
 [**GetTenantProfileConfig**](ProfileDrilldownConfigControllerAPI.md#GetTenantProfileConfig) | **Get** /v2/config/profile | Get tenant profile configuration
 [**ReorderProfileConfigPriorities**](ProfileDrilldownConfigControllerAPI.md#ReorderProfileConfigPriorities) | **Put** /v2/config/profile/reorder | Reorder profile drilldown configuration priorities
 [**UpsertProfileDrilldownConfig**](ProfileDrilldownConfigControllerAPI.md#UpsertProfileDrilldownConfig) | **Post** /v2/config/profile | Upsert profile drilldown configuration
 
 
 
-## DeleteConfig1
+## DeleteConfig2
 
-> DeleteConfig1(ctx, name).XScopeOrgID(xScopeOrgID).Execute()
+> DeleteConfig2(ctx, name).XScopeOrgID(xScopeOrgID).Execute()
 
 Delete profile drilldown configuration
 
@@ -32,14 +32,14 @@ import (
 )
 
 func main() {
-	name := "name_example" // string | Name of the profile configuration to delete
+	name := "name_example" // string | Name of the profile configuration to delete (default to "")
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ProfileDrilldownConfigControllerAPI.DeleteConfig1(context.Background(), name).XScopeOrgID(xScopeOrgID).Execute()
+	r, err := apiClient.ProfileDrilldownConfigControllerAPI.DeleteConfig2(context.Background(), name).XScopeOrgID(xScopeOrgID).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ProfileDrilldownConfigControllerAPI.DeleteConfig1``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ProfileDrilldownConfigControllerAPI.DeleteConfig2``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -51,11 +51,11 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**name** | **string** | Name of the profile configuration to delete | 
+**name** | **string** | Name of the profile configuration to delete | [default to &quot;&quot;]
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDeleteConfig1Request struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteConfig2Request struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -83,7 +83,7 @@ No authorization required
 
 ## GetTenantProfileConfig
 
-> TenantProfileConfigResponseDto GetTenantProfileConfig(ctx).XScopeOrgID(xScopeOrgID).Execute()
+> TenantProfileConfigResponseDto[string]interface{} GetTenantProfileConfig(ctx).XScopeOrgID(xScopeOrgID).Execute()
 
 Get tenant profile configuration
 
@@ -111,7 +111,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ProfileDrilldownConfigControllerAPI.GetTenantProfileConfig``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetTenantProfileConfig`: TenantProfileConfigResponseDto
+	// response from `GetTenantProfileConfig`: TenantProfileConfigResponseDto[string]interface{}
 	fmt.Fprintf(os.Stdout, "Response from `ProfileDrilldownConfigControllerAPI.GetTenantProfileConfig`: %v\n", resp)
 }
 ```
@@ -131,7 +131,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TenantProfileConfigResponseDto**](TenantProfileConfigResponseDto.md)
+**TenantProfileConfigResponseDto[string]interface{}**
 
 ### Authorization
 
@@ -149,7 +149,7 @@ No authorization required
 
 ## ReorderProfileConfigPriorities
 
-> TenantProfileConfigResponseDto ReorderProfileConfigPriorities(ctx).ReorderConfigRequestDto(reorderConfigRequestDto).XScopeOrgID(xScopeOrgID).Execute()
+> TenantProfileConfigResponseDto ReorderProfileConfigPriorities(ctx).Body(body).XScopeOrgID(xScopeOrgID).Execute()
 
 Reorder profile drilldown configuration priorities
 
@@ -168,12 +168,12 @@ import (
 )
 
 func main() {
-	reorderConfigRequestDto := *openapiclient.NewReorderConfigRequestDto([]openapiclient.ProfileConfigPriorityDto{*openapiclient.NewProfileConfigPriorityDto()}) // ReorderConfigRequestDto | 
+	body := "body_example" // string | 
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ProfileDrilldownConfigControllerAPI.ReorderProfileConfigPriorities(context.Background()).ReorderConfigRequestDto(reorderConfigRequestDto).XScopeOrgID(xScopeOrgID).Execute()
+	resp, r, err := apiClient.ProfileDrilldownConfigControllerAPI.ReorderProfileConfigPriorities(context.Background()).Body(body).XScopeOrgID(xScopeOrgID).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ProfileDrilldownConfigControllerAPI.ReorderProfileConfigPriorities``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -194,7 +194,7 @@ Other parameters are passed through a pointer to a apiReorderProfileConfigPriori
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **reorderConfigRequestDto** | [**ReorderConfigRequestDto**](ReorderConfigRequestDto.md) |  | 
+ **body** | **string** |  | 
  **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
 
 ### Return type
@@ -217,7 +217,7 @@ No authorization required
 
 ## UpsertProfileDrilldownConfig
 
-> UpsertProfileDrilldownConfig(ctx).ProfileDrilldownConfigDto(profileDrilldownConfigDto).XScopeOrgID(xScopeOrgID).Execute()
+> UpsertProfileDrilldownConfig(ctx).Body(body).XScopeOrgID(xScopeOrgID).Execute()
 
 Upsert profile drilldown configuration
 
@@ -236,12 +236,12 @@ import (
 )
 
 func main() {
-	profileDrilldownConfigDto := *openapiclient.NewProfileDrilldownConfigDto() // ProfileDrilldownConfigDto | 
+	body := "body_example" // string | 
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ProfileDrilldownConfigControllerAPI.UpsertProfileDrilldownConfig(context.Background()).ProfileDrilldownConfigDto(profileDrilldownConfigDto).XScopeOrgID(xScopeOrgID).Execute()
+	r, err := apiClient.ProfileDrilldownConfigControllerAPI.UpsertProfileDrilldownConfig(context.Background()).Body(body).XScopeOrgID(xScopeOrgID).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ProfileDrilldownConfigControllerAPI.UpsertProfileDrilldownConfig``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -260,7 +260,7 @@ Other parameters are passed through a pointer to a apiUpsertProfileDrilldownConf
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **profileDrilldownConfigDto** | [**ProfileDrilldownConfigDto**](ProfileDrilldownConfigDto.md) |  | 
+ **body** | **string** |  | 
  **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
 
 ### Return type

@@ -4,16 +4,16 @@ All URIs are relative to *http://localhost:8030/asserts/api-server*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteConfig2**](LogDrilldownConfigControllerAPI.md#DeleteConfig2) | **Delete** /v2/config/log/{name} | Delete log drilldown configuration
+[**DeleteConfig3**](LogDrilldownConfigControllerAPI.md#DeleteConfig3) | **Delete** /v2/config/log/{name} | Delete log drilldown configuration
 [**GetTenantLogConfig**](LogDrilldownConfigControllerAPI.md#GetTenantLogConfig) | **Get** /v2/config/log | Get tenant log configuration
 [**ReorderLogConfigPriorities**](LogDrilldownConfigControllerAPI.md#ReorderLogConfigPriorities) | **Put** /v2/config/log/reorder | Reorder log drilldown configuration priorities
 [**UpsertLogDrilldownConfig**](LogDrilldownConfigControllerAPI.md#UpsertLogDrilldownConfig) | **Post** /v2/config/log | Upsert log drilldown configuration
 
 
 
-## DeleteConfig2
+## DeleteConfig3
 
-> DeleteConfig2(ctx, name).XScopeOrgID(xScopeOrgID).Execute()
+> DeleteConfig3(ctx, name).XScopeOrgID(xScopeOrgID).Execute()
 
 Delete log drilldown configuration
 
@@ -32,14 +32,14 @@ import (
 )
 
 func main() {
-	name := "name_example" // string | Name of the log configuration to delete
+	name := "name_example" // string | Name of the log configuration to delete (default to "")
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.LogDrilldownConfigControllerAPI.DeleteConfig2(context.Background(), name).XScopeOrgID(xScopeOrgID).Execute()
+	r, err := apiClient.LogDrilldownConfigControllerAPI.DeleteConfig3(context.Background(), name).XScopeOrgID(xScopeOrgID).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `LogDrilldownConfigControllerAPI.DeleteConfig2``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `LogDrilldownConfigControllerAPI.DeleteConfig3``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -51,11 +51,11 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**name** | **string** | Name of the log configuration to delete | 
+**name** | **string** | Name of the log configuration to delete | [default to &quot;&quot;]
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDeleteConfig2Request struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteConfig3Request struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -83,7 +83,7 @@ No authorization required
 
 ## GetTenantLogConfig
 
-> TenantLogConfigResponseDto GetTenantLogConfig(ctx).XScopeOrgID(xScopeOrgID).Execute()
+> TenantLogConfigResponseDto[string]interface{} GetTenantLogConfig(ctx).XScopeOrgID(xScopeOrgID).Execute()
 
 Get tenant log configuration
 
@@ -111,7 +111,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `LogDrilldownConfigControllerAPI.GetTenantLogConfig``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetTenantLogConfig`: TenantLogConfigResponseDto
+	// response from `GetTenantLogConfig`: TenantLogConfigResponseDto[string]interface{}
 	fmt.Fprintf(os.Stdout, "Response from `LogDrilldownConfigControllerAPI.GetTenantLogConfig`: %v\n", resp)
 }
 ```
@@ -131,7 +131,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TenantLogConfigResponseDto**](TenantLogConfigResponseDto.md)
+**TenantLogConfigResponseDto[string]interface{}**
 
 ### Authorization
 
@@ -149,7 +149,7 @@ No authorization required
 
 ## ReorderLogConfigPriorities
 
-> TenantLogConfigResponseDto ReorderLogConfigPriorities(ctx).ReorderLogConfigRequestDto(reorderLogConfigRequestDto).XScopeOrgID(xScopeOrgID).Execute()
+> TenantLogConfigResponseDto ReorderLogConfigPriorities(ctx).Body(body).XScopeOrgID(xScopeOrgID).Execute()
 
 Reorder log drilldown configuration priorities
 
@@ -168,12 +168,12 @@ import (
 )
 
 func main() {
-	reorderLogConfigRequestDto := *openapiclient.NewReorderLogConfigRequestDto([]openapiclient.LogConfigPriorityDto{*openapiclient.NewLogConfigPriorityDto()}) // ReorderLogConfigRequestDto | 
+	body := "body_example" // string | 
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.LogDrilldownConfigControllerAPI.ReorderLogConfigPriorities(context.Background()).ReorderLogConfigRequestDto(reorderLogConfigRequestDto).XScopeOrgID(xScopeOrgID).Execute()
+	resp, r, err := apiClient.LogDrilldownConfigControllerAPI.ReorderLogConfigPriorities(context.Background()).Body(body).XScopeOrgID(xScopeOrgID).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `LogDrilldownConfigControllerAPI.ReorderLogConfigPriorities``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -194,7 +194,7 @@ Other parameters are passed through a pointer to a apiReorderLogConfigPriorities
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **reorderLogConfigRequestDto** | [**ReorderLogConfigRequestDto**](ReorderLogConfigRequestDto.md) |  | 
+ **body** | **string** |  | 
  **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
 
 ### Return type
@@ -217,7 +217,7 @@ No authorization required
 
 ## UpsertLogDrilldownConfig
 
-> UpsertLogDrilldownConfig(ctx).LogDrilldownConfigDto(logDrilldownConfigDto).XScopeOrgID(xScopeOrgID).Execute()
+> UpsertLogDrilldownConfig(ctx).Body(body).XScopeOrgID(xScopeOrgID).Execute()
 
 Upsert log drilldown configuration
 
@@ -236,12 +236,12 @@ import (
 )
 
 func main() {
-	logDrilldownConfigDto := *openapiclient.NewLogDrilldownConfigDto() // LogDrilldownConfigDto | 
+	body := "body_example" // string | 
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.LogDrilldownConfigControllerAPI.UpsertLogDrilldownConfig(context.Background()).LogDrilldownConfigDto(logDrilldownConfigDto).XScopeOrgID(xScopeOrgID).Execute()
+	r, err := apiClient.LogDrilldownConfigControllerAPI.UpsertLogDrilldownConfig(context.Background()).Body(body).XScopeOrgID(xScopeOrgID).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `LogDrilldownConfigControllerAPI.UpsertLogDrilldownConfig``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -260,7 +260,7 @@ Other parameters are passed through a pointer to a apiUpsertLogDrilldownConfigRe
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **logDrilldownConfigDto** | [**LogDrilldownConfigDto**](LogDrilldownConfigDto.md) |  | 
+ **body** | **string** |  | 
  **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
 
 ### Return type

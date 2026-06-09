@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **Updated** | Pointer to **int64** |  | [optional] 
 **Active** | Pointer to **bool** |  | [optional] 
 **ConnectedEntityTypes** | Pointer to **[]string** |  | [optional] 
+**DefinitionMode** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -231,6 +232,31 @@ SetConnectedEntityTypes sets ConnectedEntityTypes field to given value.
 `func (o *EntityTypeDto) HasConnectedEntityTypes() bool`
 
 HasConnectedEntityTypes returns a boolean if a field has been set.
+
+### GetDefinitionMode
+
+`func (o *EntityTypeDto) GetDefinitionMode() string`
+
+GetDefinitionMode returns the DefinitionMode field if non-nil, zero value otherwise.
+
+### GetDefinitionModeOk
+
+`func (o *EntityTypeDto) GetDefinitionModeOk() (*string, bool)`
+
+GetDefinitionModeOk returns a tuple with the DefinitionMode field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDefinitionMode
+
+`func (o *EntityTypeDto) SetDefinitionMode(v string)`
+
+SetDefinitionMode sets DefinitionMode field to given value.
+
+### HasDefinitionMode
+
+`func (o *EntityTypeDto) HasDefinitionMode() bool`
+
+HasDefinitionMode returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

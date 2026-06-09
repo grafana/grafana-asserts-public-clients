@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.03.02-104252
+API version: 2026.06.09-164339
 Contact: support@asserts.ai
 */
 
@@ -29,7 +29,7 @@ type StackStatusDto struct {
 	SanityCheckResults      []MetricSanityCheckResult `json:"sanityCheckResults,omitempty"`
 	Version                 *int32                    `json:"version,omitempty"`
 	UseGrafanaManagedAlerts *bool                     `json:"useGrafanaManagedAlerts,omitempty"`
-	ContactPointUID         *string                   `json:"contactPointUID,omitempty"`
+	OtelNative              *bool                     `json:"otelNative,omitempty"`
 	AdditionalProperties    map[string]interface{}
 }
 
@@ -308,36 +308,36 @@ func (o *StackStatusDto) SetUseGrafanaManagedAlerts(v bool) {
 	o.UseGrafanaManagedAlerts = &v
 }
 
-// GetContactPointUID returns the ContactPointUID field value if set, zero value otherwise.
-func (o *StackStatusDto) GetContactPointUID() string {
-	if o == nil || IsNil(o.ContactPointUID) {
-		var ret string
+// GetOtelNative returns the OtelNative field value if set, zero value otherwise.
+func (o *StackStatusDto) GetOtelNative() bool {
+	if o == nil || IsNil(o.OtelNative) {
+		var ret bool
 		return ret
 	}
-	return *o.ContactPointUID
+	return *o.OtelNative
 }
 
-// GetContactPointUIDOk returns a tuple with the ContactPointUID field value if set, nil otherwise
+// GetOtelNativeOk returns a tuple with the OtelNative field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *StackStatusDto) GetContactPointUIDOk() (*string, bool) {
-	if o == nil || IsNil(o.ContactPointUID) {
+func (o *StackStatusDto) GetOtelNativeOk() (*bool, bool) {
+	if o == nil || IsNil(o.OtelNative) {
 		return nil, false
 	}
-	return o.ContactPointUID, true
+	return o.OtelNative, true
 }
 
-// HasContactPointUID returns a boolean if a field has been set.
-func (o *StackStatusDto) HasContactPointUID() bool {
-	if o != nil && !IsNil(o.ContactPointUID) {
+// HasOtelNative returns a boolean if a field has been set.
+func (o *StackStatusDto) HasOtelNative() bool {
+	if o != nil && !IsNil(o.OtelNative) {
 		return true
 	}
 
 	return false
 }
 
-// SetContactPointUID gets a reference to the given string and assigns it to the ContactPointUID field.
-func (o *StackStatusDto) SetContactPointUID(v string) {
-	o.ContactPointUID = &v
+// SetOtelNative gets a reference to the given bool and assigns it to the OtelNative field.
+func (o *StackStatusDto) SetOtelNative(v bool) {
+	o.OtelNative = &v
 }
 
 func (o StackStatusDto) MarshalJSON() ([]byte, error) {
@@ -374,8 +374,8 @@ func (o StackStatusDto) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UseGrafanaManagedAlerts) {
 		toSerialize["useGrafanaManagedAlerts"] = o.UseGrafanaManagedAlerts
 	}
-	if !IsNil(o.ContactPointUID) {
-		toSerialize["contactPointUID"] = o.ContactPointUID
+	if !IsNil(o.OtelNative) {
+		toSerialize["otelNative"] = o.OtelNative
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -407,7 +407,7 @@ func (o *StackStatusDto) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "sanityCheckResults")
 		delete(additionalProperties, "version")
 		delete(additionalProperties, "useGrafanaManagedAlerts")
-		delete(additionalProperties, "contactPointUID")
+		delete(additionalProperties, "otelNative")
 		o.AdditionalProperties = additionalProperties
 	}
 

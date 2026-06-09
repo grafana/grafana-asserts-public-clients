@@ -47,28 +47,4 @@ func Test_gcom_CustomerMetricControllerAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test CustomerMetricControllerAPIService GetClientMetrics", func(t *testing.T) {
-
-		t.Skip("skip test") // remove to run test
-
-		resp, httpRes, err := apiClient.CustomerMetricControllerAPI.GetClientMetrics(context.Background()).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
-	t.Run("Test CustomerMetricControllerAPIService GetRuleMetrics", func(t *testing.T) {
-
-		t.Skip("skip test") // remove to run test
-
-		resp, httpRes, err := apiClient.CustomerMetricControllerAPI.GetRuleMetrics(context.Background()).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
 }

@@ -35,4 +35,16 @@ func Test_gcom_SearchControllerAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test SearchControllerAPIService SearchCount", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		resp, httpRes, err := apiClient.SearchControllerAPI.SearchCount(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 }
