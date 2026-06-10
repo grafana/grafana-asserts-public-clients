@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **AlertName** | Pointer to **string** |  | [optional] 
 **HealthStates** | Pointer to [**[]LlmRcaAssertionStateDto**](LlmRcaAssertionStateDto.md) |  | [optional] 
 **Labels** | Pointer to **[]map[string]string** |  | [optional] 
+**NestedTimelines** | Pointer to [**[]LlmRcaAssertionTimelineItemDto**](LlmRcaAssertionTimelineItemDto.md) |  | [optional] 
 
 ## Methods
 
@@ -153,6 +154,31 @@ SetLabels sets Labels field to given value.
 `func (o *LlmRcaAssertionTimelineItemDto) HasLabels() bool`
 
 HasLabels returns a boolean if a field has been set.
+
+### GetNestedTimelines
+
+`func (o *LlmRcaAssertionTimelineItemDto) GetNestedTimelines() []LlmRcaAssertionTimelineItemDto`
+
+GetNestedTimelines returns the NestedTimelines field if non-nil, zero value otherwise.
+
+### GetNestedTimelinesOk
+
+`func (o *LlmRcaAssertionTimelineItemDto) GetNestedTimelinesOk() (*[]LlmRcaAssertionTimelineItemDto, bool)`
+
+GetNestedTimelinesOk returns a tuple with the NestedTimelines field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNestedTimelines
+
+`func (o *LlmRcaAssertionTimelineItemDto) SetNestedTimelines(v []LlmRcaAssertionTimelineItemDto)`
+
+SetNestedTimelines sets NestedTimelines field to given value.
+
+### HasNestedTimelines
+
+`func (o *LlmRcaAssertionTimelineItemDto) HasNestedTimelines() bool`
+
+HasNestedTimelines returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

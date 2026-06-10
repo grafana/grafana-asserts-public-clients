@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **TimeCriteria** | Pointer to [**TimeCriteriaDto**](TimeCriteriaDto.md) |  | [optional] 
 **ScopeCriteria** | Pointer to [**ScopeCriteriaDto**](ScopeCriteriaDto.md) |  | [optional] 
 **PropertyMatchers** | Pointer to [**[]PropertyMatcherDto**](PropertyMatcherDto.md) |  | [optional] 
+**MatcherTree** | Pointer to [**MatcherTreeDto**](MatcherTreeDto.md) |  | [optional] 
 
 ## Methods
 
@@ -101,6 +102,31 @@ SetPropertyMatchers sets PropertyMatchers field to given value.
 `func (o *EntityCountRequestDto) HasPropertyMatchers() bool`
 
 HasPropertyMatchers returns a boolean if a field has been set.
+
+### GetMatcherTree
+
+`func (o *EntityCountRequestDto) GetMatcherTree() MatcherTreeDto`
+
+GetMatcherTree returns the MatcherTree field if non-nil, zero value otherwise.
+
+### GetMatcherTreeOk
+
+`func (o *EntityCountRequestDto) GetMatcherTreeOk() (*MatcherTreeDto, bool)`
+
+GetMatcherTreeOk returns a tuple with the MatcherTree field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMatcherTree
+
+`func (o *EntityCountRequestDto) SetMatcherTree(v MatcherTreeDto)`
+
+SetMatcherTree sets MatcherTree field to given value.
+
+### HasMatcherTree
+
+`func (o *EntityCountRequestDto) HasMatcherTree() bool`
+
+HasMatcherTree returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

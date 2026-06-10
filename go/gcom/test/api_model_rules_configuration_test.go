@@ -64,6 +64,18 @@ func Test_gcom_ModelRulesConfigurationAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test ModelRulesConfigurationAPIService GetModelRulesOntology", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		resp, httpRes, err := apiClient.ModelRulesConfigurationAPI.GetModelRulesOntology(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test ModelRulesConfigurationAPIService GetModelRulesSchema", func(t *testing.T) {
 
 		t.Skip("skip test") // remove to run test
@@ -108,6 +120,18 @@ func Test_gcom_ModelRulesConfigurationAPIService(t *testing.T) {
 		httpRes, err := apiClient.ModelRulesConfigurationAPI.PutModelRules1(context.Background(), name).Execute()
 
 		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test ModelRulesConfigurationAPIService SearchModelRules", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		resp, httpRes, err := apiClient.ModelRulesConfigurationAPI.SearchModelRules(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
 
 	})

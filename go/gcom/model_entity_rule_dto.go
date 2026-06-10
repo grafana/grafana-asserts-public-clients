@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.03.02-104252
+API version: 2026.06.09-164339
 Contact: support@asserts.ai
 */
 
@@ -32,6 +32,10 @@ type EntityRuleDto struct {
 	DefinedBy []PropertyRuleDto `json:"definedBy,omitempty"`
 	// Enrichment rules for this entity
 	EnrichedBy []PropertyRuleDto `json:"enrichedBy,omitempty"`
+	// Literal entity records that create and keep this type alive (mutually exclusive with definedBy)
+	DefinedStatically []StaticEntityDto `json:"definedStatically,omitempty"`
+	// Literal enrichment records that patch existing entities of this type without keeping them alive
+	EnrichedStatically []StaticEnrichmentDto `json:"enrichedStatically,omitempty"`
 	// Whether this entity rule is disabled
 	Disabled             *bool `json:"disabled,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -47,6 +51,8 @@ func NewEntityRuleDto(type_ string, name string) *EntityRuleDto {
 	this := EntityRuleDto{}
 	this.Type = type_
 	this.Name = name
+	var disabled bool = false
+	this.Disabled = &disabled
 	return &this
 }
 
@@ -55,6 +61,12 @@ func NewEntityRuleDto(type_ string, name string) *EntityRuleDto {
 // but it doesn't guarantee that properties required by API are set
 func NewEntityRuleDtoWithDefaults() *EntityRuleDto {
 	this := EntityRuleDto{}
+	var type_ string = ""
+	this.Type = type_
+	var name string = ""
+	this.Name = name
+	var disabled bool = false
+	this.Disabled = &disabled
 	return &this
 }
 
@@ -234,6 +246,70 @@ func (o *EntityRuleDto) SetEnrichedBy(v []PropertyRuleDto) {
 	o.EnrichedBy = v
 }
 
+// GetDefinedStatically returns the DefinedStatically field value if set, zero value otherwise.
+func (o *EntityRuleDto) GetDefinedStatically() []StaticEntityDto {
+	if o == nil || IsNil(o.DefinedStatically) {
+		var ret []StaticEntityDto
+		return ret
+	}
+	return o.DefinedStatically
+}
+
+// GetDefinedStaticallyOk returns a tuple with the DefinedStatically field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EntityRuleDto) GetDefinedStaticallyOk() ([]StaticEntityDto, bool) {
+	if o == nil || IsNil(o.DefinedStatically) {
+		return nil, false
+	}
+	return o.DefinedStatically, true
+}
+
+// HasDefinedStatically returns a boolean if a field has been set.
+func (o *EntityRuleDto) HasDefinedStatically() bool {
+	if o != nil && !IsNil(o.DefinedStatically) {
+		return true
+	}
+
+	return false
+}
+
+// SetDefinedStatically gets a reference to the given []StaticEntityDto and assigns it to the DefinedStatically field.
+func (o *EntityRuleDto) SetDefinedStatically(v []StaticEntityDto) {
+	o.DefinedStatically = v
+}
+
+// GetEnrichedStatically returns the EnrichedStatically field value if set, zero value otherwise.
+func (o *EntityRuleDto) GetEnrichedStatically() []StaticEnrichmentDto {
+	if o == nil || IsNil(o.EnrichedStatically) {
+		var ret []StaticEnrichmentDto
+		return ret
+	}
+	return o.EnrichedStatically
+}
+
+// GetEnrichedStaticallyOk returns a tuple with the EnrichedStatically field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EntityRuleDto) GetEnrichedStaticallyOk() ([]StaticEnrichmentDto, bool) {
+	if o == nil || IsNil(o.EnrichedStatically) {
+		return nil, false
+	}
+	return o.EnrichedStatically, true
+}
+
+// HasEnrichedStatically returns a boolean if a field has been set.
+func (o *EntityRuleDto) HasEnrichedStatically() bool {
+	if o != nil && !IsNil(o.EnrichedStatically) {
+		return true
+	}
+
+	return false
+}
+
+// SetEnrichedStatically gets a reference to the given []StaticEnrichmentDto and assigns it to the EnrichedStatically field.
+func (o *EntityRuleDto) SetEnrichedStatically(v []StaticEnrichmentDto) {
+	o.EnrichedStatically = v
+}
+
 // GetDisabled returns the Disabled field value if set, zero value otherwise.
 func (o *EntityRuleDto) GetDisabled() bool {
 	if o == nil || IsNil(o.Disabled) {
@@ -290,6 +366,12 @@ func (o EntityRuleDto) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.EnrichedBy) {
 		toSerialize["enrichedBy"] = o.EnrichedBy
 	}
+	if !IsNil(o.DefinedStatically) {
+		toSerialize["definedStatically"] = o.DefinedStatically
+	}
+	if !IsNil(o.EnrichedStatically) {
+		toSerialize["enrichedStatically"] = o.EnrichedStatically
+	}
 	if !IsNil(o.Disabled) {
 		toSerialize["disabled"] = o.Disabled
 	}
@@ -329,6 +411,8 @@ func (o *EntityRuleDto) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "lookup")
 		delete(additionalProperties, "definedBy")
 		delete(additionalProperties, "enrichedBy")
+		delete(additionalProperties, "definedStatically")
+		delete(additionalProperties, "enrichedStatically")
 		delete(additionalProperties, "disabled")
 		o.AdditionalProperties = additionalProperties
 	}
