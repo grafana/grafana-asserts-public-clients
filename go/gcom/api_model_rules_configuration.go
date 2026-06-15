@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.06.09-164339
+API version: 2026.06.15-132411
 Contact: support@asserts.ai
 */
 
@@ -272,7 +272,7 @@ GetModelRulesByType Get base, active, or custom model rules
 Retrieves base, active, or custom model rules for the current tenant.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param type_
+ @param type_ Rule set selector.
  @return ApiGetModelRulesByTypeRequest
 */
 func (a *ModelRulesConfigurationAPIService) GetModelRulesByType(ctx context.Context, type_ string) ApiGetModelRulesByTypeRequest {
@@ -498,7 +498,7 @@ func (r ApiGetModelRulesSchemaRequest) Execute() (map[string]interface{}, *http.
 }
 
 /*
-GetModelRulesSchema Get JSON Schema for Model Rules configuration
+GetModelRulesSchema Get JSON Schema for the Model Rules configuration
 
 Returns a JSON Schema Draft 2020-12 document that describes the structure of the Model Rules configuration.
 
@@ -839,7 +839,7 @@ func (a *ModelRulesConfigurationAPIService) PutModelRulesExecute(r ApiPutModelRu
 	return localVarHTTPResponse, nil
 }
 
-type ApiPutModelRules1Request struct {
+type ApiPutModelRulesByNameRequest struct {
 	ctx context.Context
 	ApiService *ModelRulesConfigurationAPIService
 	name string
@@ -847,32 +847,32 @@ type ApiPutModelRules1Request struct {
 	xScopeOrgID *string
 }
 
-func (r ApiPutModelRules1Request) Body(body string) ApiPutModelRules1Request {
+func (r ApiPutModelRulesByNameRequest) Body(body string) ApiPutModelRulesByNameRequest {
 	r.body = &body
 	return r
 }
 
 // Grafana Tenant/Stack ID
-func (r ApiPutModelRules1Request) XScopeOrgID(xScopeOrgID string) ApiPutModelRules1Request {
+func (r ApiPutModelRulesByNameRequest) XScopeOrgID(xScopeOrgID string) ApiPutModelRulesByNameRequest {
 	r.xScopeOrgID = &xScopeOrgID
 	return r
 }
 
-func (r ApiPutModelRules1Request) Execute() (*http.Response, error) {
-	return r.ApiService.PutModelRules1Execute(r)
+func (r ApiPutModelRulesByNameRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PutModelRulesByNameExecute(r)
 }
 
 /*
-PutModelRules1 Create or update custom model rules by name
+PutModelRulesByName Create or update custom model rules by name
 
 Creates or updates custom model rules with a specific name. If the dto also contains a name, it will be used instead (save as operation).
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param name The name of the model rules configuration
- @return ApiPutModelRules1Request
+ @return ApiPutModelRulesByNameRequest
 */
-func (a *ModelRulesConfigurationAPIService) PutModelRules1(ctx context.Context, name string) ApiPutModelRules1Request {
-	return ApiPutModelRules1Request{
+func (a *ModelRulesConfigurationAPIService) PutModelRulesByName(ctx context.Context, name string) ApiPutModelRulesByNameRequest {
+	return ApiPutModelRulesByNameRequest{
 		ApiService: a,
 		ctx: ctx,
 		name: name,
@@ -880,14 +880,14 @@ func (a *ModelRulesConfigurationAPIService) PutModelRules1(ctx context.Context, 
 }
 
 // Execute executes the request
-func (a *ModelRulesConfigurationAPIService) PutModelRules1Execute(r ApiPutModelRules1Request) (*http.Response, error) {
+func (a *ModelRulesConfigurationAPIService) PutModelRulesByNameExecute(r ApiPutModelRulesByNameRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ModelRulesConfigurationAPIService.PutModelRules1")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ModelRulesConfigurationAPIService.PutModelRulesByName")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -903,7 +903,7 @@ func (a *ModelRulesConfigurationAPIService) PutModelRules1Execute(r ApiPutModelR
 	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{"application/json", "application/x-yml", "application/x-yaml"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -980,6 +980,7 @@ type ApiSearchModelRulesRequest struct {
 	xScopeOrgID *string
 }
 
+// Search query.
 func (r ApiSearchModelRulesRequest) Q(q string) ApiSearchModelRulesRequest {
 	r.q = &q
 	return r
@@ -1032,6 +1033,9 @@ func (a *ModelRulesConfigurationAPIService) SearchModelRulesExecute(r ApiSearchM
 	localVarFormParams := url.Values{}
 	if r.q == nil {
 		return localVarReturnValue, nil, reportError("q is required and must be specified")
+	}
+	if strlen(*r.q) < 2 {
+		return localVarReturnValue, nil, reportError("q must have at least 2 elements")
 	}
 
 	parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "")

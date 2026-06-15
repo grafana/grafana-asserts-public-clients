@@ -7,7 +7,7 @@ info:
   description: Asserts Public API
   termsOfService: https://www.asserts.ai/terms-of-service
   title: "Asserts, Inc"
-  version: 2026.06.09-164339
+  version: 2026.06.15-132411
 servers:
 - description: Generated server url
   url: http://localhost:8030/asserts/api-server
@@ -626,7 +626,7 @@ paths:
     put:
       description: "Creates or updates custom model rules with a specific name. If\
         \ the dto also contains a name, it will be used instead (save as operation)."
-      operationId: putModelRules_1
+      operationId: putModelRulesByName
       parameters:
       - description: The name of the model rules configuration
         explode: false
@@ -641,6 +641,16 @@ paths:
       requestBody:
         content:
           application/json:
+            schema:
+              default: ""
+              description: The model rules configuration to create or update
+              type: string
+          application/x-yml:
+            schema:
+              default: ""
+              description: The model rules configuration to create or update
+              type: string
+          application/x-yaml:
             schema:
               default: ""
               description: The model rules configuration to create or update
@@ -4154,11 +4164,15 @@ paths:
         \ types, and vendor keywords. Query must be at least 2 characters."
       operationId: searchModelRules
       parameters:
-      - explode: true
+      - description: Search query.
+        explode: true
         in: query
         name: q
         required: true
         schema:
+          default: ""
+          example: redis
+          minLength: 2
           type: string
         style: form
       - $ref: '#/components/parameters/TenantId'
@@ -4192,13 +4206,21 @@ paths:
               schema:
                 additionalProperties: {}
           description: JSON Schema returned successfully
+          headers:
+            Cache-Control:
+              description: Public cache for one hour.
+              explode: false
+              schema:
+                items: {}
+                type: array
+              style: simple
         "500":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiError'
           description: Internal server error
-      summary: Get JSON Schema for Model Rules configuration
+      summary: Get JSON Schema for the Model Rules configuration
       tags:
       - Model Rules Configuration
   /v1/config/model-rules/ontology:
@@ -4270,6 +4292,14 @@ paths:
           description: Turtle ontology returned successfully. The body is an OWL 2
             ontology serialized as Turtle (RFC 9308). The response is cacheable for
             one hour via the public Cache-Control directive.
+          headers:
+            Cache-Control:
+              description: Public cache for one hour.
+              explode: false
+              schema:
+                items: {}
+                type: array
+              style: simple
         "500":
           content:
             text/turtle:
@@ -4285,11 +4315,17 @@ paths:
         \ tenant."
       operationId: getModelRulesByType
       parameters:
-      - explode: false
+      - description: Rule set selector.
+        explode: false
         in: path
         name: type
         required: true
         schema:
+          default: ""
+          enum:
+          - base
+          - active
+          - custom
           type: string
         style: simple
       - $ref: '#/components/parameters/TenantId'

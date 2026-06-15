@@ -8,10 +8,10 @@ Method | HTTP request | Description
 [**GetModelRules**](ModelRulesConfigurationAPI.md#GetModelRules) | **Get** /v1/config/model-rules/{name} | Get custom model rules by name
 [**GetModelRulesByType**](ModelRulesConfigurationAPI.md#GetModelRulesByType) | **Get** /v1/config/model-rules-types/{type} | Get base, active, or custom model rules
 [**GetModelRulesOntology**](ModelRulesConfigurationAPI.md#GetModelRulesOntology) | **Get** /v1/config/model-rules/ontology | Get OWL ontology for active model rules
-[**GetModelRulesSchema**](ModelRulesConfigurationAPI.md#GetModelRulesSchema) | **Get** /v1/config/model-rules/schema | Get JSON Schema for Model Rules configuration
+[**GetModelRulesSchema**](ModelRulesConfigurationAPI.md#GetModelRulesSchema) | **Get** /v1/config/model-rules/schema | Get JSON Schema for the Model Rules configuration
 [**ListModelRules**](ModelRulesConfigurationAPI.md#ListModelRules) | **Get** /v1/config/model-rules | List all custom model rule names
 [**PutModelRules**](ModelRulesConfigurationAPI.md#PutModelRules) | **Put** /v1/config/model-rules | Create or update custom model rules
-[**PutModelRules1**](ModelRulesConfigurationAPI.md#PutModelRules1) | **Put** /v1/config/model-rules/{name} | Create or update custom model rules by name
+[**PutModelRulesByName**](ModelRulesConfigurationAPI.md#PutModelRulesByName) | **Put** /v1/config/model-rules/{name} | Create or update custom model rules by name
 [**SearchModelRules**](ModelRulesConfigurationAPI.md#SearchModelRules) | **Get** /v1/config/model-rules/search | Search model rules by keyword
 
 
@@ -179,7 +179,7 @@ import (
 )
 
 func main() {
-	type_ := "type__example" // string | 
+	type_ := "type__example" // string | Rule set selector. (default to "")
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -200,7 +200,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**type_** | **string** |  | 
+**type_** | **string** | Rule set selector. | [default to &quot;&quot;]
 
 ### Other Parameters
 
@@ -300,7 +300,7 @@ No authorization required
 
 > map[string]interface{} GetModelRulesSchema(ctx).XScopeOrgID(xScopeOrgID).Execute()
 
-Get JSON Schema for Model Rules configuration
+Get JSON Schema for the Model Rules configuration
 
 
 
@@ -494,9 +494,9 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## PutModelRules1
+## PutModelRulesByName
 
-> PutModelRules1(ctx, name).Body(body).XScopeOrgID(xScopeOrgID).Execute()
+> PutModelRulesByName(ctx, name).Body(body).XScopeOrgID(xScopeOrgID).Execute()
 
 Create or update custom model rules by name
 
@@ -521,9 +521,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ModelRulesConfigurationAPI.PutModelRules1(context.Background(), name).Body(body).XScopeOrgID(xScopeOrgID).Execute()
+	r, err := apiClient.ModelRulesConfigurationAPI.PutModelRulesByName(context.Background(), name).Body(body).XScopeOrgID(xScopeOrgID).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ModelRulesConfigurationAPI.PutModelRules1``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ModelRulesConfigurationAPI.PutModelRulesByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -539,7 +539,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPutModelRules1Request struct via the builder pattern
+Other parameters are passed through a pointer to a apiPutModelRulesByNameRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -558,7 +558,7 @@ No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: application/json, application/x-yml, application/x-yaml
 - **Accept**: application/json, application/x-yml, application/x-yaml
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -587,7 +587,7 @@ import (
 )
 
 func main() {
-	q := "q_example" // string | 
+	q := "redis" // string | Search query. (default to "")
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -613,7 +613,7 @@ Other parameters are passed through a pointer to a apiSearchModelRulesRequest st
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **q** | **string** |  | 
+ **q** | **string** | Search query. | [default to &quot;&quot;]
  **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
 
 ### Return type
