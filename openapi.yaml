@@ -7,7 +7,7 @@ info:
     name: Support
     url: "https://www.grafana.com"
     email: support@asserts.ai
-  version: 2026.06.09-164339
+  version: 2026.06.15-132411
 servers:
   - url: http://localhost:8030/asserts/api-server
     description: Generated server url
@@ -662,7 +662,7 @@ paths:
         - Model Rules Configuration
       summary: Create or update custom model rules by name
       description: "Creates or updates custom model rules with a specific name. If the dto also contains a name, it will be used instead (save as operation)."
-      operationId: putModelRules_1
+      operationId: putModelRulesByName
       parameters:
         - name: name
           in: path
@@ -676,6 +676,16 @@ paths:
       requestBody:
         content:
           application/json:
+            schema:
+              type: string
+              default: ""
+              description: The model rules configuration to create or update
+          application/x-yml:
+            schema:
+              type: string
+              default: ""
+              description: The model rules configuration to create or update
+          application/x-yaml:
             schema:
               type: string
               default: ""
@@ -4369,9 +4379,13 @@ paths:
       parameters:
         - name: q
           in: query
+          description: Search query.
           required: true
           schema:
             type: string
+            default: ""
+            example: redis
+            minLength: 2
         - in: header
           $ref: "#/components/parameters/TenantId"
       responses:
@@ -4394,7 +4408,7 @@ paths:
     get:
       tags:
         - Model Rules Configuration
-      summary: Get JSON Schema for Model Rules configuration
+      summary: Get JSON Schema for the Model Rules configuration
       description: Returns a JSON Schema Draft 2020-12 document that describes the structure of the Model Rules configuration.
       operationId: getModelRulesSchema
       parameters:
@@ -4403,6 +4417,18 @@ paths:
       responses:
         "200":
           description: JSON Schema returned successfully
+          headers:
+            Cache-Control:
+              description: Public cache for one hour.
+              style: simple
+              schema:
+                type: array
+                contains:
+                  default: ""
+                items:
+                  default: ""
+                unevaluatedItems:
+                  default: ""
           content:
             application/json:
               schema:
@@ -4430,6 +4456,18 @@ paths:
       responses:
         "200":
           description: Turtle ontology returned successfully. The body is an OWL 2 ontology serialized as Turtle (RFC 9308). The response is cacheable for one hour via the public Cache-Control directive.
+          headers:
+            Cache-Control:
+              description: Public cache for one hour.
+              style: simple
+              schema:
+                type: array
+                contains:
+                  default: ""
+                items:
+                  default: ""
+                unevaluatedItems:
+                  default: ""
           content:
             text/turtle:
               schema:
@@ -4498,9 +4536,15 @@ paths:
       parameters:
         - name: type
           in: path
+          description: Rule set selector.
           required: true
           schema:
             type: string
+            default: ""
+            enum:
+              - base
+              - active
+              - custom
         - in: header
           $ref: "#/components/parameters/TenantId"
       responses:
