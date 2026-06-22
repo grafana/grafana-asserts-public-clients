@@ -111,13 +111,13 @@ func Test_gcom_ModelRulesConfigurationAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test ModelRulesConfigurationAPIService PutModelRules1", func(t *testing.T) {
+	t.Run("Test ModelRulesConfigurationAPIService PutModelRulesByName", func(t *testing.T) {
 
 		t.Skip("skip test") // remove to run test
 
 		var name string
 
-		httpRes, err := apiClient.ModelRulesConfigurationAPI.PutModelRules1(context.Background(), name).Execute()
+		httpRes, err := apiClient.ModelRulesConfigurationAPI.PutModelRulesByName(context.Background(), name).Execute()
 
 		require.Nil(t, err)
 		assert.Equal(t, 200, httpRes.StatusCode)
