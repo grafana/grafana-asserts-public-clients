@@ -7,7 +7,7 @@ info:
     name: Support
     url: "https://www.grafana.com"
     email: support@asserts.ai
-  version: 2026.06.22-121348
+  version: 2026.06.25-151254
 servers:
   - url: http://localhost:8030/asserts/api-server
     description: Generated server url
@@ -4033,6 +4033,11 @@ paths:
           required: false
           schema:
             type: string
+        - name: domain
+          in: query
+          required: false
+          schema:
+            type: string
         - name: requestParams
           in: query
           required: true
@@ -4088,6 +4093,11 @@ paths:
           schema:
             type: string
         - name: namespace
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: domain
           in: query
           required: false
           schema:
@@ -8743,6 +8753,8 @@ components:
           properties:
             empty:
               type: boolean
+        domain:
+          type: string
         assertion:
           $ref: "#/components/schemas/GraphAssertionSummary"
         connectedAssertion:
@@ -8761,6 +8773,8 @@ components:
           type: string
         kgScope:
           $ref: "#/components/schemas/KGScope"
+        domain:
+          type: string
     KGScope:
       type: object
       properties:
