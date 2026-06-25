@@ -18,11 +18,15 @@ jobs:
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
-          persist-credentials: true
+          persist-credentials: false
+          # Check out the branch tip (not the PR merge ref) so the signed commit
+          # step can use HEAD as expectedHeadOid for createCommitOnBranch.
+          ref: ${{ github.head_ref || github.ref_name }}
       - uses: actions/setup-go@4a3601121dd01d1626a1e23e37211e3254c1c06c # v6.4.0
         with:
           go-version: 1.25
 
+      # Generation only — committing is done once, signed, in the step below.
       - name: Generate Client
         uses: grafana/shared-workflows/actions/generate-openapi-clients@8ef55db5803bf7fc92e32ca4a4f488657f3f53fe #v1.1.0
         env:
@@ -31,3 +35,15 @@ jobs:
           package-name: gcom
           spec-path: openapi.yaml
           modify-spec-script: .github/workflows/modify-spec.sh
+          commit-changes: "false"
+
+      # Commit via the GitHub API so the commit is signed/verified, satisfying
+      # the "Signed Commits" ruleset (a plain git push of a bot commit is not).
+      - name: Commit generated clients (signed)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TARGET_BRANCH: ${{ github.head_ref || github.ref_name }}
+          # [skip ci] avoids a redundant (and recursion-guarded) re-run on the
+          # generated commit; the run that produced it already validated it.
+          COMMIT_MESSAGE: "Update generated clients [skip ci]"
+        run: .github/workflows/commit-signed-changes.sh
