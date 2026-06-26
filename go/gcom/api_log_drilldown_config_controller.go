@@ -20,14 +20,13 @@ import (
 	"strings"
 )
 
-
 // LogDrilldownConfigControllerAPIService LogDrilldownConfigControllerAPI service
 type LogDrilldownConfigControllerAPIService service
 
 type ApiDeleteConfig3Request struct {
-	ctx context.Context
-	ApiService *LogDrilldownConfigControllerAPIService
-	name string
+	ctx         context.Context
+	ApiService  *LogDrilldownConfigControllerAPIService
+	name        string
 	xScopeOrgID *string
 }
 
@@ -46,24 +45,24 @@ DeleteConfig3 Delete log drilldown configuration
 
 Deletes the specified log drilldown configuration entry for the tenant
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param name Name of the log configuration to delete
- @return ApiDeleteConfig3Request
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param name Name of the log configuration to delete
+	@return ApiDeleteConfig3Request
 */
 func (a *LogDrilldownConfigControllerAPIService) DeleteConfig3(ctx context.Context, name string) ApiDeleteConfig3Request {
 	return ApiDeleteConfig3Request{
 		ApiService: a,
-		ctx: ctx,
-		name: name,
+		ctx:        ctx,
+		name:       name,
 	}
 }
 
 // Execute executes the request
 func (a *LogDrilldownConfigControllerAPIService) DeleteConfig3Execute(r ApiDeleteConfig3Request) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LogDrilldownConfigControllerAPIService.DeleteConfig3")
@@ -127,8 +126,8 @@ func (a *LogDrilldownConfigControllerAPIService) DeleteConfig3Execute(r ApiDelet
 }
 
 type ApiGetTenantLogConfigRequest struct {
-	ctx context.Context
-	ApiService *LogDrilldownConfigControllerAPIService
+	ctx         context.Context
+	ApiService  *LogDrilldownConfigControllerAPIService
 	xScopeOrgID *string
 }
 
@@ -138,7 +137,7 @@ func (r ApiGetTenantLogConfigRequest) XScopeOrgID(xScopeOrgID string) ApiGetTena
 	return r
 }
 
-func (r ApiGetTenantLogConfigRequest) Execute() (TenantLogConfigResponseDto[string]interface{}, *http.Response, error) {
+func (r ApiGetTenantLogConfigRequest) Execute() (*TenantLogConfigResponseDto, *http.Response, error) {
 	return r.ApiService.GetTenantLogConfigExecute(r)
 }
 
@@ -147,24 +146,25 @@ GetTenantLogConfig Get tenant log configuration
 
 Retrieves all the log drilldown configuration entries for the tenant
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetTenantLogConfigRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetTenantLogConfigRequest
 */
 func (a *LogDrilldownConfigControllerAPIService) GetTenantLogConfig(ctx context.Context) ApiGetTenantLogConfigRequest {
 	return ApiGetTenantLogConfigRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return TenantLogConfigResponseDto[string]interface{}
-func (a *LogDrilldownConfigControllerAPIService) GetTenantLogConfigExecute(r ApiGetTenantLogConfigRequest) (TenantLogConfigResponseDto[string]interface{}, *http.Response, error) {
+//
+//	@return TenantLogConfigResponseDto
+func (a *LogDrilldownConfigControllerAPIService) GetTenantLogConfigExecute(r ApiGetTenantLogConfigRequest) (*TenantLogConfigResponseDto, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  TenantLogConfigResponseDto[string]interface{}
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TenantLogConfigResponseDto
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LogDrilldownConfigControllerAPIService.GetTenantLogConfig")
@@ -236,9 +236,9 @@ func (a *LogDrilldownConfigControllerAPIService) GetTenantLogConfigExecute(r Api
 }
 
 type ApiReorderLogConfigPrioritiesRequest struct {
-	ctx context.Context
-	ApiService *LogDrilldownConfigControllerAPIService
-	body *string
+	ctx         context.Context
+	ApiService  *LogDrilldownConfigControllerAPIService
+	body        *string
 	xScopeOrgID *string
 }
 
@@ -262,24 +262,25 @@ ReorderLogConfigPriorities Reorder log drilldown configuration priorities
 
 Accepts a list of log drilldown configuration names and their new priorities to reorder the configurations for the tenant
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiReorderLogConfigPrioritiesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiReorderLogConfigPrioritiesRequest
 */
 func (a *LogDrilldownConfigControllerAPIService) ReorderLogConfigPriorities(ctx context.Context) ApiReorderLogConfigPrioritiesRequest {
 	return ApiReorderLogConfigPrioritiesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return TenantLogConfigResponseDto
+//
+//	@return TenantLogConfigResponseDto
 func (a *LogDrilldownConfigControllerAPIService) ReorderLogConfigPrioritiesExecute(r ApiReorderLogConfigPrioritiesRequest) (*TenantLogConfigResponseDto, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *TenantLogConfigResponseDto
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TenantLogConfigResponseDto
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LogDrilldownConfigControllerAPIService.ReorderLogConfigPriorities")
@@ -341,14 +342,14 @@ func (a *LogDrilldownConfigControllerAPIService) ReorderLogConfigPrioritiesExecu
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiError[string]interface{}
+			var v ApiError
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -366,9 +367,9 @@ func (a *LogDrilldownConfigControllerAPIService) ReorderLogConfigPrioritiesExecu
 }
 
 type ApiUpsertLogDrilldownConfigRequest struct {
-	ctx context.Context
-	ApiService *LogDrilldownConfigControllerAPIService
-	body *string
+	ctx         context.Context
+	ApiService  *LogDrilldownConfigControllerAPIService
+	body        *string
 	xScopeOrgID *string
 }
 
@@ -392,22 +393,22 @@ UpsertLogDrilldownConfig Upsert log drilldown configuration
 
 Creates or updates the log drilldown configuration entry for the tenant
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiUpsertLogDrilldownConfigRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiUpsertLogDrilldownConfigRequest
 */
 func (a *LogDrilldownConfigControllerAPIService) UpsertLogDrilldownConfig(ctx context.Context) ApiUpsertLogDrilldownConfigRequest {
 	return ApiUpsertLogDrilldownConfigRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
 func (a *LogDrilldownConfigControllerAPIService) UpsertLogDrilldownConfigExecute(r ApiUpsertLogDrilldownConfigRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LogDrilldownConfigControllerAPIService.UpsertLogDrilldownConfig")
@@ -469,14 +470,14 @@ func (a *LogDrilldownConfigControllerAPIService) UpsertLogDrilldownConfigExecute
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiError[string]interface{}
+			var v ApiError
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarHTTPResponse, newErr
 	}

@@ -83,7 +83,7 @@ No authorization required
 
 ## GetTenantTraceConfig
 
-> TenantTraceConfigResponseDto[string]interface{} GetTenantTraceConfig(ctx).XScopeOrgID(xScopeOrgID).Execute()
+> TenantTraceConfigResponseDto GetTenantTraceConfig(ctx).XScopeOrgID(xScopeOrgID).Execute()
 
 Get tenant trace configuration
 
@@ -111,7 +111,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `TraceDrilldownConfigControllerAPI.GetTenantTraceConfig``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetTenantTraceConfig`: TenantTraceConfigResponseDto[string]interface{}
+	// response from `GetTenantTraceConfig`: TenantTraceConfigResponseDto
 	fmt.Fprintf(os.Stdout, "Response from `TraceDrilldownConfigControllerAPI.GetTenantTraceConfig`: %v\n", resp)
 }
 ```
@@ -131,7 +131,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**TenantTraceConfigResponseDto[string]interface{}**
+[**TenantTraceConfigResponseDto**](TenantTraceConfigResponseDto.md)
 
 ### Authorization
 
