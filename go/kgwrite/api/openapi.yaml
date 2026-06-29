@@ -1,0 +1,715 @@
+openapi: 3.1.0
+info:
+  contact:
+    email: support@asserts.ai
+    name: Support
+    url: https://www.grafana.com
+  description: Asserts Public API
+  termsOfService: https://www.asserts.ai/terms-of-service
+  title: "Asserts, Inc"
+  version: 0.0.0
+servers:
+- description: Generated server url
+  url: http://localhost:8030/api-server
+tags:
+- description: Write custom (API-origin) entities and relationships into the Knowledge
+    Graph
+  name: Knowledge Graph Write API
+paths:
+  /apis/kg.grafana.com/v1alpha1/namespaces/{namespace}/relationships:
+    post:
+      description: Upserts an API-origin edge between two existing entities; both
+        endpoints must already exist.
+      operationId: upsertRelationship
+      parameters:
+      - description: "Tenant namespace, formatted as stacks-<stackId>"
+        explode: false
+        in: path
+        name: namespace
+        required: true
+        schema:
+          default: ""
+          type: string
+        style: simple
+      - $ref: '#/components/parameters/TenantId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RelationshipWriteRequestDto'
+          application/x-yml:
+            schema:
+              $ref: '#/components/schemas/RelationshipWriteRequestDto'
+          application/x-yaml:
+            schema:
+              $ref: '#/components/schemas/RelationshipWriteRequestDto'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RelationshipWriteResponseDto'
+            application/x-yml:
+              schema:
+                $ref: '#/components/schemas/RelationshipWriteResponseDto'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/RelationshipWriteResponseDto'
+          description: Relationship written
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Missing tenant context or malformed namespace
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Namespace does not match the request tenant
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: from or to entity not found
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Edge already exists with a non-API origin
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Request body failed validation
+      summary: Create or update a custom relationship
+      tags:
+      - Knowledge Graph Write API
+  /apis/kg.grafana.com/v1alpha1/namespaces/{namespace}/entities:
+    post:
+      description: "Upserts an API-origin entity identified by (type, name, scope):\
+        \ 201 on create, 200 on update."
+      operationId: upsertEntity
+      parameters:
+      - description: "Tenant namespace, formatted as stacks-<stackId>; must match\
+          \ the request tenant"
+        explode: false
+        in: path
+        name: namespace
+        required: true
+        schema:
+          default: ""
+          type: string
+        style: simple
+      - $ref: '#/components/parameters/TenantId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EntityWriteRequestDto'
+          application/x-yml:
+            schema:
+              $ref: '#/components/schemas/EntityWriteRequestDto'
+          application/x-yaml:
+            schema:
+              $ref: '#/components/schemas/EntityWriteRequestDto'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityWriteResponseDto'
+            application/x-yml:
+              schema:
+                $ref: '#/components/schemas/EntityWriteResponseDto'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/EntityWriteResponseDto'
+          description: Entity created
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityWriteResponseDto'
+            application/x-yml:
+              schema:
+                $ref: '#/components/schemas/EntityWriteResponseDto'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/EntityWriteResponseDto'
+          description: Entity updated
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Missing tenant context or malformed namespace
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Namespace does not match the request tenant
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Target already exists with a non-API origin
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Request body failed validation (including an invalid entity
+            type)
+      summary: Create or update a custom entity
+      tags:
+      - Knowledge Graph Write API
+  /apis/kg.grafana.com/v1alpha1/namespaces/{namespace}/relationships/{type}:
+    delete:
+      description: "Deletes an API-origin edge of the given type between the from/to\
+        \ entities. The endpoint coordinates travel as query params (no request body):\
+        \ from.domain/from.type/from.name (+ from.scope[key]=value) and the matching\
+        \ to.* params."
+      operationId: deleteRelationship
+      parameters:
+      - description: "Tenant namespace, formatted as stacks-<stackId>"
+        explode: false
+        in: path
+        name: namespace
+        required: true
+        schema:
+          default: ""
+          type: string
+        style: simple
+      - description: Relationship type
+        explode: false
+        in: path
+        name: type
+        required: true
+        schema:
+          default: ""
+          pattern: "^[A-Za-z][A-Za-z0-9_]*$"
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: from.domain
+        required: true
+        schema:
+          minLength: 1
+          pattern: "^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: from.type
+        required: true
+        schema:
+          minLength: 1
+          pattern: "^[A-Za-z][A-Za-z0-9_]*$"
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: from.name
+        required: true
+        schema:
+          minLength: 1
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: to.domain
+        required: true
+        schema:
+          minLength: 1
+          pattern: "^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: to.type
+        required: true
+        schema:
+          minLength: 1
+          pattern: "^[A-Za-z][A-Za-z0-9_]*$"
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: to.name
+        required: true
+        schema:
+          minLength: 1
+          type: string
+        style: form
+      - description: "Optional scope key/value pairs identifying the 'from' entity\
+          \ (from.scope[key]=value)."
+        explode: true
+        in: query
+        name: from.scope
+        required: false
+        schema:
+          additionalProperties:
+            type: string
+        style: deepObject
+      - description: "Optional scope key/value pairs identifying the 'to' entity (to.scope[key]=value)."
+        explode: true
+        in: query
+        name: to.scope
+        required: false
+        schema:
+          additionalProperties:
+            type: string
+        style: deepObject
+      - $ref: '#/components/parameters/TenantId'
+      responses:
+        "204":
+          description: Relationship deleted
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: "Missing tenant context, malformed namespace, or invalid relationship\
+            \ type"
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: "Namespace does not match the request tenant, or edge is not\
+            \ API-origin"
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Relationship not found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: "Query params failed validation, or the relationship type path\
+            \ variable is invalid"
+      summary: Delete a custom relationship
+      tags:
+      - Knowledge Graph Write API
+  /apis/kg.grafana.com/v1alpha1/namespaces/{namespace}/entities/{type}/{name}:
+    delete:
+      description: "Deletes an API-origin entity; only _origin=api objects may be\
+        \ deleted. The entity coordinates travel as query params (no request body):\
+        \ the top-level 'domain' control param plus an optional nested scope map (scope[key]=value)."
+      operationId: deleteEntity
+      parameters:
+      - description: "Tenant namespace, formatted as stacks-<stackId>"
+        explode: false
+        in: path
+        name: namespace
+        required: true
+        schema:
+          default: ""
+          type: string
+        style: simple
+      - description: Entity type
+        explode: false
+        in: path
+        name: type
+        required: true
+        schema:
+          default: ""
+          pattern: "^[A-Za-z][A-Za-z0-9_]*$"
+          type: string
+        style: simple
+      - description: Entity name
+        explode: false
+        in: path
+        name: name
+        required: true
+        schema:
+          default: ""
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: domain
+        required: true
+        schema:
+          minLength: 1
+          pattern: "^(?!kg$)[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+          type: string
+        style: form
+      - description: "Optional scope key/value pairs identifying the entity (scope[key]=value)."
+        explode: true
+        in: query
+        name: scope
+        required: false
+        schema:
+          additionalProperties:
+            type: string
+        style: deepObject
+      - $ref: '#/components/parameters/TenantId'
+      responses:
+        "204":
+          description: Entity deleted
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: "Missing tenant context, malformed namespace, or invalid type/scope\
+            \ key"
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: "Namespace does not match the request tenant, or target is\
+            \ not API-origin"
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Entity not found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: "Query params failed validation, or the entity type path variable\
+            \ is invalid"
+      summary: Delete a custom entity
+      tags:
+      - Knowledge Graph Write API
+components:
+  parameters:
+    TenantId:
+      description: Grafana Tenant/Stack ID
+      example: "2944"
+      explode: false
+      in: header
+      name: X-Scope-OrgID
+      required: false
+      schema:
+        type: string
+      style: simple
+  schemas:
+    EntityRefDto:
+      example:
+        domain: domain
+        scope:
+          key: scope
+        name: name
+        type: type
+      properties:
+        domain:
+          minLength: 1
+          pattern: "^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+          type: string
+        type:
+          minLength: 1
+          pattern: "^[A-Za-z][A-Za-z0-9_]*$"
+          type: string
+        name:
+          minLength: 1
+          type: string
+        scope:
+          additionalProperties:
+            type: string
+      required:
+      - domain
+      - name
+      - type
+    RelationshipWriteRequestDto:
+      example:
+        domain: domain
+        from:
+          domain: domain
+          scope:
+            key: scope
+          name: name
+          type: type
+        to:
+          domain: domain
+          scope:
+            key: scope
+          name: name
+          type: type
+        type: type
+        ttlSeconds: 0
+        properties:
+          key: properties
+      properties:
+        domain:
+          minLength: 1
+          pattern: "^(?!kg$)[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+          type: string
+        type:
+          minLength: 1
+          pattern: "^[A-Za-z][A-Za-z0-9_]*$"
+          type: string
+        from:
+          $ref: '#/components/schemas/EntityRefDto'
+        to:
+          $ref: '#/components/schemas/EntityRefDto'
+        properties:
+          additionalProperties:
+            type: string
+        ttlSeconds:
+          format: int64
+          type: integer
+      required:
+      - domain
+      - from
+      - to
+      - ttlSeconds
+      - type
+    ApiError:
+      example:
+        trace_id: trace_id
+        span_id: span_id
+        requestId: requestId
+        debugMessage: debugMessage
+        message: message
+        status: NOT_FOUND
+        timestamp: 0
+        subErrors:
+        - message: message
+        - message: message
+      properties:
+        status:
+          description: "HTTP status, e.g. NOT_FOUND"
+          example: NOT_FOUND
+          type: string
+        requestId:
+          type: string
+        timestamp:
+          format: int64
+          type: integer
+        message:
+          type: string
+        debugMessage:
+          type: string
+        subErrors:
+          items:
+            $ref: '#/components/schemas/ApiError_subErrors_inner'
+          type: array
+        trace_id:
+          type: string
+        span_id:
+          type: string
+    ApiSubError:
+      example:
+        message: message
+      properties:
+        message:
+          type: string
+    ApiValidationError:
+      allOf:
+      - $ref: '#/components/schemas/ApiSubError'
+      - properties:
+          field:
+            type: string
+          rejectedValue: {}
+    RelationshipWriteResponseDto:
+      example:
+        domain: domain
+        from:
+          domain: domain
+          scope:
+            key: scope
+          name: name
+          type: type
+        to:
+          domain: domain
+          scope:
+            key: scope
+          name: name
+          type: type
+        type: type
+        properties:
+          key: ""
+      properties:
+        domain:
+          type: string
+        type:
+          type: string
+        from:
+          $ref: '#/components/schemas/EntityRefDto'
+        to:
+          $ref: '#/components/schemas/EntityRefDto'
+        properties:
+          additionalProperties: {}
+    EntityWriteRequestDto:
+      example:
+        domain: domain
+        scope:
+          key: scope
+        name: name
+        type: type
+        ttlSeconds: 0
+        properties:
+          key: properties
+      properties:
+        domain:
+          minLength: 1
+          pattern: "^(?!kg$)[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+          type: string
+        type:
+          minLength: 1
+          pattern: "^[A-Za-z][A-Za-z0-9_]*$"
+          type: string
+        name:
+          minLength: 1
+          type: string
+        scope:
+          additionalProperties:
+            type: string
+        properties:
+          additionalProperties:
+            type: string
+        ttlSeconds:
+          format: int64
+          type: integer
+      required:
+      - domain
+      - name
+      - ttlSeconds
+      - type
+    EntityWriteResponseDto:
+      example:
+        domain: domain
+        scope:
+          key: scope
+        name: name
+        type: type
+        properties:
+          key: ""
+      properties:
+        domain:
+          type: string
+        type:
+          type: string
+        name:
+          type: string
+        scope:
+          additionalProperties:
+            type: string
+        properties:
+          additionalProperties: {}
+    ApiError_subErrors_inner:
+      oneOf:
+      - $ref: '#/components/schemas/ApiSubError'
+      - $ref: '#/components/schemas/ApiValidationError'
