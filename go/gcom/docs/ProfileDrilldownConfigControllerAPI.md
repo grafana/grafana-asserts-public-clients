@@ -83,7 +83,7 @@ No authorization required
 
 ## GetTenantProfileConfig
 
-> TenantProfileConfigResponseDto[string]interface{} GetTenantProfileConfig(ctx).XScopeOrgID(xScopeOrgID).Execute()
+> TenantProfileConfigResponseDto GetTenantProfileConfig(ctx).XScopeOrgID(xScopeOrgID).Execute()
 
 Get tenant profile configuration
 
@@ -111,7 +111,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ProfileDrilldownConfigControllerAPI.GetTenantProfileConfig``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetTenantProfileConfig`: TenantProfileConfigResponseDto[string]interface{}
+	// response from `GetTenantProfileConfig`: TenantProfileConfigResponseDto
 	fmt.Fprintf(os.Stdout, "Response from `ProfileDrilldownConfigControllerAPI.GetTenantProfileConfig`: %v\n", resp)
 }
 ```
@@ -131,7 +131,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**TenantProfileConfigResponseDto[string]interface{}**
+[**TenantProfileConfigResponseDto**](TenantProfileConfigResponseDto.md)
 
 ### Authorization
 

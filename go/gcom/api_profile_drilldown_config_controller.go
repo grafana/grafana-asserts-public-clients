@@ -20,14 +20,13 @@ import (
 	"strings"
 )
 
-
 // ProfileDrilldownConfigControllerAPIService ProfileDrilldownConfigControllerAPI service
 type ProfileDrilldownConfigControllerAPIService service
 
 type ApiDeleteConfig2Request struct {
-	ctx context.Context
-	ApiService *ProfileDrilldownConfigControllerAPIService
-	name string
+	ctx         context.Context
+	ApiService  *ProfileDrilldownConfigControllerAPIService
+	name        string
 	xScopeOrgID *string
 }
 
@@ -46,24 +45,24 @@ DeleteConfig2 Delete profile drilldown configuration
 
 Deletes the specified profile drilldown configuration entry for the tenant
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param name Name of the profile configuration to delete
- @return ApiDeleteConfig2Request
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param name Name of the profile configuration to delete
+	@return ApiDeleteConfig2Request
 */
 func (a *ProfileDrilldownConfigControllerAPIService) DeleteConfig2(ctx context.Context, name string) ApiDeleteConfig2Request {
 	return ApiDeleteConfig2Request{
 		ApiService: a,
-		ctx: ctx,
-		name: name,
+		ctx:        ctx,
+		name:       name,
 	}
 }
 
 // Execute executes the request
 func (a *ProfileDrilldownConfigControllerAPIService) DeleteConfig2Execute(r ApiDeleteConfig2Request) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProfileDrilldownConfigControllerAPIService.DeleteConfig2")
@@ -127,8 +126,8 @@ func (a *ProfileDrilldownConfigControllerAPIService) DeleteConfig2Execute(r ApiD
 }
 
 type ApiGetTenantProfileConfigRequest struct {
-	ctx context.Context
-	ApiService *ProfileDrilldownConfigControllerAPIService
+	ctx         context.Context
+	ApiService  *ProfileDrilldownConfigControllerAPIService
 	xScopeOrgID *string
 }
 
@@ -138,7 +137,7 @@ func (r ApiGetTenantProfileConfigRequest) XScopeOrgID(xScopeOrgID string) ApiGet
 	return r
 }
 
-func (r ApiGetTenantProfileConfigRequest) Execute() (TenantProfileConfigResponseDto[string]interface{}, *http.Response, error) {
+func (r ApiGetTenantProfileConfigRequest) Execute() (*TenantProfileConfigResponseDto, *http.Response, error) {
 	return r.ApiService.GetTenantProfileConfigExecute(r)
 }
 
@@ -147,24 +146,25 @@ GetTenantProfileConfig Get tenant profile configuration
 
 Retrieves all the profile drilldown configuration entries for the tenant
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetTenantProfileConfigRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetTenantProfileConfigRequest
 */
 func (a *ProfileDrilldownConfigControllerAPIService) GetTenantProfileConfig(ctx context.Context) ApiGetTenantProfileConfigRequest {
 	return ApiGetTenantProfileConfigRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return TenantProfileConfigResponseDto[string]interface{}
-func (a *ProfileDrilldownConfigControllerAPIService) GetTenantProfileConfigExecute(r ApiGetTenantProfileConfigRequest) (TenantProfileConfigResponseDto[string]interface{}, *http.Response, error) {
+//
+//	@return TenantProfileConfigResponseDto
+func (a *ProfileDrilldownConfigControllerAPIService) GetTenantProfileConfigExecute(r ApiGetTenantProfileConfigRequest) (*TenantProfileConfigResponseDto, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  TenantProfileConfigResponseDto[string]interface{}
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TenantProfileConfigResponseDto
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProfileDrilldownConfigControllerAPIService.GetTenantProfileConfig")
@@ -236,9 +236,9 @@ func (a *ProfileDrilldownConfigControllerAPIService) GetTenantProfileConfigExecu
 }
 
 type ApiReorderProfileConfigPrioritiesRequest struct {
-	ctx context.Context
-	ApiService *ProfileDrilldownConfigControllerAPIService
-	body *string
+	ctx         context.Context
+	ApiService  *ProfileDrilldownConfigControllerAPIService
+	body        *string
 	xScopeOrgID *string
 }
 
@@ -262,24 +262,25 @@ ReorderProfileConfigPriorities Reorder profile drilldown configuration prioritie
 
 Accepts a list of profile drilldown configuration names and their new priorities to reorder the configurations for the tenant
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiReorderProfileConfigPrioritiesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiReorderProfileConfigPrioritiesRequest
 */
 func (a *ProfileDrilldownConfigControllerAPIService) ReorderProfileConfigPriorities(ctx context.Context) ApiReorderProfileConfigPrioritiesRequest {
 	return ApiReorderProfileConfigPrioritiesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return TenantProfileConfigResponseDto
+//
+//	@return TenantProfileConfigResponseDto
 func (a *ProfileDrilldownConfigControllerAPIService) ReorderProfileConfigPrioritiesExecute(r ApiReorderProfileConfigPrioritiesRequest) (*TenantProfileConfigResponseDto, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *TenantProfileConfigResponseDto
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TenantProfileConfigResponseDto
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProfileDrilldownConfigControllerAPIService.ReorderProfileConfigPriorities")
@@ -341,14 +342,14 @@ func (a *ProfileDrilldownConfigControllerAPIService) ReorderProfileConfigPriorit
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiError[string]interface{}
+			var v ApiError
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -366,9 +367,9 @@ func (a *ProfileDrilldownConfigControllerAPIService) ReorderProfileConfigPriorit
 }
 
 type ApiUpsertProfileDrilldownConfigRequest struct {
-	ctx context.Context
-	ApiService *ProfileDrilldownConfigControllerAPIService
-	body *string
+	ctx         context.Context
+	ApiService  *ProfileDrilldownConfigControllerAPIService
+	body        *string
 	xScopeOrgID *string
 }
 
@@ -392,22 +393,22 @@ UpsertProfileDrilldownConfig Upsert profile drilldown configuration
 
 Creates or updates the profile drilldown configuration entry for the tenant
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiUpsertProfileDrilldownConfigRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiUpsertProfileDrilldownConfigRequest
 */
 func (a *ProfileDrilldownConfigControllerAPIService) UpsertProfileDrilldownConfig(ctx context.Context) ApiUpsertProfileDrilldownConfigRequest {
 	return ApiUpsertProfileDrilldownConfigRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
 func (a *ProfileDrilldownConfigControllerAPIService) UpsertProfileDrilldownConfigExecute(r ApiUpsertProfileDrilldownConfigRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProfileDrilldownConfigControllerAPIService.UpsertProfileDrilldownConfig")
@@ -469,14 +470,14 @@ func (a *ProfileDrilldownConfigControllerAPIService) UpsertProfileDrilldownConfi
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiError[string]interface{}
+			var v ApiError
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarHTTPResponse, newErr
 	}

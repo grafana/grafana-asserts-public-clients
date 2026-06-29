@@ -20,14 +20,13 @@ import (
 	"strings"
 )
 
-
 // TraceDrilldownConfigControllerAPIService TraceDrilldownConfigControllerAPI service
 type TraceDrilldownConfigControllerAPIService service
 
 type ApiDeleteConfig1Request struct {
-	ctx context.Context
-	ApiService *TraceDrilldownConfigControllerAPIService
-	name string
+	ctx         context.Context
+	ApiService  *TraceDrilldownConfigControllerAPIService
+	name        string
 	xScopeOrgID *string
 }
 
@@ -46,24 +45,24 @@ DeleteConfig1 Delete trace drilldown configuration
 
 Deletes the specified trace drilldown configuration entry for the tenant
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param name Name of the trace configuration to delete
- @return ApiDeleteConfig1Request
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param name Name of the trace configuration to delete
+	@return ApiDeleteConfig1Request
 */
 func (a *TraceDrilldownConfigControllerAPIService) DeleteConfig1(ctx context.Context, name string) ApiDeleteConfig1Request {
 	return ApiDeleteConfig1Request{
 		ApiService: a,
-		ctx: ctx,
-		name: name,
+		ctx:        ctx,
+		name:       name,
 	}
 }
 
 // Execute executes the request
 func (a *TraceDrilldownConfigControllerAPIService) DeleteConfig1Execute(r ApiDeleteConfig1Request) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TraceDrilldownConfigControllerAPIService.DeleteConfig1")
@@ -127,8 +126,8 @@ func (a *TraceDrilldownConfigControllerAPIService) DeleteConfig1Execute(r ApiDel
 }
 
 type ApiGetTenantTraceConfigRequest struct {
-	ctx context.Context
-	ApiService *TraceDrilldownConfigControllerAPIService
+	ctx         context.Context
+	ApiService  *TraceDrilldownConfigControllerAPIService
 	xScopeOrgID *string
 }
 
@@ -138,7 +137,7 @@ func (r ApiGetTenantTraceConfigRequest) XScopeOrgID(xScopeOrgID string) ApiGetTe
 	return r
 }
 
-func (r ApiGetTenantTraceConfigRequest) Execute() (TenantTraceConfigResponseDto[string]interface{}, *http.Response, error) {
+func (r ApiGetTenantTraceConfigRequest) Execute() (*TenantTraceConfigResponseDto, *http.Response, error) {
 	return r.ApiService.GetTenantTraceConfigExecute(r)
 }
 
@@ -147,24 +146,25 @@ GetTenantTraceConfig Get tenant trace configuration
 
 Retrieves all the trace drilldown configuration entries for the tenant
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetTenantTraceConfigRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetTenantTraceConfigRequest
 */
 func (a *TraceDrilldownConfigControllerAPIService) GetTenantTraceConfig(ctx context.Context) ApiGetTenantTraceConfigRequest {
 	return ApiGetTenantTraceConfigRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return TenantTraceConfigResponseDto[string]interface{}
-func (a *TraceDrilldownConfigControllerAPIService) GetTenantTraceConfigExecute(r ApiGetTenantTraceConfigRequest) (TenantTraceConfigResponseDto[string]interface{}, *http.Response, error) {
+//
+//	@return TenantTraceConfigResponseDto
+func (a *TraceDrilldownConfigControllerAPIService) GetTenantTraceConfigExecute(r ApiGetTenantTraceConfigRequest) (*TenantTraceConfigResponseDto, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  TenantTraceConfigResponseDto[string]interface{}
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TenantTraceConfigResponseDto
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TraceDrilldownConfigControllerAPIService.GetTenantTraceConfig")
@@ -236,9 +236,9 @@ func (a *TraceDrilldownConfigControllerAPIService) GetTenantTraceConfigExecute(r
 }
 
 type ApiReorderTraceConfigPrioritiesRequest struct {
-	ctx context.Context
-	ApiService *TraceDrilldownConfigControllerAPIService
-	body *string
+	ctx         context.Context
+	ApiService  *TraceDrilldownConfigControllerAPIService
+	body        *string
 	xScopeOrgID *string
 }
 
@@ -262,24 +262,25 @@ ReorderTraceConfigPriorities Reorder trace drilldown configuration priorities
 
 Accepts a list of trace drilldown configuration names and their new priorities to reorder the configurations for the tenant
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiReorderTraceConfigPrioritiesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiReorderTraceConfigPrioritiesRequest
 */
 func (a *TraceDrilldownConfigControllerAPIService) ReorderTraceConfigPriorities(ctx context.Context) ApiReorderTraceConfigPrioritiesRequest {
 	return ApiReorderTraceConfigPrioritiesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return TenantTraceConfigResponseDto
+//
+//	@return TenantTraceConfigResponseDto
 func (a *TraceDrilldownConfigControllerAPIService) ReorderTraceConfigPrioritiesExecute(r ApiReorderTraceConfigPrioritiesRequest) (*TenantTraceConfigResponseDto, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *TenantTraceConfigResponseDto
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TenantTraceConfigResponseDto
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TraceDrilldownConfigControllerAPIService.ReorderTraceConfigPriorities")
@@ -341,14 +342,14 @@ func (a *TraceDrilldownConfigControllerAPIService) ReorderTraceConfigPrioritiesE
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiError[string]interface{}
+			var v ApiError
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -366,9 +367,9 @@ func (a *TraceDrilldownConfigControllerAPIService) ReorderTraceConfigPrioritiesE
 }
 
 type ApiUpsertTraceDrilldownConfigRequest struct {
-	ctx context.Context
-	ApiService *TraceDrilldownConfigControllerAPIService
-	body *string
+	ctx         context.Context
+	ApiService  *TraceDrilldownConfigControllerAPIService
+	body        *string
 	xScopeOrgID *string
 }
 
@@ -392,22 +393,22 @@ UpsertTraceDrilldownConfig Upsert trace drilldown configuration
 
 Creates or updates the trace drilldown configuration entry for the tenant
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiUpsertTraceDrilldownConfigRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiUpsertTraceDrilldownConfigRequest
 */
 func (a *TraceDrilldownConfigControllerAPIService) UpsertTraceDrilldownConfig(ctx context.Context) ApiUpsertTraceDrilldownConfigRequest {
 	return ApiUpsertTraceDrilldownConfigRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
 func (a *TraceDrilldownConfigControllerAPIService) UpsertTraceDrilldownConfigExecute(r ApiUpsertTraceDrilldownConfigRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TraceDrilldownConfigControllerAPIService.UpsertTraceDrilldownConfig")
@@ -469,14 +470,14 @@ func (a *TraceDrilldownConfigControllerAPIService) UpsertTraceDrilldownConfigExe
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiError[string]interface{}
+			var v ApiError
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarHTTPResponse, newErr
 	}

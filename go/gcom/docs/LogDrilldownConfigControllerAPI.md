@@ -83,7 +83,7 @@ No authorization required
 
 ## GetTenantLogConfig
 
-> TenantLogConfigResponseDto[string]interface{} GetTenantLogConfig(ctx).XScopeOrgID(xScopeOrgID).Execute()
+> TenantLogConfigResponseDto GetTenantLogConfig(ctx).XScopeOrgID(xScopeOrgID).Execute()
 
 Get tenant log configuration
 
@@ -111,7 +111,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `LogDrilldownConfigControllerAPI.GetTenantLogConfig``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetTenantLogConfig`: TenantLogConfigResponseDto[string]interface{}
+	// response from `GetTenantLogConfig`: TenantLogConfigResponseDto
 	fmt.Fprintf(os.Stdout, "Response from `LogDrilldownConfigControllerAPI.GetTenantLogConfig`: %v\n", resp)
 }
 ```
@@ -131,7 +131,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**TenantLogConfigResponseDto[string]interface{}**
+[**TenantLogConfigResponseDto**](TenantLogConfigResponseDto.md)
 
 ### Authorization
 
