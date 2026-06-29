@@ -49,7 +49,10 @@ jobs:
 
       # Commit via the GitHub API so the commit is signed/verified, satisfying
       # the "Signed Commits" ruleset (a plain git push of a bot commit is not).
+      # Skipped on fork PRs: GITHUB_TOKEN is read-only there, so the commit
+      # would fail — generation above still runs and validates the spec.
       - name: Commit generated clients (signed)
+        if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TARGET_BRANCH: ${{ github.head_ref || github.ref_name }}

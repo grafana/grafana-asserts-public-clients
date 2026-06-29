@@ -62,105 +62,60 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
         "403":
           description: Namespace does not match the request tenant
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
         "404":
           description: from or to entity not found
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
         "409":
           description: Edge already exists with a non-API origin
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
         "422":
           description: Request body failed validation
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
   /apis/kg.grafana.com/v1alpha1/namespaces/{namespace}/entities:
     post:
       tags:
@@ -220,84 +175,48 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
         "403":
           description: Namespace does not match the request tenant
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
         "409":
           description: Target already exists with a non-API origin
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
         "422":
           description: Request body failed validation (including an invalid entity type)
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
   /apis/kg.grafana.com/v1alpha1/namespaces/{namespace}/relationships/{type}:
     delete:
       tags:
@@ -391,84 +310,48 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
         "403":
           description: "Namespace does not match the request tenant, or edge is not API-origin"
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
         "404":
           description: Relationship not found
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
         "422":
           description: "Query params failed validation, or the relationship type path variable is invalid"
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
   /apis/kg.grafana.com/v1alpha1/namespaces/{namespace}/entities/{type}/{name}:
     delete:
       tags:
@@ -526,84 +409,48 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
         "403":
           description: "Namespace does not match the request tenant, or target is not API-origin"
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
         "404":
           description: Entity not found
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
         "422":
           description: "Query params failed validation, or the entity type path variable is invalid"
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
 components:
   schemas:
     EntityRefDto:

@@ -20,18 +20,17 @@ import (
 	"strings"
 )
 
-
 // KnowledgeGraphWriteAPIAPIService KnowledgeGraphWriteAPIAPI service
 type KnowledgeGraphWriteAPIAPIService service
 
 type ApiDeleteEntityRequest struct {
-	ctx context.Context
-	ApiService *KnowledgeGraphWriteAPIAPIService
-	namespace string
-	type_ string
-	name string
-	domain *string
-	scope *map[string]string
+	ctx         context.Context
+	ApiService  *KnowledgeGraphWriteAPIAPIService
+	namespace   string
+	type_       string
+	name        string
+	domain      *string
+	scope       *map[string]string
 	xScopeOrgID *string
 }
 
@@ -61,28 +60,28 @@ DeleteEntity Delete a custom entity
 
 Deletes an API-origin entity; only _origin=api objects may be deleted. The entity coordinates travel as query params (no request body): the top-level 'domain' control param plus an optional nested scope map (scope[key]=value).
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param namespace Tenant namespace, formatted as stacks-<stackId>
- @param type_ Entity type
- @param name Entity name
- @return ApiDeleteEntityRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param namespace Tenant namespace, formatted as stacks-<stackId>
+	@param type_ Entity type
+	@param name Entity name
+	@return ApiDeleteEntityRequest
 */
 func (a *KnowledgeGraphWriteAPIAPIService) DeleteEntity(ctx context.Context, namespace string, type_ string, name string) ApiDeleteEntityRequest {
 	return ApiDeleteEntityRequest{
 		ApiService: a,
-		ctx: ctx,
-		namespace: namespace,
-		type_: type_,
-		name: name,
+		ctx:        ctx,
+		namespace:  namespace,
+		type_:      type_,
+		name:       name,
 	}
 }
 
 // Execute executes the request
 func (a *KnowledgeGraphWriteAPIAPIService) DeleteEntityExecute(r ApiDeleteEntityRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KnowledgeGraphWriteAPIAPIService.DeleteEntity")
@@ -152,47 +151,47 @@ func (a *KnowledgeGraphWriteAPIAPIService) DeleteEntityExecute(r ApiDeleteEntity
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 400 {
-			var v ApiError[string]interface{}
+			var v ApiError
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
-			var v ApiError[string]interface{}
+			var v ApiError
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
-			var v ApiError[string]interface{}
+			var v ApiError
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiError[string]interface{}
+			var v ApiError
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarHTTPResponse, newErr
 	}
@@ -201,18 +200,18 @@ func (a *KnowledgeGraphWriteAPIAPIService) DeleteEntityExecute(r ApiDeleteEntity
 }
 
 type ApiDeleteRelationshipRequest struct {
-	ctx context.Context
-	ApiService *KnowledgeGraphWriteAPIAPIService
-	namespace string
-	type_ string
-	fromDomain *string
-	fromType *string
-	fromName *string
-	toDomain *string
-	toType *string
-	toName *string
-	fromScope *map[string]string
-	toScope *map[string]string
+	ctx         context.Context
+	ApiService  *KnowledgeGraphWriteAPIAPIService
+	namespace   string
+	type_       string
+	fromDomain  *string
+	fromType    *string
+	fromName    *string
+	toDomain    *string
+	toType      *string
+	toName      *string
+	fromScope   *map[string]string
+	toScope     *map[string]string
 	xScopeOrgID *string
 }
 
@@ -273,26 +272,26 @@ DeleteRelationship Delete a custom relationship
 
 Deletes an API-origin edge of the given type between the from/to entities. The endpoint coordinates travel as query params (no request body): from.domain/from.type/from.name (+ from.scope[key]=value) and the matching to.* params.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param namespace Tenant namespace, formatted as stacks-<stackId>
- @param type_ Relationship type
- @return ApiDeleteRelationshipRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param namespace Tenant namespace, formatted as stacks-<stackId>
+	@param type_ Relationship type
+	@return ApiDeleteRelationshipRequest
 */
 func (a *KnowledgeGraphWriteAPIAPIService) DeleteRelationship(ctx context.Context, namespace string, type_ string) ApiDeleteRelationshipRequest {
 	return ApiDeleteRelationshipRequest{
 		ApiService: a,
-		ctx: ctx,
-		namespace: namespace,
-		type_: type_,
+		ctx:        ctx,
+		namespace:  namespace,
+		type_:      type_,
 	}
 }
 
 // Execute executes the request
 func (a *KnowledgeGraphWriteAPIAPIService) DeleteRelationshipExecute(r ApiDeleteRelationshipRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KnowledgeGraphWriteAPIAPIService.DeleteRelationship")
@@ -399,47 +398,47 @@ func (a *KnowledgeGraphWriteAPIAPIService) DeleteRelationshipExecute(r ApiDelete
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 400 {
-			var v ApiError[string]interface{}
+			var v ApiError
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
-			var v ApiError[string]interface{}
+			var v ApiError
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
-			var v ApiError[string]interface{}
+			var v ApiError
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiError[string]interface{}
+			var v ApiError
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarHTTPResponse, newErr
 	}
@@ -448,11 +447,11 @@ func (a *KnowledgeGraphWriteAPIAPIService) DeleteRelationshipExecute(r ApiDelete
 }
 
 type ApiUpsertEntityRequest struct {
-	ctx context.Context
-	ApiService *KnowledgeGraphWriteAPIAPIService
-	namespace string
+	ctx                   context.Context
+	ApiService            *KnowledgeGraphWriteAPIAPIService
+	namespace             string
 	entityWriteRequestDto *EntityWriteRequestDto
-	xScopeOrgID *string
+	xScopeOrgID           *string
 }
 
 func (r ApiUpsertEntityRequest) EntityWriteRequestDto(entityWriteRequestDto EntityWriteRequestDto) ApiUpsertEntityRequest {
@@ -475,26 +474,27 @@ UpsertEntity Create or update a custom entity
 
 Upserts an API-origin entity identified by (type, name, scope): 201 on create, 200 on update.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param namespace Tenant namespace, formatted as stacks-<stackId>; must match the request tenant
- @return ApiUpsertEntityRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param namespace Tenant namespace, formatted as stacks-<stackId>; must match the request tenant
+	@return ApiUpsertEntityRequest
 */
 func (a *KnowledgeGraphWriteAPIAPIService) UpsertEntity(ctx context.Context, namespace string) ApiUpsertEntityRequest {
 	return ApiUpsertEntityRequest{
 		ApiService: a,
-		ctx: ctx,
-		namespace: namespace,
+		ctx:        ctx,
+		namespace:  namespace,
 	}
 }
 
 // Execute executes the request
-//  @return EntityWriteResponseDto
+//
+//	@return EntityWriteResponseDto
 func (a *KnowledgeGraphWriteAPIAPIService) UpsertEntityExecute(r ApiUpsertEntityRequest) (*EntityWriteResponseDto, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *EntityWriteResponseDto
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *EntityWriteResponseDto
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KnowledgeGraphWriteAPIAPIService.UpsertEntity")
@@ -557,47 +557,47 @@ func (a *KnowledgeGraphWriteAPIAPIService) UpsertEntityExecute(r ApiUpsertEntity
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 400 {
-			var v ApiError[string]interface{}
+			var v ApiError
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
-			var v ApiError[string]interface{}
+			var v ApiError
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 409 {
-			var v ApiError[string]interface{}
+			var v ApiError
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiError[string]interface{}
+			var v ApiError
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -615,11 +615,11 @@ func (a *KnowledgeGraphWriteAPIAPIService) UpsertEntityExecute(r ApiUpsertEntity
 }
 
 type ApiUpsertRelationshipRequest struct {
-	ctx context.Context
-	ApiService *KnowledgeGraphWriteAPIAPIService
-	namespace string
+	ctx                         context.Context
+	ApiService                  *KnowledgeGraphWriteAPIAPIService
+	namespace                   string
 	relationshipWriteRequestDto *RelationshipWriteRequestDto
-	xScopeOrgID *string
+	xScopeOrgID                 *string
 }
 
 func (r ApiUpsertRelationshipRequest) RelationshipWriteRequestDto(relationshipWriteRequestDto RelationshipWriteRequestDto) ApiUpsertRelationshipRequest {
@@ -642,26 +642,27 @@ UpsertRelationship Create or update a custom relationship
 
 Upserts an API-origin edge between two existing entities; both endpoints must already exist.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param namespace Tenant namespace, formatted as stacks-<stackId>
- @return ApiUpsertRelationshipRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param namespace Tenant namespace, formatted as stacks-<stackId>
+	@return ApiUpsertRelationshipRequest
 */
 func (a *KnowledgeGraphWriteAPIAPIService) UpsertRelationship(ctx context.Context, namespace string) ApiUpsertRelationshipRequest {
 	return ApiUpsertRelationshipRequest{
 		ApiService: a,
-		ctx: ctx,
-		namespace: namespace,
+		ctx:        ctx,
+		namespace:  namespace,
 	}
 }
 
 // Execute executes the request
-//  @return RelationshipWriteResponseDto
+//
+//	@return RelationshipWriteResponseDto
 func (a *KnowledgeGraphWriteAPIAPIService) UpsertRelationshipExecute(r ApiUpsertRelationshipRequest) (*RelationshipWriteResponseDto, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *RelationshipWriteResponseDto
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *RelationshipWriteResponseDto
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KnowledgeGraphWriteAPIAPIService.UpsertRelationship")
@@ -724,58 +725,58 @@ func (a *KnowledgeGraphWriteAPIAPIService) UpsertRelationshipExecute(r ApiUpsert
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 400 {
-			var v ApiError[string]interface{}
+			var v ApiError
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
-			var v ApiError[string]interface{}
+			var v ApiError
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
-			var v ApiError[string]interface{}
+			var v ApiError
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 409 {
-			var v ApiError[string]interface{}
+			var v ApiError
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiError[string]interface{}
+			var v ApiError
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
