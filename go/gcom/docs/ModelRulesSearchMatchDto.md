@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Source** | Pointer to **string** | Source of the rule: &#39;builtin&#39; or &#39;custom&#39; | [optional] [default to ""]
 **EntityTypes** | Pointer to **[]string** | Entity types referenced in this rule (from entity definitions and relationship start/end types) | [optional] [default to ]
 **Vendors** | Pointer to **[]string** | Vendor keywords from the &#39;when&#39; clause | [optional] [default to ]
-**Rules** | Pointer to [**ModelRulesDto**](ModelRulesDto.md) | Full rule content for this match | [optional] 
+**Rules** | Pointer to [**ModelRulesDto**](ModelRulesDto.md) |  | [optional] 
 
 ## Methods
 
