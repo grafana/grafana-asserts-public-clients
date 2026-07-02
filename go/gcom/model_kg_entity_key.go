@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.06.22-121348
+API version: 2026.07.02-102119
 Contact: support@asserts.ai
 */
 
@@ -23,6 +23,7 @@ type KGEntityKey struct {
 	Type                 *string  `json:"type,omitempty"`
 	Name                 *string  `json:"name,omitempty"`
 	KgScope              *KGScope `json:"kgScope,omitempty"`
+	Domain               *string  `json:"domain,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -141,6 +142,38 @@ func (o *KGEntityKey) SetKgScope(v KGScope) {
 	o.KgScope = &v
 }
 
+// GetDomain returns the Domain field value if set, zero value otherwise.
+func (o *KGEntityKey) GetDomain() string {
+	if o == nil || IsNil(o.Domain) {
+		var ret string
+		return ret
+	}
+	return *o.Domain
+}
+
+// GetDomainOk returns a tuple with the Domain field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *KGEntityKey) GetDomainOk() (*string, bool) {
+	if o == nil || IsNil(o.Domain) {
+		return nil, false
+	}
+	return o.Domain, true
+}
+
+// HasDomain returns a boolean if a field has been set.
+func (o *KGEntityKey) HasDomain() bool {
+	if o != nil && !IsNil(o.Domain) {
+		return true
+	}
+
+	return false
+}
+
+// SetDomain gets a reference to the given string and assigns it to the Domain field.
+func (o *KGEntityKey) SetDomain(v string) {
+	o.Domain = &v
+}
+
 func (o KGEntityKey) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -159,6 +192,9 @@ func (o KGEntityKey) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.KgScope) {
 		toSerialize["kgScope"] = o.KgScope
+	}
+	if !IsNil(o.Domain) {
+		toSerialize["domain"] = o.Domain
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -185,6 +221,7 @@ func (o *KGEntityKey) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "kgScope")
+		delete(additionalProperties, "domain")
 		o.AdditionalProperties = additionalProperties
 	}
 
