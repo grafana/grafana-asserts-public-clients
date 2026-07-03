@@ -21,7 +21,32 @@ func main() {
 	}
 }
 
+type appConfig struct {
+	Gateway    gatewayConfig
+	StackID    string
+	Namespace  string
+	Domain     string
+	EntityType string
+	EntityName string
+}
+
+type gatewayConfig struct {
+	BaseURL             string
+	AuthorizationHeader string
+	Mode                string
+}
+
 func run() error {
+	cfg, err := parseConfig()
+	if err != nil {
+		return err
+	}
+
+	client := newClient(cfg.Gateway)
+	return runRoundTrip(context.Background(), client, cfg)
+}
+
+func parseConfig() (appConfig, error) {
 	grafanaURL := flag.String("grafana-url", env("GRAFANA_URL"), "Grafana stack URL, for example https://my-stack.grafana.net")
 	cellGatewayURL := flag.String("cell-gateway-url", env("GRAFANA_CELL_GATEWAY_URL"), "Grafana Cloud cell gateway URL, for example https://asserts-dev-us-central-0.grafana-dev.net")
 	stackID := flag.String("stack-id", env("GRAFANA_STACK_ID"), "Numeric Grafana stack ID")
@@ -32,24 +57,36 @@ func run() error {
 
 	namespace, err := namespaceForStack(*stackID)
 	if err != nil {
-		return err
+		return appConfig{}, err
 	}
-	baseURL, authorizationHeader, mode, err := configureGateway(*grafanaURL, *cellGatewayURL, *stackID)
+	gateway, err := configureGateway(*grafanaURL, *cellGatewayURL, *stackID)
 	if err != nil {
-		return err
+		return appConfig{}, err
 	}
 
-	cfg := kgwrite.NewConfiguration()
-	cfg.Servers = kgwrite.ServerConfigurations{{URL: baseURL}}
-	cfg.AddDefaultHeader("Authorization", authorizationHeader)
-	client := kgwrite.NewAPIClient(cfg)
+	return appConfig{
+		Gateway:    gateway,
+		StackID:    strings.TrimSpace(*stackID),
+		Namespace:  namespace,
+		Domain:     *domain,
+		EntityType: *entityType,
+		EntityName: *entityName,
+	}, nil
+}
 
-	ctx := context.Background()
-	fmt.Printf("Creating entity %s/%s in namespace %s via %s (%s)\n", *entityType, *entityName, namespace, baseURL, mode)
+func newClient(gateway gatewayConfig) *kgwrite.APIClient {
+	cfg := kgwrite.NewConfiguration()
+	cfg.Servers = kgwrite.ServerConfigurations{{URL: gateway.BaseURL}}
+	cfg.AddDefaultHeader("Authorization", gateway.AuthorizationHeader)
+	return kgwrite.NewAPIClient(cfg)
+}
+
+func runRoundTrip(ctx context.Context, client *kgwrite.APIClient, cfg appConfig) error {
+	fmt.Printf("Creating entity %s/%s in namespace %s via %s (%s)\n", cfg.EntityType, cfg.EntityName, cfg.Namespace, cfg.Gateway.BaseURL, cfg.Gateway.Mode)
 	created, response, err := client.KnowledgeGraphWriteAPIAPI.
-		UpsertEntity(ctx, namespace).
-		XScopeOrgID(*stackID).
-		EntityWriteRequestDto(*kgwrite.NewEntityWriteRequestDto(*domain, *entityType, *entityName, -1)).
+		UpsertEntity(ctx, cfg.Namespace).
+		XScopeOrgID(cfg.StackID).
+		EntityWriteRequestDto(*kgwrite.NewEntityWriteRequestDto(cfg.Domain, cfg.EntityType, cfg.EntityName, -1)).
 		Execute()
 	if err != nil {
 		return fmt.Errorf("create entity failed: %w", err)
@@ -59,11 +96,11 @@ func run() error {
 	}
 	fmt.Printf("Created entity: domain=%s type=%s name=%s status=%s\n", created.GetDomain(), created.GetType(), created.GetName(), status(response))
 
-	fmt.Printf("Deleting entity %s/%s\n", *entityType, *entityName)
+	fmt.Printf("Deleting entity %s/%s\n", cfg.EntityType, cfg.EntityName)
 	response, err = client.KnowledgeGraphWriteAPIAPI.
-		DeleteEntity(ctx, namespace, *entityType, *entityName).
-		XScopeOrgID(*stackID).
-		Domain(*domain).
+		DeleteEntity(ctx, cfg.Namespace, cfg.EntityType, cfg.EntityName).
+		XScopeOrgID(cfg.StackID).
+		Domain(cfg.Domain).
 		Execute()
 	if err != nil {
 		return fmt.Errorf("delete entity failed: %w", err)
@@ -75,29 +112,37 @@ func run() error {
 	return nil
 }
 
-func configureGateway(grafanaURL string, cellGatewayURL string, stackID string) (string, string, string, error) {
+func configureGateway(grafanaURL string, cellGatewayURL string, stackID string) (gatewayConfig, error) {
 	stackID = strings.TrimSpace(stackID)
 	if strings.TrimSpace(cellGatewayURL) != "" {
 		baseURL, err := normalizeURL(cellGatewayURL, "cell gateway URL")
 		if err != nil {
-			return "", "", "", err
+			return gatewayConfig{}, err
 		}
 		token := env("GCOM_TOKEN")
 		if token == "" {
-			return "", "", "", errors.New("missing GCom token; set GCOM_TOKEN when using GRAFANA_CELL_GATEWAY_URL")
+			return gatewayConfig{}, errors.New("missing GCom token; set GCOM_TOKEN when using GRAFANA_CELL_GATEWAY_URL")
 		}
-		return baseURL, basicAuthHeader(stackID, token), "cell gateway Basic auth", nil
+		return gatewayConfig{
+			BaseURL:             baseURL,
+			AuthorizationHeader: basicAuthHeader(stackID, token),
+			Mode:                "cell gateway Basic auth",
+		}, nil
 	}
 
 	baseURL, err := normalizeURL(grafanaURL, "Grafana URL")
 	if err != nil {
-		return "", "", "", err
+		return gatewayConfig{}, err
 	}
 	token := env("GRAFANA_TOKEN")
 	if token == "" {
-		return "", "", "", errors.New("missing service account token; set GRAFANA_TOKEN")
+		return gatewayConfig{}, errors.New("missing service account token; set GRAFANA_TOKEN")
 	}
-	return baseURL, "Bearer " + token, "Grafana stack bearer auth", nil
+	return gatewayConfig{
+		BaseURL:             baseURL,
+		AuthorizationHeader: "Bearer " + token,
+		Mode:                "Grafana stack bearer auth",
+	}, nil
 }
 
 func normalizeURL(value string, label string) (string, error) {
