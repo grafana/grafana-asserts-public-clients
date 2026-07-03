@@ -49,7 +49,6 @@ func run() error {
 }
 
 func parseConfig() (appConfig, error) {
-	grafanaURL := flag.String("grafana-url", env("GRAFANA_URL"), "Grafana stack URL, for example https://my-stack.grafana.net")
 	cellGatewayURL := flag.String("cell-gateway-url", env("GRAFANA_CELL_GATEWAY_URL"), "Grafana Cloud cell gateway URL, for example https://asserts-dev-us-central-0.grafana-dev.net")
 	stackID := flag.String("stack-id", env("GRAFANA_STACK_ID"), "Numeric Grafana stack ID")
 	domain := flag.String("domain", envDefault("KG_DOMAIN", "demo"), "Knowledge Graph domain for the demo entity")
@@ -62,7 +61,7 @@ func parseConfig() (appConfig, error) {
 	if err != nil {
 		return appConfig{}, err
 	}
-	gateway, err := configureGateway(*grafanaURL, *cellGatewayURL, *stackID)
+	gateway, err := configureGateway(*cellGatewayURL, *stackID)
 	if err != nil {
 		return appConfig{}, err
 	}
@@ -190,36 +189,20 @@ func deleteEntity(ctx context.Context, client *kgwrite.APIClient, cfg appConfig,
 	return nil
 }
 
-func configureGateway(grafanaURL string, cellGatewayURL string, stackID string) (gatewayConfig, error) {
+func configureGateway(cellGatewayURL string, stackID string) (gatewayConfig, error) {
 	stackID = strings.TrimSpace(stackID)
-	if strings.TrimSpace(cellGatewayURL) != "" {
-		baseURL, err := normalizeURL(cellGatewayURL, "cell gateway URL")
-		if err != nil {
-			return gatewayConfig{}, err
-		}
-		token := env("GCOM_TOKEN")
-		if token == "" {
-			return gatewayConfig{}, errors.New("missing GCom token; set GCOM_TOKEN when using GRAFANA_CELL_GATEWAY_URL")
-		}
-		return gatewayConfig{
-			BaseURL:             baseURL,
-			AuthorizationHeader: basicAuthHeader(stackID, token),
-			Mode:                "cell gateway Basic auth",
-		}, nil
-	}
-
-	baseURL, err := normalizeURL(grafanaURL, "Grafana URL")
+	baseURL, err := normalizeURL(cellGatewayURL, "cell gateway URL")
 	if err != nil {
 		return gatewayConfig{}, err
 	}
-	token := env("GRAFANA_TOKEN")
+	token := env("GCOM_TOKEN")
 	if token == "" {
-		return gatewayConfig{}, errors.New("missing service account token; set GRAFANA_TOKEN")
+		return gatewayConfig{}, errors.New("missing GCom token; set GCOM_TOKEN")
 	}
 	return gatewayConfig{
 		BaseURL:             baseURL,
-		AuthorizationHeader: "Bearer " + token,
-		Mode:                "Grafana stack bearer auth",
+		AuthorizationHeader: basicAuthHeader(stackID, token),
+		Mode:                "cell gateway Basic auth",
 	}, nil
 }
 
