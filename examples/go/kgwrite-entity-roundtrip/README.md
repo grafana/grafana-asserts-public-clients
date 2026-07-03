@@ -1,7 +1,8 @@
 # KG Write entity roundtrip example
 
-This example creates and deletes one custom Knowledge Graph entity through the
-Grafana Cloud gateway.
+This example creates two custom Knowledge Graph entities, creates a relationship
+between them, deletes the relationship, and then deletes both entities through
+the Grafana Cloud gateway.
 
 It lives outside the generated `go/kgwrite` client tree so OpenAPI client
 regeneration does not overwrite it.
@@ -41,5 +42,9 @@ go run . \
   -cell-gateway-url https://asserts-dev-us-central-0.grafana-dev.net \
   -domain demo \
   -type DemoEntity \
-  -name demo-entity
+  -name demo-entity \
+  -relation-type DEPENDS_ON
 ```
+
+The `-name` value is used as a base name. The example creates
+`<name>-from` and `<name>-to`, then writes `<relation-type>` between them.

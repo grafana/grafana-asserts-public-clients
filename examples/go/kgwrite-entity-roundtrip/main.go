@@ -27,7 +27,9 @@ type appConfig struct {
 	Namespace  string
 	Domain     string
 	EntityType string
-	EntityName string
+	FromName   string
+	ToName     string
+	Relation   string
 }
 
 type gatewayConfig struct {
@@ -53,6 +55,7 @@ func parseConfig() (appConfig, error) {
 	domain := flag.String("domain", envDefault("KG_DOMAIN", "demo"), "Knowledge Graph domain for the demo entity")
 	entityType := flag.String("type", envDefault("KG_ENTITY_TYPE", "DemoEntity"), "Demo entity type")
 	entityName := flag.String("name", envDefault("KG_ENTITY_NAME", "demo-entity"), "Demo entity name")
+	relationType := flag.String("relation-type", envDefault("KG_RELATION_TYPE", "DEPENDS_ON"), "Demo relationship type")
 	flag.Parse()
 
 	namespace, err := namespaceForStack(*stackID)
@@ -70,7 +73,9 @@ func parseConfig() (appConfig, error) {
 		Namespace:  namespace,
 		Domain:     *domain,
 		EntityType: *entityType,
-		EntityName: *entityName,
+		FromName:   *entityName + "-from",
+		ToName:     *entityName + "-to",
+		Relation:   *relationType,
 	}, nil
 }
 
@@ -82,33 +87,106 @@ func newClient(gateway gatewayConfig) *kgwrite.APIClient {
 }
 
 func runRoundTrip(ctx context.Context, client *kgwrite.APIClient, cfg appConfig) error {
-	fmt.Printf("Creating entity %s/%s in namespace %s via %s (%s)\n", cfg.EntityType, cfg.EntityName, cfg.Namespace, cfg.Gateway.BaseURL, cfg.Gateway.Mode)
+	fmt.Printf("Creating entities %s/%s and %s/%s in namespace %s via %s (%s)\n", cfg.EntityType, cfg.FromName, cfg.EntityType, cfg.ToName, cfg.Namespace, cfg.Gateway.BaseURL, cfg.Gateway.Mode)
+	if err := upsertEntity(ctx, client, cfg, cfg.FromName); err != nil {
+		return err
+	}
+	if err := upsertEntity(ctx, client, cfg, cfg.ToName); err != nil {
+		_ = deleteEntity(ctx, client, cfg, cfg.FromName)
+		return err
+	}
+
+	if err := upsertRelationship(ctx, client, cfg); err != nil {
+		_ = deleteEntity(ctx, client, cfg, cfg.ToName)
+		_ = deleteEntity(ctx, client, cfg, cfg.FromName)
+		return err
+	}
+
+	var firstErr error
+	if err := deleteRelationship(ctx, client, cfg); err != nil {
+		firstErr = err
+	}
+	if err := deleteEntity(ctx, client, cfg, cfg.ToName); err != nil && firstErr == nil {
+		firstErr = err
+	}
+	if err := deleteEntity(ctx, client, cfg, cfg.FromName); err != nil && firstErr == nil {
+		firstErr = err
+	}
+	return firstErr
+}
+
+func upsertEntity(ctx context.Context, client *kgwrite.APIClient, cfg appConfig, name string) error {
 	created, response, err := client.KnowledgeGraphWriteAPIAPI.
 		UpsertEntity(ctx, cfg.Namespace).
 		XScopeOrgID(cfg.StackID).
-		EntityWriteRequestDto(*kgwrite.NewEntityWriteRequestDto(cfg.Domain, cfg.EntityType, cfg.EntityName, -1)).
+		EntityWriteRequestDto(*kgwrite.NewEntityWriteRequestDto(cfg.Domain, cfg.EntityType, name, -1)).
 		Execute()
 	if err != nil {
-		return fmt.Errorf("create entity failed: %w", err)
+		return fmt.Errorf("create entity %s/%s failed: %w", cfg.EntityType, name, err)
 	}
 	if response == nil || (response.StatusCode != http.StatusCreated && response.StatusCode != http.StatusOK) {
-		return fmt.Errorf("create entity returned unexpected status %s", status(response))
+		return fmt.Errorf("create entity %s/%s returned unexpected status %s", cfg.EntityType, name, status(response))
 	}
 	fmt.Printf("Created entity: domain=%s type=%s name=%s status=%s\n", created.GetDomain(), created.GetType(), created.GetName(), status(response))
+	return nil
+}
 
-	fmt.Printf("Deleting entity %s/%s\n", cfg.EntityType, cfg.EntityName)
-	response, err = client.KnowledgeGraphWriteAPIAPI.
-		DeleteEntity(ctx, cfg.Namespace, cfg.EntityType, cfg.EntityName).
+func upsertRelationship(ctx context.Context, client *kgwrite.APIClient, cfg appConfig) error {
+	from := *kgwrite.NewEntityRefDto(cfg.Domain, cfg.EntityType, cfg.FromName)
+	to := *kgwrite.NewEntityRefDto(cfg.Domain, cfg.EntityType, cfg.ToName)
+
+	fmt.Printf("Creating relationship %s from %s/%s to %s/%s\n", cfg.Relation, from.GetType(), from.GetName(), to.GetType(), to.GetName())
+	created, response, err := client.KnowledgeGraphWriteAPIAPI.
+		UpsertRelationship(ctx, cfg.Namespace).
+		XScopeOrgID(cfg.StackID).
+		RelationshipWriteRequestDto(*kgwrite.NewRelationshipWriteRequestDto(cfg.Domain, cfg.Relation, from, to, -1)).
+		Execute()
+	if err != nil {
+		return fmt.Errorf("create relationship %s failed: %w", cfg.Relation, err)
+	}
+	if response == nil || response.StatusCode != http.StatusOK {
+		return fmt.Errorf("create relationship %s returned unexpected status %s", cfg.Relation, status(response))
+	}
+	fmt.Printf("Created relationship: domain=%s type=%s status=%s\n", created.GetDomain(), created.GetType(), status(response))
+	return nil
+}
+
+func deleteRelationship(ctx context.Context, client *kgwrite.APIClient, cfg appConfig) error {
+	fmt.Printf("Deleting relationship %s from %s/%s to %s/%s\n", cfg.Relation, cfg.EntityType, cfg.FromName, cfg.EntityType, cfg.ToName)
+	response, err := client.KnowledgeGraphWriteAPIAPI.
+		DeleteRelationship(ctx, cfg.Namespace, cfg.Relation).
+		XScopeOrgID(cfg.StackID).
+		FromDomain(cfg.Domain).
+		FromType(cfg.EntityType).
+		FromName(cfg.FromName).
+		ToDomain(cfg.Domain).
+		ToType(cfg.EntityType).
+		ToName(cfg.ToName).
+		Execute()
+	if err != nil {
+		return fmt.Errorf("delete relationship %s failed: %w", cfg.Relation, err)
+	}
+	if response == nil || response.StatusCode != http.StatusNoContent {
+		return fmt.Errorf("delete relationship %s returned unexpected status %s", cfg.Relation, status(response))
+	}
+	fmt.Printf("Deleted relationship: status=%s\n", status(response))
+	return nil
+}
+
+func deleteEntity(ctx context.Context, client *kgwrite.APIClient, cfg appConfig, name string) error {
+	fmt.Printf("Deleting entity %s/%s\n", cfg.EntityType, name)
+	response, err := client.KnowledgeGraphWriteAPIAPI.
+		DeleteEntity(ctx, cfg.Namespace, cfg.EntityType, name).
 		XScopeOrgID(cfg.StackID).
 		Domain(cfg.Domain).
 		Execute()
 	if err != nil {
-		return fmt.Errorf("delete entity failed: %w", err)
+		return fmt.Errorf("delete entity %s/%s failed: %w", cfg.EntityType, name, err)
 	}
 	if response == nil || response.StatusCode != http.StatusNoContent {
-		return fmt.Errorf("delete entity returned unexpected status %s", status(response))
+		return fmt.Errorf("delete entity %s/%s returned unexpected status %s", cfg.EntityType, name, status(response))
 	}
-	fmt.Printf("Deleted entity: status=%s\n", status(response))
+	fmt.Printf("Deleted entity: type=%s name=%s status=%s\n", cfg.EntityType, name, status(response))
 	return nil
 }
 
