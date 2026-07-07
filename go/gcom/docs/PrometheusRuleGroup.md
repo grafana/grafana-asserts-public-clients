@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Name** | Pointer to **string** |  | [optional] 
 **Interval** | Pointer to **string** |  | [optional] 
 **Rules** | Pointer to [**[]PrometheusRule**](PrometheusRule.md) |  | [optional] 
+**QueryOffset** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -101,6 +102,31 @@ SetRules sets Rules field to given value.
 `func (o *PrometheusRuleGroup) HasRules() bool`
 
 HasRules returns a boolean if a field has been set.
+
+### GetQueryOffset
+
+`func (o *PrometheusRuleGroup) GetQueryOffset() string`
+
+GetQueryOffset returns the QueryOffset field if non-nil, zero value otherwise.
+
+### GetQueryOffsetOk
+
+`func (o *PrometheusRuleGroup) GetQueryOffsetOk() (*string, bool)`
+
+GetQueryOffsetOk returns a tuple with the QueryOffset field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetQueryOffset
+
+`func (o *PrometheusRuleGroup) SetQueryOffset(v string)`
+
+SetQueryOffset sets QueryOffset field to given value.
+
+### HasQueryOffset
+
+`func (o *PrometheusRuleGroup) HasQueryOffset() bool`
+
+HasQueryOffset returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
