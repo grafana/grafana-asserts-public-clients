@@ -216,7 +216,7 @@ func normalizeURL(value string, label string) (string, error) {
 	}
 	parsed, err := url.Parse(raw)
 	if err != nil {
-		return "", fmt.Errorf("parse Grafana URL: %w", err)
+		return "", fmt.Errorf("parse %s %q: %w", label, value, err)
 	}
 	if parsed.Scheme != "https" && parsed.Scheme != "http" {
 		return "", fmt.Errorf("unsupported %s scheme %q", label, parsed.Scheme)
@@ -236,6 +236,11 @@ func namespaceForStack(stackID string) (string, error) {
 	stackID = strings.TrimSpace(stackID)
 	if stackID == "" {
 		return "", errors.New("missing numeric stack ID; set GRAFANA_STACK_ID or pass -stack-id")
+	}
+	for _, r := range stackID {
+		if r < '0' || r > '9' {
+			return "", fmt.Errorf("stack ID %q must contain only digits", stackID)
+		}
 	}
 	return "stacks-" + stackID, nil
 }
