@@ -569,6 +569,10 @@ components:
             type: string
         ttlSeconds:
           format: int64
+          description: Time-to-live in seconds. Positive values expire the relationship
+            after that many seconds, 0 expires it immediately, and negative values mean
+            no expiry.
+          example: -1
           type: integer
       required:
       - domain
@@ -682,6 +686,9 @@ components:
             type: string
         ttlSeconds:
           format: int64
+          description: Time-to-live in seconds. Positive values expire the entity after
+            that many seconds, 0 expires it immediately, and negative values mean no expiry.
+          example: -1
           type: integer
       required:
       - domain

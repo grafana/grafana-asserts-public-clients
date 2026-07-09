@@ -10,8 +10,14 @@ import (
 	"net/url"
 	"os"
 	"strings"
+	"time"
 
 	kgwrite "github.com/grafana/grafana-asserts-public-clients/go/kgwrite"
+)
+
+const (
+	noExpiryTTLSeconds int64 = -1
+	requestTimeout           = 30 * time.Second
 )
 
 func main() {
@@ -81,6 +87,7 @@ func parseConfig() (appConfig, error) {
 func newClient(gateway gatewayConfig) *kgwrite.APIClient {
 	cfg := kgwrite.NewConfiguration()
 	cfg.Servers = kgwrite.ServerConfigurations{{URL: gateway.BaseURL}}
+	cfg.HTTPClient = &http.Client{Timeout: requestTimeout}
 	cfg.AddDefaultHeader("Authorization", gateway.AuthorizationHeader)
 	return kgwrite.NewAPIClient(cfg)
 }
@@ -118,7 +125,7 @@ func upsertEntity(ctx context.Context, client *kgwrite.APIClient, cfg appConfig,
 	created, response, err := client.KnowledgeGraphWriteAPIAPI.
 		UpsertEntity(ctx, cfg.Namespace).
 		XScopeOrgID(cfg.StackID).
-		EntityWriteRequestDto(*kgwrite.NewEntityWriteRequestDto(cfg.Domain, cfg.EntityType, name, -1)).
+		EntityWriteRequestDto(*kgwrite.NewEntityWriteRequestDto(cfg.Domain, cfg.EntityType, name, noExpiryTTLSeconds)).
 		Execute()
 	if err != nil {
 		return fmt.Errorf("create entity %s/%s failed: %w", cfg.EntityType, name, err)
@@ -138,7 +145,7 @@ func upsertRelationship(ctx context.Context, client *kgwrite.APIClient, cfg appC
 	created, response, err := client.KnowledgeGraphWriteAPIAPI.
 		UpsertRelationship(ctx, cfg.Namespace).
 		XScopeOrgID(cfg.StackID).
-		RelationshipWriteRequestDto(*kgwrite.NewRelationshipWriteRequestDto(cfg.Domain, cfg.Relation, from, to, -1)).
+		RelationshipWriteRequestDto(*kgwrite.NewRelationshipWriteRequestDto(cfg.Domain, cfg.Relation, from, to, noExpiryTTLSeconds)).
 		Execute()
 	if err != nil {
 		return fmt.Errorf("create relationship %s failed: %w", cfg.Relation, err)

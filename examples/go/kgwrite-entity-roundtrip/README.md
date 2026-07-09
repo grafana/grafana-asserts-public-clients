@@ -37,3 +37,6 @@ go run . \
 
 The `-name` value is used as a base name. The example creates
 `<name>-from` and `<name>-to`, then writes `<relation-type>` between them.
+
+The example writes `ttlSeconds=-1`, which means the demo entities and
+relationship do not expire before the cleanup delete calls run.
