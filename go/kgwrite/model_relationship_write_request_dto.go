@@ -20,12 +20,13 @@ var _ MappedNullable = &RelationshipWriteRequestDto{}
 
 // RelationshipWriteRequestDto struct for RelationshipWriteRequestDto
 type RelationshipWriteRequestDto struct {
-	Domain               string            `json:"domain" validate:"regexp=^(?!kg$)[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"`
-	Type                 string            `json:"type" validate:"regexp=^[A-Za-z][A-Za-z0-9_]*$"`
-	From                 EntityRefDto      `json:"from"`
-	To                   EntityRefDto      `json:"to"`
-	Properties           map[string]string `json:"properties,omitempty"`
-	TtlSeconds           int64             `json:"ttlSeconds"`
+	Domain     string            `json:"domain" validate:"regexp=^(?!kg$)[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"`
+	Type       string            `json:"type" validate:"regexp=^[A-Za-z][A-Za-z0-9_]*$"`
+	From       EntityRefDto      `json:"from"`
+	To         EntityRefDto      `json:"to"`
+	Properties map[string]string `json:"properties,omitempty"`
+	// Time-to-live in seconds. Positive values expire the relationship after that many seconds, 0 expires it immediately, and negative values mean no expiry.
+	TtlSeconds           int64 `json:"ttlSeconds"`
 	AdditionalProperties map[string]interface{}
 }
 

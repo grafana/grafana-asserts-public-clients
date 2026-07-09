@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **Name** | **string** |  | 
 **Scope** | Pointer to **map[string]string** |  | [optional] 
 **Properties** | Pointer to **map[string]string** |  | [optional] 
-**TtlSeconds** | **int64** |  | 
+**TtlSeconds** | **int64** | Time-to-live in seconds. Positive values expire the entity after that many seconds, 0 expires it immediately, and negative values mean no expiry. | 
 
 ## Methods
 
