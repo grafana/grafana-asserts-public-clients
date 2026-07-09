@@ -202,7 +202,7 @@ import (
 
 func main() {
 	namespace := "namespace_example" // string | Tenant namespace, formatted as stacks-<stackId>; must match the request tenant (default to "")
-	entityWriteRequestDto := *openapiclient.NewEntityWriteRequestDto("Domain_example", "Type_example", "Name_example", int64(123)) // EntityWriteRequestDto | 
+	entityWriteRequestDto := *openapiclient.NewEntityWriteRequestDto("Domain_example", "Type_example", "Name_example", int64(-1)) // EntityWriteRequestDto | 
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -276,7 +276,7 @@ import (
 
 func main() {
 	namespace := "namespace_example" // string | Tenant namespace, formatted as stacks-<stackId> (default to "")
-	relationshipWriteRequestDto := *openapiclient.NewRelationshipWriteRequestDto("Domain_example", "Type_example", *openapiclient.NewEntityRefDto("Domain_example", "Type_example", "Name_example"), *openapiclient.NewEntityRefDto("Domain_example", "Type_example", "Name_example"), int64(123)) // RelationshipWriteRequestDto | 
+	relationshipWriteRequestDto := *openapiclient.NewRelationshipWriteRequestDto("Domain_example", "Type_example", *openapiclient.NewEntityRefDto("Domain_example", "Type_example", "Name_example"), *openapiclient.NewEntityRefDto("Domain_example", "Type_example", "Name_example"), int64(-1)) // RelationshipWriteRequestDto | 
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
 	configuration := openapiclient.NewConfiguration()

@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **From** | [**EntityRefDto**](EntityRefDto.md) |  | 
 **To** | [**EntityRefDto**](EntityRefDto.md) |  | 
 **Properties** | Pointer to **map[string]string** |  | [optional] 
-**TtlSeconds** | **int64** |  | 
+**TtlSeconds** | **int64** | Time-to-live in seconds. Positive values expire the relationship after that many seconds, 0 expires it immediately, and negative values mean no expiry. | 
 
 ## Methods
 

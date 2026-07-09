@@ -548,7 +548,7 @@ components:
           name: name
           type: type
         type: type
-        ttlSeconds: 0
+        ttlSeconds: -1
         properties:
           key: properties
       properties:
@@ -568,6 +568,10 @@ components:
           additionalProperties:
             type: string
         ttlSeconds:
+          description: "Time-to-live in seconds. Positive values expire the relationship\
+            \ after that many seconds, 0 expires it immediately, and negative values\
+            \ mean no expiry."
+          example: -1
           format: int64
           type: integer
       required:
@@ -659,7 +663,7 @@ components:
           key: scope
         name: name
         type: type
-        ttlSeconds: 0
+        ttlSeconds: -1
         properties:
           key: properties
       properties:
@@ -681,6 +685,10 @@ components:
           additionalProperties:
             type: string
         ttlSeconds:
+          description: "Time-to-live in seconds. Positive values expire the entity\
+            \ after that many seconds, 0 expires it immediately, and negative values\
+            \ mean no expiry."
+          example: -1
           format: int64
           type: integer
       required:
