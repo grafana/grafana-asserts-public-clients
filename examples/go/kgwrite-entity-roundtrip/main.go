@@ -225,8 +225,8 @@ func normalizeURL(value string, label string) (string, error) {
 	if err != nil {
 		return "", fmt.Errorf("parse %s %q: %w", label, value, err)
 	}
-	if parsed.Scheme != "https" && parsed.Scheme != "http" {
-		return "", fmt.Errorf("unsupported %s scheme %q", label, parsed.Scheme)
+	if parsed.Scheme != "https" {
+		return "", fmt.Errorf("%s must use https, got scheme %q", label, parsed.Scheme)
 	}
 	if parsed.Host == "" {
 		return "", fmt.Errorf("%s %q does not include a host", label, value)
