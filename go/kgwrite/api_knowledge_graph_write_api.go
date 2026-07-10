@@ -27,15 +27,25 @@ type ApiDeleteEntityRequest struct {
 	ctx         context.Context
 	ApiService  *KnowledgeGraphWriteAPIAPIService
 	namespace   string
-	type_       string
-	name        string
 	domain      *string
+	type_       *string
+	name        *string
 	scope       *map[string]string
 	xScopeOrgID *string
 }
 
 func (r ApiDeleteEntityRequest) Domain(domain string) ApiDeleteEntityRequest {
 	r.domain = &domain
+	return r
+}
+
+func (r ApiDeleteEntityRequest) Type_(type_ string) ApiDeleteEntityRequest {
+	r.type_ = &type_
+	return r
+}
+
+func (r ApiDeleteEntityRequest) Name(name string) ApiDeleteEntityRequest {
+	r.name = &name
 	return r
 }
 
@@ -58,21 +68,17 @@ func (r ApiDeleteEntityRequest) Execute() (*http.Response, error) {
 /*
 DeleteEntity Delete a custom entity
 
-Deletes an API-origin entity; only _origin=api objects may be deleted. The entity coordinates travel as query params (no request body): the top-level 'domain' control param plus an optional nested scope map (scope[key]=value).
+Deletes an API-origin entity; only _origin=api objects may be deleted. The entity coordinates travel as query params (no request body): domain, type, and name, plus an optional nested scope map (scope[key]=value). Putting name in the query string (not the path) allows names that contain '/'.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param namespace Tenant namespace, formatted as stacks-<stackId>
-	@param type_ Entity type
-	@param name Entity name
 	@return ApiDeleteEntityRequest
 */
-func (a *KnowledgeGraphWriteAPIAPIService) DeleteEntity(ctx context.Context, namespace string, type_ string, name string) ApiDeleteEntityRequest {
+func (a *KnowledgeGraphWriteAPIAPIService) DeleteEntity(ctx context.Context, namespace string) ApiDeleteEntityRequest {
 	return ApiDeleteEntityRequest{
 		ApiService: a,
 		ctx:        ctx,
 		namespace:  namespace,
-		type_:      type_,
-		name:       name,
 	}
 }
 
@@ -89,10 +95,8 @@ func (a *KnowledgeGraphWriteAPIAPIService) DeleteEntityExecute(r ApiDeleteEntity
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/apis/kg.grafana.com/v1alpha1/namespaces/{namespace}/entities/{type}/{name}"
+	localVarPath := localBasePath + "/apis/kg.grafana.com/v1alpha1/namespaces/{namespace}/entities"
 	localVarPath = strings.Replace(localVarPath, "{"+"namespace"+"}", url.PathEscape(parameterValueToString(r.namespace, "namespace")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"type"+"}", url.PathEscape(parameterValueToString(r.type_, "type_")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -103,8 +107,22 @@ func (a *KnowledgeGraphWriteAPIAPIService) DeleteEntityExecute(r ApiDeleteEntity
 	if strlen(*r.domain) < 1 {
 		return nil, reportError("domain must have at least 1 elements")
 	}
+	if r.type_ == nil {
+		return nil, reportError("type_ is required and must be specified")
+	}
+	if strlen(*r.type_) < 1 {
+		return nil, reportError("type_ must have at least 1 elements")
+	}
+	if r.name == nil {
+		return nil, reportError("name is required and must be specified")
+	}
+	if strlen(*r.name) < 1 {
+		return nil, reportError("name must have at least 1 elements")
+	}
 
 	parameterAddToHeaderOrQuery(localVarQueryParams, "domain", r.domain, "")
+	parameterAddToHeaderOrQuery(localVarQueryParams, "type", r.type_, "")
+	parameterAddToHeaderOrQuery(localVarQueryParams, "name", r.name, "")
 	if r.scope != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "scope", r.scope, "")
 	}
@@ -203,7 +221,7 @@ type ApiDeleteRelationshipRequest struct {
 	ctx         context.Context
 	ApiService  *KnowledgeGraphWriteAPIAPIService
 	namespace   string
-	type_       string
+	type_       *string
 	fromDomain  *string
 	fromType    *string
 	fromName    *string
@@ -213,6 +231,11 @@ type ApiDeleteRelationshipRequest struct {
 	fromScope   *map[string]string
 	toScope     *map[string]string
 	xScopeOrgID *string
+}
+
+func (r ApiDeleteRelationshipRequest) Type_(type_ string) ApiDeleteRelationshipRequest {
+	r.type_ = &type_
+	return r
 }
 
 func (r ApiDeleteRelationshipRequest) FromDomain(fromDomain string) ApiDeleteRelationshipRequest {
@@ -270,19 +293,17 @@ func (r ApiDeleteRelationshipRequest) Execute() (*http.Response, error) {
 /*
 DeleteRelationship Delete a custom relationship
 
-Deletes an API-origin edge of the given type between the from/to entities. The endpoint coordinates travel as query params (no request body): from.domain/from.type/from.name (+ from.scope[key]=value) and the matching to.* params.
+Deletes an API-origin edge between the from/to entities. The relationship coordinates travel as query params (no request body): type, plus from.domain/from.type/from.name (+ from.scope[key]=value) and the matching to.* params. Putting type in the query string matches the entity DELETE shape on the collection path.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param namespace Tenant namespace, formatted as stacks-<stackId>
-	@param type_ Relationship type
 	@return ApiDeleteRelationshipRequest
 */
-func (a *KnowledgeGraphWriteAPIAPIService) DeleteRelationship(ctx context.Context, namespace string, type_ string) ApiDeleteRelationshipRequest {
+func (a *KnowledgeGraphWriteAPIAPIService) DeleteRelationship(ctx context.Context, namespace string) ApiDeleteRelationshipRequest {
 	return ApiDeleteRelationshipRequest{
 		ApiService: a,
 		ctx:        ctx,
 		namespace:  namespace,
-		type_:      type_,
 	}
 }
 
@@ -299,13 +320,18 @@ func (a *KnowledgeGraphWriteAPIAPIService) DeleteRelationshipExecute(r ApiDelete
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/apis/kg.grafana.com/v1alpha1/namespaces/{namespace}/relationships/{type}"
+	localVarPath := localBasePath + "/apis/kg.grafana.com/v1alpha1/namespaces/{namespace}/relationships"
 	localVarPath = strings.Replace(localVarPath, "{"+"namespace"+"}", url.PathEscape(parameterValueToString(r.namespace, "namespace")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"type"+"}", url.PathEscape(parameterValueToString(r.type_, "type_")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.type_ == nil {
+		return nil, reportError("type_ is required and must be specified")
+	}
+	if strlen(*r.type_) < 1 {
+		return nil, reportError("type_ must have at least 1 elements")
+	}
 	if r.fromDomain == nil {
 		return nil, reportError("fromDomain is required and must be specified")
 	}
@@ -343,6 +369,7 @@ func (a *KnowledgeGraphWriteAPIAPIService) DeleteRelationshipExecute(r ApiDelete
 		return nil, reportError("toName must have at least 1 elements")
 	}
 
+	parameterAddToHeaderOrQuery(localVarQueryParams, "type", r.type_, "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "from.domain", r.fromDomain, "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "from.type", r.fromType, "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "from.name", r.fromName, "")

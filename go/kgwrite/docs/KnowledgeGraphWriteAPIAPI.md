@@ -4,8 +4,8 @@ All URIs are relative to *http://localhost:8030/api-server*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteEntity**](KnowledgeGraphWriteAPIAPI.md#DeleteEntity) | **Delete** /apis/kg.grafana.com/v1alpha1/namespaces/{namespace}/entities/{type}/{name} | Delete a custom entity
-[**DeleteRelationship**](KnowledgeGraphWriteAPIAPI.md#DeleteRelationship) | **Delete** /apis/kg.grafana.com/v1alpha1/namespaces/{namespace}/relationships/{type} | Delete a custom relationship
+[**DeleteEntity**](KnowledgeGraphWriteAPIAPI.md#DeleteEntity) | **Delete** /apis/kg.grafana.com/v1alpha1/namespaces/{namespace}/entities | Delete a custom entity
+[**DeleteRelationship**](KnowledgeGraphWriteAPIAPI.md#DeleteRelationship) | **Delete** /apis/kg.grafana.com/v1alpha1/namespaces/{namespace}/relationships | Delete a custom relationship
 [**UpsertEntity**](KnowledgeGraphWriteAPIAPI.md#UpsertEntity) | **Post** /apis/kg.grafana.com/v1alpha1/namespaces/{namespace}/entities | Create or update a custom entity
 [**UpsertRelationship**](KnowledgeGraphWriteAPIAPI.md#UpsertRelationship) | **Post** /apis/kg.grafana.com/v1alpha1/namespaces/{namespace}/relationships | Create or update a custom relationship
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## DeleteEntity
 
-> DeleteEntity(ctx, namespace, type_, name).Domain(domain).Scope(scope).XScopeOrgID(xScopeOrgID).Execute()
+> DeleteEntity(ctx, namespace).Domain(domain).Type_(type_).Name(name).Scope(scope).XScopeOrgID(xScopeOrgID).Execute()
 
 Delete a custom entity
 
@@ -33,15 +33,15 @@ import (
 
 func main() {
 	namespace := "namespace_example" // string | Tenant namespace, formatted as stacks-<stackId> (default to "")
-	type_ := "type__example" // string | Entity type (default to "")
-	name := "name_example" // string | Entity name (default to "")
-	domain := "domain_example" // string | 
+	domain := "domain_example" // string |
+	type_ := "type__example" // string |
+	name := "name_example" // string |
 	scope := map[string]string{"key": map[string]string{"key": "Inner_example"}} // map[string]string | Optional scope key/value pairs identifying the entity (scope[key]=value). (optional)
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.KnowledgeGraphWriteAPIAPI.DeleteEntity(context.Background(), namespace, type_, name).Domain(domain).Scope(scope).XScopeOrgID(xScopeOrgID).Execute()
+	r, err := apiClient.KnowledgeGraphWriteAPIAPI.DeleteEntity(context.Background(), namespace).Domain(domain).Type_(type_).Name(name).Scope(scope).XScopeOrgID(xScopeOrgID).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `KnowledgeGraphWriteAPIAPI.DeleteEntity``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -56,8 +56,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **namespace** | **string** | Tenant namespace, formatted as stacks-&lt;stackId&gt; | [default to &quot;&quot;]
-**type_** | **string** | Entity type | [default to &quot;&quot;]
-**name** | **string** | Entity name | [default to &quot;&quot;]
 
 ### Other Parameters
 
@@ -67,11 +65,11 @@ Other parameters are passed through a pointer to a apiDeleteEntityRequest struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
-
-
- **domain** | **string** |  | 
- **scope** | **map[string]map[string]string** | Optional scope key/value pairs identifying the entity (scope[key]&#x3D;value). | 
- **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
+ **domain** | **string** |  |
+ **type_** | **string** |  |
+ **name** | **string** |  |
+ **scope** | **map[string]map[string]string** | Optional scope key/value pairs identifying the entity (scope[key]&#x3D;value). |
+ **xScopeOrgID** | **string** | Grafana Tenant/Stack ID |
 
 ### Return type
 
@@ -93,7 +91,7 @@ No authorization required
 
 ## DeleteRelationship
 
-> DeleteRelationship(ctx, namespace, type_).FromDomain(fromDomain).FromType(fromType).FromName(fromName).ToDomain(toDomain).ToType(toType).ToName(toName).FromScope(fromScope).ToScope(toScope).XScopeOrgID(xScopeOrgID).Execute()
+> DeleteRelationship(ctx, namespace).Type_(type_).FromDomain(fromDomain).FromType(fromType).FromName(fromName).ToDomain(toDomain).ToType(toType).ToName(toName).FromScope(fromScope).ToScope(toScope).XScopeOrgID(xScopeOrgID).Execute()
 
 Delete a custom relationship
 
@@ -113,20 +111,20 @@ import (
 
 func main() {
 	namespace := "namespace_example" // string | Tenant namespace, formatted as stacks-<stackId> (default to "")
-	type_ := "type__example" // string | Relationship type (default to "")
-	fromDomain := "fromDomain_example" // string | 
-	fromType := "fromType_example" // string | 
-	fromName := "fromName_example" // string | 
-	toDomain := "toDomain_example" // string | 
-	toType := "toType_example" // string | 
-	toName := "toName_example" // string | 
+	type_ := "type__example" // string |
+	fromDomain := "fromDomain_example" // string |
+	fromType := "fromType_example" // string |
+	fromName := "fromName_example" // string |
+	toDomain := "toDomain_example" // string |
+	toType := "toType_example" // string |
+	toName := "toName_example" // string |
 	fromScope := map[string]string{"key": map[string]string{"key": "Inner_example"}} // map[string]string | Optional scope key/value pairs identifying the 'from' entity (from.scope[key]=value). (optional)
 	toScope := map[string]string{"key": map[string]string{"key": "Inner_example"}} // map[string]string | Optional scope key/value pairs identifying the 'to' entity (to.scope[key]=value). (optional)
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.KnowledgeGraphWriteAPIAPI.DeleteRelationship(context.Background(), namespace, type_).FromDomain(fromDomain).FromType(fromType).FromName(fromName).ToDomain(toDomain).ToType(toType).ToName(toName).FromScope(fromScope).ToScope(toScope).XScopeOrgID(xScopeOrgID).Execute()
+	r, err := apiClient.KnowledgeGraphWriteAPIAPI.DeleteRelationship(context.Background(), namespace).Type_(type_).FromDomain(fromDomain).FromType(fromType).FromName(fromName).ToDomain(toDomain).ToType(toType).ToName(toName).FromScope(fromScope).ToScope(toScope).XScopeOrgID(xScopeOrgID).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `KnowledgeGraphWriteAPIAPI.DeleteRelationship``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -141,7 +139,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **namespace** | **string** | Tenant namespace, formatted as stacks-&lt;stackId&gt; | [default to &quot;&quot;]
-**type_** | **string** | Relationship type | [default to &quot;&quot;]
 
 ### Other Parameters
 
@@ -151,16 +148,16 @@ Other parameters are passed through a pointer to a apiDeleteRelationshipRequest 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
-
- **fromDomain** | **string** |  | 
- **fromType** | **string** |  | 
- **fromName** | **string** |  | 
- **toDomain** | **string** |  | 
- **toType** | **string** |  | 
- **toName** | **string** |  | 
- **fromScope** | **map[string]map[string]string** | Optional scope key/value pairs identifying the &#39;from&#39; entity (from.scope[key]&#x3D;value). | 
- **toScope** | **map[string]map[string]string** | Optional scope key/value pairs identifying the &#39;to&#39; entity (to.scope[key]&#x3D;value). | 
- **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
+ **type_** | **string** |  |
+ **fromDomain** | **string** |  |
+ **fromType** | **string** |  |
+ **fromName** | **string** |  |
+ **toDomain** | **string** |  |
+ **toType** | **string** |  |
+ **toName** | **string** |  |
+ **fromScope** | **map[string]map[string]string** | Optional scope key/value pairs identifying the &#39;from&#39; entity (from.scope[key]&#x3D;value). |
+ **toScope** | **map[string]map[string]string** | Optional scope key/value pairs identifying the &#39;to&#39; entity (to.scope[key]&#x3D;value). |
+ **xScopeOrgID** | **string** | Grafana Tenant/Stack ID |
 
 ### Return type
 
@@ -202,7 +199,7 @@ import (
 
 func main() {
 	namespace := "namespace_example" // string | Tenant namespace, formatted as stacks-<stackId>; must match the request tenant (default to "")
-	entityWriteRequestDto := *openapiclient.NewEntityWriteRequestDto("Domain_example", "Type_example", "Name_example", int64(-1)) // EntityWriteRequestDto | 
+	entityWriteRequestDto := *openapiclient.NewEntityWriteRequestDto("Domain_example", "Type_example", "Name_example", int64(-1)) // EntityWriteRequestDto |
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -233,8 +230,8 @@ Other parameters are passed through a pointer to a apiUpsertEntityRequest struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **entityWriteRequestDto** | [**EntityWriteRequestDto**](EntityWriteRequestDto.md) |  | 
- **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
+ **entityWriteRequestDto** | [**EntityWriteRequestDto**](EntityWriteRequestDto.md) |  |
+ **xScopeOrgID** | **string** | Grafana Tenant/Stack ID |
 
 ### Return type
 
@@ -276,7 +273,7 @@ import (
 
 func main() {
 	namespace := "namespace_example" // string | Tenant namespace, formatted as stacks-<stackId> (default to "")
-	relationshipWriteRequestDto := *openapiclient.NewRelationshipWriteRequestDto("Domain_example", "Type_example", *openapiclient.NewEntityRefDto("Domain_example", "Type_example", "Name_example"), *openapiclient.NewEntityRefDto("Domain_example", "Type_example", "Name_example"), int64(-1)) // RelationshipWriteRequestDto | 
+	relationshipWriteRequestDto := *openapiclient.NewRelationshipWriteRequestDto("Domain_example", "Type_example", *openapiclient.NewEntityRefDto("Domain_example", "Type_example", "Name_example"), *openapiclient.NewEntityRefDto("Domain_example", "Type_example", "Name_example"), int64(-1)) // RelationshipWriteRequestDto |
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -307,8 +304,8 @@ Other parameters are passed through a pointer to a apiUpsertRelationshipRequest 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **relationshipWriteRequestDto** | [**RelationshipWriteRequestDto**](RelationshipWriteRequestDto.md) |  | 
- **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
+ **relationshipWriteRequestDto** | [**RelationshipWriteRequestDto**](RelationshipWriteRequestDto.md) |  |
+ **xScopeOrgID** | **string** | Grafana Tenant/Stack ID |
 
 ### Return type
 

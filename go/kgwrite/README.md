@@ -79,8 +79,8 @@ All URIs are relative to *http://localhost:8030/api-server*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*KnowledgeGraphWriteAPIAPI* | [**DeleteEntity**](docs/KnowledgeGraphWriteAPIAPI.md#deleteentity) | **Delete** /apis/kg.grafana.com/v1alpha1/namespaces/{namespace}/entities/{type}/{name} | Delete a custom entity
-*KnowledgeGraphWriteAPIAPI* | [**DeleteRelationship**](docs/KnowledgeGraphWriteAPIAPI.md#deleterelationship) | **Delete** /apis/kg.grafana.com/v1alpha1/namespaces/{namespace}/relationships/{type} | Delete a custom relationship
+*KnowledgeGraphWriteAPIAPI* | [**DeleteEntity**](docs/KnowledgeGraphWriteAPIAPI.md#deleteentity) | **Delete** /apis/kg.grafana.com/v1alpha1/namespaces/{namespace}/entities | Delete a custom entity
+*KnowledgeGraphWriteAPIAPI* | [**DeleteRelationship**](docs/KnowledgeGraphWriteAPIAPI.md#deleterelationship) | **Delete** /apis/kg.grafana.com/v1alpha1/namespaces/{namespace}/relationships | Delete a custom relationship
 *KnowledgeGraphWriteAPIAPI* | [**UpsertEntity**](docs/KnowledgeGraphWriteAPIAPI.md#upsertentity) | **Post** /apis/kg.grafana.com/v1alpha1/namespaces/{namespace}/entities | Create or update a custom entity
 *KnowledgeGraphWriteAPIAPI* | [**UpsertRelationship**](docs/KnowledgeGraphWriteAPIAPI.md#upsertrelationship) | **Post** /apis/kg.grafana.com/v1alpha1/namespaces/{namespace}/relationships | Create or update a custom relationship
 
