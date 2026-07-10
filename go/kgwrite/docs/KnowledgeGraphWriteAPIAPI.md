@@ -33,9 +33,9 @@ import (
 
 func main() {
 	namespace := "namespace_example" // string | Tenant namespace, formatted as stacks-<stackId> (default to "")
-	domain := "domain_example" // string |
-	type_ := "type__example" // string |
-	name := "name_example" // string |
+	domain := "domain_example" // string | 
+	type_ := "type__example" // string | 
+	name := "name_example" // string | 
 	scope := map[string]string{"key": map[string]string{"key": "Inner_example"}} // map[string]string | Optional scope key/value pairs identifying the entity (scope[key]=value). (optional)
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
@@ -65,11 +65,11 @@ Other parameters are passed through a pointer to a apiDeleteEntityRequest struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **domain** | **string** |  |
- **type_** | **string** |  |
- **name** | **string** |  |
- **scope** | **map[string]map[string]string** | Optional scope key/value pairs identifying the entity (scope[key]&#x3D;value). |
- **xScopeOrgID** | **string** | Grafana Tenant/Stack ID |
+ **domain** | **string** |  | 
+ **type_** | **string** |  | 
+ **name** | **string** |  | 
+ **scope** | **map[string]map[string]string** | Optional scope key/value pairs identifying the entity (scope[key]&#x3D;value). | 
+ **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
 
 ### Return type
 
@@ -111,13 +111,13 @@ import (
 
 func main() {
 	namespace := "namespace_example" // string | Tenant namespace, formatted as stacks-<stackId> (default to "")
-	type_ := "type__example" // string |
-	fromDomain := "fromDomain_example" // string |
-	fromType := "fromType_example" // string |
-	fromName := "fromName_example" // string |
-	toDomain := "toDomain_example" // string |
-	toType := "toType_example" // string |
-	toName := "toName_example" // string |
+	type_ := "type__example" // string | 
+	fromDomain := "fromDomain_example" // string | 
+	fromType := "fromType_example" // string | 
+	fromName := "fromName_example" // string | 
+	toDomain := "toDomain_example" // string | 
+	toType := "toType_example" // string | 
+	toName := "toName_example" // string | 
 	fromScope := map[string]string{"key": map[string]string{"key": "Inner_example"}} // map[string]string | Optional scope key/value pairs identifying the 'from' entity (from.scope[key]=value). (optional)
 	toScope := map[string]string{"key": map[string]string{"key": "Inner_example"}} // map[string]string | Optional scope key/value pairs identifying the 'to' entity (to.scope[key]=value). (optional)
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
@@ -148,16 +148,16 @@ Other parameters are passed through a pointer to a apiDeleteRelationshipRequest 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **type_** | **string** |  |
- **fromDomain** | **string** |  |
- **fromType** | **string** |  |
- **fromName** | **string** |  |
- **toDomain** | **string** |  |
- **toType** | **string** |  |
- **toName** | **string** |  |
- **fromScope** | **map[string]map[string]string** | Optional scope key/value pairs identifying the &#39;from&#39; entity (from.scope[key]&#x3D;value). |
- **toScope** | **map[string]map[string]string** | Optional scope key/value pairs identifying the &#39;to&#39; entity (to.scope[key]&#x3D;value). |
- **xScopeOrgID** | **string** | Grafana Tenant/Stack ID |
+ **type_** | **string** |  | 
+ **fromDomain** | **string** |  | 
+ **fromType** | **string** |  | 
+ **fromName** | **string** |  | 
+ **toDomain** | **string** |  | 
+ **toType** | **string** |  | 
+ **toName** | **string** |  | 
+ **fromScope** | **map[string]map[string]string** | Optional scope key/value pairs identifying the &#39;from&#39; entity (from.scope[key]&#x3D;value). | 
+ **toScope** | **map[string]map[string]string** | Optional scope key/value pairs identifying the &#39;to&#39; entity (to.scope[key]&#x3D;value). | 
+ **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
 
 ### Return type
 
@@ -199,7 +199,7 @@ import (
 
 func main() {
 	namespace := "namespace_example" // string | Tenant namespace, formatted as stacks-<stackId>; must match the request tenant (default to "")
-	entityWriteRequestDto := *openapiclient.NewEntityWriteRequestDto("Domain_example", "Type_example", "Name_example", int64(-1)) // EntityWriteRequestDto |
+	entityWriteRequestDto := *openapiclient.NewEntityWriteRequestDto("Domain_example", "Type_example", "Name_example", int64(-1)) // EntityWriteRequestDto | 
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -230,8 +230,8 @@ Other parameters are passed through a pointer to a apiUpsertEntityRequest struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **entityWriteRequestDto** | [**EntityWriteRequestDto**](EntityWriteRequestDto.md) |  |
- **xScopeOrgID** | **string** | Grafana Tenant/Stack ID |
+ **entityWriteRequestDto** | [**EntityWriteRequestDto**](EntityWriteRequestDto.md) |  | 
+ **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
 
 ### Return type
 
@@ -273,7 +273,7 @@ import (
 
 func main() {
 	namespace := "namespace_example" // string | Tenant namespace, formatted as stacks-<stackId> (default to "")
-	relationshipWriteRequestDto := *openapiclient.NewRelationshipWriteRequestDto("Domain_example", "Type_example", *openapiclient.NewEntityRefDto("Domain_example", "Type_example", "Name_example"), *openapiclient.NewEntityRefDto("Domain_example", "Type_example", "Name_example"), int64(-1)) // RelationshipWriteRequestDto |
+	relationshipWriteRequestDto := *openapiclient.NewRelationshipWriteRequestDto("Domain_example", "Type_example", *openapiclient.NewEntityRefDto("Domain_example", "Type_example", "Name_example"), *openapiclient.NewEntityRefDto("Domain_example", "Type_example", "Name_example"), int64(-1)) // RelationshipWriteRequestDto | 
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -304,8 +304,8 @@ Other parameters are passed through a pointer to a apiUpsertRelationshipRequest 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **relationshipWriteRequestDto** | [**RelationshipWriteRequestDto**](RelationshipWriteRequestDto.md) |  |
- **xScopeOrgID** | **string** | Grafana Tenant/Stack ID |
+ **relationshipWriteRequestDto** | [**RelationshipWriteRequestDto**](RelationshipWriteRequestDto.md) |  | 
+ **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
 
 ### Return type
 
