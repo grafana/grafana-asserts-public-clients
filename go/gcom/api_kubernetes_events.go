@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.06.22-121348
+API version: 2026.07.02-102119
 Contact: support@asserts.ai
 */
 
@@ -25,16 +25,10 @@ type KubernetesEventsAPIService service
 type ApiGetAllEventsRequest struct {
 	ctx         context.Context
 	ApiService  *KubernetesEventsAPIService
-	tenant      *string
 	start       *string
 	end         *string
 	limit       *string
 	xScopeOrgID *string
-}
-
-func (r ApiGetAllEventsRequest) Tenant(tenant string) ApiGetAllEventsRequest {
-	r.tenant = &tenant
-	return r
 }
 
 // Start time (milliseconds since epoch)
@@ -101,9 +95,6 @@ func (a *KubernetesEventsAPIService) GetAllEventsExecute(r ApiGetAllEventsReques
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.tenant == nil {
-		return localVarReturnValue, nil, reportError("tenant is required and must be specified")
-	}
 	if r.start == nil {
 		return localVarReturnValue, nil, reportError("start is required and must be specified")
 	}
@@ -111,7 +102,6 @@ func (a *KubernetesEventsAPIService) GetAllEventsExecute(r ApiGetAllEventsReques
 		return localVarReturnValue, nil, reportError("end is required and must be specified")
 	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "tenant", r.tenant, "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "start", r.start, "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "end", r.end, "")
 	if r.limit != nil {
@@ -180,7 +170,6 @@ func (a *KubernetesEventsAPIService) GetAllEventsExecute(r ApiGetAllEventsReques
 type ApiGetEntityEventsRequest struct {
 	ctx         context.Context
 	ApiService  *KubernetesEventsAPIService
-	tenant      *string
 	entityType  *string
 	entityName  *string
 	start       *string
@@ -190,11 +179,6 @@ type ApiGetEntityEventsRequest struct {
 	site        *string
 	limit       *string
 	xScopeOrgID *string
-}
-
-func (r ApiGetEntityEventsRequest) Tenant(tenant string) ApiGetEntityEventsRequest {
-	r.tenant = &tenant
-	return r
 }
 
 // Entity type (e.g., Service, Pod)
@@ -291,9 +275,6 @@ func (a *KubernetesEventsAPIService) GetEntityEventsExecute(r ApiGetEntityEvents
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.tenant == nil {
-		return localVarReturnValue, nil, reportError("tenant is required and must be specified")
-	}
 	if r.entityType == nil {
 		return localVarReturnValue, nil, reportError("entityType is required and must be specified")
 	}
@@ -307,7 +288,6 @@ func (a *KubernetesEventsAPIService) GetEntityEventsExecute(r ApiGetEntityEvents
 		return localVarReturnValue, nil, reportError("end is required and must be specified")
 	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "tenant", r.tenant, "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "entity_type", r.entityType, "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "entity_name", r.entityName, "")
 	if r.namespace != nil {

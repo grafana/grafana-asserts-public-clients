@@ -7,7 +7,7 @@ info:
   description: Asserts Public API
   termsOfService: https://www.asserts.ai/terms-of-service
   title: "Asserts, Inc"
-  version: 2026.06.22-121348
+  version: 2026.07.02-102119
 servers:
 - description: Generated server url
   url: http://localhost:8030/asserts/api-server
@@ -3655,13 +3655,6 @@ paths:
       description: Returns all Kubernetes events within a time range (for debugging)
       operationId: getAllEvents
       parameters:
-      - explode: true
-        in: query
-        name: tenant
-        required: true
-        schema:
-          type: string
-        style: form
       - description: Start time (milliseconds since epoch)
         explode: true
         in: query
@@ -3788,6 +3781,13 @@ paths:
         style: form
       - explode: true
         in: query
+        name: domain
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
         name: requestParams
         required: true
         schema:
@@ -3861,6 +3861,13 @@ paths:
         style: form
       - explode: true
         in: query
+        name: domain
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
         name: start
         required: false
         schema:
@@ -3891,13 +3898,6 @@ paths:
         within a time range
       operationId: getEntityEvents
       parameters:
-      - explode: true
-        in: query
-        name: tenant
-        required: true
-        schema:
-          type: string
-        style: form
       - description: "Entity type (e.g., Service, Pod)"
         explode: true
         in: query
@@ -13489,6 +13489,7 @@ components:
           key: ""
         scope:
           empty: true
+        domain: domain
         name: name
         connectedEntityTypes:
           key: 6
@@ -13517,6 +13518,7 @@ components:
               empty: true
             propertyMatcher:
               key: ""
+          domain: domain
           name: name
           type: type
         connectedAssertion:
@@ -13553,6 +13555,8 @@ components:
           additionalProperties: {}
         scope:
           $ref: '#/components/schemas/GraphEntity_scope'
+        domain:
+          type: string
         assertion:
           $ref: '#/components/schemas/GraphAssertionSummary'
         connectedAssertion:
@@ -13571,6 +13575,7 @@ components:
             empty: true
           propertyMatcher:
             key: ""
+        domain: domain
         name: name
         type: type
       properties:
@@ -13580,6 +13585,8 @@ components:
           type: string
         kgScope:
           $ref: '#/components/schemas/KGScope'
+        domain:
+          type: string
     KGScope:
       example:
         scopeNames:

@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.06.22-121348
+API version: 2026.07.02-102119
 Contact: support@asserts.ai
 */
 
@@ -29,6 +29,7 @@ type GraphEntity struct {
 	PropertyMatcher      map[string]interface{} `json:"propertyMatcher,omitempty"`
 	ScopeNames           map[string]interface{} `json:"scopeNames,omitempty"`
 	Scope                *GraphEntityScope      `json:"scope,omitempty"`
+	Domain               *string                `json:"domain,omitempty"`
 	Assertion            *GraphAssertionSummary `json:"assertion,omitempty"`
 	ConnectedAssertion   *GraphAssertionSummary `json:"connectedAssertion,omitempty"`
 	AssertionCount       *int32                 `json:"assertionCount,omitempty"`
@@ -343,6 +344,38 @@ func (o *GraphEntity) SetScope(v GraphEntityScope) {
 	o.Scope = &v
 }
 
+// GetDomain returns the Domain field value if set, zero value otherwise.
+func (o *GraphEntity) GetDomain() string {
+	if o == nil || IsNil(o.Domain) {
+		var ret string
+		return ret
+	}
+	return *o.Domain
+}
+
+// GetDomainOk returns a tuple with the Domain field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GraphEntity) GetDomainOk() (*string, bool) {
+	if o == nil || IsNil(o.Domain) {
+		return nil, false
+	}
+	return o.Domain, true
+}
+
+// HasDomain returns a boolean if a field has been set.
+func (o *GraphEntity) HasDomain() bool {
+	if o != nil && !IsNil(o.Domain) {
+		return true
+	}
+
+	return false
+}
+
+// SetDomain gets a reference to the given string and assigns it to the Domain field.
+func (o *GraphEntity) SetDomain(v string) {
+	o.Domain = &v
+}
+
 // GetAssertion returns the Assertion field value if set, zero value otherwise.
 func (o *GraphEntity) GetAssertion() GraphAssertionSummary {
 	if o == nil || IsNil(o.Assertion) {
@@ -508,6 +541,9 @@ func (o GraphEntity) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Scope) {
 		toSerialize["scope"] = o.Scope
 	}
+	if !IsNil(o.Domain) {
+		toSerialize["domain"] = o.Domain
+	}
 	if !IsNil(o.Assertion) {
 		toSerialize["assertion"] = o.Assertion
 	}
@@ -551,6 +587,7 @@ func (o *GraphEntity) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "propertyMatcher")
 		delete(additionalProperties, "scopeNames")
 		delete(additionalProperties, "scope")
+		delete(additionalProperties, "domain")
 		delete(additionalProperties, "assertion")
 		delete(additionalProperties, "connectedAssertion")
 		delete(additionalProperties, "assertionCount")

@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.06.22-121348
+API version: 2026.07.02-102119
 Contact: support@asserts.ai
 */
 
@@ -27,8 +27,7 @@ type ModelRulesSearchMatchDto struct {
 	// Entity types referenced in this rule (from entity definitions and relationship start/end types)
 	EntityTypes []string `json:"entityTypes,omitempty"`
 	// Vendor keywords from the 'when' clause
-	Vendors []string `json:"vendors,omitempty"`
-	// Full rule content for this match
+	Vendors              []string       `json:"vendors,omitempty"`
 	Rules                *ModelRulesDto `json:"rules,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

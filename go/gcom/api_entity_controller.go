@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.06.22-121348
+API version: 2026.07.02-102119
 Contact: support@asserts.ai
 */
 
@@ -30,6 +30,7 @@ type ApiGetEntityRequest struct {
 	env         *string
 	site        *string
 	namespace   *string
+	domain      *string
 	start       *int64
 	end         *int64
 	xScopeOrgID *string
@@ -57,6 +58,11 @@ func (r ApiGetEntityRequest) Site(site string) ApiGetEntityRequest {
 
 func (r ApiGetEntityRequest) Namespace(namespace string) ApiGetEntityRequest {
 	r.namespace = &namespace
+	return r
+}
+
+func (r ApiGetEntityRequest) Domain(domain string) ApiGetEntityRequest {
+	r.domain = &domain
 	return r
 }
 
@@ -132,6 +138,9 @@ func (a *EntityControllerAPIService) GetEntityExecute(r ApiGetEntityRequest) (*G
 	if r.namespace != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "namespace", r.namespace, "")
 	}
+	if r.domain != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "domain", r.domain, "")
+	}
 	if r.start != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "start", r.start, "")
 	}
@@ -202,6 +211,7 @@ type ApiLookupEntityFromAlertLabelsRequest struct {
 	env           *string
 	site          *string
 	namespace     *string
+	domain        *string
 	start         *int64
 	end           *int64
 	xScopeOrgID   *string
@@ -224,6 +234,11 @@ func (r ApiLookupEntityFromAlertLabelsRequest) Site(site string) ApiLookupEntity
 
 func (r ApiLookupEntityFromAlertLabelsRequest) Namespace(namespace string) ApiLookupEntityFromAlertLabelsRequest {
 	r.namespace = &namespace
+	return r
+}
+
+func (r ApiLookupEntityFromAlertLabelsRequest) Domain(domain string) ApiLookupEntityFromAlertLabelsRequest {
+	r.domain = &domain
 	return r
 }
 
@@ -293,6 +308,9 @@ func (a *EntityControllerAPIService) LookupEntityFromAlertLabelsExecute(r ApiLoo
 	}
 	if r.namespace != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "namespace", r.namespace, "")
+	}
+	if r.domain != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "domain", r.domain, "")
 	}
 	parameterAddToHeaderOrQuery(localVarQueryParams, "requestParams", r.requestParams, "")
 	if r.start != nil {

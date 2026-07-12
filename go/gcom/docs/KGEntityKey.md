@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Type** | Pointer to **string** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 **KgScope** | Pointer to [**KGScope**](KGScope.md) |  | [optional] 
+**Domain** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -101,6 +102,31 @@ SetKgScope sets KgScope field to given value.
 `func (o *KGEntityKey) HasKgScope() bool`
 
 HasKgScope returns a boolean if a field has been set.
+
+### GetDomain
+
+`func (o *KGEntityKey) GetDomain() string`
+
+GetDomain returns the Domain field if non-nil, zero value otherwise.
+
+### GetDomainOk
+
+`func (o *KGEntityKey) GetDomainOk() (*string, bool)`
+
+GetDomainOk returns a tuple with the Domain field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDomain
+
+`func (o *KGEntityKey) SetDomain(v string)`
+
+SetDomain sets Domain field to given value.
+
+### HasDomain
+
+`func (o *KGEntityKey) HasDomain() bool`
+
+HasDomain returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
