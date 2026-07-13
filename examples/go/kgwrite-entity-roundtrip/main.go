@@ -33,6 +33,7 @@ type appConfig struct {
 	Namespace  string
 	Domain     string
 	EntityType string
+	Scope      map[string]string
 	FromName   string
 	ToName     string
 	Relation   string
@@ -78,6 +79,7 @@ func parseConfig() (appConfig, error) {
 		Namespace:  namespace,
 		Domain:     *domain,
 		EntityType: *entityType,
+		Scope:      map[string]string{"env": "demo"},
 		FromName:   *entityName + "-from",
 		ToName:     *entityName + "-to",
 		Relation:   *relationType,
@@ -122,10 +124,13 @@ func runRoundTrip(ctx context.Context, client *kgwrite.APIClient, cfg appConfig)
 }
 
 func upsertEntity(ctx context.Context, client *kgwrite.APIClient, cfg appConfig, name string) error {
+	entity := kgwrite.NewEntityWriteRequestDto(cfg.Domain, cfg.EntityType, name, noExpiryTTLSeconds)
+	entity.SetScope(cfg.Scope)
+
 	created, response, err := client.KnowledgeGraphWriteAPIAPI.
 		UpsertEntity(ctx, cfg.Namespace).
 		XScopeOrgID(cfg.StackID).
-		EntityWriteRequestDto(*kgwrite.NewEntityWriteRequestDto(cfg.Domain, cfg.EntityType, name, noExpiryTTLSeconds)).
+		EntityWriteRequestDto(*entity).
 		Execute()
 	if err != nil {
 		return fmt.Errorf("create entity %s/%s failed: %w", cfg.EntityType, name, err)
@@ -140,6 +145,8 @@ func upsertEntity(ctx context.Context, client *kgwrite.APIClient, cfg appConfig,
 func upsertRelationship(ctx context.Context, client *kgwrite.APIClient, cfg appConfig) error {
 	from := *kgwrite.NewEntityRefDto(cfg.Domain, cfg.EntityType, cfg.FromName)
 	to := *kgwrite.NewEntityRefDto(cfg.Domain, cfg.EntityType, cfg.ToName)
+	from.SetScope(cfg.Scope)
+	to.SetScope(cfg.Scope)
 
 	fmt.Printf("Creating relationship %s from %s/%s to %s/%s\n", cfg.Relation, from.GetType(), from.GetName(), to.GetType(), to.GetName())
 	created, response, err := client.KnowledgeGraphWriteAPIAPI.
@@ -160,14 +167,17 @@ func upsertRelationship(ctx context.Context, client *kgwrite.APIClient, cfg appC
 func deleteRelationship(ctx context.Context, client *kgwrite.APIClient, cfg appConfig) error {
 	fmt.Printf("Deleting relationship %s from %s/%s to %s/%s\n", cfg.Relation, cfg.EntityType, cfg.FromName, cfg.EntityType, cfg.ToName)
 	response, err := client.KnowledgeGraphWriteAPIAPI.
-		DeleteRelationship(ctx, cfg.Namespace, cfg.Relation).
+		DeleteRelationship(ctx, cfg.Namespace).
 		XScopeOrgID(cfg.StackID).
+		Type_(cfg.Relation).
 		FromDomain(cfg.Domain).
 		FromType(cfg.EntityType).
 		FromName(cfg.FromName).
+		FromScope(cfg.Scope).
 		ToDomain(cfg.Domain).
 		ToType(cfg.EntityType).
 		ToName(cfg.ToName).
+		ToScope(cfg.Scope).
 		Execute()
 	if err != nil {
 		return fmt.Errorf("delete relationship %s failed: %w", cfg.Relation, err)
@@ -182,9 +192,12 @@ func deleteRelationship(ctx context.Context, client *kgwrite.APIClient, cfg appC
 func deleteEntity(ctx context.Context, client *kgwrite.APIClient, cfg appConfig, name string) error {
 	fmt.Printf("Deleting entity %s/%s\n", cfg.EntityType, name)
 	response, err := client.KnowledgeGraphWriteAPIAPI.
-		DeleteEntity(ctx, cfg.Namespace, cfg.EntityType, name).
+		DeleteEntity(ctx, cfg.Namespace).
 		XScopeOrgID(cfg.StackID).
 		Domain(cfg.Domain).
+		Type_(cfg.EntityType).
+		Name(name).
+		Scope(cfg.Scope).
 		Execute()
 	if err != nil {
 		return fmt.Errorf("delete entity %s/%s failed: %w", cfg.EntityType, name, err)

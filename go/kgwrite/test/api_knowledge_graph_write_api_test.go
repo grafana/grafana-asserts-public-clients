@@ -28,10 +28,8 @@ func Test_kgwrite_KnowledgeGraphWriteAPIAPIService(t *testing.T) {
 		t.Skip("skip test") // remove to run test
 
 		var namespace string
-		var type_ string
-		var name string
 
-		httpRes, err := apiClient.KnowledgeGraphWriteAPIAPI.DeleteEntity(context.Background(), namespace, type_, name).Execute()
+		httpRes, err := apiClient.KnowledgeGraphWriteAPIAPI.DeleteEntity(context.Background(), namespace).Execute()
 
 		require.Nil(t, err)
 		assert.Equal(t, 200, httpRes.StatusCode)
@@ -43,9 +41,8 @@ func Test_kgwrite_KnowledgeGraphWriteAPIAPIService(t *testing.T) {
 		t.Skip("skip test") // remove to run test
 
 		var namespace string
-		var type_ string
 
-		httpRes, err := apiClient.KnowledgeGraphWriteAPIAPI.DeleteRelationship(context.Background(), namespace, type_).Execute()
+		httpRes, err := apiClient.KnowledgeGraphWriteAPIAPI.DeleteRelationship(context.Background(), namespace).Execute()
 
 		require.Nil(t, err)
 		assert.Equal(t, 200, httpRes.StatusCode)

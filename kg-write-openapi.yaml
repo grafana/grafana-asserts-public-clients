@@ -116,6 +116,139 @@ paths:
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+    delete:
+      tags:
+        - Knowledge Graph Write API
+      summary: Delete a custom relationship
+      description: "Deletes an API-origin edge between the from/to entities. The relationship coordinates travel as query params (no request body): type, plus from.domain/from.type/from.name (+ from.scope[key]=value) and the matching to.* params. Putting type in the query string matches the entity DELETE shape on the collection path."
+      operationId: deleteRelationship
+      parameters:
+        - name: namespace
+          in: path
+          description: "Tenant namespace, formatted as stacks-<stackId>"
+          required: true
+          schema:
+            type: string
+            default: ""
+        - name: type
+          in: query
+          required: true
+          schema:
+            type: string
+            minLength: 1
+            pattern: "^[A-Za-z][A-Za-z0-9_]*$"
+        - name: from.domain
+          in: query
+          required: true
+          schema:
+            type: string
+            minLength: 1
+            pattern: "^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+        - name: from.type
+          in: query
+          required: true
+          schema:
+            type: string
+            minLength: 1
+            pattern: "^[A-Za-z][A-Za-z0-9_]*$"
+        - name: from.name
+          in: query
+          required: true
+          schema:
+            type: string
+            minLength: 1
+        - name: to.domain
+          in: query
+          required: true
+          schema:
+            type: string
+            minLength: 1
+            pattern: "^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+        - name: to.type
+          in: query
+          required: true
+          schema:
+            type: string
+            minLength: 1
+            pattern: "^[A-Za-z][A-Za-z0-9_]*$"
+        - name: to.name
+          in: query
+          required: true
+          schema:
+            type: string
+            minLength: 1
+        - name: from.scope
+          in: query
+          description: "Optional scope key/value pairs identifying the 'from' entity (from.scope[key]=value)."
+          required: false
+          style: deepObject
+          explode: true
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        - name: to.scope
+          in: query
+          description: "Optional scope key/value pairs identifying the 'to' entity (to.scope[key]=value)."
+          required: false
+          style: deepObject
+          explode: true
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        - $ref: "#/components/parameters/TenantId"
+      responses:
+        "204":
+          description: Relationship deleted
+        "400":
+          description: Missing tenant context or malformed namespace
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+            application/x-yml:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+            application/x-yaml:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+        "403":
+          description: "Namespace does not match the request tenant, or edge is not API-origin"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+            application/x-yml:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+            application/x-yaml:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+        "404":
+          description: Relationship not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+            application/x-yml:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+            application/x-yaml:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+        "422":
+          description: Query params failed validation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+            application/x-yml:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+            application/x-yaml:
+              schema:
+                $ref: "#/components/schemas/ApiError"
   /apis/kg.grafana.com/v1alpha1/namespaces/{namespace}/entities:
     post:
       tags:
@@ -217,167 +350,16 @@ paths:
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-  /apis/kg.grafana.com/v1alpha1/namespaces/{namespace}/relationships/{type}:
-    delete:
-      tags:
-        - Knowledge Graph Write API
-      summary: Delete a custom relationship
-      description: "Deletes an API-origin edge of the given type between the from/to entities. The endpoint coordinates travel as query params (no request body): from.domain/from.type/from.name (+ from.scope[key]=value) and the matching to.* params."
-      operationId: deleteRelationship
-      parameters:
-        - name: namespace
-          in: path
-          description: "Tenant namespace, formatted as stacks-<stackId>"
-          required: true
-          schema:
-            type: string
-            default: ""
-        - name: type
-          in: path
-          description: Relationship type
-          required: true
-          schema:
-            type: string
-            default: ""
-            pattern: "^[A-Za-z][A-Za-z0-9_]*$"
-        - name: from.domain
-          in: query
-          required: true
-          schema:
-            type: string
-            minLength: 1
-            pattern: "^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
-        - name: from.type
-          in: query
-          required: true
-          schema:
-            type: string
-            minLength: 1
-            pattern: "^[A-Za-z][A-Za-z0-9_]*$"
-        - name: from.name
-          in: query
-          required: true
-          schema:
-            type: string
-            minLength: 1
-        - name: to.domain
-          in: query
-          required: true
-          schema:
-            type: string
-            minLength: 1
-            pattern: "^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
-        - name: to.type
-          in: query
-          required: true
-          schema:
-            type: string
-            minLength: 1
-            pattern: "^[A-Za-z][A-Za-z0-9_]*$"
-        - name: to.name
-          in: query
-          required: true
-          schema:
-            type: string
-            minLength: 1
-        - name: from.scope
-          in: query
-          description: "Optional scope key/value pairs identifying the 'from' entity (from.scope[key]=value)."
-          required: false
-          style: deepObject
-          explode: true
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        - name: to.scope
-          in: query
-          description: "Optional scope key/value pairs identifying the 'to' entity (to.scope[key]=value)."
-          required: false
-          style: deepObject
-          explode: true
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        - $ref: "#/components/parameters/TenantId"
-      responses:
-        "204":
-          description: Relationship deleted
-        "400":
-          description: "Missing tenant context, malformed namespace, or invalid relationship type"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiError"
-            application/x-yml:
-              schema:
-                $ref: "#/components/schemas/ApiError"
-            application/x-yaml:
-              schema:
-                $ref: "#/components/schemas/ApiError"
-        "403":
-          description: "Namespace does not match the request tenant, or edge is not API-origin"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiError"
-            application/x-yml:
-              schema:
-                $ref: "#/components/schemas/ApiError"
-            application/x-yaml:
-              schema:
-                $ref: "#/components/schemas/ApiError"
-        "404":
-          description: Relationship not found
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiError"
-            application/x-yml:
-              schema:
-                $ref: "#/components/schemas/ApiError"
-            application/x-yaml:
-              schema:
-                $ref: "#/components/schemas/ApiError"
-        "422":
-          description: "Query params failed validation, or the relationship type path variable is invalid"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiError"
-            application/x-yml:
-              schema:
-                $ref: "#/components/schemas/ApiError"
-            application/x-yaml:
-              schema:
-                $ref: "#/components/schemas/ApiError"
-  /apis/kg.grafana.com/v1alpha1/namespaces/{namespace}/entities/{type}/{name}:
     delete:
       tags:
         - Knowledge Graph Write API
       summary: Delete a custom entity
-      description: "Deletes an API-origin entity; only _origin=api objects may be deleted. The entity coordinates travel as query params (no request body): the top-level 'domain' control param plus an optional nested scope map (scope[key]=value)."
+      description: "Deletes an API-origin entity; only _origin=api objects may be deleted. The entity coordinates travel as query params (no request body): domain, type, and name, plus an optional nested scope map (scope[key]=value). Putting name in the query string (not the path) allows names that contain '/'."
       operationId: deleteEntity
       parameters:
         - name: namespace
           in: path
           description: "Tenant namespace, formatted as stacks-<stackId>"
-          required: true
-          schema:
-            type: string
-            default: ""
-        - name: type
-          in: path
-          description: Entity type
-          required: true
-          schema:
-            type: string
-            default: ""
-            pattern: "^[A-Za-z][A-Za-z0-9_]*$"
-        - name: name
-          in: path
-          description: Entity name
           required: true
           schema:
             type: string
@@ -389,6 +371,19 @@ paths:
             type: string
             minLength: 1
             pattern: "^(?!kg$)[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+        - name: type
+          in: query
+          required: true
+          schema:
+            type: string
+            minLength: 1
+            pattern: "^[A-Za-z][A-Za-z0-9_]*$"
+        - name: name
+          in: query
+          required: true
+          schema:
+            type: string
+            minLength: 1
         - name: scope
           in: query
           description: "Optional scope key/value pairs identifying the entity (scope[key]=value)."
@@ -440,7 +435,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/ApiError"
         "422":
-          description: "Query params failed validation, or the entity type path variable is invalid"
+          description: Query params failed validation
           content:
             application/json:
               schema:
@@ -497,9 +492,7 @@ components:
         ttlSeconds:
           type: integer
           format: int64
-          description: Time-to-live in seconds. Positive values expire the relationship
-            after that many seconds, 0 expires it immediately, and negative values mean
-            no expiry.
+          description: "Time-to-live in seconds. Positive values expire the relationship after that many seconds, 0 expires it immediately, and negative values mean no expiry."
           example: -1
       required:
         - domain
@@ -585,8 +578,7 @@ components:
         ttlSeconds:
           type: integer
           format: int64
-          description: Time-to-live in seconds. Positive values expire the entity after
-            that many seconds, 0 expires it immediately, and negative values mean no expiry.
+          description: "Time-to-live in seconds. Positive values expire the entity after that many seconds, 0 expires it immediately, and negative values mean no expiry."
           example: -1
       required:
         - domain
