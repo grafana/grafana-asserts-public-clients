@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## GetAllEvents
 
-> []InfraEventDto GetAllEvents(ctx).Tenant(tenant).Start(start).End(end).Limit(limit).XScopeOrgID(xScopeOrgID).Execute()
+> []InfraEventDto GetAllEvents(ctx).Start(start).End(end).Limit(limit).XScopeOrgID(xScopeOrgID).Execute()
 
 Get all Kubernetes events
 
@@ -30,7 +30,6 @@ import (
 )
 
 func main() {
-	tenant := "tenant_example" // string | 
 	start := "start_example" // string | Start time (milliseconds since epoch) (default to "")
 	end := "end_example" // string | End time (milliseconds since epoch) (default to "")
 	limit := "limit_example" // string | Maximum number of events to return (optional) (default to "")
@@ -38,7 +37,7 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.KubernetesEventsAPI.GetAllEvents(context.Background()).Tenant(tenant).Start(start).End(end).Limit(limit).XScopeOrgID(xScopeOrgID).Execute()
+	resp, r, err := apiClient.KubernetesEventsAPI.GetAllEvents(context.Background()).Start(start).End(end).Limit(limit).XScopeOrgID(xScopeOrgID).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `KubernetesEventsAPI.GetAllEvents``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -59,7 +58,6 @@ Other parameters are passed through a pointer to a apiGetAllEventsRequest struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **tenant** | **string** |  | 
  **start** | **string** | Start time (milliseconds since epoch) | [default to &quot;&quot;]
  **end** | **string** | End time (milliseconds since epoch) | [default to &quot;&quot;]
  **limit** | **string** | Maximum number of events to return | [default to &quot;&quot;]
@@ -85,7 +83,7 @@ No authorization required
 
 ## GetEntityEvents
 
-> EntityEventsDto GetEntityEvents(ctx).Tenant(tenant).EntityType(entityType).EntityName(entityName).Start(start).End(end).Namespace(namespace).Env(env).Site(site).Limit(limit).XScopeOrgID(xScopeOrgID).Execute()
+> EntityEventsDto GetEntityEvents(ctx).EntityType(entityType).EntityName(entityName).Start(start).End(end).Namespace(namespace).Env(env).Site(site).Limit(limit).XScopeOrgID(xScopeOrgID).Execute()
 
 Get Kubernetes events for an entity
 
@@ -104,7 +102,6 @@ import (
 )
 
 func main() {
-	tenant := "tenant_example" // string | 
 	entityType := "entityType_example" // string | Entity type (e.g., Service, Pod) (default to "")
 	entityName := "entityName_example" // string | Entity name (default to "")
 	start := "start_example" // string | Start time (milliseconds since epoch) (default to "")
@@ -117,7 +114,7 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.KubernetesEventsAPI.GetEntityEvents(context.Background()).Tenant(tenant).EntityType(entityType).EntityName(entityName).Start(start).End(end).Namespace(namespace).Env(env).Site(site).Limit(limit).XScopeOrgID(xScopeOrgID).Execute()
+	resp, r, err := apiClient.KubernetesEventsAPI.GetEntityEvents(context.Background()).EntityType(entityType).EntityName(entityName).Start(start).End(end).Namespace(namespace).Env(env).Site(site).Limit(limit).XScopeOrgID(xScopeOrgID).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `KubernetesEventsAPI.GetEntityEvents``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -138,7 +135,6 @@ Other parameters are passed through a pointer to a apiGetEntityEventsRequest str
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **tenant** | **string** |  | 
  **entityType** | **string** | Entity type (e.g., Service, Pod) | [default to &quot;&quot;]
  **entityName** | **string** | Entity name | [default to &quot;&quot;]
  **start** | **string** | Start time (milliseconds since epoch) | [default to &quot;&quot;]
