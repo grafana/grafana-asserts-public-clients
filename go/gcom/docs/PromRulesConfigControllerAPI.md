@@ -18,6 +18,7 @@ Method | HTTP request | Description
 [**PutPromRules**](PromRulesConfigControllerAPI.md#PutPromRules) | **Put** /v1/config/prom-rules | 
 [**SubmitValidation**](PromRulesConfigControllerAPI.md#SubmitValidation) | **Post** /v1/config/prom-rules-validate | 
 [**UpdateRule**](PromRulesConfigControllerAPI.md#UpdateRule) | **Post** /v1/config/prom-rules/{name} | 
+[**ValidatePromRules**](PromRulesConfigControllerAPI.md#ValidatePromRules) | **Post** /v1/config/prom-rules-validate-sync | Validate Prometheus rules synchronously without persisting
 
 
 
@@ -941,6 +942,72 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **prometheusRuleDto** | [**PrometheusRuleDto**](PrometheusRuleDto.md) |  | 
+ **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json, application/x-yml, application/x-yaml
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ValidatePromRules
+
+> ValidatePromRules(ctx).PrometheusRulesDto(prometheusRulesDto).XScopeOrgID(xScopeOrgID).Execute()
+
+Validate Prometheus rules synchronously without persisting
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/grafana/grafana-asserts-public-clients/go/gcom"
+)
+
+func main() {
+	prometheusRulesDto := *openapiclient.NewPrometheusRulesDto("Name_example", []openapiclient.PrometheusRuleGroupDto{*openapiclient.NewPrometheusRuleGroupDto("Name_example", []openapiclient.PrometheusRuleDto{*openapiclient.NewPrometheusRuleDto("probe_success == 0")})}) // PrometheusRulesDto | 
+	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.PromRulesConfigControllerAPI.ValidatePromRules(context.Background()).PrometheusRulesDto(prometheusRulesDto).XScopeOrgID(xScopeOrgID).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PromRulesConfigControllerAPI.ValidatePromRules``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiValidatePromRulesRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **prometheusRulesDto** | [**PrometheusRulesDto**](PrometheusRulesDto.md) |  | 
  **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
 
 ### Return type

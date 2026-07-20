@@ -13,6 +13,7 @@ Method | HTTP request | Description
 [**PutModelRules**](ModelRulesConfigurationAPI.md#PutModelRules) | **Put** /v1/config/model-rules | Create or update custom model rules
 [**PutModelRulesByName**](ModelRulesConfigurationAPI.md#PutModelRulesByName) | **Put** /v1/config/model-rules/{name} | Create or update custom model rules by name
 [**SearchModelRules**](ModelRulesConfigurationAPI.md#SearchModelRules) | **Get** /v1/config/model-rules/search | Search model rules by keyword
+[**ValidateModelRules**](ModelRulesConfigurationAPI.md#ValidateModelRules) | **Post** /v1/config/model-rules-validate | Validate custom model rules without persisting
 
 
 
@@ -628,6 +629,72 @@ No authorization required
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ValidateModelRules
+
+> ValidateModelRules(ctx).Body(body).XScopeOrgID(xScopeOrgID).Execute()
+
+Validate custom model rules without persisting
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/grafana/grafana-asserts-public-clients/go/gcom"
+)
+
+func main() {
+	body := "body_example" // string | 
+	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.ModelRulesConfigurationAPI.ValidateModelRules(context.Background()).Body(body).XScopeOrgID(xScopeOrgID).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ModelRulesConfigurationAPI.ValidateModelRules``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiValidateModelRulesRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | **string** |  | 
+ **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json, application/x-yml, application/x-yaml
+- **Accept**: application/json, application/x-yml, application/x-yaml
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
