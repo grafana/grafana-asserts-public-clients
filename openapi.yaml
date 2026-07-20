@@ -7,7 +7,7 @@ info:
     name: Support
     url: "https://www.grafana.com"
     email: support@asserts.ai
-  version: 2026.06.22-121348
+  version: 2026.07.20-091001
 servers:
   - url: http://localhost:8030/asserts/api-server
     description: Generated server url
@@ -106,21 +106,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
   /v2/config/relabel-rules/prologue:
     get:
       tags:
@@ -274,21 +265,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
   /v2/config/log/reorder:
     put:
       tags:
@@ -336,21 +318,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
   /v1/stack:
     get:
       tags:
@@ -579,42 +552,24 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
         "500":
           description: Internal server error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
   /v1/config/model-rules/{name}:
     get:
       tags:
@@ -700,42 +655,24 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
         "500":
           description: Internal server error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
     delete:
       tags:
         - Model Rules Configuration
@@ -986,9 +923,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/TenantTraceConfigResponseDto"
-                additionalProperties:
-                  default: ""
-                default: ""
     post:
       tags:
         - trace-drilldown-config-controller
@@ -1025,21 +959,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
   /v2/config/threshold:
     get:
       tags:
@@ -1160,9 +1085,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/TenantProfileConfigResponseDto"
-                additionalProperties:
-                  default: ""
-                default: ""
     post:
       tags:
         - profile-drilldown-config-controller
@@ -1199,21 +1121,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
   /v2/config/log:
     get:
       tags:
@@ -1231,9 +1144,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/TenantLogConfigResponseDto"
-                additionalProperties:
-                  default: ""
-                default: ""
     post:
       tags:
         - log-drilldown-config-controller
@@ -1270,21 +1180,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
   /v2/config/drilldown-migration:
     post:
       tags:
@@ -2504,6 +2405,33 @@ paths:
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ConfigValidationResponseDto"
+  /v1/config/prom-rules-validate-sync:
+    post:
+      tags:
+        - prom-rules-config-controller
+      summary: Validate Prometheus rules synchronously without persisting
+      description: "Runs the same synchronous validation as create/update against the rules in the request body but never persists them. Returns 200 if valid, 422 with field errors if invalid."
+      operationId: validatePromRules
+      parameters:
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PrometheusRulesDto"
+          application/x-yml:
+            schema:
+              $ref: "#/components/schemas/PrometheusRulesDto"
+          application/x-yaml:
+            schema:
+              $ref: "#/components/schemas/PrometheusRulesDto"
+        required: true
+      responses:
+        "200":
+          description: Prometheus rules are valid
+        "422":
+          description: Invalid request data or validation failed
   /v1/config/prom-rules-enable/{name}:
     post:
       tags:
@@ -2536,6 +2464,49 @@ paths:
       responses:
         "200":
           description: OK
+  /v1/config/model-rules-validate:
+    post:
+      tags:
+        - Model Rules Configuration
+      summary: Validate custom model rules without persisting
+      description: "Runs the same validation as create/update against the model rules in the request body but never persists them. Returns 200 if valid, 422 with field errors if invalid."
+      operationId: validateModelRules
+      parameters:
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+              default: ""
+              description: The model rules configuration to validate
+          application/x-yml:
+            schema:
+              type: string
+              default: ""
+              description: The model rules configuration to validate
+          application/x-yaml:
+            schema:
+              type: string
+              default: ""
+              description: The model rules configuration to validate
+        required: true
+      responses:
+        "200":
+          description: Model rules are valid
+        "422":
+          description: Invalid request data or validation failed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+            application/x-yml:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+            application/x-yaml:
+              schema:
+                $ref: "#/components/schemas/ApiError"
   /v1/config/import:
     post:
       tags:
@@ -2720,30 +2691,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/DisabledAlertConfigsDto"
-                additionalProperties:
-                  default: ""
-                default: ""
         "500":
           description: Internal server error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
     post:
       tags:
         - Alert Configuration
@@ -2774,42 +2733,24 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
         "500":
           description: Internal server error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
   /v1/config/disabled-alerts-validate:
     post:
       tags:
@@ -2841,21 +2782,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
   /v1/config/disabled-alert:
     post:
       tags:
@@ -2887,42 +2819,24 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
         "500":
           description: Internal server error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
   /v1/config/disabled-alert-validate:
     post:
       tags:
@@ -2954,21 +2868,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
   /v1/config/dashboard/{entity_type}:
     get:
       tags:
@@ -3093,30 +2998,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AlertConfigsDto"
-                additionalProperties:
-                  default: ""
-                default: ""
         "500":
           description: Internal server error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
     post:
       tags:
         - Alert Configuration
@@ -3147,42 +3040,24 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
         "500":
           description: Internal server error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
   /v1/config/alert:
     post:
       tags:
@@ -3214,42 +3089,24 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
         "500":
           description: Internal server error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
   /v1/assertions:
     post:
       tags:
@@ -3922,11 +3779,6 @@ paths:
       description: Returns all Kubernetes events within a time range (for debugging)
       operationId: getAllEvents
       parameters:
-        - name: tenant
-          in: query
-          required: true
-          schema:
-            type: string
         - name: start
           in: query
           description: Start time (milliseconds since epoch)
@@ -4033,6 +3885,11 @@ paths:
           required: false
           schema:
             type: string
+        - name: domain
+          in: query
+          required: false
+          schema:
+            type: string
         - name: requestParams
           in: query
           required: true
@@ -4092,6 +3949,11 @@ paths:
           required: false
           schema:
             type: string
+        - name: domain
+          in: query
+          required: false
+          schema:
+            type: string
         - name: start
           in: query
           required: false
@@ -4121,11 +3983,6 @@ paths:
       description: Returns Kubernetes change events associated with a specific entity within a time range
       operationId: getEntityEvents
       parameters:
-        - name: tenant
-          in: query
-          required: true
-          schema:
-            type: string
         - name: entity_type
           in: query
           description: "Entity type (e.g., Service, Pod)"
@@ -4401,9 +4258,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
   /v1/config/model-rules/schema:
     get:
       tags:
@@ -4440,9 +4294,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
   /v1/config/model-rules/ontology:
     get:
       tags:
@@ -4523,9 +4374,6 @@ paths:
             text/turtle:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
   /v1/config/model-rules-types/{type}:
     get:
       tags:
@@ -4591,18 +4439,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PrometheusRuleGroupDto"
-                additionalProperties:
-                  default: ""
-                default: ""
         "500":
           description: Internal server error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
   /v1/config/export:
     get:
       tags:
@@ -4646,18 +4488,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/DisabledAlertConfigsDto"
-                additionalProperties:
-                  default: ""
-                default: ""
         "500":
           description: Internal server error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
   /v1/config/disabled-alerts/request:
     get:
       tags:
@@ -4675,18 +4511,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/DisabledAlertConfigsDto"
-                additionalProperties:
-                  default: ""
-                default: ""
         "500":
           description: Internal server error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
   /v1/config/disabled-alerts/health:
     get:
       tags:
@@ -4704,18 +4534,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/DisabledAlertConfigsDto"
-                additionalProperties:
-                  default: ""
-                default: ""
         "500":
           description: Internal server error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
   /v1/config/datasource/prometheus:
     get:
       tags:
@@ -4769,18 +4593,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AlertConfigsDto"
-                additionalProperties:
-                  default: ""
-                default: ""
         "500":
           description: Internal server error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
   /v1/config/alerts/resource:
     get:
       tags:
@@ -4798,18 +4616,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AlertConfigsDto"
-                additionalProperties:
-                  default: ""
-                default: ""
         "500":
           description: Internal server error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
   /v1/config/alerts/request:
     get:
       tags:
@@ -4827,18 +4639,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AlertConfigsDto"
-                additionalProperties:
-                  default: ""
-                default: ""
         "500":
           description: Internal server error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
   /v1/config/alerts/health:
     get:
       tags:
@@ -4856,18 +4662,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AlertConfigsDto"
-                additionalProperties:
-                  default: ""
-                default: ""
         "500":
           description: Internal server error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
   /v1/assertion/alert-affected-entity:
     get:
       tags:
@@ -5040,21 +4840,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
   /v1/config/alert/{name}:
     delete:
       tags:
@@ -5081,21 +4872,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-                additionalProperties:
-                  default: ""
-                default: ""
 components:
   schemas:
     StackDto:
@@ -7312,6 +7094,8 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/PropertyMatcherDto"
+        matcherTree:
+          $ref: "#/components/schemas/MatcherTreeDto"
         prefix:
           type: string
         start:
@@ -7626,6 +7410,8 @@ components:
               $ref: "#/components/schemas/PrometheusRule"
             last:
               $ref: "#/components/schemas/PrometheusRule"
+        query_offset:
+          type: string
     PrometheusRules:
       type: object
       properties:
@@ -8743,6 +8529,8 @@ components:
           properties:
             empty:
               type: boolean
+        domain:
+          type: string
         assertion:
           $ref: "#/components/schemas/GraphAssertionSummary"
         connectedAssertion:
@@ -8761,6 +8549,8 @@ components:
           type: string
         kgScope:
           $ref: "#/components/schemas/KGScope"
+        domain:
+          type: string
     KGScope:
       type: object
       properties:
@@ -9122,8 +8912,6 @@ components:
             type: string
         rules:
           $ref: "#/components/schemas/ModelRulesDto"
-          default: ""
-          description: Full rule content for this match
     ModelRulesSearchResultDto:
       type: object
       default: null
