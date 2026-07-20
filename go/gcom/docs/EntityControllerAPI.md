@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## GetEntity
 
-> GraphEntity GetEntity(ctx).EntityType(entityType).EntityName(entityName).Env(env).Site(site).Namespace(namespace).Start(start).End(end).XScopeOrgID(xScopeOrgID).Execute()
+> GraphEntity GetEntity(ctx).EntityType(entityType).EntityName(entityName).Env(env).Site(site).Namespace(namespace).Domain(domain).Start(start).End(end).XScopeOrgID(xScopeOrgID).Execute()
 
 
 
@@ -33,13 +33,14 @@ func main() {
 	env := "env_example" // string |  (optional)
 	site := "site_example" // string |  (optional)
 	namespace := "namespace_example" // string |  (optional)
+	domain := "domain_example" // string |  (optional)
 	start := int64(789) // int64 |  (optional)
 	end := int64(789) // int64 |  (optional)
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.EntityControllerAPI.GetEntity(context.Background()).EntityType(entityType).EntityName(entityName).Env(env).Site(site).Namespace(namespace).Start(start).End(end).XScopeOrgID(xScopeOrgID).Execute()
+	resp, r, err := apiClient.EntityControllerAPI.GetEntity(context.Background()).EntityType(entityType).EntityName(entityName).Env(env).Site(site).Namespace(namespace).Domain(domain).Start(start).End(end).XScopeOrgID(xScopeOrgID).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `EntityControllerAPI.GetEntity``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -65,6 +66,7 @@ Name | Type | Description  | Notes
  **env** | **string** |  | 
  **site** | **string** |  | 
  **namespace** | **string** |  | 
+ **domain** | **string** |  | 
  **start** | **int64** |  | 
  **end** | **int64** |  | 
  **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
@@ -89,7 +91,7 @@ No authorization required
 
 ## LookupEntityFromAlertLabels
 
-> GraphEntity LookupEntityFromAlertLabels(ctx).RequestParams(requestParams).Env(env).Site(site).Namespace(namespace).Start(start).End(end).XScopeOrgID(xScopeOrgID).Execute()
+> GraphEntity LookupEntityFromAlertLabels(ctx).RequestParams(requestParams).Env(env).Site(site).Namespace(namespace).Domain(domain).Start(start).End(end).XScopeOrgID(xScopeOrgID).Execute()
 
 
 
@@ -110,13 +112,14 @@ func main() {
 	env := "env_example" // string |  (optional)
 	site := "site_example" // string |  (optional)
 	namespace := "namespace_example" // string |  (optional)
+	domain := "domain_example" // string |  (optional)
 	start := int64(789) // int64 |  (optional)
 	end := int64(789) // int64 |  (optional)
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.EntityControllerAPI.LookupEntityFromAlertLabels(context.Background()).RequestParams(requestParams).Env(env).Site(site).Namespace(namespace).Start(start).End(end).XScopeOrgID(xScopeOrgID).Execute()
+	resp, r, err := apiClient.EntityControllerAPI.LookupEntityFromAlertLabels(context.Background()).RequestParams(requestParams).Env(env).Site(site).Namespace(namespace).Domain(domain).Start(start).End(end).XScopeOrgID(xScopeOrgID).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `EntityControllerAPI.LookupEntityFromAlertLabels``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -141,6 +144,7 @@ Name | Type | Description  | Notes
  **env** | **string** |  | 
  **site** | **string** |  | 
  **namespace** | **string** |  | 
+ **domain** | **string** |  | 
  **start** | **int64** |  | 
  **end** | **int64** |  | 
  **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
