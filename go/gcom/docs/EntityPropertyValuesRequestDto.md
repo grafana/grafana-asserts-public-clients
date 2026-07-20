@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **PropertyName** | Pointer to **string** |  | [optional] 
 **ScopeCriteria** | Pointer to [**ScopeCriteriaDto**](ScopeCriteriaDto.md) |  | [optional] 
 **PropertyMatchers** | Pointer to [**[]PropertyMatcherDto**](PropertyMatcherDto.md) |  | [optional] 
+**MatcherTree** | Pointer to [**MatcherTreeDto**](MatcherTreeDto.md) |  | [optional] 
 **Prefix** | Pointer to **string** |  | [optional] 
 **Start** | Pointer to **int64** |  | [optional] 
 **End** | Pointer to **int64** |  | [optional] 
@@ -131,6 +132,31 @@ SetPropertyMatchers sets PropertyMatchers field to given value.
 `func (o *EntityPropertyValuesRequestDto) HasPropertyMatchers() bool`
 
 HasPropertyMatchers returns a boolean if a field has been set.
+
+### GetMatcherTree
+
+`func (o *EntityPropertyValuesRequestDto) GetMatcherTree() MatcherTreeDto`
+
+GetMatcherTree returns the MatcherTree field if non-nil, zero value otherwise.
+
+### GetMatcherTreeOk
+
+`func (o *EntityPropertyValuesRequestDto) GetMatcherTreeOk() (*MatcherTreeDto, bool)`
+
+GetMatcherTreeOk returns a tuple with the MatcherTree field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMatcherTree
+
+`func (o *EntityPropertyValuesRequestDto) SetMatcherTree(v MatcherTreeDto)`
+
+SetMatcherTree sets MatcherTree field to given value.
+
+### HasMatcherTree
+
+`func (o *EntityPropertyValuesRequestDto) HasMatcherTree() bool`
+
+HasMatcherTree returns a boolean if a field has been set.
 
 ### GetPrefix
 
