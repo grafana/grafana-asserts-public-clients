@@ -20,9 +20,9 @@ var _ MappedNullable = &SearchCountRequestDto{}
 
 // SearchCountRequestDto struct for SearchCountRequestDto
 type SearchCountRequestDto struct {
-	Items                []SearchCountRequestEntryDto      `json:"items"`
-	TimeCriteria         SearchCountRequestDtoTimeCriteria `json:"timeCriteria"`
-	ScopeCriteria        *nil                              `json:"scopeCriteria,omitempty"`
+	Items                []SearchCountRequestEntryDto        `json:"items"`
+	TimeCriteria         SearchCountRequestDtoTimeCriteria   `json:"timeCriteria"`
+	ScopeCriteria        *SearchCountRequestDtoScopeCriteria `json:"scopeCriteria,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -96,9 +96,9 @@ func (o *SearchCountRequestDto) SetTimeCriteria(v SearchCountRequestDtoTimeCrite
 }
 
 // GetScopeCriteria returns the ScopeCriteria field value if set, zero value otherwise.
-func (o *SearchCountRequestDto) GetScopeCriteria() nil {
+func (o *SearchCountRequestDto) GetScopeCriteria() SearchCountRequestDtoScopeCriteria {
 	if o == nil || IsNil(o.ScopeCriteria) {
-		var ret nil
+		var ret SearchCountRequestDtoScopeCriteria
 		return ret
 	}
 	return *o.ScopeCriteria
@@ -106,7 +106,7 @@ func (o *SearchCountRequestDto) GetScopeCriteria() nil {
 
 // GetScopeCriteriaOk returns a tuple with the ScopeCriteria field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SearchCountRequestDto) GetScopeCriteriaOk() (*nil, bool) {
+func (o *SearchCountRequestDto) GetScopeCriteriaOk() (*SearchCountRequestDtoScopeCriteria, bool) {
 	if o == nil || IsNil(o.ScopeCriteria) {
 		return nil, false
 	}
@@ -122,8 +122,8 @@ func (o *SearchCountRequestDto) HasScopeCriteria() bool {
 	return false
 }
 
-// SetScopeCriteria gets a reference to the given nil and assigns it to the ScopeCriteria field.
-func (o *SearchCountRequestDto) SetScopeCriteria(v nil) {
+// SetScopeCriteria gets a reference to the given SearchCountRequestDtoScopeCriteria and assigns it to the ScopeCriteria field.
+func (o *SearchCountRequestDto) SetScopeCriteria(v SearchCountRequestDtoScopeCriteria) {
 	o.ScopeCriteria = &v
 }
 

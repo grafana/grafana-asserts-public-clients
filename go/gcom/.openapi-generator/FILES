@@ -185,6 +185,7 @@ docs/IncidentSummaryDto.md
 docs/IncidentSummaryListDto.md
 docs/IndexMappingDto.md
 docs/InfraEventDto.md
+docs/InsightCriteriaDto.md
 docs/KGEntityKey.md
 docs/KGScope.md
 docs/KpiDisplayConfigControllerAPI.md
@@ -289,8 +290,10 @@ docs/ScopeCriteriaDto.md
 docs/ScopeValueDto.md
 docs/SearchControllerAPI.md
 docs/SearchCountRequestDto.md
+docs/SearchCountRequestDtoScopeCriteria.md
 docs/SearchCountRequestDtoTimeCriteria.md
 docs/SearchCountRequestEntryDto.md
+docs/SearchCountRequestEntryDtoNameMatcher.md
 docs/SearchDefinitionBindingDto.md
 docs/SearchDefinitionControllerAPI.md
 docs/SearchDefinitionDto.md
@@ -470,6 +473,7 @@ model_incident_summary_dto.go
 model_incident_summary_list_dto.go
 model_index_mapping_dto.go
 model_infra_event_dto.go
+model_insight_criteria_dto.go
 model_kg_entity_key.go
 model_kg_scope.go
 model_kpi_display_config_dto.go
@@ -554,8 +558,10 @@ model_sample_search_response_dto.go
 model_scope_criteria_dto.go
 model_scope_value_dto.go
 model_search_count_request_dto.go
+model_search_count_request_dto_scope_criteria.go
 model_search_count_request_dto_time_criteria.go
 model_search_count_request_entry_dto.go
+model_search_count_request_entry_dto_name_matcher.go
 model_search_definition_binding_dto.go
 model_search_definition_dto.go
 model_search_definition_item_dto.go

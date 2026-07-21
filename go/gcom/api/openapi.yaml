@@ -7944,6 +7944,11 @@ components:
         lastPage:
           type: boolean
     InsightCriteriaDto:
+      example:
+        alertCategories:
+        - saturation
+        - saturation
+        insightSource: SELF
       properties:
         insightSource:
           enum:
@@ -7973,15 +7978,33 @@ components:
           groupBy:
           - groupBy
           - groupBy
-          nameMatcher: ""
-          withInsights: ""
+          nameMatcher:
+            op: EQUALS
+            name: name
+            value: ""
+          withInsights:
+            alertCategories:
+            - saturation
+            - saturation
+            insightSource: SELF
         - entityType: entityType
           groupBy:
           - groupBy
           - groupBy
-          nameMatcher: ""
-          withInsights: ""
-        scopeCriteria: ""
+          nameMatcher:
+            op: EQUALS
+            name: name
+            value: ""
+          withInsights:
+            alertCategories:
+            - saturation
+            - saturation
+            insightSource: SELF
+        scopeCriteria:
+          nameAndValues:
+            key:
+            - nameAndValues
+            - nameAndValues
       properties:
         items:
           items:
@@ -7990,15 +8013,16 @@ components:
         timeCriteria:
           $ref: '#/components/schemas/SearchCountRequestDtoTimeCriteria'
         scopeCriteria:
-          properties:
-            nameAndValues:
-              additionalProperties:
-                items:
-                  type: string
+          $ref: '#/components/schemas/SearchCountRequestDtoScopeCriteria'
       required:
       - items
       - timeCriteria
     SearchCountRequestDtoScopeCriteria:
+      example:
+        nameAndValues:
+          key:
+          - nameAndValues
+          - nameAndValues
       properties:
         nameAndValues:
           additionalProperties:
@@ -8024,55 +8048,22 @@ components:
         groupBy:
         - groupBy
         - groupBy
-        nameMatcher: ""
-        withInsights: ""
+        nameMatcher:
+          op: EQUALS
+          name: name
+          value: ""
+        withInsights:
+          alertCategories:
+          - saturation
+          - saturation
+          insightSource: SELF
       properties:
         entityType:
           type: string
         nameMatcher:
-          properties:
-            name:
-              type: string
-            value:
-              nullable: true
-            op:
-              enum:
-              - EQUALS
-              - NOT_EQUALS
-              - LESS_THAN
-              - GREATER_THAN
-              - LESS_THAN_EQUAL
-              - GREATER_THAN_EQUAL
-              - IS_NULL
-              - IS_NOT_NULL
-              - STARTS_WITH
-              - ENDS_WITH
-              - CONTAINS
-              - IN
-              type: string
-          required:
-          - name
-          - op
+          $ref: '#/components/schemas/SearchCountRequestEntryDtoNameMatcher'
         withInsights:
-          properties:
-            insightSource:
-              enum:
-              - SELF
-              - PROPAGATED
-              - SELF_OR_PROPAGATED
-              type: string
-            alertCategories:
-              items:
-                enum:
-                - saturation
-                - anomaly
-                - amend
-                - failure
-                - error
-                type: string
-              type: array
-          required:
-          - insightSource
+          $ref: '#/components/schemas/InsightCriteriaDto'
         groupBy:
           items:
             type: string
@@ -8080,11 +8071,14 @@ components:
       required:
       - entityType
     SearchCountRequestEntryDtoNameMatcher:
+      example:
+        op: EQUALS
+        name: name
+        value: ""
       properties:
         name:
           type: string
-        value:
-          nullable: true
+        value: {}
         op:
           enum:
           - EQUALS
@@ -15102,7 +15096,6 @@ components:
       properties:
         empty: {}
     RelationRuleDto_definedBy:
-      default: ""
       description: "Relation definition (polymorphic: METRICS or PROPERTY_MATCH)"
       oneOf:
       - $ref: '#/components/schemas/DefinedByMetricsDto'
