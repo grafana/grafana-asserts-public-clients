@@ -66,7 +66,10 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TARGET_BRANCH: ${{ github.head_ref || github.ref_name }}
-          # [skip ci] avoids a redundant (and recursion-guarded) re-run on the
-          # generated commit; the run that produced it already validated it.
-          COMMIT_MESSAGE: "Update generated clients [skip ci]"
+          # Deliberately no [skip ci]: the generated commit becomes the PR head,
+          # and skipping CI on it leaves the ruleset-required workflows
+          # (trufflehog, zizmor) permanently "expected", blocking the merge. The
+          # re-run is recursion-guarded — it regenerates, finds no diff, and
+          # commit-signed-changes.sh exits without committing.
+          COMMIT_MESSAGE: "Update generated clients"
         run: .github/workflows/commit-signed-changes.sh
