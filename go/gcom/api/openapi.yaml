@@ -7,7 +7,7 @@ info:
   description: Asserts Public API
   termsOfService: https://www.asserts.ai/terms-of-service
   title: "Asserts, Inc"
-  version: 2026.06.22-121348
+  version: 2026.07.21-085133
 servers:
 - description: Generated server url
   url: http://localhost:8030/asserts/api-server
@@ -2370,6 +2370,34 @@ paths:
           description: OK
       tags:
       - prom-rules-config-controller
+  /v1/config/prom-rules-validate-sync:
+    post:
+      description: "Runs the same synchronous validation as create/update against\
+        \ the rules in the request body but never persists them. Returns 200 if valid,\
+        \ 422 with field errors if invalid."
+      operationId: validatePromRules
+      parameters:
+      - $ref: '#/components/parameters/TenantId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PrometheusRulesDto'
+          application/x-yml:
+            schema:
+              $ref: '#/components/schemas/PrometheusRulesDto'
+          application/x-yaml:
+            schema:
+              $ref: '#/components/schemas/PrometheusRulesDto'
+        required: true
+      responses:
+        "200":
+          description: Prometheus rules are valid
+        "422":
+          description: Invalid request data or validation failed
+      summary: Validate Prometheus rules synchronously without persisting
+      tags:
+      - prom-rules-config-controller
   /v1/config/prom-rules-enable/{name}:
     post:
       operationId: enableRule
@@ -2404,6 +2432,50 @@ paths:
           description: OK
       tags:
       - prom-rules-config-controller
+  /v1/config/model-rules-validate:
+    post:
+      description: "Runs the same validation as create/update against the model rules\
+        \ in the request body but never persists them. Returns 200 if valid, 422 with\
+        \ field errors if invalid."
+      operationId: validateModelRules
+      parameters:
+      - $ref: '#/components/parameters/TenantId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              default: ""
+              description: The model rules configuration to validate
+              type: string
+          application/x-yml:
+            schema:
+              default: ""
+              description: The model rules configuration to validate
+              type: string
+          application/x-yaml:
+            schema:
+              default: ""
+              description: The model rules configuration to validate
+              type: string
+        required: true
+      responses:
+        "200":
+          description: Model rules are valid
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Invalid request data or validation failed
+      summary: Validate custom model rules without persisting
+      tags:
+      - Model Rules Configuration
   /v1/config/import:
     post:
       operationId: importConfigurations
@@ -3655,13 +3727,6 @@ paths:
       description: Returns all Kubernetes events within a time range (for debugging)
       operationId: getAllEvents
       parameters:
-      - explode: true
-        in: query
-        name: tenant
-        required: true
-        schema:
-          type: string
-        style: form
       - description: Start time (milliseconds since epoch)
         explode: true
         in: query
@@ -3788,6 +3853,13 @@ paths:
         style: form
       - explode: true
         in: query
+        name: domain
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
         name: requestParams
         required: true
         schema:
@@ -3861,6 +3933,13 @@ paths:
         style: form
       - explode: true
         in: query
+        name: domain
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
         name: start
         required: false
         schema:
@@ -3891,13 +3970,6 @@ paths:
         within a time range
       operationId: getEntityEvents
       parameters:
-      - explode: true
-        in: query
-        name: tenant
-        required: true
-        schema:
-          type: string
-        style: form
       - description: "Entity type (e.g., Service, Pod)"
         explode: true
         in: query
@@ -6601,8 +6673,10 @@ components:
             - blockers
           checkName: checkName
           dataPresent: true
+        blockedReason: blockedReason
         useGrafanaManagedAlerts: true
         otelNative: true
+        blockedOnManualIntervention: true
         disabledTime: 2000-01-23T04:56:07.000+00:00
         version: 0
         enabled: true
@@ -6631,6 +6705,10 @@ components:
           type: boolean
         otelNative:
           type: boolean
+        blockedOnManualIntervention:
+          type: boolean
+        blockedReason:
+          type: string
     EntityKeyDto:
       example:
         scope:
@@ -9758,6 +9836,16 @@ components:
           value: ""
         start: 0
         limit: 1
+        matcherTree:
+          op: AND
+          children:
+          - null
+          - null
+          matcher:
+            op: op
+            uom: MB
+            name: name
+            value: ""
         end: 6
         scopeCriteria:
           scopeCriteriaMap:
@@ -9779,6 +9867,8 @@ components:
           items:
             $ref: '#/components/schemas/PropertyMatcherDto'
           type: array
+        matcherTree:
+          $ref: '#/components/schemas/MatcherTreeDto'
         prefix:
           type: string
         start:
@@ -10272,6 +10362,7 @@ components:
           type: string
     PrometheusRuleGroup:
       example:
+        query_offset: query_offset
         name: name
         interval: interval
         rules:
@@ -10306,11 +10397,14 @@ components:
           items:
             $ref: '#/components/schemas/PrometheusRule'
           type: array
+        query_offset:
+          type: string
     PrometheusRules:
       example:
         managedBy: managedBy
         groups:
-        - name: name
+        - query_offset: query_offset
+          name: name
           interval: interval
           rules:
           - alert: alert
@@ -10335,7 +10429,8 @@ components:
             expr: expr
             labels:
               empty: true
-        - name: name
+        - query_offset: query_offset
+          name: name
           interval: interval
           rules:
           - alert: alert
@@ -11572,7 +11667,8 @@ components:
           rules:
           - managedBy: managedBy
             groups:
-            - name: name
+            - query_offset: query_offset
+              name: name
               interval: interval
               rules:
               - alert: alert
@@ -11597,7 +11693,8 @@ components:
                 expr: expr
                 labels:
                   empty: true
-            - name: name
+            - query_offset: query_offset
+              name: name
               interval: interval
               rules:
               - alert: alert
@@ -11624,7 +11721,8 @@ components:
                   empty: true
           - managedBy: managedBy
             groups:
-            - name: name
+            - query_offset: query_offset
+              name: name
               interval: interval
               rules:
               - alert: alert
@@ -11649,7 +11747,8 @@ components:
                 expr: expr
                 labels:
                   empty: true
-            - name: name
+            - query_offset: query_offset
+              name: name
               interval: interval
               rules:
               - alert: alert
@@ -12664,7 +12763,8 @@ components:
         rules:
         - managedBy: managedBy
           groups:
-          - name: name
+          - query_offset: query_offset
+            name: name
             interval: interval
             rules:
             - alert: alert
@@ -12689,7 +12789,8 @@ components:
               expr: expr
               labels:
                 empty: true
-          - name: name
+          - query_offset: query_offset
+            name: name
             interval: interval
             rules:
             - alert: alert
@@ -12716,7 +12817,8 @@ components:
                 empty: true
         - managedBy: managedBy
           groups:
-          - name: name
+          - query_offset: query_offset
+            name: name
             interval: interval
             rules:
             - alert: alert
@@ -12741,7 +12843,8 @@ components:
               expr: expr
               labels:
                 empty: true
-          - name: name
+          - query_offset: query_offset
+            name: name
             interval: interval
             rules:
             - alert: alert
@@ -12844,15 +12947,107 @@ components:
     StackDetailDto:
       example:
         orgSlug: orgSlug
-        contactPointUID: contactPointUID
+        lokiToken: lokiToken
         alertManagerConfigured: true
         currentActiveSeries: 5
         stackId: 0
         useGrafanaManagedAlerts: true
         version: 1
+        stackDatasets:
+        - disabledVendors:
+          - disabledVendors
+          - disabledVendors
+          datasetType: kubernetes
+          filterGroups:
+          - envLabelValues:
+            - envLabelValues
+            - envLabelValues
+            siteLabelValues:
+            - siteLabelValues
+            - siteLabelValues
+            envName: envName
+            envLabel: envLabel
+            filters:
+            - values:
+              - values
+              - values
+              name: name
+              operator: operator
+            - values:
+              - values
+              - values
+              name: name
+              operator: operator
+            siteLabel: siteLabel
+          - envLabelValues:
+            - envLabelValues
+            - envLabelValues
+            siteLabelValues:
+            - siteLabelValues
+            - siteLabelValues
+            envName: envName
+            envLabel: envLabel
+            filters:
+            - values:
+              - values
+              - values
+              name: name
+              operator: operator
+            - values:
+              - values
+              - values
+              name: name
+              operator: operator
+            siteLabel: siteLabel
+        - disabledVendors:
+          - disabledVendors
+          - disabledVendors
+          datasetType: kubernetes
+          filterGroups:
+          - envLabelValues:
+            - envLabelValues
+            - envLabelValues
+            siteLabelValues:
+            - siteLabelValues
+            - siteLabelValues
+            envName: envName
+            envLabel: envLabel
+            filters:
+            - values:
+              - values
+              - values
+              name: name
+              operator: operator
+            - values:
+              - values
+              - values
+              name: name
+              operator: operator
+            siteLabel: siteLabel
+          - envLabelValues:
+            - envLabelValues
+            - envLabelValues
+            siteLabelValues:
+            - siteLabelValues
+            - siteLabelValues
+            envName: envName
+            envLabel: envLabel
+            filters:
+            - values:
+              - values
+              - values
+              name: name
+              operator: operator
+            - values:
+              - values
+              - values
+              name: name
+              operator: operator
+            siteLabel: siteLabel
         orgId: 6
         enabled: true
         allowLargeTenantOnboarding: true
+        pyroscopeToken: pyroscopeToken
         grafanaToken: grafanaToken
         gcomToken: gcomToken
         disabledTime: 2000-01-23T04:56:07.000+00:00
@@ -12880,6 +13075,10 @@ components:
           type: string
         grafanaToken:
           type: string
+        lokiToken:
+          type: string
+        pyroscopeToken:
+          type: string
         enabled:
           type: boolean
         alertManagerConfigured:
@@ -12896,13 +13095,15 @@ components:
         version:
           format: int32
           type: integer
-        contactPointUID:
-          type: string
         allowLargeTenantOnboarding:
           type: boolean
         currentActiveSeries:
           format: int32
           type: integer
+        stackDatasets:
+          items:
+            $ref: '#/components/schemas/StackDatasetDto'
+          type: array
     VendorIntegrationDto:
       example:
         name: name
@@ -13489,6 +13690,7 @@ components:
           key: ""
         scope:
           empty: true
+        domain: domain
         name: name
         connectedEntityTypes:
           key: 6
@@ -13517,6 +13719,7 @@ components:
               empty: true
             propertyMatcher:
               key: ""
+          domain: domain
           name: name
           type: type
         connectedAssertion:
@@ -13553,6 +13756,8 @@ components:
           additionalProperties: {}
         scope:
           $ref: '#/components/schemas/GraphEntity_scope'
+        domain:
+          type: string
         assertion:
           $ref: '#/components/schemas/GraphAssertionSummary'
         connectedAssertion:
@@ -13571,6 +13776,7 @@ components:
             empty: true
           propertyMatcher:
             key: ""
+        domain: domain
         name: name
         type: type
       properties:
@@ -13580,6 +13786,8 @@ components:
           type: string
         kgScope:
           $ref: '#/components/schemas/KGScope'
+        domain:
+          type: string
     KGScope:
       example:
         scopeNames:

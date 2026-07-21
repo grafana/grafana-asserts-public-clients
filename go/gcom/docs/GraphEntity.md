@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **PropertyMatcher** | Pointer to **map[string]interface{}** |  | [optional] 
 **ScopeNames** | Pointer to **map[string]interface{}** |  | [optional] 
 **Scope** | Pointer to [**GraphEntityScope**](GraphEntityScope.md) |  | [optional] 
+**Domain** | Pointer to **string** |  | [optional] 
 **Assertion** | Pointer to [**GraphAssertionSummary**](GraphAssertionSummary.md) |  | [optional] 
 **ConnectedAssertion** | Pointer to [**GraphAssertionSummary**](GraphAssertionSummary.md) |  | [optional] 
 **AssertionCount** | Pointer to **int32** |  | [optional] 
@@ -261,6 +262,31 @@ SetScope sets Scope field to given value.
 `func (o *GraphEntity) HasScope() bool`
 
 HasScope returns a boolean if a field has been set.
+
+### GetDomain
+
+`func (o *GraphEntity) GetDomain() string`
+
+GetDomain returns the Domain field if non-nil, zero value otherwise.
+
+### GetDomainOk
+
+`func (o *GraphEntity) GetDomainOk() (*string, bool)`
+
+GetDomainOk returns a tuple with the Domain field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDomain
+
+`func (o *GraphEntity) SetDomain(v string)`
+
+SetDomain sets Domain field to given value.
+
+### HasDomain
+
+`func (o *GraphEntity) HasDomain() bool`
+
+HasDomain returns a boolean if a field has been set.
 
 ### GetAssertion
 

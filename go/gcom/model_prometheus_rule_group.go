@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.06.22-121348
+API version: 2026.07.21-085133
 Contact: support@asserts.ai
 */
 
@@ -23,6 +23,7 @@ type PrometheusRuleGroup struct {
 	Name                 *string          `json:"name,omitempty"`
 	Interval             *string          `json:"interval,omitempty"`
 	Rules                []PrometheusRule `json:"rules,omitempty"`
+	QueryOffset          *string          `json:"query_offset,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -141,6 +142,38 @@ func (o *PrometheusRuleGroup) SetRules(v []PrometheusRule) {
 	o.Rules = v
 }
 
+// GetQueryOffset returns the QueryOffset field value if set, zero value otherwise.
+func (o *PrometheusRuleGroup) GetQueryOffset() string {
+	if o == nil || IsNil(o.QueryOffset) {
+		var ret string
+		return ret
+	}
+	return *o.QueryOffset
+}
+
+// GetQueryOffsetOk returns a tuple with the QueryOffset field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PrometheusRuleGroup) GetQueryOffsetOk() (*string, bool) {
+	if o == nil || IsNil(o.QueryOffset) {
+		return nil, false
+	}
+	return o.QueryOffset, true
+}
+
+// HasQueryOffset returns a boolean if a field has been set.
+func (o *PrometheusRuleGroup) HasQueryOffset() bool {
+	if o != nil && !IsNil(o.QueryOffset) {
+		return true
+	}
+
+	return false
+}
+
+// SetQueryOffset gets a reference to the given string and assigns it to the QueryOffset field.
+func (o *PrometheusRuleGroup) SetQueryOffset(v string) {
+	o.QueryOffset = &v
+}
+
 func (o PrometheusRuleGroup) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -159,6 +192,9 @@ func (o PrometheusRuleGroup) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Rules) {
 		toSerialize["rules"] = o.Rules
+	}
+	if !IsNil(o.QueryOffset) {
+		toSerialize["query_offset"] = o.QueryOffset
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -185,6 +221,7 @@ func (o *PrometheusRuleGroup) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "interval")
 		delete(additionalProperties, "rules")
+		delete(additionalProperties, "query_offset")
 		o.AdditionalProperties = additionalProperties
 	}
 
