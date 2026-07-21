@@ -120,7 +120,7 @@ func (a *SystemKgSchemaAPIAPIService) GetExecute(r ApiGetRequest) (*SystemKgSche
 			var v ApiError
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
-				newErr.error = err.Error()
+				newErr.error = localVarHTTPResponse.Status + ": " + err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
@@ -341,7 +341,7 @@ func (a *SystemKgSchemaAPIAPIService) UpsertExecute(r ApiUpsertRequest) (*System
 			var v ApiError
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
-				newErr.error = err.Error()
+				newErr.error = localVarHTTPResponse.Status + ": " + err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)

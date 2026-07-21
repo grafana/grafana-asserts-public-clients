@@ -345,7 +345,7 @@ func (a *TraceDrilldownConfigControllerAPIService) ReorderTraceConfigPrioritiesE
 			var v ApiError
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
-				newErr.error = err.Error()
+				newErr.error = localVarHTTPResponse.Status + ": " + err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
@@ -473,7 +473,7 @@ func (a *TraceDrilldownConfigControllerAPIService) UpsertTraceDrilldownConfigExe
 			var v ApiError
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
-				newErr.error = err.Error()
+				newErr.error = localVarHTTPResponse.Status + ": " + err.Error()
 				return localVarHTTPResponse, newErr
 			}
 			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)

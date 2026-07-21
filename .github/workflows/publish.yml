@@ -57,6 +57,12 @@ jobs:
           modify-spec-script: .github/workflows/modify-spec.sh
           commit-changes: "false"
 
+      # The generator's Go template drops the HTTP status from the error
+      # message when an error-response body fails to decode, and the action
+      # has no template-override input — patch the generated code instead.
+      - name: Patch generated clients
+        run: .github/workflows/patch-generated-clients.sh
+
       # Commit via the GitHub API so the commit is signed/verified, satisfying
       # the "Signed Commits" ruleset (a plain git push of a bot commit is not).
       # Skipped on fork PRs: GITHUB_TOKEN is read-only there, so the commit
