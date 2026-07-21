@@ -66,10 +66,11 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TARGET_BRANCH: ${{ github.head_ref || github.ref_name }}
-          # Deliberately no [skip ci]: the generated commit becomes the PR head,
-          # and skipping CI on it leaves the ruleset-required workflows
-          # (trufflehog, zizmor) permanently "expected", blocking the merge. The
-          # re-run is recursion-guarded — it regenerates, finds no diff, and
-          # commit-signed-changes.sh exits without committing.
+          # No [skip ci]: it was always redundant. Commits created with the
+          # workflow's GITHUB_TOKEN never trigger workflow runs, regardless of
+          # message. Caveat: when this step commits on a PR, that commit becomes
+          # the PR head with no runs on it, so ruleset-required checks
+          # (trufflehog, zizmor) sit "expected" until another push — regenerate
+          # locally before pushing spec changes, or push a follow-up commit.
           COMMIT_MESSAGE: "Update generated clients"
         run: .github/workflows/commit-signed-changes.sh
