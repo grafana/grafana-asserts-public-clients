@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**Get**](SystemKgSchemaAPIAPI.md#Get) | **Get** /apis/kg.grafana.com/v1alpha1/systemschemas/{domain}/{version} | Get a system schema bundle by domain and version
 [**List**](SystemKgSchemaAPIAPI.md#List) | **Get** /apis/kg.grafana.com/v1alpha1/systemschemas | List all system schema references
 [**Upsert**](SystemKgSchemaAPIAPI.md#Upsert) | **Post** /apis/kg.grafana.com/v1alpha1/systemschemas | Push a system schema bundle
+[**Validate**](SystemKgSchemaAPIAPI.md#Validate) | **Post** /apis/kg.grafana.com/v1alpha1/systemschemas/validate | Validate a system schema bundle without storing it
 
 
 
@@ -195,6 +196,70 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**SystemKgSchemaResponseDto**](SystemKgSchemaResponseDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json, application/x-yml, application/x-yaml
+- **Accept**: application/json, application/x-yml, application/x-yaml
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## Validate
+
+> Validate(ctx).SystemKgSchemaBundleDto(systemKgSchemaBundleDto).Execute()
+
+Validate a system schema bundle without storing it
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/grafana/grafana-asserts-public-clients/go/systemschema"
+)
+
+func main() {
+	systemKgSchemaBundleDto := *openapiclient.NewSystemKgSchemaBundleDto(*openapiclient.NewSchemaDomainDto("Name_example", "Version_example"), []openapiclient.SchemaEntityTypeDto{*openapiclient.NewSchemaEntityTypeDto("Name_example", "Description_example")}, []openapiclient.SchemaRelationshipTypeDto{*openapiclient.NewSchemaRelationshipTypeDto("Name_example", "Description_example", *openapiclient.NewSchemaEndpointDto([]string{"Types_example"}), *openapiclient.NewSchemaEndpointDto([]string{"Types_example"}))}) // SystemKgSchemaBundleDto | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.SystemKgSchemaAPIAPI.Validate(context.Background()).SystemKgSchemaBundleDto(systemKgSchemaBundleDto).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SystemKgSchemaAPIAPI.Validate``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiValidateRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **systemKgSchemaBundleDto** | [**SystemKgSchemaBundleDto**](SystemKgSchemaBundleDto.md) |  | 
+
+### Return type
+
+ (empty response body)
 
 ### Authorization
 
