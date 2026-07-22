@@ -62,4 +62,15 @@ func Test_systemschema_SystemKgSchemaAPIAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test SystemKgSchemaAPIAPIService Validate", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		httpRes, err := apiClient.SystemKgSchemaAPIAPI.Validate(context.Background()).Execute()
+
+		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 }

@@ -82,6 +82,7 @@ Class | Method | HTTP request | Description
 *SystemKgSchemaAPIAPI* | [**Get**](docs/SystemKgSchemaAPIAPI.md#get) | **Get** /apis/kg.grafana.com/v1alpha1/systemschemas/{domain}/{version} | Get a system schema bundle by domain and version
 *SystemKgSchemaAPIAPI* | [**List**](docs/SystemKgSchemaAPIAPI.md#list) | **Get** /apis/kg.grafana.com/v1alpha1/systemschemas | List all system schema references
 *SystemKgSchemaAPIAPI* | [**Upsert**](docs/SystemKgSchemaAPIAPI.md#upsert) | **Post** /apis/kg.grafana.com/v1alpha1/systemschemas | Push a system schema bundle
+*SystemKgSchemaAPIAPI* | [**Validate**](docs/SystemKgSchemaAPIAPI.md#validate) | **Post** /apis/kg.grafana.com/v1alpha1/systemschemas/validate | Validate a system schema bundle without storing it
 
 
 ## Documentation For Models

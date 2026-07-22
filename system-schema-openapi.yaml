@@ -90,6 +90,40 @@ paths:
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+  /apis/kg.grafana.com/v1alpha1/systemschemas/validate:
+    post:
+      tags:
+        - System KgSchema API
+      summary: Validate a system schema bundle without storing it
+      description: "Runs exactly the validation a push would (bean validation plus the structural validator) and persists nothing."
+      operationId: validate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SystemKgSchemaBundleDto"
+          application/x-yml:
+            schema:
+              $ref: "#/components/schemas/SystemKgSchemaBundleDto"
+          application/x-yaml:
+            schema:
+              $ref: "#/components/schemas/SystemKgSchemaBundleDto"
+        required: true
+      responses:
+        "204":
+          description: Bundle is valid
+        "422":
+          description: Validation failed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+            application/x-yml:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+            application/x-yaml:
+              schema:
+                $ref: "#/components/schemas/ApiError"
   /apis/kg.grafana.com/v1alpha1/systemschemas/{domain}/{version}:
     get:
       tags:
