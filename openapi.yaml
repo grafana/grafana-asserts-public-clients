@@ -7,7 +7,7 @@ info:
     name: Support
     url: "https://www.grafana.com"
     email: support@asserts.ai
-  version: 2026.07.20-131035
+  version: 2026.07.24-151208
 servers:
   - url: http://localhost:8030/asserts/api-server
     description: Generated server url
@@ -3058,6 +3058,43 @@ paths:
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+  /v1/config/alerts-validate:
+    post:
+      tags:
+        - Alert Configuration
+      summary: Validate multiple alert configurations
+      description: "Validates a batch of alert configurations without persisting them. Returns 200 if valid, 422 with error details if invalid."
+      operationId: validateAlertConfigs
+      parameters:
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AlertConfigsDto"
+          application/x-yml:
+            schema:
+              $ref: "#/components/schemas/AlertConfigsDto"
+          application/x-yaml:
+            schema:
+              $ref: "#/components/schemas/AlertConfigsDto"
+        required: true
+      responses:
+        "200":
+          description: Configuration is valid
+        "422":
+          description: Invalid configuration provided
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+            application/x-yml:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+            application/x-yaml:
+              schema:
+                $ref: "#/components/schemas/ApiError"
   /v1/config/alert:
     post:
       tags:
@@ -3097,6 +3134,43 @@ paths:
                 $ref: "#/components/schemas/ApiError"
         "500":
           description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+            application/x-yml:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+            application/x-yaml:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+  /v1/config/alert-validate:
+    post:
+      tags:
+        - Alert Configuration
+      summary: Validate a single alert configuration
+      description: "Validates a single alert configuration without persisting it. Returns 200 if valid, 422 with error details if invalid."
+      operationId: validateAlertConfig
+      parameters:
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AlertConfigDto"
+          application/x-yml:
+            schema:
+              $ref: "#/components/schemas/AlertConfigDto"
+          application/x-yaml:
+            schema:
+              $ref: "#/components/schemas/AlertConfigDto"
+        required: true
+      responses:
+        "200":
+          description: Configuration is valid
+        "422":
+          description: Invalid configuration provided
           content:
             application/json:
               schema:
@@ -5738,6 +5812,10 @@ components:
           type: boolean
         otelNative:
           type: boolean
+        blockedOnManualIntervention:
+          type: boolean
+        blockedReason:
+          type: string
     EntityKeyDto:
       type: object
       properties:
@@ -8252,6 +8330,10 @@ components:
           type: string
         grafanaToken:
           type: string
+        lokiToken:
+          type: string
+        pyroscopeToken:
+          type: string
         enabled:
           type: boolean
         alertManagerConfigured:
@@ -8268,13 +8350,15 @@ components:
         version:
           type: integer
           format: int32
-        contactPointUID:
-          type: string
         allowLargeTenantOnboarding:
           type: boolean
         currentActiveSeries:
           type: integer
           format: int32
+        stackDatasets:
+          type: array
+          items:
+            $ref: "#/components/schemas/StackDatasetDto"
     VendorIntegrationDto:
       type: object
       properties:
