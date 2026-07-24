@@ -57,6 +57,15 @@ jobs:
           modify-spec-script: .github/workflows/modify-spec.sh
           commit-changes: "false"
 
+      # The generator action's post-processing (goimports via find -exec) does
+      # not fail on unparseable Go, so compile the generated clients here to
+      # keep broken code from being committed.
+      - name: Verify generated Go clients compile
+        run: |
+          for mod in go/gcom go/kgwrite go/systemschema; do
+            (cd "$mod" && go build ./... && go vet ./...)
+          done
+
       # Commit via the GitHub API so the commit is signed/verified, satisfying
       # the "Signed Commits" ruleset (a plain git push of a bot commit is not).
       # Skipped on fork PRs: GITHUB_TOKEN is read-only there, so the commit

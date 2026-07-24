@@ -4,7 +4,7 @@ set -euo pipefail
 # Sanitizes a generated OpenAPI spec before it is handed to OpenAPI Generator.
 # Reads the spec on stdin and writes the cleaned spec to stdout.
 #
-# Two springdoc-emitted patterns break the generated Go client and are fixed here:
+# Four springdoc-emitted patterns break the generated Go client and are fixed here:
 #
 # 1. HttpStatus schema: rendered as `allOf` + a `$ref` to `HttpStatusCode`, which
 #    the generator can't turn into a usable Go type. Collapse it to a plain
@@ -20,6 +20,19 @@ set -euo pipefail
 #    `additionalProperties`/`default` keys are removed, and only from maps that
 #    contain a `$ref`, so legitimate inline `additionalProperties` schemas (e.g.
 #    deepObject `scope` params) are left untouched.
+#
+# 3. `default` on a `oneOf` property: springdoc stamps `default: ""` onto
+#    polymorphic properties (e.g. RelationRuleDto.definedBy). The Go generator
+#    cannot render a scalar default for the generated oneOf wrapper type and
+#    emits an incomplete statement (`var definedBy RelationRuleDtoDefinedBy = `)
+#    that does not compile. Drop `default` from any map that declares `oneOf`.
+#
+# 4. `type: "null"` schemas: springdoc renders some DTOs (e.g. InsightCriteriaDto,
+#    SearchCountRequestEntryDtoNameMatcher) with `type: "null"`, which the Go
+#    generator maps to the literal Go type `nil` (`NameMatcher *nil`), which does
+#    not compile. Schemas that carry `properties` are really objects, so rewrite
+#    their type to `object`; for bare `type: "null"` schemas drop the type so the
+#    generator falls back to `interface{}`.
 
 awk '
   BEGIN { in_httpstatus = 0 }
@@ -47,4 +60,9 @@ awk '
 
   { print }
 ' \
-  | yq '(.. | select(tag == "!!map" and has("$ref"))) |= (del(.additionalProperties) | del(.default))'
+  | yq '
+      (.. | select(tag == "!!map" and has("$ref"))) |= (del(.additionalProperties) | del(.default))
+      | (.. | select(tag == "!!map" and has("oneOf"))) |= del(.default)
+      | (.. | select(tag == "!!map" and .type == "null" and has("properties"))).type = "object"
+      | (.. | select(tag == "!!map" and .type == "null" and (has("properties") | not))) |= del(.type)
+    '
