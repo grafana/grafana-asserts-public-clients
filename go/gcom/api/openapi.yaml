@@ -7,7 +7,7 @@ info:
   description: Asserts Public API
   termsOfService: https://www.asserts.ai/terms-of-service
   title: "Asserts, Inc"
-  version: 2026.07.20-131035
+  version: 2026.07.24-151208
 servers:
 - description: Generated server url
   url: http://localhost:8030/asserts/api-server
@@ -3011,6 +3011,43 @@ paths:
       summary: Create or update multiple alert configurations
       tags:
       - Alert Configuration
+  /v1/config/alerts-validate:
+    post:
+      description: "Validates a batch of alert configurations without persisting them.\
+        \ Returns 200 if valid, 422 with error details if invalid."
+      operationId: validateAlertConfigs
+      parameters:
+      - $ref: '#/components/parameters/TenantId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlertConfigsDto'
+          application/x-yml:
+            schema:
+              $ref: '#/components/schemas/AlertConfigsDto'
+          application/x-yaml:
+            schema:
+              $ref: '#/components/schemas/AlertConfigsDto'
+        required: true
+      responses:
+        "200":
+          description: Configuration is valid
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Invalid configuration provided
+      summary: Validate multiple alert configurations
+      tags:
+      - Alert Configuration
   /v1/config/alert:
     post:
       description: Creates a new alert configuration or updates an existing one based
@@ -3058,6 +3095,43 @@ paths:
                 $ref: '#/components/schemas/ApiError'
           description: Internal server error
       summary: Create or update a single alert configuration
+      tags:
+      - Alert Configuration
+  /v1/config/alert-validate:
+    post:
+      description: "Validates a single alert configuration without persisting it.\
+        \ Returns 200 if valid, 422 with error details if invalid."
+      operationId: validateAlertConfig
+      parameters:
+      - $ref: '#/components/parameters/TenantId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlertConfigDto'
+          application/x-yml:
+            schema:
+              $ref: '#/components/schemas/AlertConfigDto'
+          application/x-yaml:
+            schema:
+              $ref: '#/components/schemas/AlertConfigDto'
+        required: true
+      responses:
+        "200":
+          description: Configuration is valid
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Invalid configuration provided
+      summary: Validate a single alert configuration
       tags:
       - Alert Configuration
   /v1/assertions:
@@ -6673,8 +6747,10 @@ components:
             - blockers
           checkName: checkName
           dataPresent: true
+        blockedReason: blockedReason
         useGrafanaManagedAlerts: true
         otelNative: true
+        blockedOnManualIntervention: true
         disabledTime: 2000-01-23T04:56:07.000+00:00
         version: 0
         enabled: true
@@ -6703,6 +6779,10 @@ components:
           type: boolean
         otelNative:
           type: boolean
+        blockedOnManualIntervention:
+          type: boolean
+        blockedReason:
+          type: string
     EntityKeyDto:
       example:
         scope:
@@ -12941,15 +13021,107 @@ components:
     StackDetailDto:
       example:
         orgSlug: orgSlug
-        contactPointUID: contactPointUID
+        lokiToken: lokiToken
         alertManagerConfigured: true
         currentActiveSeries: 5
         stackId: 0
         useGrafanaManagedAlerts: true
         version: 1
+        stackDatasets:
+        - disabledVendors:
+          - disabledVendors
+          - disabledVendors
+          datasetType: kubernetes
+          filterGroups:
+          - envLabelValues:
+            - envLabelValues
+            - envLabelValues
+            siteLabelValues:
+            - siteLabelValues
+            - siteLabelValues
+            envName: envName
+            envLabel: envLabel
+            filters:
+            - values:
+              - values
+              - values
+              name: name
+              operator: operator
+            - values:
+              - values
+              - values
+              name: name
+              operator: operator
+            siteLabel: siteLabel
+          - envLabelValues:
+            - envLabelValues
+            - envLabelValues
+            siteLabelValues:
+            - siteLabelValues
+            - siteLabelValues
+            envName: envName
+            envLabel: envLabel
+            filters:
+            - values:
+              - values
+              - values
+              name: name
+              operator: operator
+            - values:
+              - values
+              - values
+              name: name
+              operator: operator
+            siteLabel: siteLabel
+        - disabledVendors:
+          - disabledVendors
+          - disabledVendors
+          datasetType: kubernetes
+          filterGroups:
+          - envLabelValues:
+            - envLabelValues
+            - envLabelValues
+            siteLabelValues:
+            - siteLabelValues
+            - siteLabelValues
+            envName: envName
+            envLabel: envLabel
+            filters:
+            - values:
+              - values
+              - values
+              name: name
+              operator: operator
+            - values:
+              - values
+              - values
+              name: name
+              operator: operator
+            siteLabel: siteLabel
+          - envLabelValues:
+            - envLabelValues
+            - envLabelValues
+            siteLabelValues:
+            - siteLabelValues
+            - siteLabelValues
+            envName: envName
+            envLabel: envLabel
+            filters:
+            - values:
+              - values
+              - values
+              name: name
+              operator: operator
+            - values:
+              - values
+              - values
+              name: name
+              operator: operator
+            siteLabel: siteLabel
         orgId: 6
         enabled: true
         allowLargeTenantOnboarding: true
+        pyroscopeToken: pyroscopeToken
         grafanaToken: grafanaToken
         gcomToken: gcomToken
         disabledTime: 2000-01-23T04:56:07.000+00:00
@@ -12977,6 +13149,10 @@ components:
           type: string
         grafanaToken:
           type: string
+        lokiToken:
+          type: string
+        pyroscopeToken:
+          type: string
         enabled:
           type: boolean
         alertManagerConfigured:
@@ -12993,13 +13169,15 @@ components:
         version:
           format: int32
           type: integer
-        contactPointUID:
-          type: string
         allowLargeTenantOnboarding:
           type: boolean
         currentActiveSeries:
           format: int32
           type: integer
+        stackDatasets:
+          items:
+            $ref: '#/components/schemas/StackDatasetDto'
+          type: array
     VendorIntegrationDto:
       example:
         name: name

@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.07.20-131035
+API version: 2026.07.24-151208
 Contact: support@asserts.ai
 */
 
@@ -21,16 +21,18 @@ var _ MappedNullable = &StackStatusDto{}
 
 // StackStatusDto struct for StackStatusDto
 type StackStatusDto struct {
-	Status                  *string                   `json:"status,omitempty"`
-	DisabledTime            *time.Time                `json:"disabledTime,omitempty"`
-	Enabled                 *bool                     `json:"enabled,omitempty"`
-	AlertManagerConfigured  *bool                     `json:"alertManagerConfigured,omitempty"`
-	GraphInstanceCreated    *bool                     `json:"graphInstanceCreated,omitempty"`
-	SanityCheckResults      []MetricSanityCheckResult `json:"sanityCheckResults,omitempty"`
-	Version                 *int32                    `json:"version,omitempty"`
-	UseGrafanaManagedAlerts *bool                     `json:"useGrafanaManagedAlerts,omitempty"`
-	OtelNative              *bool                     `json:"otelNative,omitempty"`
-	AdditionalProperties    map[string]interface{}
+	Status                      *string                   `json:"status,omitempty"`
+	DisabledTime                *time.Time                `json:"disabledTime,omitempty"`
+	Enabled                     *bool                     `json:"enabled,omitempty"`
+	AlertManagerConfigured      *bool                     `json:"alertManagerConfigured,omitempty"`
+	GraphInstanceCreated        *bool                     `json:"graphInstanceCreated,omitempty"`
+	SanityCheckResults          []MetricSanityCheckResult `json:"sanityCheckResults,omitempty"`
+	Version                     *int32                    `json:"version,omitempty"`
+	UseGrafanaManagedAlerts     *bool                     `json:"useGrafanaManagedAlerts,omitempty"`
+	OtelNative                  *bool                     `json:"otelNative,omitempty"`
+	BlockedOnManualIntervention *bool                     `json:"blockedOnManualIntervention,omitempty"`
+	BlockedReason               *string                   `json:"blockedReason,omitempty"`
+	AdditionalProperties        map[string]interface{}
 }
 
 type _StackStatusDto StackStatusDto
@@ -340,6 +342,70 @@ func (o *StackStatusDto) SetOtelNative(v bool) {
 	o.OtelNative = &v
 }
 
+// GetBlockedOnManualIntervention returns the BlockedOnManualIntervention field value if set, zero value otherwise.
+func (o *StackStatusDto) GetBlockedOnManualIntervention() bool {
+	if o == nil || IsNil(o.BlockedOnManualIntervention) {
+		var ret bool
+		return ret
+	}
+	return *o.BlockedOnManualIntervention
+}
+
+// GetBlockedOnManualInterventionOk returns a tuple with the BlockedOnManualIntervention field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *StackStatusDto) GetBlockedOnManualInterventionOk() (*bool, bool) {
+	if o == nil || IsNil(o.BlockedOnManualIntervention) {
+		return nil, false
+	}
+	return o.BlockedOnManualIntervention, true
+}
+
+// HasBlockedOnManualIntervention returns a boolean if a field has been set.
+func (o *StackStatusDto) HasBlockedOnManualIntervention() bool {
+	if o != nil && !IsNil(o.BlockedOnManualIntervention) {
+		return true
+	}
+
+	return false
+}
+
+// SetBlockedOnManualIntervention gets a reference to the given bool and assigns it to the BlockedOnManualIntervention field.
+func (o *StackStatusDto) SetBlockedOnManualIntervention(v bool) {
+	o.BlockedOnManualIntervention = &v
+}
+
+// GetBlockedReason returns the BlockedReason field value if set, zero value otherwise.
+func (o *StackStatusDto) GetBlockedReason() string {
+	if o == nil || IsNil(o.BlockedReason) {
+		var ret string
+		return ret
+	}
+	return *o.BlockedReason
+}
+
+// GetBlockedReasonOk returns a tuple with the BlockedReason field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *StackStatusDto) GetBlockedReasonOk() (*string, bool) {
+	if o == nil || IsNil(o.BlockedReason) {
+		return nil, false
+	}
+	return o.BlockedReason, true
+}
+
+// HasBlockedReason returns a boolean if a field has been set.
+func (o *StackStatusDto) HasBlockedReason() bool {
+	if o != nil && !IsNil(o.BlockedReason) {
+		return true
+	}
+
+	return false
+}
+
+// SetBlockedReason gets a reference to the given string and assigns it to the BlockedReason field.
+func (o *StackStatusDto) SetBlockedReason(v string) {
+	o.BlockedReason = &v
+}
+
 func (o StackStatusDto) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -377,6 +443,12 @@ func (o StackStatusDto) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.OtelNative) {
 		toSerialize["otelNative"] = o.OtelNative
 	}
+	if !IsNil(o.BlockedOnManualIntervention) {
+		toSerialize["blockedOnManualIntervention"] = o.BlockedOnManualIntervention
+	}
+	if !IsNil(o.BlockedReason) {
+		toSerialize["blockedReason"] = o.BlockedReason
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -408,6 +480,8 @@ func (o *StackStatusDto) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "version")
 		delete(additionalProperties, "useGrafanaManagedAlerts")
 		delete(additionalProperties, "otelNative")
+		delete(additionalProperties, "blockedOnManualIntervention")
+		delete(additionalProperties, "blockedReason")
 		o.AdditionalProperties = additionalProperties
 	}
 
