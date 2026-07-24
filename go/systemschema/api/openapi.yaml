@@ -1,0 +1,738 @@
+openapi: 3.1.0
+info:
+  contact:
+    email: support@asserts.ai
+    name: Support
+    url: https://www.grafana.com
+  description: Asserts Public API
+  termsOfService: https://www.asserts.ai/terms-of-service
+  title: "Asserts, Inc"
+  version: 0.0.0
+servers:
+- description: Generated server url
+  url: http://localhost:8030/api-server
+tags:
+- description: Receive and store cluster-scoped system schemas
+  name: System KgSchema API
+paths:
+  /apis/kg.grafana.com/v1alpha1/systemschemas:
+    get:
+      description: Returns a wrapped list of domain/version/displayName refs for all
+        stored system schemas.
+      operationId: list
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SystemKgSchemaRefListDto'
+            application/x-yml:
+              schema:
+                $ref: '#/components/schemas/SystemKgSchemaRefListDto'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/SystemKgSchemaRefListDto'
+          description: List of schema references
+      summary: List all system schema references
+      tags:
+      - System KgSchema API
+    post:
+      description: "Creates or fully replaces the schema for the given domain/version.\
+        \ Returns 201 on first push, 200 on update."
+      operationId: upsert
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SystemKgSchemaBundleDto'
+          application/x-yml:
+            schema:
+              $ref: '#/components/schemas/SystemKgSchemaBundleDto'
+          application/x-yaml:
+            schema:
+              $ref: '#/components/schemas/SystemKgSchemaBundleDto'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SystemKgSchemaResponseDto'
+            application/x-yml:
+              schema:
+                $ref: '#/components/schemas/SystemKgSchemaResponseDto'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/SystemKgSchemaResponseDto'
+          description: Schema created
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SystemKgSchemaResponseDto'
+            application/x-yml:
+              schema:
+                $ref: '#/components/schemas/SystemKgSchemaResponseDto'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/SystemKgSchemaResponseDto'
+          description: Schema updated (idempotent re-push returns 200)
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Validation failed
+      summary: Push a system schema bundle
+      tags:
+      - System KgSchema API
+  /apis/kg.grafana.com/v1alpha1/systemschemas/validate:
+    post:
+      description: Runs exactly the validation a push would (bean validation plus
+        the structural validator) and persists nothing.
+      operationId: validate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SystemKgSchemaBundleDto'
+          application/x-yml:
+            schema:
+              $ref: '#/components/schemas/SystemKgSchemaBundleDto'
+          application/x-yaml:
+            schema:
+              $ref: '#/components/schemas/SystemKgSchemaBundleDto'
+        required: true
+      responses:
+        "204":
+          description: Bundle is valid
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Validation failed
+      summary: Validate a system schema bundle without storing it
+      tags:
+      - System KgSchema API
+  /apis/kg.grafana.com/v1alpha1/systemschemas/{domain}/{version}:
+    get:
+      description: Returns the full schema bundle stored for the given domain/version
+        key.
+      operationId: get
+      parameters:
+      - explode: false
+        in: path
+        name: domain
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: version
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SystemKgSchemaBundleDto'
+            application/x-yml:
+              schema:
+                $ref: '#/components/schemas/SystemKgSchemaBundleDto'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/SystemKgSchemaBundleDto'
+          description: Schema bundle found
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: No schema found for the given domain/version
+      summary: Get a system schema bundle by domain and version
+      tags:
+      - System KgSchema API
+components:
+  parameters: {}
+  schemas:
+    ApiError:
+      example:
+        trace_id: trace_id
+        span_id: span_id
+        requestId: requestId
+        debugMessage: debugMessage
+        message: message
+        status: NOT_FOUND
+        timestamp: 1
+        subErrors:
+        - message: message
+        - message: message
+      properties:
+        status:
+          description: "HTTP status, e.g. NOT_FOUND"
+          example: NOT_FOUND
+          type: string
+        requestId:
+          type: string
+        timestamp:
+          format: int64
+          type: integer
+        message:
+          type: string
+        debugMessage:
+          type: string
+        subErrors:
+          items:
+            $ref: '#/components/schemas/ApiError_subErrors_inner'
+          type: array
+        trace_id:
+          type: string
+        span_id:
+          type: string
+    ApiSubError:
+      example:
+        message: message
+      properties:
+        message:
+          type: string
+    ApiValidationError:
+      allOf:
+      - $ref: '#/components/schemas/ApiSubError'
+      - properties:
+          field:
+            type: string
+          rejectedValue: {}
+    SchemaBindingDto:
+      example:
+        name: name
+        from:
+          types:
+          - types
+          - types
+          cardinality: cardinality
+        to:
+          types:
+          - types
+          - types
+          cardinality: cardinality
+      properties:
+        name:
+          minLength: 1
+          pattern: "^[a-z][a-z0-9]*\\.[A-Z][A-Z0-9_]*$"
+          type: string
+        from:
+          $ref: '#/components/schemas/SchemaEndpointDto'
+        to:
+          $ref: '#/components/schemas/SchemaEndpointDto'
+      required:
+      - from
+      - name
+      - to
+    SchemaDomainDto:
+      example:
+        displayName: displayName
+        name: name
+        version: version
+      properties:
+        name:
+          minLength: 1
+          pattern: "^[a-z][a-z0-9]*$"
+          type: string
+        displayName:
+          type: string
+        version:
+          minLength: 1
+          pattern: "^v[0-9]+(alpha[0-9]+|beta[0-9]+)?$"
+          type: string
+      required:
+      - name
+      - version
+    SchemaEndpointDto:
+      example:
+        types:
+        - types
+        - types
+        cardinality: cardinality
+      properties:
+        types:
+          items:
+            pattern: "^([a-z][a-z0-9]*\\.)?[A-Z][A-Za-z0-9]*$"
+            type: string
+          minItems: 1
+          type: array
+        cardinality:
+          pattern: ^(one|many)$
+          type: string
+      required:
+      - types
+    SchemaEntityTypeDto:
+      example:
+        aliases:
+        - aliases
+        - aliases
+        retentionDays: 0
+        name: name
+        description: description
+        label:
+          key: label
+        properties:
+        - name: name
+          type: type
+          required: true
+          enum:
+          - enum
+          - enum
+        - name: name
+          type: type
+          required: true
+          enum:
+          - enum
+          - enum
+        scopeKeys:
+        - name: name
+          type: type
+          required: true
+          enum:
+          - enum
+          - enum
+        - name: name
+          type: type
+          required: true
+          enum:
+          - enum
+          - enum
+      properties:
+        name:
+          minLength: 1
+          pattern: "^[A-Z][A-Za-z0-9]*$"
+          type: string
+        description:
+          minLength: 1
+          type: string
+        retentionDays:
+          format: int32
+          type: integer
+        aliases:
+          items:
+            pattern: "^[A-Z][A-Za-z0-9]*$"
+            type: string
+          type: array
+        label:
+          additionalProperties:
+            type: string
+        scopeKeys:
+          items:
+            $ref: '#/components/schemas/SchemaScopeKeyDto'
+          type: array
+        properties:
+          items:
+            $ref: '#/components/schemas/SchemaPropertyDto'
+          type: array
+      required:
+      - description
+      - name
+    SchemaImportDto:
+      example:
+        domain: domain
+        version: version
+      properties:
+        domain:
+          minLength: 1
+          pattern: "^[a-z][a-z0-9]*$"
+          type: string
+        version:
+          minLength: 1
+          pattern: "^v[0-9]+(alpha[0-9]+|beta[0-9]+)?$"
+          type: string
+      required:
+      - domain
+      - version
+    SchemaPropertyDto:
+      example:
+        name: name
+        type: type
+        required: true
+        enum:
+        - enum
+        - enum
+      properties:
+        name:
+          minLength: 1
+          pattern: "^[a-z][A-Za-z0-9]*$"
+          type: string
+        type:
+          minLength: 1
+          pattern: ^(string|int|double|bool|date|time|datetime|list|map|enum)$
+          type: string
+        required:
+          type: boolean
+        enum:
+          items:
+            type: string
+          type: array
+      required:
+      - name
+      - type
+    SchemaRelationshipTypeDto:
+      example:
+        inverse: inverse
+        characteristics:
+        - characteristics
+        - characteristics
+        aliases:
+        - aliases
+        - aliases
+        retentionDays: 6
+        name: name
+        description: description
+        from:
+          types:
+          - types
+          - types
+          cardinality: cardinality
+        label:
+          key: label
+        to:
+          types:
+          - types
+          - types
+          cardinality: cardinality
+        properties:
+        - name: name
+          type: type
+          required: true
+          enum:
+          - enum
+          - enum
+        - name: name
+          type: type
+          required: true
+          enum:
+          - enum
+          - enum
+      properties:
+        name:
+          minLength: 1
+          pattern: "^[A-Z][A-Z0-9_]*$"
+          type: string
+        description:
+          minLength: 1
+          type: string
+        retentionDays:
+          format: int32
+          type: integer
+        aliases:
+          items:
+            pattern: "^[A-Z][A-Z0-9_]*$"
+            type: string
+          type: array
+        label:
+          additionalProperties:
+            type: string
+        inverse:
+          pattern: "^[A-Z][A-Z0-9_]*$"
+          type: string
+        characteristics:
+          items:
+            pattern: ^(transitive|symmetric|functional|inverseFunctional)$
+            type: string
+          type: array
+        from:
+          $ref: '#/components/schemas/SchemaEndpointDto'
+        to:
+          $ref: '#/components/schemas/SchemaEndpointDto'
+        properties:
+          items:
+            $ref: '#/components/schemas/SchemaPropertyDto'
+          type: array
+      required:
+      - description
+      - from
+      - name
+      - to
+    SchemaScopeKeyDto:
+      example:
+        name: name
+        type: type
+        required: true
+        enum:
+        - enum
+        - enum
+      properties:
+        name:
+          minLength: 1
+          pattern: "^[a-z][A-Za-z0-9]*$"
+          type: string
+        type:
+          minLength: 1
+          pattern: ^(string|int|double|bool|enum)$
+          type: string
+        required:
+          type: boolean
+        enum:
+          items:
+            type: string
+          type: array
+      required:
+      - name
+      - type
+    SystemKgSchemaBundleDto:
+      example:
+        imports:
+        - domain: domain
+          version: version
+        - domain: domain
+          version: version
+        relationshipTypeBindings:
+        - name: name
+          from:
+            types:
+            - types
+            - types
+            cardinality: cardinality
+          to:
+            types:
+            - types
+            - types
+            cardinality: cardinality
+        - name: name
+          from:
+            types:
+            - types
+            - types
+            cardinality: cardinality
+          to:
+            types:
+            - types
+            - types
+            cardinality: cardinality
+        domain:
+          displayName: displayName
+          name: name
+          version: version
+        entityTypes:
+        - aliases:
+          - aliases
+          - aliases
+          retentionDays: 0
+          name: name
+          description: description
+          label:
+            key: label
+          properties:
+          - name: name
+            type: type
+            required: true
+            enum:
+            - enum
+            - enum
+          - name: name
+            type: type
+            required: true
+            enum:
+            - enum
+            - enum
+          scopeKeys:
+          - name: name
+            type: type
+            required: true
+            enum:
+            - enum
+            - enum
+          - name: name
+            type: type
+            required: true
+            enum:
+            - enum
+            - enum
+        - aliases:
+          - aliases
+          - aliases
+          retentionDays: 0
+          name: name
+          description: description
+          label:
+            key: label
+          properties:
+          - name: name
+            type: type
+            required: true
+            enum:
+            - enum
+            - enum
+          - name: name
+            type: type
+            required: true
+            enum:
+            - enum
+            - enum
+          scopeKeys:
+          - name: name
+            type: type
+            required: true
+            enum:
+            - enum
+            - enum
+          - name: name
+            type: type
+            required: true
+            enum:
+            - enum
+            - enum
+        relationshipTypes:
+        - inverse: inverse
+          characteristics:
+          - characteristics
+          - characteristics
+          aliases:
+          - aliases
+          - aliases
+          retentionDays: 6
+          name: name
+          description: description
+          from:
+            types:
+            - types
+            - types
+            cardinality: cardinality
+          label:
+            key: label
+          to:
+            types:
+            - types
+            - types
+            cardinality: cardinality
+          properties:
+          - name: name
+            type: type
+            required: true
+            enum:
+            - enum
+            - enum
+          - name: name
+            type: type
+            required: true
+            enum:
+            - enum
+            - enum
+        - inverse: inverse
+          characteristics:
+          - characteristics
+          - characteristics
+          aliases:
+          - aliases
+          - aliases
+          retentionDays: 6
+          name: name
+          description: description
+          from:
+            types:
+            - types
+            - types
+            cardinality: cardinality
+          label:
+            key: label
+          to:
+            types:
+            - types
+            - types
+            cardinality: cardinality
+          properties:
+          - name: name
+            type: type
+            required: true
+            enum:
+            - enum
+            - enum
+          - name: name
+            type: type
+            required: true
+            enum:
+            - enum
+            - enum
+      properties:
+        domain:
+          $ref: '#/components/schemas/SchemaDomainDto'
+        imports:
+          items:
+            $ref: '#/components/schemas/SchemaImportDto'
+          type: array
+        entityTypes:
+          items:
+            $ref: '#/components/schemas/SchemaEntityTypeDto'
+          minItems: 1
+          type: array
+        relationshipTypes:
+          items:
+            $ref: '#/components/schemas/SchemaRelationshipTypeDto'
+          minItems: 1
+          type: array
+        relationshipTypeBindings:
+          items:
+            $ref: '#/components/schemas/SchemaBindingDto'
+          type: array
+      required:
+      - domain
+      - entityTypes
+      - relationshipTypes
+    SystemKgSchemaResponseDto:
+      example:
+        relationshipTypeCount: 6
+        domain: domain
+        entityTypeCount: 0
+        version: version
+        contentHash: contentHash
+      properties:
+        domain:
+          type: string
+        version:
+          type: string
+        contentHash:
+          type: string
+        entityTypeCount:
+          format: int32
+          type: integer
+        relationshipTypeCount:
+          format: int32
+          type: integer
+    SystemKgSchemaRefListDto:
+      example:
+        schemas:
+        - displayName: displayName
+          name: name
+          version: version
+        - displayName: displayName
+          name: name
+          version: version
+      properties:
+        schemas:
+          items:
+            $ref: '#/components/schemas/SchemaDomainDto'
+          type: array
+    ApiError_subErrors_inner:
+      oneOf:
+      - $ref: '#/components/schemas/ApiSubError'
+      - $ref: '#/components/schemas/ApiValidationError'
