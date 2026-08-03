@@ -7,7 +7,7 @@ info:
     name: Support
     url: "https://www.grafana.com"
     email: support@asserts.ai
-  version: 2026.07.20-131035
+  version: 2026.08.03-123204
 servers:
   - url: http://localhost:8030/asserts/api-server
     description: Generated server url
@@ -5738,6 +5738,10 @@ components:
           type: boolean
         otelNative:
           type: boolean
+        blockedOnManualIntervention:
+          type: boolean
+        blockedReason:
+          type: string
     EntityKeyDto:
       type: object
       properties:
@@ -8252,6 +8256,10 @@ components:
           type: string
         grafanaToken:
           type: string
+        lokiToken:
+          type: string
+        pyroscopeToken:
+          type: string
         enabled:
           type: boolean
         alertManagerConfigured:
@@ -8268,13 +8276,15 @@ components:
         version:
           type: integer
           format: int32
-        contactPointUID:
-          type: string
         allowLargeTenantOnboarding:
           type: boolean
         currentActiveSeries:
           type: integer
           format: int32
+        stackDatasets:
+          type: array
+          items:
+            $ref: "#/components/schemas/StackDatasetDto"
     VendorIntegrationDto:
       type: object
       properties:
