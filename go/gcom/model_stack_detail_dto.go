@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.07.20-131035
+API version: 2026.08.03-123204
 Contact: support@asserts.ai
 */
 
@@ -21,24 +21,26 @@ var _ MappedNullable = &StackDetailDto{}
 
 // StackDetailDto struct for StackDetailDto
 type StackDetailDto struct {
-	StackId                    *int32     `json:"stackId,omitempty"`
-	Slug                       *string    `json:"slug,omitempty"`
-	OrgId                      *int32     `json:"orgId,omitempty"`
-	OrgSlug                    *string    `json:"orgSlug,omitempty"`
-	GcomToken                  *string    `json:"gcomToken,omitempty"`
-	MimirToken                 *string    `json:"mimirToken,omitempty"`
-	AssertionDetectorToken     *string    `json:"assertionDetectorToken,omitempty"`
-	GrafanaToken               *string    `json:"grafanaToken,omitempty"`
-	Enabled                    *bool      `json:"enabled,omitempty"`
-	AlertManagerConfigured     *bool      `json:"alertManagerConfigured,omitempty"`
-	GraphInstanceCreated       *bool      `json:"graphInstanceCreated,omitempty"`
-	UseGrafanaManagedAlerts    *bool      `json:"useGrafanaManagedAlerts,omitempty"`
-	Status                     *string    `json:"status,omitempty"`
-	DisabledTime               *time.Time `json:"disabledTime,omitempty"`
-	Version                    *int32     `json:"version,omitempty"`
-	ContactPointUID            *string    `json:"contactPointUID,omitempty"`
-	AllowLargeTenantOnboarding *bool      `json:"allowLargeTenantOnboarding,omitempty"`
-	CurrentActiveSeries        *int32     `json:"currentActiveSeries,omitempty"`
+	StackId                    *int32            `json:"stackId,omitempty"`
+	Slug                       *string           `json:"slug,omitempty"`
+	OrgId                      *int32            `json:"orgId,omitempty"`
+	OrgSlug                    *string           `json:"orgSlug,omitempty"`
+	GcomToken                  *string           `json:"gcomToken,omitempty"`
+	MimirToken                 *string           `json:"mimirToken,omitempty"`
+	AssertionDetectorToken     *string           `json:"assertionDetectorToken,omitempty"`
+	GrafanaToken               *string           `json:"grafanaToken,omitempty"`
+	LokiToken                  *string           `json:"lokiToken,omitempty"`
+	PyroscopeToken             *string           `json:"pyroscopeToken,omitempty"`
+	Enabled                    *bool             `json:"enabled,omitempty"`
+	AlertManagerConfigured     *bool             `json:"alertManagerConfigured,omitempty"`
+	GraphInstanceCreated       *bool             `json:"graphInstanceCreated,omitempty"`
+	UseGrafanaManagedAlerts    *bool             `json:"useGrafanaManagedAlerts,omitempty"`
+	Status                     *string           `json:"status,omitempty"`
+	DisabledTime               *time.Time        `json:"disabledTime,omitempty"`
+	Version                    *int32            `json:"version,omitempty"`
+	AllowLargeTenantOnboarding *bool             `json:"allowLargeTenantOnboarding,omitempty"`
+	CurrentActiveSeries        *int32            `json:"currentActiveSeries,omitempty"`
+	StackDatasets              []StackDatasetDto `json:"stackDatasets,omitempty"`
 	AdditionalProperties       map[string]interface{}
 }
 
@@ -317,6 +319,70 @@ func (o *StackDetailDto) SetGrafanaToken(v string) {
 	o.GrafanaToken = &v
 }
 
+// GetLokiToken returns the LokiToken field value if set, zero value otherwise.
+func (o *StackDetailDto) GetLokiToken() string {
+	if o == nil || IsNil(o.LokiToken) {
+		var ret string
+		return ret
+	}
+	return *o.LokiToken
+}
+
+// GetLokiTokenOk returns a tuple with the LokiToken field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *StackDetailDto) GetLokiTokenOk() (*string, bool) {
+	if o == nil || IsNil(o.LokiToken) {
+		return nil, false
+	}
+	return o.LokiToken, true
+}
+
+// HasLokiToken returns a boolean if a field has been set.
+func (o *StackDetailDto) HasLokiToken() bool {
+	if o != nil && !IsNil(o.LokiToken) {
+		return true
+	}
+
+	return false
+}
+
+// SetLokiToken gets a reference to the given string and assigns it to the LokiToken field.
+func (o *StackDetailDto) SetLokiToken(v string) {
+	o.LokiToken = &v
+}
+
+// GetPyroscopeToken returns the PyroscopeToken field value if set, zero value otherwise.
+func (o *StackDetailDto) GetPyroscopeToken() string {
+	if o == nil || IsNil(o.PyroscopeToken) {
+		var ret string
+		return ret
+	}
+	return *o.PyroscopeToken
+}
+
+// GetPyroscopeTokenOk returns a tuple with the PyroscopeToken field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *StackDetailDto) GetPyroscopeTokenOk() (*string, bool) {
+	if o == nil || IsNil(o.PyroscopeToken) {
+		return nil, false
+	}
+	return o.PyroscopeToken, true
+}
+
+// HasPyroscopeToken returns a boolean if a field has been set.
+func (o *StackDetailDto) HasPyroscopeToken() bool {
+	if o != nil && !IsNil(o.PyroscopeToken) {
+		return true
+	}
+
+	return false
+}
+
+// SetPyroscopeToken gets a reference to the given string and assigns it to the PyroscopeToken field.
+func (o *StackDetailDto) SetPyroscopeToken(v string) {
+	o.PyroscopeToken = &v
+}
+
 // GetEnabled returns the Enabled field value if set, zero value otherwise.
 func (o *StackDetailDto) GetEnabled() bool {
 	if o == nil || IsNil(o.Enabled) {
@@ -541,38 +607,6 @@ func (o *StackDetailDto) SetVersion(v int32) {
 	o.Version = &v
 }
 
-// GetContactPointUID returns the ContactPointUID field value if set, zero value otherwise.
-func (o *StackDetailDto) GetContactPointUID() string {
-	if o == nil || IsNil(o.ContactPointUID) {
-		var ret string
-		return ret
-	}
-	return *o.ContactPointUID
-}
-
-// GetContactPointUIDOk returns a tuple with the ContactPointUID field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *StackDetailDto) GetContactPointUIDOk() (*string, bool) {
-	if o == nil || IsNil(o.ContactPointUID) {
-		return nil, false
-	}
-	return o.ContactPointUID, true
-}
-
-// HasContactPointUID returns a boolean if a field has been set.
-func (o *StackDetailDto) HasContactPointUID() bool {
-	if o != nil && !IsNil(o.ContactPointUID) {
-		return true
-	}
-
-	return false
-}
-
-// SetContactPointUID gets a reference to the given string and assigns it to the ContactPointUID field.
-func (o *StackDetailDto) SetContactPointUID(v string) {
-	o.ContactPointUID = &v
-}
-
 // GetAllowLargeTenantOnboarding returns the AllowLargeTenantOnboarding field value if set, zero value otherwise.
 func (o *StackDetailDto) GetAllowLargeTenantOnboarding() bool {
 	if o == nil || IsNil(o.AllowLargeTenantOnboarding) {
@@ -637,6 +671,38 @@ func (o *StackDetailDto) SetCurrentActiveSeries(v int32) {
 	o.CurrentActiveSeries = &v
 }
 
+// GetStackDatasets returns the StackDatasets field value if set, zero value otherwise.
+func (o *StackDetailDto) GetStackDatasets() []StackDatasetDto {
+	if o == nil || IsNil(o.StackDatasets) {
+		var ret []StackDatasetDto
+		return ret
+	}
+	return o.StackDatasets
+}
+
+// GetStackDatasetsOk returns a tuple with the StackDatasets field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *StackDetailDto) GetStackDatasetsOk() ([]StackDatasetDto, bool) {
+	if o == nil || IsNil(o.StackDatasets) {
+		return nil, false
+	}
+	return o.StackDatasets, true
+}
+
+// HasStackDatasets returns a boolean if a field has been set.
+func (o *StackDetailDto) HasStackDatasets() bool {
+	if o != nil && !IsNil(o.StackDatasets) {
+		return true
+	}
+
+	return false
+}
+
+// SetStackDatasets gets a reference to the given []StackDatasetDto and assigns it to the StackDatasets field.
+func (o *StackDetailDto) SetStackDatasets(v []StackDatasetDto) {
+	o.StackDatasets = v
+}
+
 func (o StackDetailDto) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -671,6 +737,12 @@ func (o StackDetailDto) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.GrafanaToken) {
 		toSerialize["grafanaToken"] = o.GrafanaToken
 	}
+	if !IsNil(o.LokiToken) {
+		toSerialize["lokiToken"] = o.LokiToken
+	}
+	if !IsNil(o.PyroscopeToken) {
+		toSerialize["pyroscopeToken"] = o.PyroscopeToken
+	}
 	if !IsNil(o.Enabled) {
 		toSerialize["enabled"] = o.Enabled
 	}
@@ -692,14 +764,14 @@ func (o StackDetailDto) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Version) {
 		toSerialize["version"] = o.Version
 	}
-	if !IsNil(o.ContactPointUID) {
-		toSerialize["contactPointUID"] = o.ContactPointUID
-	}
 	if !IsNil(o.AllowLargeTenantOnboarding) {
 		toSerialize["allowLargeTenantOnboarding"] = o.AllowLargeTenantOnboarding
 	}
 	if !IsNil(o.CurrentActiveSeries) {
 		toSerialize["currentActiveSeries"] = o.CurrentActiveSeries
+	}
+	if !IsNil(o.StackDatasets) {
+		toSerialize["stackDatasets"] = o.StackDatasets
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -731,6 +803,8 @@ func (o *StackDetailDto) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "mimirToken")
 		delete(additionalProperties, "assertionDetectorToken")
 		delete(additionalProperties, "grafanaToken")
+		delete(additionalProperties, "lokiToken")
+		delete(additionalProperties, "pyroscopeToken")
 		delete(additionalProperties, "enabled")
 		delete(additionalProperties, "alertManagerConfigured")
 		delete(additionalProperties, "graphInstanceCreated")
@@ -738,9 +812,9 @@ func (o *StackDetailDto) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "disabledTime")
 		delete(additionalProperties, "version")
-		delete(additionalProperties, "contactPointUID")
 		delete(additionalProperties, "allowLargeTenantOnboarding")
 		delete(additionalProperties, "currentActiveSeries")
+		delete(additionalProperties, "stackDatasets")
 		o.AdditionalProperties = additionalProperties
 	}
 
