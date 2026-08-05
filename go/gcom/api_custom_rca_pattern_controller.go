@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.07.20-131035
+API version: 2026.08.05-164725
 Contact: support@asserts.ai
 */
 
@@ -68,7 +68,7 @@ func (a *CustomRcaPatternControllerAPIService) DeleteCustomExecute(r ApiDeleteCu
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/patterns/custom/{name}"
+	localVarPath := localBasePath + "/asserts/api-server/v1/patterns/custom/{name}"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -174,7 +174,7 @@ func (a *CustomRcaPatternControllerAPIService) GetCustomByNameExecute(r ApiGetCu
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/patterns/custom/{name}"
+	localVarPath := localBasePath + "/asserts/api-server/v1/patterns/custom/{name}"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -286,7 +286,7 @@ func (a *CustomRcaPatternControllerAPIService) ListCustomExecute(r ApiListCustom
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/patterns/custom"
+	localVarPath := localBasePath + "/asserts/api-server/v1/patterns/custom"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -397,7 +397,7 @@ func (a *CustomRcaPatternControllerAPIService) PutCustomExecute(r ApiPutCustomRe
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/patterns/custom"
+	localVarPath := localBasePath + "/asserts/api-server/v1/patterns/custom"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

@@ -1,10 +1,10 @@
 # \RecordingRuleControllerAPI
 
-All URIs are relative to *http://localhost:8030/asserts/api-server*
+All URIs are relative to *http://localhost:8030*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GenerateRules**](RecordingRuleControllerAPI.md#GenerateRules) | **Post** /v1/config/prom-rules/generate | 
+[**GenerateRules**](RecordingRuleControllerAPI.md#GenerateRules) | **Post** /asserts/api-server/v1/config/prom-rules/generate | 
 
 
 

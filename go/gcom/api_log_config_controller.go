@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.07.20-131035
+API version: 2026.08.05-164725
 Contact: support@asserts.ai
 */
 
@@ -68,7 +68,7 @@ func (a *LogConfigControllerAPIService) DeleteConfig4Execute(r ApiDeleteConfig4R
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/environment/{name}"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/environment/{name}"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -168,7 +168,7 @@ func (a *LogConfigControllerAPIService) GetTenantEnvConfigExecute(r ApiGetTenant
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/environment"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/environment"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -279,7 +279,7 @@ func (a *LogConfigControllerAPIService) UpsertEnvironmentConfigExecute(r ApiUpse
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/environment"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/environment"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

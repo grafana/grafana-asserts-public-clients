@@ -1,13 +1,13 @@
 # \ProfileDrilldownConfigControllerAPI
 
-All URIs are relative to *http://localhost:8030/asserts/api-server*
+All URIs are relative to *http://localhost:8030*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteConfig2**](ProfileDrilldownConfigControllerAPI.md#DeleteConfig2) | **Delete** /v2/config/profile/{name} | Delete profile drilldown configuration
-[**GetTenantProfileConfig**](ProfileDrilldownConfigControllerAPI.md#GetTenantProfileConfig) | **Get** /v2/config/profile | Get tenant profile configuration
-[**ReorderProfileConfigPriorities**](ProfileDrilldownConfigControllerAPI.md#ReorderProfileConfigPriorities) | **Put** /v2/config/profile/reorder | Reorder profile drilldown configuration priorities
-[**UpsertProfileDrilldownConfig**](ProfileDrilldownConfigControllerAPI.md#UpsertProfileDrilldownConfig) | **Post** /v2/config/profile | Upsert profile drilldown configuration
+[**DeleteConfig2**](ProfileDrilldownConfigControllerAPI.md#DeleteConfig2) | **Delete** /asserts/api-server/v2/config/profile/{name} | Delete profile drilldown configuration
+[**GetTenantProfileConfig**](ProfileDrilldownConfigControllerAPI.md#GetTenantProfileConfig) | **Get** /asserts/api-server/v2/config/profile | Get tenant profile configuration
+[**ReorderProfileConfigPriorities**](ProfileDrilldownConfigControllerAPI.md#ReorderProfileConfigPriorities) | **Put** /asserts/api-server/v2/config/profile/reorder | Reorder profile drilldown configuration priorities
+[**UpsertProfileDrilldownConfig**](ProfileDrilldownConfigControllerAPI.md#UpsertProfileDrilldownConfig) | **Post** /asserts/api-server/v2/config/profile | Upsert profile drilldown configuration
 
 
 

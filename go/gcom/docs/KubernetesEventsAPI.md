@@ -1,11 +1,11 @@
 # \KubernetesEventsAPI
 
-All URIs are relative to *http://localhost:8030/asserts/api-server*
+All URIs are relative to *http://localhost:8030*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetAllEvents**](KubernetesEventsAPI.md#GetAllEvents) | **Get** /v1/events | Get all Kubernetes events
-[**GetEntityEvents**](KubernetesEventsAPI.md#GetEntityEvents) | **Get** /v1/entity/events | Get Kubernetes events for an entity
+[**GetAllEvents**](KubernetesEventsAPI.md#GetAllEvents) | **Get** /asserts/api-server/v1/events | Get all Kubernetes events
+[**GetEntityEvents**](KubernetesEventsAPI.md#GetEntityEvents) | **Get** /asserts/api-server/v1/entity/events | Get Kubernetes events for an entity
 
 
 

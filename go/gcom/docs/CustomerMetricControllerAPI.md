@@ -1,11 +1,11 @@
 # \CustomerMetricControllerAPI
 
-All URIs are relative to *http://localhost:8030/asserts/api-server*
+All URIs are relative to *http://localhost:8030*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetAllMetrics**](CustomerMetricControllerAPI.md#GetAllMetrics) | **Get** /v1/customer/metric | 
-[**GetAllMetrics1**](CustomerMetricControllerAPI.md#GetAllMetrics1) | **Post** /v1/customer/metric | 
+[**GetAllMetrics**](CustomerMetricControllerAPI.md#GetAllMetrics) | **Get** /asserts/api-server/v1/customer/metric | 
+[**GetAllMetrics1**](CustomerMetricControllerAPI.md#GetAllMetrics1) | **Post** /asserts/api-server/v1/customer/metric | 
 
 
 

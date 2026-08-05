@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.07.20-131035
+API version: 2026.08.05-164725
 Contact: support@asserts.ai
 */
 
@@ -73,7 +73,7 @@ func (a *LlmRcaControllerAPIService) GetLlmRcaSummaryExecute(r ApiGetLlmRcaSumma
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/search/assertions/llm-summary"
+	localVarPath := localBasePath + "/asserts/api-server/v1/search/assertions/llm-summary"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -192,7 +192,7 @@ func (a *LlmRcaControllerAPIService) GetLlmRcaSummary1Execute(r ApiGetLlmRcaSumm
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/assertions/llm-summary"
+	localVarPath := localBasePath + "/asserts/api-server/v1/assertions/llm-summary"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

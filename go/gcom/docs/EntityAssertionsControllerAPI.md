@@ -1,18 +1,18 @@
 # \EntityAssertionsControllerAPI
 
-All URIs are relative to *http://localhost:8030/asserts/api-server*
+All URIs are relative to *http://localhost:8030*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**EntityAssertionsDetails**](EntityAssertionsControllerAPI.md#EntityAssertionsDetails) | **Post** /v1/assertions/entity-metric | 
-[**GetAssertionAffectedEntities**](EntityAssertionsControllerAPI.md#GetAssertionAffectedEntities) | **Post** /v1/assertion/affected-entities | 
-[**GetAssertionEntityNames**](EntityAssertionsControllerAPI.md#GetAssertionEntityNames) | **Post** /v1/assertion/affected-entity-names | 
-[**GetAssertions**](EntityAssertionsControllerAPI.md#GetAssertions) | **Post** /v1/assertions | 
-[**GetAssertionsSummary**](EntityAssertionsControllerAPI.md#GetAssertionsSummary) | **Post** /v1/assertions/summary | 
-[**GetEntityAssertionSourceMetrics**](EntityAssertionsControllerAPI.md#GetEntityAssertionSourceMetrics) | **Post** /v1/assertion/source-metrics | 
-[**GetEntityAssertionsGraph**](EntityAssertionsControllerAPI.md#GetEntityAssertionsGraph) | **Post** /v1/assertions/graph | 
-[**SearchAssertions**](EntityAssertionsControllerAPI.md#SearchAssertions) | **Post** /v1/search/assertions | 
-[**SearchAssertionsSummary**](EntityAssertionsControllerAPI.md#SearchAssertionsSummary) | **Post** /v1/search/assertions/summary | 
+[**EntityAssertionsDetails**](EntityAssertionsControllerAPI.md#EntityAssertionsDetails) | **Post** /asserts/api-server/v1/assertions/entity-metric | 
+[**GetAssertionAffectedEntities**](EntityAssertionsControllerAPI.md#GetAssertionAffectedEntities) | **Post** /asserts/api-server/v1/assertion/affected-entities | 
+[**GetAssertionEntityNames**](EntityAssertionsControllerAPI.md#GetAssertionEntityNames) | **Post** /asserts/api-server/v1/assertion/affected-entity-names | 
+[**GetAssertions**](EntityAssertionsControllerAPI.md#GetAssertions) | **Post** /asserts/api-server/v1/assertions | 
+[**GetAssertionsSummary**](EntityAssertionsControllerAPI.md#GetAssertionsSummary) | **Post** /asserts/api-server/v1/assertions/summary | 
+[**GetEntityAssertionSourceMetrics**](EntityAssertionsControllerAPI.md#GetEntityAssertionSourceMetrics) | **Post** /asserts/api-server/v1/assertion/source-metrics | 
+[**GetEntityAssertionsGraph**](EntityAssertionsControllerAPI.md#GetEntityAssertionsGraph) | **Post** /asserts/api-server/v1/assertions/graph | 
+[**SearchAssertions**](EntityAssertionsControllerAPI.md#SearchAssertions) | **Post** /asserts/api-server/v1/search/assertions | 
+[**SearchAssertionsSummary**](EntityAssertionsControllerAPI.md#SearchAssertionsSummary) | **Post** /asserts/api-server/v1/search/assertions/summary | 
 
 
 

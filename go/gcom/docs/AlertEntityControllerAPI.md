@@ -1,10 +1,10 @@
 # \AlertEntityControllerAPI
 
-All URIs are relative to *http://localhost:8030/asserts/api-server*
+All URIs are relative to *http://localhost:8030*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetAffectedEntity**](AlertEntityControllerAPI.md#GetAffectedEntity) | **Get** /v1/assertion/alert-affected-entity | 
+[**GetAffectedEntity**](AlertEntityControllerAPI.md#GetAffectedEntity) | **Get** /asserts/api-server/v1/assertion/alert-affected-entity | 
 
 
 

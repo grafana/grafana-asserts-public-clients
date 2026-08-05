@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.07.20-131035
+API version: 2026.08.05-164725
 Contact: support@asserts.ai
 */
 
@@ -27,6 +27,7 @@ type CypherSearchEdgeDto struct {
 	DestinationName      *string                `json:"destinationName,omitempty"`
 	DestinationType      *string                `json:"destinationType,omitempty"`
 	DestinationScope     map[string]interface{} `json:"destinationScope,omitempty"`
+	Properties           map[string]interface{} `json:"properties,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -273,6 +274,38 @@ func (o *CypherSearchEdgeDto) SetDestinationScope(v map[string]interface{}) {
 	o.DestinationScope = v
 }
 
+// GetProperties returns the Properties field value if set, zero value otherwise.
+func (o *CypherSearchEdgeDto) GetProperties() map[string]interface{} {
+	if o == nil || IsNil(o.Properties) {
+		var ret map[string]interface{}
+		return ret
+	}
+	return o.Properties
+}
+
+// GetPropertiesOk returns a tuple with the Properties field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CypherSearchEdgeDto) GetPropertiesOk() (map[string]interface{}, bool) {
+	if o == nil || IsNil(o.Properties) {
+		return map[string]interface{}{}, false
+	}
+	return o.Properties, true
+}
+
+// HasProperties returns a boolean if a field has been set.
+func (o *CypherSearchEdgeDto) HasProperties() bool {
+	if o != nil && !IsNil(o.Properties) {
+		return true
+	}
+
+	return false
+}
+
+// SetProperties gets a reference to the given map[string]interface{} and assigns it to the Properties field.
+func (o *CypherSearchEdgeDto) SetProperties(v map[string]interface{}) {
+	o.Properties = v
+}
+
 func (o CypherSearchEdgeDto) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -304,6 +337,9 @@ func (o CypherSearchEdgeDto) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.DestinationScope) {
 		toSerialize["destinationScope"] = o.DestinationScope
 	}
+	if !IsNil(o.Properties) {
+		toSerialize["properties"] = o.Properties
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -333,6 +369,7 @@ func (o *CypherSearchEdgeDto) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "destinationName")
 		delete(additionalProperties, "destinationType")
 		delete(additionalProperties, "destinationScope")
+		delete(additionalProperties, "properties")
 		o.AdditionalProperties = additionalProperties
 	}
 

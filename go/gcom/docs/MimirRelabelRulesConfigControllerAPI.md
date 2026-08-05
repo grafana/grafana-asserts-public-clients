@@ -1,16 +1,16 @@
 # \MimirRelabelRulesConfigControllerAPI
 
-All URIs are relative to *http://localhost:8030/asserts/api-server*
+All URIs are relative to *http://localhost:8030*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteEpilogueRelabelRules**](MimirRelabelRulesConfigControllerAPI.md#DeleteEpilogueRelabelRules) | **Delete** /v2/config/relabel-rules/epilogue | 
-[**DeletePrologueRelabelRules**](MimirRelabelRulesConfigControllerAPI.md#DeletePrologueRelabelRules) | **Delete** /v2/config/relabel-rules/prologue | 
-[**GetEpilogueRelabelRules**](MimirRelabelRulesConfigControllerAPI.md#GetEpilogueRelabelRules) | **Get** /v2/config/relabel-rules/epilogue | 
-[**GetGeneratedRelabelRules**](MimirRelabelRulesConfigControllerAPI.md#GetGeneratedRelabelRules) | **Get** /v2/config/relabel-rules/generated | 
-[**GetPrologueRelabelRules**](MimirRelabelRulesConfigControllerAPI.md#GetPrologueRelabelRules) | **Get** /v2/config/relabel-rules/prologue | 
-[**PutMimirEpilogueRelabelRules**](MimirRelabelRulesConfigControllerAPI.md#PutMimirEpilogueRelabelRules) | **Put** /v2/config/relabel-rules/epilogue | 
-[**PutMimirPrologueRelabelRules**](MimirRelabelRulesConfigControllerAPI.md#PutMimirPrologueRelabelRules) | **Put** /v2/config/relabel-rules/prologue | 
+[**DeleteEpilogueRelabelRules**](MimirRelabelRulesConfigControllerAPI.md#DeleteEpilogueRelabelRules) | **Delete** /asserts/api-server/v2/config/relabel-rules/epilogue | 
+[**DeletePrologueRelabelRules**](MimirRelabelRulesConfigControllerAPI.md#DeletePrologueRelabelRules) | **Delete** /asserts/api-server/v2/config/relabel-rules/prologue | 
+[**GetEpilogueRelabelRules**](MimirRelabelRulesConfigControllerAPI.md#GetEpilogueRelabelRules) | **Get** /asserts/api-server/v2/config/relabel-rules/epilogue | 
+[**GetGeneratedRelabelRules**](MimirRelabelRulesConfigControllerAPI.md#GetGeneratedRelabelRules) | **Get** /asserts/api-server/v2/config/relabel-rules/generated | 
+[**GetPrologueRelabelRules**](MimirRelabelRulesConfigControllerAPI.md#GetPrologueRelabelRules) | **Get** /asserts/api-server/v2/config/relabel-rules/prologue | 
+[**PutMimirEpilogueRelabelRules**](MimirRelabelRulesConfigControllerAPI.md#PutMimirEpilogueRelabelRules) | **Put** /asserts/api-server/v2/config/relabel-rules/epilogue | 
+[**PutMimirPrologueRelabelRules**](MimirRelabelRulesConfigControllerAPI.md#PutMimirPrologueRelabelRules) | **Put** /asserts/api-server/v2/config/relabel-rules/prologue | 
 
 
 

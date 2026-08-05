@@ -213,6 +213,28 @@ func Test_gcom_AlertConfigurationAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test AlertConfigurationAPIService ValidateAlertConfig", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		httpRes, err := apiClient.AlertConfigurationAPI.ValidateAlertConfig(context.Background()).Execute()
+
+		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test AlertConfigurationAPIService ValidateAlertConfigs", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		httpRes, err := apiClient.AlertConfigurationAPI.ValidateAlertConfigs(context.Background()).Execute()
+
+		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test AlertConfigurationAPIService ValidateDisabledAlertConfig", func(t *testing.T) {
 
 		t.Skip("skip test") // remove to run test

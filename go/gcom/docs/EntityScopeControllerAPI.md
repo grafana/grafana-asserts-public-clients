@@ -1,13 +1,13 @@
 # \EntityScopeControllerAPI
 
-All URIs are relative to *http://localhost:8030/asserts/api-server*
+All URIs are relative to *http://localhost:8030*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetAllEntityScopes**](EntityScopeControllerAPI.md#GetAllEntityScopes) | **Get** /v1/entity_scope | 
-[**GetAllEntityScopesV2**](EntityScopeControllerAPI.md#GetAllEntityScopesV2) | **Get** /v2/entity_scope | 
-[**GetEntityScopes**](EntityScopeControllerAPI.md#GetEntityScopes) | **Post** /v1/entity_scope | 
-[**GetEntityScopesV2**](EntityScopeControllerAPI.md#GetEntityScopesV2) | **Post** /v2/entity_scope | 
+[**GetAllEntityScopes**](EntityScopeControllerAPI.md#GetAllEntityScopes) | **Get** /asserts/api-server/v1/entity_scope | 
+[**GetAllEntityScopesV2**](EntityScopeControllerAPI.md#GetAllEntityScopesV2) | **Get** /asserts/api-server/v2/entity_scope | 
+[**GetEntityScopes**](EntityScopeControllerAPI.md#GetEntityScopes) | **Post** /asserts/api-server/v1/entity_scope | 
+[**GetEntityScopesV2**](EntityScopeControllerAPI.md#GetEntityScopesV2) | **Post** /asserts/api-server/v2/entity_scope | 
 
 
 

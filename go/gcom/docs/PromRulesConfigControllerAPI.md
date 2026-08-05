@@ -1,24 +1,24 @@
 # \PromRulesConfigControllerAPI
 
-All URIs are relative to *http://localhost:8030/asserts/api-server*
+All URIs are relative to *http://localhost:8030*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AbortValidation**](PromRulesConfigControllerAPI.md#AbortValidation) | **Delete** /v1/config/prom-rules-validate/{id} | 
-[**DeletePromRules**](PromRulesConfigControllerAPI.md#DeletePromRules) | **Delete** /v1/config/prom-rules/{name} | 
-[**DeleteRule**](PromRulesConfigControllerAPI.md#DeleteRule) | **Post** /v1/config/prom-rules/{name}/delete | 
-[**DisableRule**](PromRulesConfigControllerAPI.md#DisableRule) | **Post** /v1/config/prom-rules-disable/{name} | 
-[**EnableRule**](PromRulesConfigControllerAPI.md#EnableRule) | **Post** /v1/config/prom-rules-enable/{name} | 
-[**GetDisabledRules**](PromRulesConfigControllerAPI.md#GetDisabledRules) | **Get** /v1/config/prom-rules-disable | 
-[**GetPromRules**](PromRulesConfigControllerAPI.md#GetPromRules) | **Get** /v1/config/prom-rules/{name} | 
-[**GetPrometheusRulesSchema**](PromRulesConfigControllerAPI.md#GetPrometheusRulesSchema) | **Get** /v1/config/prom-rules/schema | Get JSON Schema for Prometheus Rules configuration
-[**GetValidation**](PromRulesConfigControllerAPI.md#GetValidation) | **Get** /v1/config/prom-rules-validate/{id} | 
-[**GetVendorNames**](PromRulesConfigControllerAPI.md#GetVendorNames) | **Get** /v1/vendor-names | 
-[**ListPromRules**](PromRulesConfigControllerAPI.md#ListPromRules) | **Get** /v1/config/prom-rules | 
-[**PutPromRules**](PromRulesConfigControllerAPI.md#PutPromRules) | **Put** /v1/config/prom-rules | 
-[**SubmitValidation**](PromRulesConfigControllerAPI.md#SubmitValidation) | **Post** /v1/config/prom-rules-validate | 
-[**UpdateRule**](PromRulesConfigControllerAPI.md#UpdateRule) | **Post** /v1/config/prom-rules/{name} | 
-[**ValidatePromRules**](PromRulesConfigControllerAPI.md#ValidatePromRules) | **Post** /v1/config/prom-rules-validate-sync | Validate Prometheus rules synchronously without persisting
+[**AbortValidation**](PromRulesConfigControllerAPI.md#AbortValidation) | **Delete** /asserts/api-server/v1/config/prom-rules-validate/{id} | 
+[**DeletePromRules**](PromRulesConfigControllerAPI.md#DeletePromRules) | **Delete** /asserts/api-server/v1/config/prom-rules/{name} | 
+[**DeleteRule**](PromRulesConfigControllerAPI.md#DeleteRule) | **Post** /asserts/api-server/v1/config/prom-rules/{name}/delete | 
+[**DisableRule**](PromRulesConfigControllerAPI.md#DisableRule) | **Post** /asserts/api-server/v1/config/prom-rules-disable/{name} | 
+[**EnableRule**](PromRulesConfigControllerAPI.md#EnableRule) | **Post** /asserts/api-server/v1/config/prom-rules-enable/{name} | 
+[**GetDisabledRules**](PromRulesConfigControllerAPI.md#GetDisabledRules) | **Get** /asserts/api-server/v1/config/prom-rules-disable | 
+[**GetPromRules**](PromRulesConfigControllerAPI.md#GetPromRules) | **Get** /asserts/api-server/v1/config/prom-rules/{name} | 
+[**GetPrometheusRulesSchema**](PromRulesConfigControllerAPI.md#GetPrometheusRulesSchema) | **Get** /asserts/api-server/v1/config/prom-rules/schema | Get JSON Schema for Prometheus Rules configuration
+[**GetValidation**](PromRulesConfigControllerAPI.md#GetValidation) | **Get** /asserts/api-server/v1/config/prom-rules-validate/{id} | 
+[**GetVendorNames**](PromRulesConfigControllerAPI.md#GetVendorNames) | **Get** /asserts/api-server/v1/vendor-names | 
+[**ListPromRules**](PromRulesConfigControllerAPI.md#ListPromRules) | **Get** /asserts/api-server/v1/config/prom-rules | 
+[**PutPromRules**](PromRulesConfigControllerAPI.md#PutPromRules) | **Put** /asserts/api-server/v1/config/prom-rules | 
+[**SubmitValidation**](PromRulesConfigControllerAPI.md#SubmitValidation) | **Post** /asserts/api-server/v1/config/prom-rules-validate | 
+[**UpdateRule**](PromRulesConfigControllerAPI.md#UpdateRule) | **Post** /asserts/api-server/v1/config/prom-rules/{name} | 
+[**ValidatePromRules**](PromRulesConfigControllerAPI.md#ValidatePromRules) | **Post** /asserts/api-server/v1/config/prom-rules-validate-sync | Validate Prometheus rules synchronously without persisting
 
 
 

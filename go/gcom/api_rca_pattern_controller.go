@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.07.20-131035
+API version: 2026.08.05-164725
 Contact: support@asserts.ai
 */
 
@@ -73,7 +73,7 @@ func (a *RcaPatternControllerAPIService) ListExecute(r ApiListRequest) ([]string
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/patterns/list"
+	localVarPath := localBasePath + "/asserts/api-server/v1/patterns/list"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -192,7 +192,7 @@ func (a *RcaPatternControllerAPIService) Search2Execute(r ApiSearch2Request) (*R
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/patterns/search"
+	localVarPath := localBasePath + "/asserts/api-server/v1/patterns/search"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
