@@ -1,13 +1,13 @@
 # \CustomRcaPatternControllerAPI
 
-All URIs are relative to *http://localhost:8030/asserts/api-server*
+All URIs are relative to *http://localhost:8030*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteCustom**](CustomRcaPatternControllerAPI.md#DeleteCustom) | **Delete** /v1/patterns/custom/{name} | 
-[**GetCustomByName**](CustomRcaPatternControllerAPI.md#GetCustomByName) | **Get** /v1/patterns/custom/{name} | 
-[**ListCustom**](CustomRcaPatternControllerAPI.md#ListCustom) | **Get** /v1/patterns/custom | 
-[**PutCustom**](CustomRcaPatternControllerAPI.md#PutCustom) | **Post** /v1/patterns/custom | 
+[**DeleteCustom**](CustomRcaPatternControllerAPI.md#DeleteCustom) | **Delete** /asserts/api-server/v1/patterns/custom/{name} | 
+[**GetCustomByName**](CustomRcaPatternControllerAPI.md#GetCustomByName) | **Get** /asserts/api-server/v1/patterns/custom/{name} | 
+[**ListCustom**](CustomRcaPatternControllerAPI.md#ListCustom) | **Get** /asserts/api-server/v1/patterns/custom | 
+[**PutCustom**](CustomRcaPatternControllerAPI.md#PutCustom) | **Post** /asserts/api-server/v1/patterns/custom | 
 
 
 

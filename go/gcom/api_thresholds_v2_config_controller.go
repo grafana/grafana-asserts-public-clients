@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.07.20-131035
+API version: 2026.08.05-164725
 Contact: support@asserts.ai
 */
 
@@ -70,7 +70,7 @@ func (a *ThresholdsV2ConfigControllerAPIService) DeleteThresholdsExecute(r ApiDe
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v2/config/threshold"
+	localVarPath := localBasePath + "/asserts/api-server/v2/config/threshold"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -171,7 +171,7 @@ func (a *ThresholdsV2ConfigControllerAPIService) GetThresholdsExecute(r ApiGetTh
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v2/config/threshold"
+	localVarPath := localBasePath + "/asserts/api-server/v2/config/threshold"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -282,7 +282,7 @@ func (a *ThresholdsV2ConfigControllerAPIService) UpdateAllThresholdsExecute(r Ap
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v2/config/threshold"
+	localVarPath := localBasePath + "/asserts/api-server/v2/config/threshold"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -389,7 +389,7 @@ func (a *ThresholdsV2ConfigControllerAPIService) UpdateHealthThresholdsExecute(r
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v2/config/threshold/health"
+	localVarPath := localBasePath + "/asserts/api-server/v2/config/threshold/health"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -496,7 +496,7 @@ func (a *ThresholdsV2ConfigControllerAPIService) UpdateRequestThresholdsExecute(
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v2/config/threshold/request"
+	localVarPath := localBasePath + "/asserts/api-server/v2/config/threshold/request"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -603,7 +603,7 @@ func (a *ThresholdsV2ConfigControllerAPIService) UpdateResourceThresholdsExecute
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v2/config/threshold/resource"
+	localVarPath := localBasePath + "/asserts/api-server/v2/config/threshold/resource"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

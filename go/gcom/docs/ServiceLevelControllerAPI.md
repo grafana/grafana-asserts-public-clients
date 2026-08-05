@@ -1,12 +1,12 @@
 # \ServiceLevelControllerAPI
 
-All URIs are relative to *http://localhost:8030/asserts/api-server*
+All URIs are relative to *http://localhost:8030*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetSloChart**](ServiceLevelControllerAPI.md#GetSloChart) | **Post** /v1/slo/chart | 
-[**GetSlos**](ServiceLevelControllerAPI.md#GetSlos) | **Post** /v1/slo | 
-[**GetTopSloTargets**](ServiceLevelControllerAPI.md#GetTopSloTargets) | **Post** /v1/slo/top | 
+[**GetSloChart**](ServiceLevelControllerAPI.md#GetSloChart) | **Post** /asserts/api-server/v1/slo/chart | 
+[**GetSlos**](ServiceLevelControllerAPI.md#GetSlos) | **Post** /asserts/api-server/v1/slo | 
+[**GetTopSloTargets**](ServiceLevelControllerAPI.md#GetTopSloTargets) | **Post** /asserts/api-server/v1/slo/top | 
 
 
 

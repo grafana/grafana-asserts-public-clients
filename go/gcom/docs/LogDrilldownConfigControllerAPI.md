@@ -1,13 +1,13 @@
 # \LogDrilldownConfigControllerAPI
 
-All URIs are relative to *http://localhost:8030/asserts/api-server*
+All URIs are relative to *http://localhost:8030*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteConfig3**](LogDrilldownConfigControllerAPI.md#DeleteConfig3) | **Delete** /v2/config/log/{name} | Delete log drilldown configuration
-[**GetTenantLogConfig**](LogDrilldownConfigControllerAPI.md#GetTenantLogConfig) | **Get** /v2/config/log | Get tenant log configuration
-[**ReorderLogConfigPriorities**](LogDrilldownConfigControllerAPI.md#ReorderLogConfigPriorities) | **Put** /v2/config/log/reorder | Reorder log drilldown configuration priorities
-[**UpsertLogDrilldownConfig**](LogDrilldownConfigControllerAPI.md#UpsertLogDrilldownConfig) | **Post** /v2/config/log | Upsert log drilldown configuration
+[**DeleteConfig3**](LogDrilldownConfigControllerAPI.md#DeleteConfig3) | **Delete** /asserts/api-server/v2/config/log/{name} | Delete log drilldown configuration
+[**GetTenantLogConfig**](LogDrilldownConfigControllerAPI.md#GetTenantLogConfig) | **Get** /asserts/api-server/v2/config/log | Get tenant log configuration
+[**ReorderLogConfigPriorities**](LogDrilldownConfigControllerAPI.md#ReorderLogConfigPriorities) | **Put** /asserts/api-server/v2/config/log/reorder | Reorder log drilldown configuration priorities
+[**UpsertLogDrilldownConfig**](LogDrilldownConfigControllerAPI.md#UpsertLogDrilldownConfig) | **Post** /asserts/api-server/v2/config/log | Upsert log drilldown configuration
 
 
 

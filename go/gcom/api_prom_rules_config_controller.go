@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.07.20-131035
+API version: 2026.08.05-164725
 Contact: support@asserts.ai
 */
 
@@ -71,7 +71,7 @@ func (a *PromRulesConfigControllerAPIService) AbortValidationExecute(r ApiAbortV
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/prom-rules-validate/{id}"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/prom-rules-validate/{id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -180,7 +180,7 @@ func (a *PromRulesConfigControllerAPIService) DeletePromRulesExecute(r ApiDelete
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/prom-rules/{name}"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/prom-rules/{name}"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -286,7 +286,7 @@ func (a *PromRulesConfigControllerAPIService) DeleteRuleExecute(r ApiDeleteRuleR
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/prom-rules/{name}/delete"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/prom-rules/{name}/delete"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -391,7 +391,7 @@ func (a *PromRulesConfigControllerAPIService) DisableRuleExecute(r ApiDisableRul
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/prom-rules-disable/{name}"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/prom-rules-disable/{name}"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -491,7 +491,7 @@ func (a *PromRulesConfigControllerAPIService) EnableRuleExecute(r ApiEnableRuleR
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/prom-rules-enable/{name}"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/prom-rules-enable/{name}"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -591,7 +591,7 @@ func (a *PromRulesConfigControllerAPIService) GetDisabledRulesExecute(r ApiGetDi
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/prom-rules-disable"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/prom-rules-disable"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -702,7 +702,7 @@ func (a *PromRulesConfigControllerAPIService) GetPromRulesExecute(r ApiGetPromRu
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/prom-rules/{name}"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/prom-rules/{name}"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -811,7 +811,7 @@ func (a *PromRulesConfigControllerAPIService) GetPrometheusRulesSchemaExecute(r 
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/prom-rules/schema"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/prom-rules/schema"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -922,7 +922,7 @@ func (a *PromRulesConfigControllerAPIService) GetValidationExecute(r ApiGetValid
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/prom-rules-validate/{id}"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/prom-rules-validate/{id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1031,7 +1031,7 @@ func (a *PromRulesConfigControllerAPIService) GetVendorNamesExecute(r ApiGetVend
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/vendor-names"
+	localVarPath := localBasePath + "/asserts/api-server/v1/vendor-names"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1139,7 +1139,7 @@ func (a *PromRulesConfigControllerAPIService) ListPromRulesExecute(r ApiListProm
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/prom-rules"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/prom-rules"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1250,7 +1250,7 @@ func (a *PromRulesConfigControllerAPIService) PutPromRulesExecute(r ApiPutPromRu
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/prom-rules"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/prom-rules"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1360,7 +1360,7 @@ func (a *PromRulesConfigControllerAPIService) SubmitValidationExecute(r ApiSubmi
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/prom-rules-validate"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/prom-rules-validate"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1479,7 +1479,7 @@ func (a *PromRulesConfigControllerAPIService) UpdateRuleExecute(r ApiUpdateRuleR
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/prom-rules/{name}"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/prom-rules/{name}"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1589,7 +1589,7 @@ func (a *PromRulesConfigControllerAPIService) ValidatePromRulesExecute(r ApiVali
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/prom-rules-validate-sync"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/prom-rules-validate-sync"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

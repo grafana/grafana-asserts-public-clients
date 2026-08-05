@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.07.20-131035
+API version: 2026.08.05-164725
 Contact: support@asserts.ai
 */
 
@@ -70,7 +70,7 @@ func (a *ModelRulesConfigurationAPIService) DeleteModelRulesExecute(r ApiDeleteM
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/model-rules/{name}"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/model-rules/{name}"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -175,7 +175,7 @@ func (a *ModelRulesConfigurationAPIService) GetModelRulesExecute(r ApiGetModelRu
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/model-rules/{name}"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/model-rules/{name}"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -299,7 +299,7 @@ func (a *ModelRulesConfigurationAPIService) GetModelRulesByTypeExecute(r ApiGetM
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/model-rules-types/{type}"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/model-rules-types/{type}"
 	localVarPath = strings.Replace(localVarPath, "{"+"type"+"}", url.PathEscape(parameterValueToString(r.type_, "type_")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -410,7 +410,7 @@ func (a *ModelRulesConfigurationAPIService) GetModelRulesOntologyExecute(r ApiGe
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/model-rules/ontology"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/model-rules/ontology"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -530,7 +530,7 @@ func (a *ModelRulesConfigurationAPIService) GetModelRulesSchemaExecute(r ApiGetM
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/model-rules/schema"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/model-rules/schema"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -650,7 +650,7 @@ func (a *ModelRulesConfigurationAPIService) ListModelRulesExecute(r ApiListModel
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/model-rules"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/model-rules"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -763,7 +763,7 @@ func (a *ModelRulesConfigurationAPIService) PutModelRulesExecute(r ApiPutModelRu
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/model-rules"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/model-rules"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -896,7 +896,7 @@ func (a *ModelRulesConfigurationAPIService) PutModelRulesByNameExecute(r ApiPutM
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/model-rules/{name}"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/model-rules/{name}"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1031,7 +1031,7 @@ func (a *ModelRulesConfigurationAPIService) SearchModelRulesExecute(r ApiSearchM
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/model-rules/search"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/model-rules/search"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1161,7 +1161,7 @@ func (a *ModelRulesConfigurationAPIService) ValidateModelRulesExecute(r ApiValid
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/model-rules-validate"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/model-rules-validate"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

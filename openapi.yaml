@@ -7,9 +7,9 @@ info:
     name: Support
     url: "https://www.grafana.com"
     email: support@asserts.ai
-  version: 2026.07.20-131035
+  version: 2026.08.05-164725
 servers:
-  - url: http://localhost:8030/asserts/api-server
+  - url: http://localhost:8030
     description: Generated server url
 tags:
   - name: Kubernetes Events
@@ -21,7 +21,7 @@ tags:
   - name: Custom Label Retention
     description: APIs for managing per-tenant retained Prometheus labels
 paths:
-  /v2/stack:
+  /asserts/api-server/v2/stack:
     put:
       tags:
         - stack-controller
@@ -38,7 +38,7 @@ paths:
       responses:
         "200":
           description: OK
-  /v2/stack/dataset:
+  /asserts/api-server/v2/stack/dataset:
     put:
       tags:
         - stack-controller
@@ -59,7 +59,7 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/DatasetSanityChecksDto"
-  /v2/config/trace/reorder:
+  /asserts/api-server/v2/config/trace/reorder:
     put:
       tags:
         - trace-drilldown-config-controller
@@ -112,7 +112,7 @@ paths:
             application/yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-  /v2/config/relabel-rules/prologue:
+  /asserts/api-server/v2/config/relabel-rules/prologue:
     get:
       tags:
         - mimir-relabel-rules-config-controller
@@ -165,7 +165,7 @@ paths:
       responses:
         "200":
           description: OK
-  /v2/config/relabel-rules/epilogue:
+  /asserts/api-server/v2/config/relabel-rules/epilogue:
     get:
       tags:
         - mimir-relabel-rules-config-controller
@@ -218,7 +218,7 @@ paths:
       responses:
         "200":
           description: OK
-  /v2/config/profile/reorder:
+  /asserts/api-server/v2/config/profile/reorder:
     put:
       tags:
         - profile-drilldown-config-controller
@@ -271,7 +271,7 @@ paths:
             application/yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-  /v2/config/log/reorder:
+  /asserts/api-server/v2/config/log/reorder:
     put:
       tags:
         - log-drilldown-config-controller
@@ -324,7 +324,7 @@ paths:
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-  /v1/stack:
+  /asserts/api-server/v1/stack:
     get:
       tags:
         - stack-controller
@@ -371,7 +371,7 @@ paths:
       responses:
         "200":
           description: OK
-  /v1/search/definition/{id}:
+  /asserts/api-server/v1/search/definition/{id}:
     get:
       tags:
         - search-definition-controller
@@ -433,7 +433,7 @@ paths:
       responses:
         "200":
           description: OK
-  /v1/product/activation:
+  /asserts/api-server/v1/product/activation:
     put:
       tags:
         - product-activation-controller
@@ -450,7 +450,7 @@ paths:
       responses:
         "200":
           description: OK
-  /v1/config/prom-rules:
+  /asserts/api-server/v1/config/prom-rules:
     get:
       tags:
         - prom-rules-config-controller
@@ -493,7 +493,7 @@ paths:
       responses:
         "200":
           description: OK
-  /v1/config/model-rules:
+  /asserts/api-server/v1/config/model-rules:
     get:
       tags:
         - Model Rules Configuration
@@ -570,7 +570,7 @@ paths:
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-  /v1/config/model-rules/{name}:
+  /asserts/api-server/v1/config/model-rules/{name}:
     get:
       tags:
         - Model Rules Configuration
@@ -692,7 +692,7 @@ paths:
       responses:
         "204":
           description: Successfully deleted custom model rules
-  /v1/config/model-mapping/{name}:
+  /asserts/api-server/v1/config/model-mapping/{name}:
     get:
       tags:
         - model-mapping-controller
@@ -766,7 +766,7 @@ paths:
       responses:
         "200":
           description: OK
-  /v2/stack/enable:
+  /asserts/api-server/v2/stack/enable:
     post:
       tags:
         - stack-controller
@@ -781,7 +781,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/DatasetsSanityChecksDto"
-  /v2/stack/disable:
+  /asserts/api-server/v2/stack/disable:
     post:
       tags:
         - stack-controller
@@ -792,7 +792,7 @@ paths:
       responses:
         "200":
           description: OK
-  /v2/stack/datasets/auto-setup:
+  /asserts/api-server/v2/stack/datasets/auto-setup:
     post:
       tags:
         - stack-controller
@@ -819,7 +819,7 @@ paths:
                     - gcp
                     - custom
                 uniqueItems: true
-  /v2/stack/allow-large-tenant-onboarding:
+  /asserts/api-server/v2/stack/allow-large-tenant-onboarding:
     post:
       tags:
         - stack-controller
@@ -834,7 +834,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/StackStatusDto"
-  /v2/latency-thresholds:
+  /asserts/api-server/v2/latency-thresholds:
     post:
       tags:
         - latency-threshold-controller
@@ -859,7 +859,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/LatencyThresholdsDto"
-  /v2/entity_scope:
+  /asserts/api-server/v2/entity_scope:
     get:
       tags:
         - entity-scope-controller
@@ -906,7 +906,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/EntityScopesV2ResponseDto"
-  /v2/config/trace:
+  /asserts/api-server/v2/config/trace:
     get:
       tags:
         - trace-drilldown-config-controller
@@ -965,7 +965,7 @@ paths:
             application/yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-  /v2/config/threshold:
+  /asserts/api-server/v2/config/threshold:
     get:
       tags:
         - thresholds-v-2-config-controller
@@ -1011,7 +1011,7 @@ paths:
       responses:
         "200":
           description: OK
-  /v2/config/threshold/resource:
+  /asserts/api-server/v2/config/threshold/resource:
     post:
       tags:
         - thresholds-v-2-config-controller
@@ -1030,7 +1030,7 @@ paths:
       responses:
         "200":
           description: OK
-  /v2/config/threshold/request:
+  /asserts/api-server/v2/config/threshold/request:
     post:
       tags:
         - thresholds-v-2-config-controller
@@ -1049,7 +1049,7 @@ paths:
       responses:
         "200":
           description: OK
-  /v2/config/threshold/health:
+  /asserts/api-server/v2/config/threshold/health:
     post:
       tags:
         - thresholds-v-2-config-controller
@@ -1068,7 +1068,7 @@ paths:
       responses:
         "200":
           description: OK
-  /v2/config/profile:
+  /asserts/api-server/v2/config/profile:
     get:
       tags:
         - profile-drilldown-config-controller
@@ -1127,7 +1127,7 @@ paths:
             application/yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-  /v2/config/log:
+  /asserts/api-server/v2/config/log:
     get:
       tags:
         - log-drilldown-config-controller
@@ -1186,7 +1186,7 @@ paths:
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-  /v2/config/drilldown-migration:
+  /asserts/api-server/v2/config/drilldown-migration:
     post:
       tags:
         - drilldown-config-migration-controller
@@ -1203,7 +1203,7 @@ paths:
       responses:
         "200":
           description: OK
-  /v1/validate/prometheus-query:
+  /asserts/api-server/v1/validate/prometheus-query:
     post:
       tags:
         - prom-ql-validation-controller
@@ -1224,7 +1224,7 @@ paths:
             text/plain:
               schema:
                 type: string
-  /v1/stack/status/{status}:
+  /asserts/api-server/v1/stack/status/{status}:
     post:
       tags:
         - stack-controller
@@ -1244,7 +1244,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/StackStatusDto"
-  /v1/stack/migrate:
+  /asserts/api-server/v1/stack/migrate:
     post:
       tags:
         - stack-migration-controller
@@ -1261,7 +1261,7 @@ paths:
       responses:
         "200":
           description: OK
-  /v1/stack/enable:
+  /asserts/api-server/v1/stack/enable:
     get:
       tags:
         - stack-controller
@@ -1296,7 +1296,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/StackStatusDto"
-  /v1/stack/disable:
+  /asserts/api-server/v1/stack/disable:
     post:
       tags:
         - stack-controller
@@ -1307,7 +1307,7 @@ paths:
       responses:
         "200":
           description: OK
-  /v1/slo:
+  /asserts/api-server/v1/slo:
     post:
       tags:
         - service-level-controller
@@ -1328,7 +1328,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/SloListDto"
-  /v1/slo/top:
+  /asserts/api-server/v1/slo/top:
     post:
       tags:
         - service-level-controller
@@ -1349,7 +1349,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/SloListDto"
-  /v1/slo/incidents:
+  /asserts/api-server/v1/slo/incidents:
     post:
       tags:
         - incident-controller
@@ -1370,7 +1370,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/SloIncidentListDto"
-  /v1/slo/chart:
+  /asserts/api-server/v1/slo/chart:
     post:
       tags:
         - service-level-controller
@@ -1391,7 +1391,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/SloChartResponseDto"
-  /v1/search:
+  /asserts/api-server/v1/search:
     post:
       tags:
         - search-controller
@@ -1418,7 +1418,7 @@ paths:
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/SearchResponseDto"
-  /v1/search/sample:
+  /asserts/api-server/v1/search/sample:
     post:
       tags:
         - sample-search-controller
@@ -1445,7 +1445,7 @@ paths:
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/SampleSearchResponseDto"
-  /v1/search/definition:
+  /asserts/api-server/v1/search/definition:
     get:
       tags:
         - search-definition-controller
@@ -1503,7 +1503,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/SearchDefinitionDto"
-  /v1/search/cypher:
+  /asserts/api-server/v1/search/cypher:
     post:
       tags:
         - cypher-search-controller
@@ -1530,7 +1530,7 @@ paths:
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/CypherSearchResponseDto"
-  /v1/search/count:
+  /asserts/api-server/v1/search/count:
     post:
       tags:
         - search-controller
@@ -1553,7 +1553,7 @@ paths:
                 type: object
                 additionalProperties:
                   $ref: "#/components/schemas/EntityCountDto"
-  /v1/search/assertions:
+  /asserts/api-server/v1/search/assertions:
     post:
       tags:
         - entity-assertions-controller
@@ -1579,7 +1579,7 @@ paths:
             application/json:
               schema:
                 type: object
-  /v1/search/assertions/summary:
+  /asserts/api-server/v1/search/assertions/summary:
     post:
       tags:
         - entity-assertions-controller
@@ -1605,7 +1605,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/EntityAssertionSummariesDto"
-  /v1/search/assertions/llm-summary:
+  /asserts/api-server/v1/search/assertions/llm-summary:
     post:
       tags:
         - llm-rca-controller
@@ -1632,7 +1632,7 @@ paths:
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/LlmRcaSummariesDto"
-  /v1/patterns/search:
+  /asserts/api-server/v1/patterns/search:
     post:
       tags:
         - rca-pattern-controller
@@ -1659,7 +1659,7 @@ paths:
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/RcaPatternSearchResponseDto"
-  /v1/patterns/list:
+  /asserts/api-server/v1/patterns/list:
     post:
       tags:
         - rca-pattern-controller
@@ -1692,7 +1692,7 @@ paths:
                 type: array
                 items:
                   type: string
-  /v1/patterns/custom:
+  /asserts/api-server/v1/patterns/custom:
     get:
       tags:
         - custom-rca-pattern-controller
@@ -1741,7 +1741,7 @@ paths:
       responses:
         "200":
           description: OK
-  /v1/monitoring-status/for-entities:
+  /asserts/api-server/v1/monitoring-status/for-entities:
     post:
       tags:
         - monitoring-status-controller
@@ -1762,7 +1762,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/MonitoringStatusResponseDto"
-  /v1/logging/external:
+  /asserts/api-server/v1/logging/external:
     post:
       tags:
         - external-logging-controller
@@ -1783,7 +1783,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ExternalLoggingResponseDto"
-  /v1/latency-thresholds:
+  /asserts/api-server/v1/latency-thresholds:
     post:
       tags:
         - latency-threshold-controller
@@ -1806,7 +1806,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/LatencyThresholdDto"
-  /v1/kpi/summary/for-entities/{kpi_name}:
+  /asserts/api-server/v1/kpi/summary/for-entities/{kpi_name}:
     post:
       tags:
         - entity-kpi-controller
@@ -1834,7 +1834,7 @@ paths:
                 type: object
                 additionalProperties:
                   $ref: "#/components/schemas/GraphEntityKpiValue"
-  /v1/integration/trace:
+  /asserts/api-server/v1/integration/trace:
     post:
       tags:
         - trace-controller
@@ -1855,7 +1855,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/TraceIntegrationResponseDto"
-  /v1/incidents:
+  /asserts/api-server/v1/incidents:
     post:
       tags:
         - incident-controller
@@ -1876,7 +1876,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/IncidentGroupListDto"
-  /v1/incidents/top:
+  /asserts/api-server/v1/incidents/top:
     post:
       tags:
         - incident-controller
@@ -1897,7 +1897,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/IncidentSummaryListDto"
-  /v1/entity_type/property_values:
+  /asserts/api-server/v1/entity_type/property_values:
     post:
       tags:
         - entity-type-controller
@@ -1918,7 +1918,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/EntityPropertyValuesDto"
-  /v1/entity_type/count:
+  /asserts/api-server/v1/entity_type/count:
     post:
       tags:
         - entity-type-controller
@@ -1942,7 +1942,7 @@ paths:
                 additionalProperties:
                   type: integer
                   format: int64
-  /v1/entity_scope:
+  /asserts/api-server/v1/entity_scope:
     get:
       tags:
         - entity-scope-controller
@@ -1989,7 +1989,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/EntityScopesResponseDto"
-  /v1/customer/metric:
+  /asserts/api-server/v1/customer/metric:
     get:
       tags:
         - customer-metric-controller
@@ -2024,7 +2024,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/CustomerMetricResponseDto"
-  /v1/config/trace:
+  /asserts/api-server/v1/config/trace:
     get:
       tags:
         - trace-config-controller
@@ -2067,7 +2067,7 @@ paths:
       responses:
         "200":
           description: OK
-  /v1/config/threshold-rules:
+  /asserts/api-server/v1/config/threshold-rules:
     get:
       tags:
         - threshold-rules-config-controller
@@ -2110,7 +2110,7 @@ paths:
       responses:
         "200":
           description: OK
-  /v1/config/threshold-rule:
+  /asserts/api-server/v1/config/threshold-rule:
     post:
       tags:
         - threshold-rules-config-controller
@@ -2127,7 +2127,7 @@ paths:
       responses:
         "200":
           description: OK
-  /v1/config/threshold-rule/delete:
+  /asserts/api-server/v1/config/threshold-rule/delete:
     post:
       tags:
         - threshold-rules-config-controller
@@ -2144,7 +2144,7 @@ paths:
       responses:
         "200":
           description: OK
-  /v1/config/slo:
+  /asserts/api-server/v1/config/slo:
     get:
       tags:
         - slo-config-controller
@@ -2193,7 +2193,7 @@ paths:
       responses:
         "200":
           description: OK
-  /v1/config/slo-validate:
+  /asserts/api-server/v1/config/slo-validate:
     post:
       tags:
         - slo-config-controller
@@ -2238,7 +2238,7 @@ paths:
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ConfigValidationResponseDto"
-  /v1/config/slo-generate-rules:
+  /asserts/api-server/v1/config/slo-generate-rules:
     post:
       tags:
         - slo-config-controller
@@ -2249,7 +2249,7 @@ paths:
       responses:
         "200":
           description: OK
-  /v1/config/prom-rules/{name}:
+  /asserts/api-server/v1/config/prom-rules/{name}:
     get:
       tags:
         - prom-rules-config-controller
@@ -2317,7 +2317,7 @@ paths:
       responses:
         "200":
           description: OK
-  /v1/config/prom-rules/{name}/delete:
+  /asserts/api-server/v1/config/prom-rules/{name}/delete:
     post:
       tags:
         - prom-rules-config-controller
@@ -2345,7 +2345,7 @@ paths:
       responses:
         "200":
           description: OK
-  /v1/config/prom-rules/generate:
+  /asserts/api-server/v1/config/prom-rules/generate:
     post:
       tags:
         - recording-rule-controller
@@ -2372,7 +2372,7 @@ paths:
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/RuleGenerationResponseDto"
-  /v1/config/prom-rules-validate:
+  /asserts/api-server/v1/config/prom-rules-validate:
     post:
       tags:
         - prom-rules-config-controller
@@ -2405,7 +2405,7 @@ paths:
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ConfigValidationResponseDto"
-  /v1/config/prom-rules-validate-sync:
+  /asserts/api-server/v1/config/prom-rules-validate-sync:
     post:
       tags:
         - prom-rules-config-controller
@@ -2432,7 +2432,7 @@ paths:
           description: Prometheus rules are valid
         "422":
           description: Invalid request data or validation failed
-  /v1/config/prom-rules-enable/{name}:
+  /asserts/api-server/v1/config/prom-rules-enable/{name}:
     post:
       tags:
         - prom-rules-config-controller
@@ -2448,7 +2448,7 @@ paths:
       responses:
         "200":
           description: OK
-  /v1/config/prom-rules-disable/{name}:
+  /asserts/api-server/v1/config/prom-rules-disable/{name}:
     post:
       tags:
         - prom-rules-config-controller
@@ -2464,7 +2464,7 @@ paths:
       responses:
         "200":
           description: OK
-  /v1/config/model-rules-validate:
+  /asserts/api-server/v1/config/model-rules-validate:
     post:
       tags:
         - Model Rules Configuration
@@ -2507,7 +2507,7 @@ paths:
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-  /v1/config/import:
+  /asserts/api-server/v1/config/import:
     post:
       tags:
         - config-export-import-controller
@@ -2539,7 +2539,7 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ConfigImportResultDto"
-  /v1/config/environment:
+  /asserts/api-server/v1/config/environment:
     get:
       tags:
         - log-config-controller
@@ -2582,7 +2582,7 @@ paths:
       responses:
         "200":
           description: OK
-  /v1/config/display/pinned-filters:
+  /asserts/api-server/v1/config/display/pinned-filters:
     get:
       tags:
         - pinned-filters-config-controller
@@ -2612,7 +2612,7 @@ paths:
       responses:
         "200":
           description: OK
-  /v1/config/display/kpi:
+  /asserts/api-server/v1/config/display/kpi:
     get:
       tags:
         - kpi-display-config-controller
@@ -2643,7 +2643,7 @@ paths:
       responses:
         "200":
           description: OK
-  /v1/config/display/graph:
+  /asserts/api-server/v1/config/display/graph:
     get:
       tags:
         - graph-display-config-controller
@@ -2674,7 +2674,7 @@ paths:
       responses:
         "200":
           description: OK
-  /v1/config/disabled-alerts:
+  /asserts/api-server/v1/config/disabled-alerts:
     get:
       tags:
         - Alert Configuration
@@ -2751,7 +2751,7 @@ paths:
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-  /v1/config/disabled-alerts-validate:
+  /asserts/api-server/v1/config/disabled-alerts-validate:
     post:
       tags:
         - Alert Configuration
@@ -2788,7 +2788,7 @@ paths:
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-  /v1/config/disabled-alert:
+  /asserts/api-server/v1/config/disabled-alert:
     post:
       tags:
         - Alert Configuration
@@ -2837,7 +2837,7 @@ paths:
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-  /v1/config/disabled-alert-validate:
+  /asserts/api-server/v1/config/disabled-alert-validate:
     post:
       tags:
         - Alert Configuration
@@ -2874,7 +2874,7 @@ paths:
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-  /v1/config/dashboard/{entity_type}:
+  /asserts/api-server/v1/config/dashboard/{entity_type}:
     get:
       tags:
         - custom-dash-config-controller
@@ -2915,7 +2915,7 @@ paths:
       responses:
         "200":
           description: OK
-  /v1/config/dashboard/delete/{entity_type}:
+  /asserts/api-server/v1/config/dashboard/delete/{entity_type}:
     post:
       tags:
         - custom-dash-config-controller
@@ -2937,7 +2937,7 @@ paths:
       responses:
         "200":
           description: OK
-  /v1/config/custom-labels:
+  /asserts/api-server/v1/config/custom-labels:
     get:
       tags:
         - Custom Label Retention
@@ -2981,7 +2981,7 @@ paths:
       responses:
         "200":
           description: OK
-  /v1/config/alerts:
+  /asserts/api-server/v1/config/alerts:
     get:
       tags:
         - Alert Configuration
@@ -3058,7 +3058,44 @@ paths:
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-  /v1/config/alert:
+  /asserts/api-server/v1/config/alerts-validate:
+    post:
+      tags:
+        - Alert Configuration
+      summary: Validate multiple alert configurations
+      description: "Validates a batch of alert configurations without persisting them. Returns 200 if valid, 422 with error details if invalid."
+      operationId: validateAlertConfigs
+      parameters:
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AlertConfigsDto"
+          application/x-yml:
+            schema:
+              $ref: "#/components/schemas/AlertConfigsDto"
+          application/x-yaml:
+            schema:
+              $ref: "#/components/schemas/AlertConfigsDto"
+        required: true
+      responses:
+        "200":
+          description: Configuration is valid
+        "422":
+          description: Invalid configuration provided
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+            application/x-yml:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+            application/x-yaml:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+  /asserts/api-server/v1/config/alert:
     post:
       tags:
         - Alert Configuration
@@ -3107,7 +3144,44 @@ paths:
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-  /v1/assertions:
+  /asserts/api-server/v1/config/alert-validate:
+    post:
+      tags:
+        - Alert Configuration
+      summary: Validate a single alert configuration
+      description: "Validates a single alert configuration without persisting it. Returns 200 if valid, 422 with error details if invalid."
+      operationId: validateAlertConfig
+      parameters:
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AlertConfigDto"
+          application/x-yml:
+            schema:
+              $ref: "#/components/schemas/AlertConfigDto"
+          application/x-yaml:
+            schema:
+              $ref: "#/components/schemas/AlertConfigDto"
+        required: true
+      responses:
+        "200":
+          description: Configuration is valid
+        "422":
+          description: Invalid configuration provided
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+            application/x-yml:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+            application/x-yaml:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+  /asserts/api-server/v1/assertions:
     post:
       tags:
         - entity-assertions-controller
@@ -3133,7 +3207,7 @@ paths:
             application/json:
               schema:
                 type: object
-  /v1/assertions/summary:
+  /asserts/api-server/v1/assertions/summary:
     post:
       tags:
         - entity-assertions-controller
@@ -3159,7 +3233,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/EntityAssertionSummariesDto"
-  /v1/assertions/search:
+  /asserts/api-server/v1/assertions/search:
     post:
       tags:
         - assertion-search-controller
@@ -3182,7 +3256,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/EntityKeyDto"
-  /v1/assertions/llm-summary:
+  /asserts/api-server/v1/assertions/llm-summary:
     post:
       tags:
         - llm-rca-controller
@@ -3209,7 +3283,7 @@ paths:
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/LlmRcaSummariesDto"
-  /v1/assertions/graph:
+  /asserts/api-server/v1/assertions/graph:
     post:
       tags:
         - entity-assertions-controller
@@ -3230,7 +3304,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/EntityAssertionsGraphDto"
-  /v1/assertions/entity-metric:
+  /asserts/api-server/v1/assertions/entity-metric:
     post:
       tags:
         - entity-assertions-controller
@@ -3251,7 +3325,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/EntityAssertionDetailsDto"
-  /v1/assertion_scores:
+  /asserts/api-server/v1/assertion_scores:
     post:
       tags:
         - assertion-score-controller
@@ -3272,7 +3346,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AssertionScoresDto"
-  /v1/assertion_scores/top_entities:
+  /asserts/api-server/v1/assertion_scores/top_entities:
     post:
       tags:
         - assertion-score-controller
@@ -3295,7 +3369,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/EntityKeyDto"
-  /v1/assertion_scores/search:
+  /asserts/api-server/v1/assertion_scores/search:
     post:
       tags:
         - assertion-score-controller
@@ -3316,7 +3390,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AssertionScoresDto"
-  /v1/assertion/{name}/info:
+  /asserts/api-server/v1/assertion/{name}/info:
     get:
       tags:
         - assertion-info-controller
@@ -3357,7 +3431,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AssertionInfoDto"
-  /v1/assertion/source-metrics:
+  /asserts/api-server/v1/assertion/source-metrics:
     post:
       tags:
         - entity-assertions-controller
@@ -3380,7 +3454,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/AssertionSourceMetricResponseDto"
-  /v1/assertion/affected-entity-names:
+  /asserts/api-server/v1/assertion/affected-entity-names:
     post:
       tags:
         - entity-assertions-controller
@@ -3401,7 +3475,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AffectedEntityNamesDto"
-  /v1/assertion/affected-entities:
+  /asserts/api-server/v1/assertion/affected-entities:
     post:
       tags:
         - entity-assertions-controller
@@ -3422,7 +3496,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AffectedEntityDetailsDto"
-  /v5/prometheus/rules:
+  /asserts/api-server/v5/prometheus/rules:
     get:
       tags:
         - rules-controller
@@ -3443,7 +3517,7 @@ paths:
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/AllRulesDto"
-  /v2/stack/datasets:
+  /asserts/api-server/v2/stack/datasets:
     get:
       tags:
         - stack-controller
@@ -3458,7 +3532,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/DatasetsDto"
-  /v2/stack/dataset/{dataset}:
+  /asserts/api-server/v2/stack/dataset/{dataset}:
     get:
       tags:
         - stack-controller
@@ -3487,7 +3561,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/StackDatasetDto"
-  /v2/stack/dataset/{dataset}/vendors:
+  /asserts/api-server/v2/stack/dataset/{dataset}/vendors:
     get:
       tags:
         - stack-controller
@@ -3516,7 +3590,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/DatasetVendorsDto"
-  /v2/stack/dataset/{dataset}/sanity:
+  /asserts/api-server/v2/stack/dataset/{dataset}/sanity:
     get:
       tags:
         - stack-controller
@@ -3545,7 +3619,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/DatasetSanityChecksDto"
-  /v2/config/relabel-rules/generated:
+  /asserts/api-server/v2/config/relabel-rules/generated:
     get:
       tags:
         - mimir-relabel-rules-config-controller
@@ -3566,7 +3640,7 @@ paths:
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/MimirRelabelRuleGroupDto"
-  /v1/vendor-names:
+  /asserts/api-server/v1/vendor-names:
     get:
       tags:
         - prom-rules-config-controller
@@ -3587,7 +3661,7 @@ paths:
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/VendorNamesDto"
-  /v1/stack/vendor-integration:
+  /asserts/api-server/v1/stack/vendor-integration:
     get:
       tags:
         - stack-controller
@@ -3602,7 +3676,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/VendorIntegrationsDto"
-  /v1/stack/update-bucket:
+  /asserts/api-server/v1/stack/update-bucket:
     get:
       tags:
         - stack-controller
@@ -3622,7 +3696,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/StackUpdateBucketDto"
-  /v1/stack/status:
+  /asserts/api-server/v1/stack/status:
     get:
       tags:
         - stack-controller
@@ -3637,7 +3711,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/StackStatusDto"
-  /v1/stack/sanity:
+  /asserts/api-server/v1/stack/sanity:
     get:
       tags:
         - stack-controller
@@ -3652,7 +3726,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/MetricSanityCheckDto"
-  /v1/search/autocomplete/{index}:
+  /asserts/api-server/v1/search/autocomplete/{index}:
     get:
       tags:
         - auto-complete-controller
@@ -3688,7 +3762,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AutoCompleteResponseDto"
-  /v1/product/activation/{product}:
+  /asserts/api-server/v1/product/activation/{product}:
     get:
       tags:
         - product-activation-controller
@@ -3713,7 +3787,7 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ProductActivationDto"
-  /v1/patterns/custom/{name}:
+  /asserts/api-server/v1/patterns/custom/{name}:
     get:
       tags:
         - custom-rca-pattern-controller
@@ -3756,7 +3830,7 @@ paths:
       responses:
         "200":
           description: OK
-  /v1/kpi/list:
+  /asserts/api-server/v1/kpi/list:
     get:
       tags:
         - entity-kpi-controller
@@ -3771,7 +3845,7 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/KpiListDto"
-  /v1/events:
+  /asserts/api-server/v1/events:
     get:
       tags:
         - Kubernetes Events
@@ -3811,7 +3885,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/InfraEventDto"
-  /v1/entity_type:
+  /asserts/api-server/v1/entity_type:
     get:
       tags:
         - entity-type-controller
@@ -3844,7 +3918,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/EntityTypesDto"
-  /v1/entity_type/{type}:
+  /asserts/api-server/v1/entity_type/{type}:
     get:
       tags:
         - entity-type-controller
@@ -3864,7 +3938,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/EntityTypeDto"
-  /v1/entity:
+  /asserts/api-server/v1/entity:
     get:
       tags:
         - entity-controller
@@ -3918,7 +3992,7 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/GraphEntity"
-  /v1/entity/info:
+  /asserts/api-server/v1/entity/info:
     get:
       tags:
         - entity-controller
@@ -3975,7 +4049,7 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/GraphEntity"
-  /v1/entity/events:
+  /asserts/api-server/v1/entity/events:
     get:
       tags:
         - Kubernetes Events
@@ -4048,7 +4122,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/EntityEventsDto"
-  /v1/config/types:
+  /asserts/api-server/v1/config/types:
     get:
       tags:
         - config-export-import-controller
@@ -4066,7 +4140,7 @@ paths:
                 items:
                   type: string
                 uniqueItems: true
-  /v1/config/threshold-rules/resource:
+  /asserts/api-server/v1/config/threshold-rules/resource:
     get:
       tags:
         - threshold-rules-config-controller
@@ -4081,7 +4155,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ThresholdRulesDto"
-  /v1/config/threshold-rules/request:
+  /asserts/api-server/v1/config/threshold-rules/request:
     get:
       tags:
         - threshold-rules-config-controller
@@ -4096,7 +4170,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ThresholdRulesDto"
-  /v1/config/slo/{name}:
+  /asserts/api-server/v1/config/slo/{name}:
     get:
       tags:
         - slo-config-controller
@@ -4137,7 +4211,7 @@ paths:
       responses:
         "200":
           description: OK
-  /v1/config/prom-rules/schema:
+  /asserts/api-server/v1/config/prom-rules/schema:
     get:
       tags:
         - prom-rules-config-controller
@@ -4154,7 +4228,7 @@ paths:
               schema:
                 type: object
                 additionalProperties: {}
-  /v1/config/prom-rules-validate/{id}:
+  /asserts/api-server/v1/config/prom-rules-validate/{id}:
     get:
       tags:
         - prom-rules-config-controller
@@ -4205,7 +4279,7 @@ paths:
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ConfigValidationResponseDto"
-  /v1/config/prom-rules-disable:
+  /asserts/api-server/v1/config/prom-rules-disable:
     get:
       tags:
         - prom-rules-config-controller
@@ -4226,7 +4300,7 @@ paths:
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/DisabledRulesDto"
-  /v1/config/model-rules/search:
+  /asserts/api-server/v1/config/model-rules/search:
     get:
       tags:
         - Model Rules Configuration
@@ -4258,7 +4332,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-  /v1/config/model-rules/schema:
+  /asserts/api-server/v1/config/model-rules/schema:
     get:
       tags:
         - Model Rules Configuration
@@ -4294,7 +4368,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-  /v1/config/model-rules/ontology:
+  /asserts/api-server/v1/config/model-rules/ontology:
     get:
       tags:
         - Model Rules Configuration
@@ -4374,7 +4448,7 @@ paths:
             text/turtle:
               schema:
                 $ref: "#/components/schemas/ApiError"
-  /v1/config/model-rules-types/{type}:
+  /asserts/api-server/v1/config/model-rules-types/{type}:
     get:
       tags:
         - Model Rules Configuration
@@ -4408,7 +4482,7 @@ paths:
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ModelRulesDto"
-  /v1/config/failure-rules:
+  /asserts/api-server/v1/config/failure-rules:
     get:
       tags:
         - Alert Configuration
@@ -4445,7 +4519,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-  /v1/config/export:
+  /asserts/api-server/v1/config/export:
     get:
       tags:
         - config-export-import-controller
@@ -4471,7 +4545,7 @@ paths:
                 additionalProperties:
                   type: object
                   additionalProperties: {}
-  /v1/config/disabled-alerts/resource:
+  /asserts/api-server/v1/config/disabled-alerts/resource:
     get:
       tags:
         - Alert Configuration
@@ -4494,7 +4568,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-  /v1/config/disabled-alerts/request:
+  /asserts/api-server/v1/config/disabled-alerts/request:
     get:
       tags:
         - Alert Configuration
@@ -4517,7 +4591,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-  /v1/config/disabled-alerts/health:
+  /asserts/api-server/v1/config/disabled-alerts/health:
     get:
       tags:
         - Alert Configuration
@@ -4540,7 +4614,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-  /v1/config/datasource/prometheus:
+  /asserts/api-server/v1/config/datasource/prometheus:
     get:
       tags:
         - data-sources-config-controller
@@ -4561,7 +4635,7 @@ paths:
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/DataSourcePromDto"
-  /v1/config/dashboard:
+  /asserts/api-server/v1/config/dashboard:
     get:
       tags:
         - custom-dash-config-controller
@@ -4576,7 +4650,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/CustomKpiDashConfigDto"
-  /v1/config/alerts/slo:
+  /asserts/api-server/v1/config/alerts/slo:
     get:
       tags:
         - Alert Configuration
@@ -4599,7 +4673,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-  /v1/config/alerts/resource:
+  /asserts/api-server/v1/config/alerts/resource:
     get:
       tags:
         - Alert Configuration
@@ -4622,7 +4696,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-  /v1/config/alerts/request:
+  /asserts/api-server/v1/config/alerts/request:
     get:
       tags:
         - Alert Configuration
@@ -4645,7 +4719,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-  /v1/config/alerts/health:
+  /asserts/api-server/v1/config/alerts/health:
     get:
       tags:
         - Alert Configuration
@@ -4668,7 +4742,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
-  /v1/assertion/alert-affected-entity:
+  /asserts/api-server/v1/assertion/alert-affected-entity:
     get:
       tags:
         - alert-entity-controller
@@ -4690,7 +4764,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/GraphEntity"
-  /v2/config/trace/{name}:
+  /asserts/api-server/v2/config/trace/{name}:
     delete:
       tags:
         - trace-drilldown-config-controller
@@ -4710,7 +4784,7 @@ paths:
       responses:
         "200":
           description: Configuration deleted successfully
-  /v2/config/profile/{name}:
+  /asserts/api-server/v2/config/profile/{name}:
     delete:
       tags:
         - profile-drilldown-config-controller
@@ -4730,7 +4804,7 @@ paths:
       responses:
         "200":
           description: Configuration deleted successfully
-  /v2/config/log/{name}:
+  /asserts/api-server/v2/config/log/{name}:
     delete:
       tags:
         - log-drilldown-config-controller
@@ -4750,7 +4824,7 @@ paths:
       responses:
         "200":
           description: Configuration deleted successfully
-  /v1/config/trace/{name}:
+  /asserts/api-server/v1/config/trace/{name}:
     delete:
       tags:
         - trace-config-controller
@@ -4766,7 +4840,7 @@ paths:
       responses:
         "200":
           description: OK
-  /v1/config/environment/{name}:
+  /asserts/api-server/v1/config/environment/{name}:
     delete:
       tags:
         - log-config-controller
@@ -4782,7 +4856,7 @@ paths:
       responses:
         "200":
           description: OK
-  /v1/config/display/graph/entity_type/{name}:
+  /asserts/api-server/v1/config/display/graph/entity_type/{name}:
     delete:
       tags:
         - graph-display-config-controller
@@ -4798,7 +4872,7 @@ paths:
       responses:
         "200":
           description: OK
-  /v1/config/display/graph/edge_type/{name}:
+  /asserts/api-server/v1/config/display/graph/edge_type/{name}:
     delete:
       tags:
         - graph-display-config-controller
@@ -4814,7 +4888,7 @@ paths:
       responses:
         "200":
           description: OK
-  /v1/config/disabled-alert/{name}:
+  /asserts/api-server/v1/config/disabled-alert/{name}:
     delete:
       tags:
         - Alert Configuration
@@ -4846,7 +4920,7 @@ paths:
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
-  /v1/config/alert/{name}:
+  /asserts/api-server/v1/config/alert/{name}:
     delete:
       tags:
         - Alert Configuration
@@ -5738,6 +5812,10 @@ components:
           type: boolean
         otelNative:
           type: boolean
+        blockedOnManualIntervention:
+          type: boolean
+        blockedReason:
+          type: string
     EntityKeyDto:
       type: object
       properties:
@@ -6272,6 +6350,9 @@ components:
         destinationType:
           type: string
         destinationScope:
+          type: object
+          additionalProperties: {}
+        properties:
           type: object
           additionalProperties: {}
     CypherSearchEntityDto:
@@ -8005,6 +8086,12 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/AssertionSourceMetricLabelDto"
+        metricType:
+          type: string
+        customRateInterval:
+          type: string
+        customFunction:
+          type: string
     AffectedEntityNamesDto:
       type: object
       properties:
@@ -8252,6 +8339,10 @@ components:
           type: string
         grafanaToken:
           type: string
+        lokiToken:
+          type: string
+        pyroscopeToken:
+          type: string
         enabled:
           type: boolean
         alertManagerConfigured:
@@ -8268,13 +8359,15 @@ components:
         version:
           type: integer
           format: int32
-        contactPointUID:
-          type: string
         allowLargeTenantOnboarding:
           type: boolean
         currentActiveSeries:
           type: integer
           format: int32
+        stackDatasets:
+          type: array
+          items:
+            $ref: "#/components/schemas/StackDatasetDto"
     VendorIntegrationDto:
       type: object
       properties:

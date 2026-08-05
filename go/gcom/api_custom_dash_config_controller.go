@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.07.20-131035
+API version: 2026.08.05-164725
 Contact: support@asserts.ai
 */
 
@@ -74,7 +74,7 @@ func (a *CustomDashConfigControllerAPIService) DeleteCustomDashConfigExecute(r A
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/dashboard/delete/{entity_type}"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/dashboard/delete/{entity_type}"
 	localVarPath = strings.Replace(localVarPath, "{"+"entity_type"+"}", url.PathEscape(parameterValueToString(r.entityType, "entityType")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -179,7 +179,7 @@ func (a *CustomDashConfigControllerAPIService) GetAllCustomDashConfigExecute(r A
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/dashboard"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/dashboard"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -290,7 +290,7 @@ func (a *CustomDashConfigControllerAPIService) GetCustomDashConfigExecute(r ApiG
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/dashboard/{entity_type}"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/dashboard/{entity_type}"
 	localVarPath = strings.Replace(localVarPath, "{"+"entity_type"+"}", url.PathEscape(parameterValueToString(r.entityType, "entityType")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -405,7 +405,7 @@ func (a *CustomDashConfigControllerAPIService) UpdateCustomDashConfigExecute(r A
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/dashboard/{entity_type}"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/dashboard/{entity_type}"
 	localVarPath = strings.Replace(localVarPath, "{"+"entity_type"+"}", url.PathEscape(parameterValueToString(r.entityType, "entityType")), -1)
 
 	localVarHeaderParams := make(map[string]string)

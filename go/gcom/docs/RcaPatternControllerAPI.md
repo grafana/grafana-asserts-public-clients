@@ -1,11 +1,11 @@
 # \RcaPatternControllerAPI
 
-All URIs are relative to *http://localhost:8030/asserts/api-server*
+All URIs are relative to *http://localhost:8030*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**List**](RcaPatternControllerAPI.md#List) | **Post** /v1/patterns/list | 
-[**Search2**](RcaPatternControllerAPI.md#Search2) | **Post** /v1/patterns/search | 
+[**List**](RcaPatternControllerAPI.md#List) | **Post** /asserts/api-server/v1/patterns/list | 
+[**Search2**](RcaPatternControllerAPI.md#Search2) | **Post** /asserts/api-server/v1/patterns/search | 
 
 
 

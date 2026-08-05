@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.07.20-131035
+API version: 2026.08.05-164725
 Contact: support@asserts.ai
 */
 
@@ -86,7 +86,7 @@ func (a *EntityTypeControllerAPIService) GetAllExecute(r ApiGetAllRequest) (*Ent
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/entity_type"
+	localVarPath := localBasePath + "/asserts/api-server/v1/entity_type"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -209,7 +209,7 @@ func (a *EntityTypeControllerAPIService) GetCountByEntityTypeExecute(r ApiGetCou
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/entity_type/count"
+	localVarPath := localBasePath + "/asserts/api-server/v1/entity_type/count"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -325,7 +325,7 @@ func (a *EntityTypeControllerAPIService) GetEntityTypeExecute(r ApiGetEntityType
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/entity_type/{type}"
+	localVarPath := localBasePath + "/asserts/api-server/v1/entity_type/{type}"
 	localVarPath = strings.Replace(localVarPath, "{"+"type"+"}", url.PathEscape(parameterValueToString(r.type_, "type_")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -440,7 +440,7 @@ func (a *EntityTypeControllerAPIService) GetPropertyValuesExecute(r ApiGetProper
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/entity_type/property_values"
+	localVarPath := localBasePath + "/asserts/api-server/v1/entity_type/property_values"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

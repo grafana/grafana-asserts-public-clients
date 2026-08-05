@@ -1,30 +1,30 @@
 # \StackControllerAPI
 
-All URIs are relative to *http://localhost:8030/asserts/api-server*
+All URIs are relative to *http://localhost:8030*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AllowLargeTenantOnboarding**](StackControllerAPI.md#AllowLargeTenantOnboarding) | **Post** /v2/stack/allow-large-tenant-onboarding | 
-[**CreateStack**](StackControllerAPI.md#CreateStack) | **Post** /v1/stack | 
-[**DetectAndAutoConfigureDatasets**](StackControllerAPI.md#DetectAndAutoConfigureDatasets) | **Post** /v2/stack/datasets/auto-setup | 
-[**DisableStack**](StackControllerAPI.md#DisableStack) | **Post** /v1/stack/disable | 
-[**DisableV2Stack**](StackControllerAPI.md#DisableV2Stack) | **Post** /v2/stack/disable | 
-[**DiscoverVendorsForCurrentTenant**](StackControllerAPI.md#DiscoverVendorsForCurrentTenant) | **Get** /v1/stack/vendor-integration | 
-[**EnableStack**](StackControllerAPI.md#EnableStack) | **Post** /v1/stack/enable | 
-[**EnableV2Stack**](StackControllerAPI.md#EnableV2Stack) | **Post** /v2/stack/enable | 
-[**FetchDataset**](StackControllerAPI.md#FetchDataset) | **Get** /v2/stack/dataset/{dataset} | 
-[**GetDatasetVendors**](StackControllerAPI.md#GetDatasetVendors) | **Get** /v2/stack/dataset/{dataset}/vendors | 
-[**GetDatasets**](StackControllerAPI.md#GetDatasets) | **Get** /v2/stack/datasets | 
-[**GetStackDetail**](StackControllerAPI.md#GetStackDetail) | **Get** /v1/stack | 
-[**GetStackEnable**](StackControllerAPI.md#GetStackEnable) | **Get** /v1/stack/enable | 
-[**GetStackUpdateBucket**](StackControllerAPI.md#GetStackUpdateBucket) | **Get** /v1/stack/update-bucket | 
-[**GetStatus**](StackControllerAPI.md#GetStatus) | **Get** /v1/stack/status | 
-[**PutV2Stack**](StackControllerAPI.md#PutV2Stack) | **Put** /v2/stack | 
-[**RunDatasetSanityChecks**](StackControllerAPI.md#RunDatasetSanityChecks) | **Get** /v2/stack/dataset/{dataset}/sanity | 
-[**RunMetricSanityChecks**](StackControllerAPI.md#RunMetricSanityChecks) | **Get** /v1/stack/sanity | 
-[**UpdateDataset**](StackControllerAPI.md#UpdateDataset) | **Put** /v2/stack/dataset | 
-[**UpdateStack**](StackControllerAPI.md#UpdateStack) | **Put** /v1/stack | 
-[**UpdateStatus**](StackControllerAPI.md#UpdateStatus) | **Post** /v1/stack/status/{status} | 
+[**AllowLargeTenantOnboarding**](StackControllerAPI.md#AllowLargeTenantOnboarding) | **Post** /asserts/api-server/v2/stack/allow-large-tenant-onboarding | 
+[**CreateStack**](StackControllerAPI.md#CreateStack) | **Post** /asserts/api-server/v1/stack | 
+[**DetectAndAutoConfigureDatasets**](StackControllerAPI.md#DetectAndAutoConfigureDatasets) | **Post** /asserts/api-server/v2/stack/datasets/auto-setup | 
+[**DisableStack**](StackControllerAPI.md#DisableStack) | **Post** /asserts/api-server/v1/stack/disable | 
+[**DisableV2Stack**](StackControllerAPI.md#DisableV2Stack) | **Post** /asserts/api-server/v2/stack/disable | 
+[**DiscoverVendorsForCurrentTenant**](StackControllerAPI.md#DiscoverVendorsForCurrentTenant) | **Get** /asserts/api-server/v1/stack/vendor-integration | 
+[**EnableStack**](StackControllerAPI.md#EnableStack) | **Post** /asserts/api-server/v1/stack/enable | 
+[**EnableV2Stack**](StackControllerAPI.md#EnableV2Stack) | **Post** /asserts/api-server/v2/stack/enable | 
+[**FetchDataset**](StackControllerAPI.md#FetchDataset) | **Get** /asserts/api-server/v2/stack/dataset/{dataset} | 
+[**GetDatasetVendors**](StackControllerAPI.md#GetDatasetVendors) | **Get** /asserts/api-server/v2/stack/dataset/{dataset}/vendors | 
+[**GetDatasets**](StackControllerAPI.md#GetDatasets) | **Get** /asserts/api-server/v2/stack/datasets | 
+[**GetStackDetail**](StackControllerAPI.md#GetStackDetail) | **Get** /asserts/api-server/v1/stack | 
+[**GetStackEnable**](StackControllerAPI.md#GetStackEnable) | **Get** /asserts/api-server/v1/stack/enable | 
+[**GetStackUpdateBucket**](StackControllerAPI.md#GetStackUpdateBucket) | **Get** /asserts/api-server/v1/stack/update-bucket | 
+[**GetStatus**](StackControllerAPI.md#GetStatus) | **Get** /asserts/api-server/v1/stack/status | 
+[**PutV2Stack**](StackControllerAPI.md#PutV2Stack) | **Put** /asserts/api-server/v2/stack | 
+[**RunDatasetSanityChecks**](StackControllerAPI.md#RunDatasetSanityChecks) | **Get** /asserts/api-server/v2/stack/dataset/{dataset}/sanity | 
+[**RunMetricSanityChecks**](StackControllerAPI.md#RunMetricSanityChecks) | **Get** /asserts/api-server/v1/stack/sanity | 
+[**UpdateDataset**](StackControllerAPI.md#UpdateDataset) | **Put** /asserts/api-server/v2/stack/dataset | 
+[**UpdateStack**](StackControllerAPI.md#UpdateStack) | **Put** /asserts/api-server/v1/stack | 
+[**UpdateStatus**](StackControllerAPI.md#UpdateStatus) | **Post** /asserts/api-server/v1/stack/status/{status} | 
 
 
 

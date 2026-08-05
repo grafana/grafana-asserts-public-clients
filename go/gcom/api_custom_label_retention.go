@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.07.20-131035
+API version: 2026.08.05-164725
 Contact: support@asserts.ai
 */
 
@@ -64,7 +64,7 @@ func (a *CustomLabelRetentionAPIService) DeleteConfigExecute(r ApiDeleteConfigRe
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/custom-labels"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/custom-labels"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -163,7 +163,7 @@ func (a *CustomLabelRetentionAPIService) GetConfigExecute(r ApiGetConfigRequest)
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/custom-labels"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/custom-labels"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -274,7 +274,7 @@ func (a *CustomLabelRetentionAPIService) PutConfigExecute(r ApiPutConfigRequest)
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/custom-labels"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/custom-labels"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
