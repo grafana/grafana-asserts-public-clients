@@ -1,10 +1,10 @@
 # \RulesControllerAPI
 
-All URIs are relative to *http://localhost:8030/asserts/api-server*
+All URIs are relative to *http://localhost:8030*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetAllRules**](RulesControllerAPI.md#GetAllRules) | **Get** /v5/prometheus/rules | 
+[**GetAllRules**](RulesControllerAPI.md#GetAllRules) | **Get** /asserts/api-server/v5/prometheus/rules | 
 
 
 

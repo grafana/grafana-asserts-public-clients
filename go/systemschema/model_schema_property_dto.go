@@ -20,8 +20,9 @@ var _ MappedNullable = &SchemaPropertyDto{}
 
 // SchemaPropertyDto struct for SchemaPropertyDto
 type SchemaPropertyDto struct {
-	Name                 string   `json:"name" validate:"regexp=^[a-z][A-Za-z0-9]*$"`
-	Type                 string   `json:"type" validate:"regexp=^(string|int|double|bool|date|time|datetime|list|map|enum)$"`
+	Name                 string   `json:"name" validate:"regexp=^[a-z][A-Za-z0-9_]*$"`
+	Type                 string   `json:"type" validate:"regexp=^(string|int|double|bool|date|time|datetime|list|enum)$"`
+	ElementType          *string  `json:"elementType,omitempty" validate:"regexp=^(string|int|double|bool|date|time|datetime)$"`
 	Required             *bool    `json:"required,omitempty"`
 	Enum                 []string `json:"enum,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -94,6 +95,38 @@ func (o *SchemaPropertyDto) GetTypeOk() (*string, bool) {
 // SetType sets field value
 func (o *SchemaPropertyDto) SetType(v string) {
 	o.Type = v
+}
+
+// GetElementType returns the ElementType field value if set, zero value otherwise.
+func (o *SchemaPropertyDto) GetElementType() string {
+	if o == nil || IsNil(o.ElementType) {
+		var ret string
+		return ret
+	}
+	return *o.ElementType
+}
+
+// GetElementTypeOk returns a tuple with the ElementType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SchemaPropertyDto) GetElementTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.ElementType) {
+		return nil, false
+	}
+	return o.ElementType, true
+}
+
+// HasElementType returns a boolean if a field has been set.
+func (o *SchemaPropertyDto) HasElementType() bool {
+	if o != nil && !IsNil(o.ElementType) {
+		return true
+	}
+
+	return false
+}
+
+// SetElementType gets a reference to the given string and assigns it to the ElementType field.
+func (o *SchemaPropertyDto) SetElementType(v string) {
+	o.ElementType = &v
 }
 
 // GetRequired returns the Required field value if set, zero value otherwise.
@@ -172,6 +205,9 @@ func (o SchemaPropertyDto) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["name"] = o.Name
 	toSerialize["type"] = o.Type
+	if !IsNil(o.ElementType) {
+		toSerialize["elementType"] = o.ElementType
+	}
 	if !IsNil(o.Required) {
 		toSerialize["required"] = o.Required
 	}
@@ -210,6 +246,7 @@ func (o *SchemaPropertyDto) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "type")
+		delete(additionalProperties, "elementType")
 		delete(additionalProperties, "required")
 		delete(additionalProperties, "enum")
 		o.AdditionalProperties = additionalProperties

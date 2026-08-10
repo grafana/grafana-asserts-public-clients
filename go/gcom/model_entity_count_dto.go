@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.07.20-131035
+API version: 2026.08.10-151153
 Contact: support@asserts.ai
 */
 
@@ -21,7 +21,7 @@ var _ MappedNullable = &EntityCountDto{}
 // EntityCountDto struct for EntityCountDto
 type EntityCountDto struct {
 	Total                int64                   `json:"total"`
-	WithInsights         NullableInt64           `json:"withInsights,omitempty"`
+	WithInsights         *int64                  `json:"withInsights,omitempty"`
 	GroupBy              []GroupedEntityCountDto `json:"groupBy,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -70,47 +70,36 @@ func (o *EntityCountDto) SetTotal(v int64) {
 	o.Total = v
 }
 
-// GetWithInsights returns the WithInsights field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetWithInsights returns the WithInsights field value if set, zero value otherwise.
 func (o *EntityCountDto) GetWithInsights() int64 {
-	if o == nil || IsNil(o.WithInsights.Get()) {
+	if o == nil || IsNil(o.WithInsights) {
 		var ret int64
 		return ret
 	}
-	return *o.WithInsights.Get()
+	return *o.WithInsights
 }
 
 // GetWithInsightsOk returns a tuple with the WithInsights field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *EntityCountDto) GetWithInsightsOk() (*int64, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.WithInsights) {
 		return nil, false
 	}
-	return o.WithInsights.Get(), o.WithInsights.IsSet()
+	return o.WithInsights, true
 }
 
 // HasWithInsights returns a boolean if a field has been set.
 func (o *EntityCountDto) HasWithInsights() bool {
-	if o != nil && o.WithInsights.IsSet() {
+	if o != nil && !IsNil(o.WithInsights) {
 		return true
 	}
 
 	return false
 }
 
-// SetWithInsights gets a reference to the given NullableInt64 and assigns it to the WithInsights field.
+// SetWithInsights gets a reference to the given int64 and assigns it to the WithInsights field.
 func (o *EntityCountDto) SetWithInsights(v int64) {
-	o.WithInsights.Set(&v)
-}
-
-// SetWithInsightsNil sets the value for WithInsights to be an explicit nil
-func (o *EntityCountDto) SetWithInsightsNil() {
-	o.WithInsights.Set(nil)
-}
-
-// UnsetWithInsights ensures that no value is present for WithInsights, not even an explicit nil
-func (o *EntityCountDto) UnsetWithInsights() {
-	o.WithInsights.Unset()
+	o.WithInsights = &v
 }
 
 // GetGroupBy returns the GroupBy field value if set, zero value otherwise.
@@ -156,8 +145,8 @@ func (o EntityCountDto) MarshalJSON() ([]byte, error) {
 func (o EntityCountDto) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["total"] = o.Total
-	if o.WithInsights.IsSet() {
-		toSerialize["withInsights"] = o.WithInsights.Get()
+	if !IsNil(o.WithInsights) {
+		toSerialize["withInsights"] = o.WithInsights
 	}
 	if !IsNil(o.GroupBy) {
 		toSerialize["groupBy"] = o.GroupBy

@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Type** | Pointer to **string** |  | [optional] 
 **From** | Pointer to [**EntityRefDto**](EntityRefDto.md) |  | [optional] 
 **To** | Pointer to [**EntityRefDto**](EntityRefDto.md) |  | [optional] 
-**Properties** | Pointer to **map[string]interface{}** |  | [optional] 
+**Properties** | Pointer to [**map[string]KgPropertyValue**](KgPropertyValue.md) | Properties stored on the relationship: scalar values (string, boolean, int64, or double) or arrays of scalars. | [optional] 
 
 ## Methods
 
@@ -131,20 +131,20 @@ HasTo returns a boolean if a field has been set.
 
 ### GetProperties
 
-`func (o *RelationshipWriteResponseDto) GetProperties() map[string]interface{}`
+`func (o *RelationshipWriteResponseDto) GetProperties() map[string]KgPropertyValue`
 
 GetProperties returns the Properties field if non-nil, zero value otherwise.
 
 ### GetPropertiesOk
 
-`func (o *RelationshipWriteResponseDto) GetPropertiesOk() (*map[string]interface{}, bool)`
+`func (o *RelationshipWriteResponseDto) GetPropertiesOk() (*map[string]KgPropertyValue, bool)`
 
 GetPropertiesOk returns a tuple with the Properties field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetProperties
 
-`func (o *RelationshipWriteResponseDto) SetProperties(v map[string]interface{})`
+`func (o *RelationshipWriteResponseDto) SetProperties(v map[string]KgPropertyValue)`
 
 SetProperties sets Properties field to given value.
 

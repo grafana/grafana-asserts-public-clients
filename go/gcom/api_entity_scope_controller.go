@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.07.20-131035
+API version: 2026.08.10-151153
 Contact: support@asserts.ai
 */
 
@@ -79,7 +79,7 @@ func (a *EntityScopeControllerAPIService) GetAllEntityScopesExecute(r ApiGetAllE
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/entity_scope"
+	localVarPath := localBasePath + "/asserts/api-server/v1/entity_scope"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -205,7 +205,7 @@ func (a *EntityScopeControllerAPIService) GetAllEntityScopesV2Execute(r ApiGetAl
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v2/entity_scope"
+	localVarPath := localBasePath + "/asserts/api-server/v2/entity_scope"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -325,7 +325,7 @@ func (a *EntityScopeControllerAPIService) GetEntityScopesExecute(r ApiGetEntityS
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/entity_scope"
+	localVarPath := localBasePath + "/asserts/api-server/v1/entity_scope"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -444,7 +444,7 @@ func (a *EntityScopeControllerAPIService) GetEntityScopesV2Execute(r ApiGetEntit
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v2/entity_scope"
+	localVarPath := localBasePath + "/asserts/api-server/v2/entity_scope"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

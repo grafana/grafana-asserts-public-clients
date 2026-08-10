@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** |  | 
 **Type** | **string** |  | 
+**ElementType** | Pointer to **string** |  | [optional] 
 **Required** | Pointer to **bool** |  | [optional] 
 **Enum** | Pointer to **[]string** |  | [optional] 
 
@@ -67,6 +68,31 @@ and a boolean to check if the value has been set.
 
 SetType sets Type field to given value.
 
+
+### GetElementType
+
+`func (o *SchemaPropertyDto) GetElementType() string`
+
+GetElementType returns the ElementType field if non-nil, zero value otherwise.
+
+### GetElementTypeOk
+
+`func (o *SchemaPropertyDto) GetElementTypeOk() (*string, bool)`
+
+GetElementTypeOk returns a tuple with the ElementType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetElementType
+
+`func (o *SchemaPropertyDto) SetElementType(v string)`
+
+SetElementType sets ElementType field to given value.
+
+### HasElementType
+
+`func (o *SchemaPropertyDto) HasElementType() bool`
+
+HasElementType returns a boolean if a field has been set.
 
 ### GetRequired
 

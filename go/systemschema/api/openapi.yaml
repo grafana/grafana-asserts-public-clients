@@ -10,9 +10,9 @@ info:
   version: 0.0.0
 servers:
 - description: Generated server url
-  url: http://localhost:8030/api-server
+  url: http://localhost:8030
 tags:
-- description: Receive and store cluster-scoped system schemas
+- description: Serve stored cluster-scoped system schemas
   name: System KgSchema API
 paths:
   /apis/kg.grafana.com/v1alpha1/systemschemas:
@@ -34,97 +34,6 @@ paths:
                 $ref: '#/components/schemas/SystemKgSchemaRefListDto'
           description: List of schema references
       summary: List all system schema references
-      tags:
-      - System KgSchema API
-    post:
-      description: "Creates or fully replaces the schema for the given domain/version.\
-        \ Returns 201 on first push, 200 on update."
-      operationId: upsert
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/SystemKgSchemaBundleDto'
-          application/x-yml:
-            schema:
-              $ref: '#/components/schemas/SystemKgSchemaBundleDto'
-          application/x-yaml:
-            schema:
-              $ref: '#/components/schemas/SystemKgSchemaBundleDto'
-        required: true
-      responses:
-        "201":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SystemKgSchemaResponseDto'
-            application/x-yml:
-              schema:
-                $ref: '#/components/schemas/SystemKgSchemaResponseDto'
-            application/x-yaml:
-              schema:
-                $ref: '#/components/schemas/SystemKgSchemaResponseDto'
-          description: Schema created
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SystemKgSchemaResponseDto'
-            application/x-yml:
-              schema:
-                $ref: '#/components/schemas/SystemKgSchemaResponseDto'
-            application/x-yaml:
-              schema:
-                $ref: '#/components/schemas/SystemKgSchemaResponseDto'
-          description: Schema updated (idempotent re-push returns 200)
-        "422":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiError'
-            application/x-yml:
-              schema:
-                $ref: '#/components/schemas/ApiError'
-            application/x-yaml:
-              schema:
-                $ref: '#/components/schemas/ApiError'
-          description: Validation failed
-      summary: Push a system schema bundle
-      tags:
-      - System KgSchema API
-  /apis/kg.grafana.com/v1alpha1/systemschemas/validate:
-    post:
-      description: Runs exactly the validation a push would (bean validation plus
-        the structural validator) and persists nothing.
-      operationId: validate
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/SystemKgSchemaBundleDto'
-          application/x-yml:
-            schema:
-              $ref: '#/components/schemas/SystemKgSchemaBundleDto'
-          application/x-yaml:
-            schema:
-              $ref: '#/components/schemas/SystemKgSchemaBundleDto'
-        required: true
-      responses:
-        "204":
-          description: Bundle is valid
-        "422":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiError'
-            application/x-yml:
-              schema:
-                $ref: '#/components/schemas/ApiError'
-            application/x-yaml:
-              schema:
-                $ref: '#/components/schemas/ApiError'
-          description: Validation failed
-      summary: Validate a system schema bundle without storing it
       tags:
       - System KgSchema API
   /apis/kg.grafana.com/v1alpha1/systemschemas/{domain}/{version}:
@@ -178,9 +87,43 @@ paths:
 components:
   parameters: {}
   schemas:
+    SchemaDomainDto:
+      example:
+        displayName: displayName
+        name: name
+        version: version
+      properties:
+        name:
+          minLength: 1
+          pattern: "^[a-z][a-z0-9]*$"
+          type: string
+        displayName:
+          type: string
+        version:
+          minLength: 1
+          pattern: "^v(?<major>[0-9]+)(?:(?<pre>alpha|beta)(?<preNum>[0-9]+))?$"
+          type: string
+      required:
+      - name
+      - version
+    SystemKgSchemaRefListDto:
+      example:
+        schemas:
+        - displayName: displayName
+          name: name
+          version: version
+        - displayName: displayName
+          name: name
+          version: version
+      properties:
+        schemas:
+          items:
+            $ref: '#/components/schemas/SchemaDomainDto'
+          type: array
     ApiError:
       example:
         trace_id: trace_id
+        code: KG_NOT_PROVISIONED
         span_id: span_id
         requestId: requestId
         debugMessage: debugMessage
@@ -208,10 +151,25 @@ components:
           items:
             $ref: '#/components/schemas/ApiError_subErrors_inner'
           type: array
+        code:
+          description: "Stable machine-readable error code, present only for errors\
+            \ that define one"
+          example: KG_NOT_PROVISIONED
+          type: string
         trace_id:
           type: string
         span_id:
           type: string
+    ApiQuerySyntaxError:
+      allOf:
+      - $ref: '#/components/schemas/ApiSubError'
+      - properties:
+          line:
+            format: int32
+            type: integer
+          column:
+            format: int32
+            type: integer
     ApiSubError:
       example:
         message: message
@@ -251,25 +209,6 @@ components:
       - from
       - name
       - to
-    SchemaDomainDto:
-      example:
-        displayName: displayName
-        name: name
-        version: version
-      properties:
-        name:
-          minLength: 1
-          pattern: "^[a-z][a-z0-9]*$"
-          type: string
-        displayName:
-          type: string
-        version:
-          minLength: 1
-          pattern: "^v[0-9]+(alpha[0-9]+|beta[0-9]+)?$"
-          type: string
-      required:
-      - name
-      - version
     SchemaEndpointDto:
       example:
         types:
@@ -281,7 +220,6 @@ components:
           items:
             pattern: "^([a-z][a-z0-9]*\\.)?[A-Z][A-Za-z0-9]*$"
             type: string
-          minItems: 1
           type: array
         cardinality:
           pattern: ^(one|many)$
@@ -301,12 +239,14 @@ components:
         properties:
         - name: name
           type: type
+          elementType: elementType
           required: true
           enum:
           - enum
           - enum
         - name: name
           type: type
+          elementType: elementType
           required: true
           enum:
           - enum
@@ -337,7 +277,7 @@ components:
           type: integer
         aliases:
           items:
-            pattern: "^[A-Z][A-Za-z0-9]*$"
+            minLength: 1
             type: string
           type: array
         label:
@@ -365,7 +305,7 @@ components:
           type: string
         version:
           minLength: 1
-          pattern: "^v[0-9]+(alpha[0-9]+|beta[0-9]+)?$"
+          pattern: "^v(?<major>[0-9]+)(?:(?<pre>alpha|beta)(?<preNum>[0-9]+))?$"
           type: string
       required:
       - domain
@@ -374,6 +314,7 @@ components:
       example:
         name: name
         type: type
+        elementType: elementType
         required: true
         enum:
         - enum
@@ -381,11 +322,14 @@ components:
       properties:
         name:
           minLength: 1
-          pattern: "^[a-z][A-Za-z0-9]*$"
+          pattern: "^[a-z][A-Za-z0-9_]*$"
           type: string
         type:
           minLength: 1
-          pattern: ^(string|int|double|bool|date|time|datetime|list|map|enum)$
+          pattern: ^(string|int|double|bool|date|time|datetime|list|enum)$
+          type: string
+        elementType:
+          pattern: ^(string|int|double|bool|date|time|datetime)$
           type: string
         required:
           type: boolean
@@ -423,12 +367,14 @@ components:
         properties:
         - name: name
           type: type
+          elementType: elementType
           required: true
           enum:
           - enum
           - enum
         - name: name
           type: type
+          elementType: elementType
           required: true
           enum:
           - enum
@@ -446,7 +392,7 @@ components:
           type: integer
         aliases:
           items:
-            pattern: "^[A-Z][A-Z0-9_]*$"
+            minLength: 1
             type: string
           type: array
         label:
@@ -484,7 +430,7 @@ components:
       properties:
         name:
           minLength: 1
-          pattern: "^[a-z][A-Za-z0-9]*$"
+          pattern: "^[a-z][A-Za-z0-9_]*$"
           type: string
         type:
           minLength: 1
@@ -545,12 +491,14 @@ components:
           properties:
           - name: name
             type: type
+            elementType: elementType
             required: true
             enum:
             - enum
             - enum
           - name: name
             type: type
+            elementType: elementType
             required: true
             enum:
             - enum
@@ -579,12 +527,14 @@ components:
           properties:
           - name: name
             type: type
+            elementType: elementType
             required: true
             enum:
             - enum
             - enum
           - name: name
             type: type
+            elementType: elementType
             required: true
             enum:
             - enum
@@ -628,12 +578,14 @@ components:
           properties:
           - name: name
             type: type
+            elementType: elementType
             required: true
             enum:
             - enum
             - enum
           - name: name
             type: type
+            elementType: elementType
             required: true
             enum:
             - enum
@@ -663,12 +615,14 @@ components:
           properties:
           - name: name
             type: type
+            elementType: elementType
             required: true
             enum:
             - enum
             - enum
           - name: name
             type: type
+            elementType: elementType
             required: true
             enum:
             - enum
@@ -698,41 +652,8 @@ components:
       - domain
       - entityTypes
       - relationshipTypes
-    SystemKgSchemaResponseDto:
-      example:
-        relationshipTypeCount: 6
-        domain: domain
-        entityTypeCount: 0
-        version: version
-        contentHash: contentHash
-      properties:
-        domain:
-          type: string
-        version:
-          type: string
-        contentHash:
-          type: string
-        entityTypeCount:
-          format: int32
-          type: integer
-        relationshipTypeCount:
-          format: int32
-          type: integer
-    SystemKgSchemaRefListDto:
-      example:
-        schemas:
-        - displayName: displayName
-          name: name
-          version: version
-        - displayName: displayName
-          name: name
-          version: version
-      properties:
-        schemas:
-          items:
-            $ref: '#/components/schemas/SchemaDomainDto'
-          type: array
     ApiError_subErrors_inner:
       oneOf:
       - $ref: '#/components/schemas/ApiSubError'
+      - $ref: '#/components/schemas/ApiQuerySyntaxError'
       - $ref: '#/components/schemas/ApiValidationError'

@@ -1,10 +1,10 @@
 # \MonitoringStatusControllerAPI
 
-All URIs are relative to *http://localhost:8030/asserts/api-server*
+All URIs are relative to *http://localhost:8030*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetEntityMonitoringStatus**](MonitoringStatusControllerAPI.md#GetEntityMonitoringStatus) | **Post** /v1/monitoring-status/for-entities | 
+[**GetEntityMonitoringStatus**](MonitoringStatusControllerAPI.md#GetEntityMonitoringStatus) | **Post** /asserts/api-server/v1/monitoring-status/for-entities | 
 
 
 

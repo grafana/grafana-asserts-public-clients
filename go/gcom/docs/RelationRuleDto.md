@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Type** | **string** | Relation type (e.g., &#39;CALLS&#39;, &#39;HOSTS&#39;, &#39;ROUTES&#39;) | [default to ""]
 **StartEntityType** | **string** | Source entity type | [default to ""]
 **EndEntityType** | **string** | Target entity type | [default to ""]
-**DefinedBy** | [**RelationRuleDtoDefinedBy**](RelationRuleDtoDefinedBy.md) |  | [default to ]
+**DefinedBy** | [**RelationRuleDtoDefinedBy**](RelationRuleDtoDefinedBy.md) |  | 
 
 ## Methods
 

@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.07.20-131035
+API version: 2026.08.10-151153
 Contact: support@asserts.ai
 */
 
@@ -77,7 +77,7 @@ func (a *EntityKpiControllerAPIService) GetKpiSummaryExecute(r ApiGetKpiSummaryR
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/kpi/summary/for-entities/{kpi_name}"
+	localVarPath := localBasePath + "/asserts/api-server/v1/kpi/summary/for-entities/{kpi_name}"
 	localVarPath = strings.Replace(localVarPath, "{"+"kpi_name"+"}", url.PathEscape(parameterValueToString(r.kpiName, "kpiName")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -191,7 +191,7 @@ func (a *EntityKpiControllerAPIService) GetKpisByEntityTypeExecute(r ApiGetKpisB
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/kpi/list"
+	localVarPath := localBasePath + "/asserts/api-server/v1/kpi/list"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

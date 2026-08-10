@@ -1,13 +1,13 @@
 # \GraphDisplayConfigControllerAPI
 
-All URIs are relative to *http://localhost:8030/asserts/api-server*
+All URIs are relative to *http://localhost:8030*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteGraphEdgeDisplayConfig**](GraphDisplayConfigControllerAPI.md#DeleteGraphEdgeDisplayConfig) | **Delete** /v1/config/display/graph/edge_type/{name} | 
-[**DeleteGraphEntityDisplayConfig**](GraphDisplayConfigControllerAPI.md#DeleteGraphEntityDisplayConfig) | **Delete** /v1/config/display/graph/entity_type/{name} | 
-[**GetGraphDisplayConfig**](GraphDisplayConfigControllerAPI.md#GetGraphDisplayConfig) | **Get** /v1/config/display/graph | 
-[**PutGraphDisplayConfig**](GraphDisplayConfigControllerAPI.md#PutGraphDisplayConfig) | **Post** /v1/config/display/graph | 
+[**DeleteGraphEdgeDisplayConfig**](GraphDisplayConfigControllerAPI.md#DeleteGraphEdgeDisplayConfig) | **Delete** /asserts/api-server/v1/config/display/graph/edge_type/{name} | 
+[**DeleteGraphEntityDisplayConfig**](GraphDisplayConfigControllerAPI.md#DeleteGraphEntityDisplayConfig) | **Delete** /asserts/api-server/v1/config/display/graph/entity_type/{name} | 
+[**GetGraphDisplayConfig**](GraphDisplayConfigControllerAPI.md#GetGraphDisplayConfig) | **Get** /asserts/api-server/v1/config/display/graph | 
+[**PutGraphDisplayConfig**](GraphDisplayConfigControllerAPI.md#PutGraphDisplayConfig) | **Post** /asserts/api-server/v1/config/display/graph | 
 
 
 

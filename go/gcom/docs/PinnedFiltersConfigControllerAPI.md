@@ -1,11 +1,11 @@
 # \PinnedFiltersConfigControllerAPI
 
-All URIs are relative to *http://localhost:8030/asserts/api-server*
+All URIs are relative to *http://localhost:8030*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetPinnedFiltersConfig**](PinnedFiltersConfigControllerAPI.md#GetPinnedFiltersConfig) | **Get** /v1/config/display/pinned-filters | 
-[**PutPinnedFiltersConfig**](PinnedFiltersConfigControllerAPI.md#PutPinnedFiltersConfig) | **Post** /v1/config/display/pinned-filters | 
+[**GetPinnedFiltersConfig**](PinnedFiltersConfigControllerAPI.md#GetPinnedFiltersConfig) | **Get** /asserts/api-server/v1/config/display/pinned-filters | 
+[**PutPinnedFiltersConfig**](PinnedFiltersConfigControllerAPI.md#PutPinnedFiltersConfig) | **Post** /asserts/api-server/v1/config/display/pinned-filters | 
 
 
 

@@ -20,11 +20,12 @@ var _ MappedNullable = &EntityWriteRequestDto{}
 
 // EntityWriteRequestDto struct for EntityWriteRequestDto
 type EntityWriteRequestDto struct {
-	Domain     string            `json:"domain" validate:"regexp=^(?!kg$)[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"`
-	Type       string            `json:"type" validate:"regexp=^[A-Za-z][A-Za-z0-9_]*$"`
-	Name       string            `json:"name"`
-	Scope      map[string]string `json:"scope,omitempty"`
-	Properties map[string]string `json:"properties,omitempty"`
+	Domain string            `json:"domain" validate:"regexp=^(?!kg$)[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"`
+	Type   string            `json:"type" validate:"regexp=^[A-Za-z][A-Za-z0-9_]*$"`
+	Name   string            `json:"name"`
+	Scope  map[string]string `json:"scope,omitempty"`
+	// Custom properties to store on the entity. Values must be scalars (string, boolean, or number) or arrays of scalars; nested objects, nested arrays, and null values are rejected. Integral numbers are stored as 64-bit signed integers and floating-point numbers as IEEE-754 doubles.
+	Properties map[string]KgPropertyValue `json:"properties,omitempty"`
 	// Time-to-live in seconds. Positive values expire the entity after that many seconds, 0 expires it immediately, and negative values mean no expiry.
 	TtlSeconds           int64 `json:"ttlSeconds"`
 	AdditionalProperties map[string]interface{}
@@ -158,9 +159,9 @@ func (o *EntityWriteRequestDto) SetScope(v map[string]string) {
 }
 
 // GetProperties returns the Properties field value if set, zero value otherwise.
-func (o *EntityWriteRequestDto) GetProperties() map[string]string {
+func (o *EntityWriteRequestDto) GetProperties() map[string]KgPropertyValue {
 	if o == nil || IsNil(o.Properties) {
-		var ret map[string]string
+		var ret map[string]KgPropertyValue
 		return ret
 	}
 	return o.Properties
@@ -168,9 +169,9 @@ func (o *EntityWriteRequestDto) GetProperties() map[string]string {
 
 // GetPropertiesOk returns a tuple with the Properties field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EntityWriteRequestDto) GetPropertiesOk() (map[string]string, bool) {
+func (o *EntityWriteRequestDto) GetPropertiesOk() (map[string]KgPropertyValue, bool) {
 	if o == nil || IsNil(o.Properties) {
-		return map[string]string{}, false
+		return map[string]KgPropertyValue{}, false
 	}
 	return o.Properties, true
 }
@@ -184,8 +185,8 @@ func (o *EntityWriteRequestDto) HasProperties() bool {
 	return false
 }
 
-// SetProperties gets a reference to the given map[string]string and assigns it to the Properties field.
-func (o *EntityWriteRequestDto) SetProperties(v map[string]string) {
+// SetProperties gets a reference to the given map[string]KgPropertyValue and assigns it to the Properties field.
+func (o *EntityWriteRequestDto) SetProperties(v map[string]KgPropertyValue) {
 	o.Properties = v
 }
 

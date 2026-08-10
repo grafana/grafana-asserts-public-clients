@@ -1,13 +1,13 @@
 # \CustomDashConfigControllerAPI
 
-All URIs are relative to *http://localhost:8030/asserts/api-server*
+All URIs are relative to *http://localhost:8030*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteCustomDashConfig**](CustomDashConfigControllerAPI.md#DeleteCustomDashConfig) | **Post** /v1/config/dashboard/delete/{entity_type} | 
-[**GetAllCustomDashConfig**](CustomDashConfigControllerAPI.md#GetAllCustomDashConfig) | **Get** /v1/config/dashboard | 
-[**GetCustomDashConfig**](CustomDashConfigControllerAPI.md#GetCustomDashConfig) | **Get** /v1/config/dashboard/{entity_type} | 
-[**UpdateCustomDashConfig**](CustomDashConfigControllerAPI.md#UpdateCustomDashConfig) | **Post** /v1/config/dashboard/{entity_type} | 
+[**DeleteCustomDashConfig**](CustomDashConfigControllerAPI.md#DeleteCustomDashConfig) | **Post** /asserts/api-server/v1/config/dashboard/delete/{entity_type} | 
+[**GetAllCustomDashConfig**](CustomDashConfigControllerAPI.md#GetAllCustomDashConfig) | **Get** /asserts/api-server/v1/config/dashboard | 
+[**GetCustomDashConfig**](CustomDashConfigControllerAPI.md#GetCustomDashConfig) | **Get** /asserts/api-server/v1/config/dashboard/{entity_type} | 
+[**UpdateCustomDashConfig**](CustomDashConfigControllerAPI.md#UpdateCustomDashConfig) | **Post** /asserts/api-server/v1/config/dashboard/{entity_type} | 
 
 
 
