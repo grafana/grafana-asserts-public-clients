@@ -5,8 +5,9 @@ info:
   termsOfService: https://www.asserts.ai/terms-of-service
   contact:
     name: Support
-    url: ""
+    url: "https://www.grafana.com"
     email: support@asserts.ai
+  version: 0.0.0
 servers:
 - url: http://localhost:8030
   description: Generated server url
