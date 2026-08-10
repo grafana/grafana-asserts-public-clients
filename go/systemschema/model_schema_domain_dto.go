@@ -22,7 +22,7 @@ var _ MappedNullable = &SchemaDomainDto{}
 type SchemaDomainDto struct {
 	Name                 string  `json:"name" validate:"regexp=^[a-z][a-z0-9]*$"`
 	DisplayName          *string `json:"displayName,omitempty"`
-	Version              string  `json:"version" validate:"regexp=^v[0-9]+(alpha[0-9]+|beta[0-9]+)?$"`
+	Version              string  `json:"version" validate:"regexp=^v(?<major>[0-9]+)(?:(?<pre>alpha|beta)(?<preNum>[0-9]+))?$"`
 	AdditionalProperties map[string]interface{}
 }
 

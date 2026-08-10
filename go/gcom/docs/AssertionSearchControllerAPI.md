@@ -1,10 +1,10 @@
 # \AssertionSearchControllerAPI
 
-All URIs are relative to *http://localhost:8030/asserts/api-server*
+All URIs are relative to *http://localhost:8030*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Search3**](AssertionSearchControllerAPI.md#Search3) | **Post** /v1/assertions/search | 
+[**Search3**](AssertionSearchControllerAPI.md#Search3) | **Post** /asserts/api-server/v1/assertions/search | 
 
 
 

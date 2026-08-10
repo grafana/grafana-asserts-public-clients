@@ -1,10 +1,10 @@
 # \StackMigrationControllerAPI
 
-All URIs are relative to *http://localhost:8030/asserts/api-server*
+All URIs are relative to *http://localhost:8030*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**MigrateStack**](StackMigrationControllerAPI.md#MigrateStack) | **Post** /v1/stack/migrate | 
+[**MigrateStack**](StackMigrationControllerAPI.md#MigrateStack) | **Post** /asserts/api-server/v1/stack/migrate | 
 
 
 

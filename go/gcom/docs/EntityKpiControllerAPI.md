@@ -1,11 +1,11 @@
 # \EntityKpiControllerAPI
 
-All URIs are relative to *http://localhost:8030/asserts/api-server*
+All URIs are relative to *http://localhost:8030*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetKpiSummary**](EntityKpiControllerAPI.md#GetKpiSummary) | **Post** /v1/kpi/summary/for-entities/{kpi_name} | 
-[**GetKpisByEntityType**](EntityKpiControllerAPI.md#GetKpisByEntityType) | **Get** /v1/kpi/list | 
+[**GetKpiSummary**](EntityKpiControllerAPI.md#GetKpiSummary) | **Post** /asserts/api-server/v1/kpi/summary/for-entities/{kpi_name} | 
+[**GetKpisByEntityType**](EntityKpiControllerAPI.md#GetKpisByEntityType) | **Get** /asserts/api-server/v1/kpi/list | 
 
 
 

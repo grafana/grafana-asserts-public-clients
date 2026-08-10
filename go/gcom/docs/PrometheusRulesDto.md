@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Active** | Pointer to **bool** | Whether this configuration is active | [optional] [default to true]
 **Name** | **string** | Configuration name for the Prometheus rule file | [default to ""]
-**Groups** | [**[]PrometheusRuleGroupDto**](PrometheusRuleGroupDto.md) | List of rule groups containing alert and recording rules | [default to ]
+**Groups** | [**[]PrometheusRuleGroupDto**](PrometheusRuleGroupDto.md) | List of rule groups containing alert and recording rules | 
 **ManagedBy** | Pointer to **string** | Management source: &#39;terraform&#39; for Terraform-managed, null for UI-managed | [optional] [default to ""]
 
 ## Methods

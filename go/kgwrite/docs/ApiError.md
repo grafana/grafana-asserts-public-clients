@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **Message** | Pointer to **string** |  | [optional] 
 **DebugMessage** | Pointer to **string** |  | [optional] 
 **SubErrors** | Pointer to [**[]ApiErrorSubErrorsInner**](ApiErrorSubErrorsInner.md) |  | [optional] 
+**Code** | Pointer to **string** | Stable machine-readable error code, present only for errors that define one | [optional] 
 **TraceId** | Pointer to **string** |  | [optional] 
 **SpanId** | Pointer to **string** |  | [optional] 
 
@@ -181,6 +182,31 @@ SetSubErrors sets SubErrors field to given value.
 `func (o *ApiError) HasSubErrors() bool`
 
 HasSubErrors returns a boolean if a field has been set.
+
+### GetCode
+
+`func (o *ApiError) GetCode() string`
+
+GetCode returns the Code field if non-nil, zero value otherwise.
+
+### GetCodeOk
+
+`func (o *ApiError) GetCodeOk() (*string, bool)`
+
+GetCodeOk returns a tuple with the Code field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCode
+
+`func (o *ApiError) SetCode(v string)`
+
+SetCode sets Code field to given value.
+
+### HasCode
+
+`func (o *ApiError) HasCode() bool`
+
+HasCode returns a boolean if a field has been set.
 
 ### GetTraceId
 

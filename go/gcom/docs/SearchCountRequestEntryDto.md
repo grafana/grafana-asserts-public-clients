@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **EntityType** | **string** |  | 
-**NameMatcher** | Pointer to [**nil**](nil.md) |  | [optional] 
-**WithInsights** | Pointer to [**nil**](nil.md) |  | [optional] 
+**NameMatcher** | Pointer to [**SearchCountRequestEntryDtoNameMatcher**](SearchCountRequestEntryDtoNameMatcher.md) |  | [optional] 
+**WithInsights** | Pointer to [**InsightCriteriaDto**](InsightCriteriaDto.md) |  | [optional] 
 **GroupBy** | Pointer to **[]string** |  | [optional] 
 
 ## Methods
@@ -50,20 +50,20 @@ SetEntityType sets EntityType field to given value.
 
 ### GetNameMatcher
 
-`func (o *SearchCountRequestEntryDto) GetNameMatcher() nil`
+`func (o *SearchCountRequestEntryDto) GetNameMatcher() SearchCountRequestEntryDtoNameMatcher`
 
 GetNameMatcher returns the NameMatcher field if non-nil, zero value otherwise.
 
 ### GetNameMatcherOk
 
-`func (o *SearchCountRequestEntryDto) GetNameMatcherOk() (*nil, bool)`
+`func (o *SearchCountRequestEntryDto) GetNameMatcherOk() (*SearchCountRequestEntryDtoNameMatcher, bool)`
 
 GetNameMatcherOk returns a tuple with the NameMatcher field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNameMatcher
 
-`func (o *SearchCountRequestEntryDto) SetNameMatcher(v nil)`
+`func (o *SearchCountRequestEntryDto) SetNameMatcher(v SearchCountRequestEntryDtoNameMatcher)`
 
 SetNameMatcher sets NameMatcher field to given value.
 
@@ -75,20 +75,20 @@ HasNameMatcher returns a boolean if a field has been set.
 
 ### GetWithInsights
 
-`func (o *SearchCountRequestEntryDto) GetWithInsights() nil`
+`func (o *SearchCountRequestEntryDto) GetWithInsights() InsightCriteriaDto`
 
 GetWithInsights returns the WithInsights field if non-nil, zero value otherwise.
 
 ### GetWithInsightsOk
 
-`func (o *SearchCountRequestEntryDto) GetWithInsightsOk() (*nil, bool)`
+`func (o *SearchCountRequestEntryDto) GetWithInsightsOk() (*InsightCriteriaDto, bool)`
 
 GetWithInsightsOk returns a tuple with the WithInsights field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetWithInsights
 
-`func (o *SearchCountRequestEntryDto) SetWithInsights(v nil)`
+`func (o *SearchCountRequestEntryDto) SetWithInsights(v InsightCriteriaDto)`
 
 SetWithInsights sets WithInsights field to given value.
 

@@ -1,13 +1,13 @@
 # \TraceDrilldownConfigControllerAPI
 
-All URIs are relative to *http://localhost:8030/asserts/api-server*
+All URIs are relative to *http://localhost:8030*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteConfig1**](TraceDrilldownConfigControllerAPI.md#DeleteConfig1) | **Delete** /v2/config/trace/{name} | Delete trace drilldown configuration
-[**GetTenantTraceConfig**](TraceDrilldownConfigControllerAPI.md#GetTenantTraceConfig) | **Get** /v2/config/trace | Get tenant trace configuration
-[**ReorderTraceConfigPriorities**](TraceDrilldownConfigControllerAPI.md#ReorderTraceConfigPriorities) | **Put** /v2/config/trace/reorder | Reorder trace drilldown configuration priorities
-[**UpsertTraceDrilldownConfig**](TraceDrilldownConfigControllerAPI.md#UpsertTraceDrilldownConfig) | **Post** /v2/config/trace | Upsert trace drilldown configuration
+[**DeleteConfig1**](TraceDrilldownConfigControllerAPI.md#DeleteConfig1) | **Delete** /asserts/api-server/v2/config/trace/{name} | Delete trace drilldown configuration
+[**GetTenantTraceConfig**](TraceDrilldownConfigControllerAPI.md#GetTenantTraceConfig) | **Get** /asserts/api-server/v2/config/trace | Get tenant trace configuration
+[**ReorderTraceConfigPriorities**](TraceDrilldownConfigControllerAPI.md#ReorderTraceConfigPriorities) | **Put** /asserts/api-server/v2/config/trace/reorder | Reorder trace drilldown configuration priorities
+[**UpsertTraceDrilldownConfig**](TraceDrilldownConfigControllerAPI.md#UpsertTraceDrilldownConfig) | **Post** /asserts/api-server/v2/config/trace | Upsert trace drilldown configuration
 
 
 

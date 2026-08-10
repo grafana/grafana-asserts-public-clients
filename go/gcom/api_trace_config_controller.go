@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.07.20-131035
+API version: 2026.08.10-151153
 Contact: support@asserts.ai
 */
 
@@ -68,7 +68,7 @@ func (a *TraceConfigControllerAPIService) DeleteTraceConfigExecute(r ApiDeleteTr
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/trace/{name}"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/trace/{name}"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -168,7 +168,7 @@ func (a *TraceConfigControllerAPIService) GetTenantTraceEnvConfigExecute(r ApiGe
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/trace"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/trace"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -279,7 +279,7 @@ func (a *TraceConfigControllerAPIService) UpsertTraceEnvConfigExecute(r ApiUpser
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/trace"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/trace"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

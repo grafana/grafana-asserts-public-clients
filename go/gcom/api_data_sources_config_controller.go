@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.07.20-131035
+API version: 2026.08.10-151153
 Contact: support@asserts.ai
 */
 
@@ -67,7 +67,7 @@ func (a *DataSourcesConfigControllerAPIService) GetPromDatasourceDetailExecute(r
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/datasource/prometheus"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/datasource/prometheus"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

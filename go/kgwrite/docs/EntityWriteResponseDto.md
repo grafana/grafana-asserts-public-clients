@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Type** | Pointer to **string** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 **Scope** | Pointer to **map[string]string** |  | [optional] 
-**Properties** | Pointer to **map[string]interface{}** |  | [optional] 
+**Properties** | Pointer to [**map[string]KgPropertyValue**](KgPropertyValue.md) | Properties stored on the entity: scalar values (string, boolean, int64, or double) or arrays of scalars. | [optional] 
 
 ## Methods
 
@@ -131,20 +131,20 @@ HasScope returns a boolean if a field has been set.
 
 ### GetProperties
 
-`func (o *EntityWriteResponseDto) GetProperties() map[string]interface{}`
+`func (o *EntityWriteResponseDto) GetProperties() map[string]KgPropertyValue`
 
 GetProperties returns the Properties field if non-nil, zero value otherwise.
 
 ### GetPropertiesOk
 
-`func (o *EntityWriteResponseDto) GetPropertiesOk() (*map[string]interface{}, bool)`
+`func (o *EntityWriteResponseDto) GetPropertiesOk() (*map[string]KgPropertyValue, bool)`
 
 GetPropertiesOk returns a tuple with the Properties field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetProperties
 
-`func (o *EntityWriteResponseDto) SetProperties(v map[string]interface{})`
+`func (o *EntityWriteResponseDto) SetProperties(v map[string]KgPropertyValue)`
 
 SetProperties sets Properties field to given value.
 

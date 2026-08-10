@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.07.20-131035
+API version: 2026.08.10-151153
 Contact: support@asserts.ai
 */
 
@@ -115,7 +115,7 @@ func (a *EntityControllerAPIService) GetEntityExecute(r ApiGetEntityRequest) (*G
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/entity/info"
+	localVarPath := localBasePath + "/asserts/api-server/v1/entity/info"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -291,7 +291,7 @@ func (a *EntityControllerAPIService) LookupEntityFromAlertLabelsExecute(r ApiLoo
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/entity"
+	localVarPath := localBasePath + "/asserts/api-server/v1/entity"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

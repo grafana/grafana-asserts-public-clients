@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.07.20-131035
+API version: 2026.08.10-151153
 Contact: support@asserts.ai
 */
 
@@ -70,7 +70,7 @@ func (a *ProfileDrilldownConfigControllerAPIService) DeleteConfig2Execute(r ApiD
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v2/config/profile/{name}"
+	localVarPath := localBasePath + "/asserts/api-server/v2/config/profile/{name}"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -172,7 +172,7 @@ func (a *ProfileDrilldownConfigControllerAPIService) GetTenantProfileConfigExecu
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v2/config/profile"
+	localVarPath := localBasePath + "/asserts/api-server/v2/config/profile"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -288,7 +288,7 @@ func (a *ProfileDrilldownConfigControllerAPIService) ReorderProfileConfigPriorit
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v2/config/profile/reorder"
+	localVarPath := localBasePath + "/asserts/api-server/v2/config/profile/reorder"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -416,7 +416,7 @@ func (a *ProfileDrilldownConfigControllerAPIService) UpsertProfileDrilldownConfi
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v2/config/profile"
+	localVarPath := localBasePath + "/asserts/api-server/v2/config/profile"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

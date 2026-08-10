@@ -10,8 +10,10 @@ info:
   version: 0.0.0
 servers:
 - description: Generated server url
-  url: http://localhost:8030/api-server
+  url: http://localhost:8030
 tags:
+- description: Read Knowledge Graph entities by stable identity (type + name + scope)
+  name: Knowledge Graph Read API
 - description: Write custom (API-origin) entities and relationships into the Knowledge
     Graph
   name: Knowledge Graph Write API
@@ -30,7 +32,6 @@ paths:
         name: namespace
         required: true
         schema:
-          default: ""
           type: string
         style: simple
       - explode: true
@@ -154,6 +155,18 @@ paths:
               schema:
                 $ref: '#/components/schemas/ApiError'
           description: Relationship not found
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Graph writes are paused for a graph migration
         "422":
           content:
             application/json:
@@ -180,7 +193,6 @@ paths:
         name: namespace
         required: true
         schema:
-          default: ""
           type: string
         style: simple
       - $ref: '#/components/parameters/TenantId'
@@ -256,7 +268,8 @@ paths:
             application/x-yaml:
               schema:
                 $ref: '#/components/schemas/ApiError'
-          description: Edge already exists with a non-API origin
+          description: "Edge already exists with a non-API origin, or graph writes\
+            \ are paused for a graph migration"
         "422":
           content:
             application/json:
@@ -270,6 +283,110 @@ paths:
                 $ref: '#/components/schemas/ApiError'
           description: Request body failed validation
       summary: Create or update a custom relationship
+      tags:
+      - Knowledge Graph Write API
+  /apis/kg.grafana.com/v1alpha1/namespaces/{namespace}/graph:
+    post:
+      description: "Upserts the request's entities first, then its relationships,\
+        \ as ONE atomic write: the entity and relationship data all commit together\
+        \ or not at all, and the server never splits a request internally. (Auto-registering\
+        \ a not-yet-seen entity type and its indexes runs before that atomic write\
+        \ and is idempotent, so it may persist even if the write then fails — retrying\
+        \ is safe.) A request may contain at most kg-write.batch.max-items total items\
+        \ (default 500); callers with larger loads send multiple requests, each independently\
+        \ atomic, and the upserts are idempotent so retrying a failed request is safe.\
+        \ No stub entities are created for unresolved relationship endpoints. The\
+        \ returned counts are the accepted (submitted) item counts, not a created-vs-updated\
+        \ breakdown."
+      operationId: writeGraph
+      parameters:
+      - description: "Tenant namespace, formatted as stacks-<stackId>"
+        explode: false
+        in: path
+        name: namespace
+        required: true
+        schema:
+          type: string
+        style: simple
+      - $ref: '#/components/parameters/TenantId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GraphWriteRequestDto'
+          application/x-yml:
+            schema:
+              $ref: '#/components/schemas/GraphWriteRequestDto'
+          application/x-yaml:
+            schema:
+              $ref: '#/components/schemas/GraphWriteRequestDto'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GraphWriteResponseDto'
+            application/x-yml:
+              schema:
+                $ref: '#/components/schemas/GraphWriteResponseDto'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/GraphWriteResponseDto'
+          description: Batch written atomically
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Missing tenant context or malformed namespace
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Namespace does not match the request tenant
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: "Default-domain shadow conflict (an entity with this identity\
+            \ already exists in the telemetry domain), or graph writes are paused\
+            \ for a graph migration — nothing written"
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: "Validation failure (empty batch, bean validation, over-size\
+            \ batch, non-writable domain, duplicate entity identity, or unresolved\
+            \ relationship endpoint) — nothing written"
+      summary: Write a batch of custom entities and relationships
       tags:
       - Knowledge Graph Write API
   /apis/kg.grafana.com/v1alpha1/namespaces/{namespace}/entities:
@@ -287,7 +404,6 @@ paths:
         name: namespace
         required: true
         schema:
-          default: ""
           type: string
         style: simple
       - explode: true
@@ -367,6 +483,18 @@ paths:
               schema:
                 $ref: '#/components/schemas/ApiError'
           description: Entity not found
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Graph writes are paused for a graph migration
         "422":
           content:
             application/json:
@@ -382,6 +510,90 @@ paths:
       summary: Delete a custom entity
       tags:
       - Knowledge Graph Write API
+    get:
+      description: "Resolves a single entity by domain + type + name + exact scope\
+        \ (scope[key]=value query params). The scope must be the entity's complete\
+        \ scope; a subset of its scope keys does not match. Omit scope for scope-less\
+        \ entities and domain for the default telemetry domain (kg)."
+      operationId: lookupEntity
+      parameters:
+      - description: "Tenant namespace, formatted as stacks-<stackId>"
+        explode: false
+        in: path
+        name: namespace
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: type
+        required: true
+        schema:
+          minLength: 1
+          pattern: "^[A-Za-z][A-Za-z0-9_]*$"
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: name
+        required: true
+        schema:
+          minLength: 1
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: domain
+        required: false
+        schema:
+          pattern: "^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+          type: string
+        style: form
+      - description: "Optional scope key/value pairs identifying the entity (scope[key]=value)."
+        explode: true
+        in: query
+        name: scope
+        required: false
+        schema:
+          additionalProperties:
+            type: string
+        style: deepObject
+      - $ref: '#/components/parameters/TenantId'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityReadResponseDto'
+          description: Entity details
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Missing tenant context or malformed namespace
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Namespace does not match the request tenant
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: No entity with the given identity
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Identity params failed validation
+      summary: Get one entity by its identity
+      tags:
+      - Knowledge Graph Read API
     post:
       description: "Upserts an API-origin entity identified by (type, name, scope):\
         \ 201 on create, 200 on update."
@@ -394,7 +606,6 @@ paths:
         name: namespace
         required: true
         schema:
-          default: ""
           type: string
         style: simple
       - $ref: '#/components/parameters/TenantId'
@@ -470,7 +681,8 @@ paths:
             application/x-yaml:
               schema:
                 $ref: '#/components/schemas/ApiError'
-          description: Target already exists with a non-API origin
+          description: "Target already exists with a non-API origin, or graph writes\
+            \ are paused for a graph migration"
         "422":
           content:
             application/json:
@@ -487,6 +699,122 @@ paths:
       summary: Create or update a custom entity
       tags:
       - Knowledge Graph Write API
+  /apis/kg.grafana.com/v1alpha1/namespaces/{namespace}/entities/connected:
+    get:
+      description: "Lists entities with at least one relationship to the anchor entity\
+        \ addressed by domain + type + name + exact scope; optionally filtered to\
+        \ one connected entity type. Expired connections are included with active:\
+        \ false. Results are ordered by name, with identity tiebreakers (type, domain,\
+        \ scope) for stable pagination."
+      operationId: lookupConnectedEntities
+      parameters:
+      - description: "Tenant namespace, formatted as stacks-<stackId>"
+        explode: false
+        in: path
+        name: namespace
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: type
+        required: true
+        schema:
+          minLength: 1
+          pattern: "^[A-Za-z][A-Za-z0-9_]*$"
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: name
+        required: true
+        schema:
+          minLength: 1
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: domain
+        required: false
+        schema:
+          pattern: "^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+          type: string
+        style: form
+      - description: Restrict results to connected entities of this type
+        explode: true
+        in: query
+        name: connected_type
+        required: false
+        schema:
+          pattern: "^[A-Za-z][A-Za-z0-9_]*$"
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 25
+          format: int32
+          maximum: 100
+          minimum: 1
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          default: 0
+          format: int32
+          minimum: 0
+          type: integer
+        style: form
+      - description: "Exact scope key/value pairs identifying the anchor entity (scope[key]=value)."
+        explode: true
+        in: query
+        name: scope
+        required: false
+        schema:
+          additionalProperties:
+            type: string
+        style: deepObject
+      - $ref: '#/components/parameters/TenantId'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConnectedEntitiesResponseDto'
+          description: Connected entities
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Missing tenant context or malformed namespace
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Namespace does not match the request tenant
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: No entity with the given identity
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Identity params failed validation
+      summary: Get entities connected to the entity with the given identity
+      tags:
+      - Knowledge Graph Read API
 components:
   parameters:
     TenantId:
@@ -544,7 +872,7 @@ components:
         type: type
         ttlSeconds: -1
         properties:
-          key: properties
+          key: KgPropertyValue
       properties:
         domain:
           minLength: 1
@@ -560,7 +888,12 @@ components:
           $ref: '#/components/schemas/EntityRefDto'
         properties:
           additionalProperties:
-            type: string
+            $ref: '#/components/schemas/KgPropertyValue'
+          description: "Custom properties to store on the relationship. Values must\
+            \ be scalars (string, boolean, or number) or arrays of scalars; nested\
+            \ objects, nested arrays, and null values are rejected. Integral numbers\
+            \ are stored as 64-bit signed integers and floating-point numbers as IEEE-754\
+            \ doubles."
         ttlSeconds:
           description: "Time-to-live in seconds. Positive values expire the relationship\
             \ after that many seconds, 0 expires it immediately, and negative values\
@@ -577,6 +910,7 @@ components:
     ApiError:
       example:
         trace_id: trace_id
+        code: KG_NOT_PROVISIONED
         span_id: span_id
         requestId: requestId
         debugMessage: debugMessage
@@ -604,10 +938,25 @@ components:
           items:
             $ref: '#/components/schemas/ApiError_subErrors_inner'
           type: array
+        code:
+          description: "Stable machine-readable error code, present only for errors\
+            \ that define one"
+          example: KG_NOT_PROVISIONED
+          type: string
         trace_id:
           type: string
         span_id:
           type: string
+    ApiQuerySyntaxError:
+      allOf:
+      - $ref: '#/components/schemas/ApiSubError'
+      - properties:
+          line:
+            format: int32
+            type: integer
+          column:
+            format: int32
+            type: integer
     ApiSubError:
       example:
         message: message
@@ -638,7 +987,7 @@ components:
           type: type
         type: type
         properties:
-          key: ""
+          key: KgPropertyValue
       properties:
         domain:
           type: string
@@ -649,7 +998,10 @@ components:
         to:
           $ref: '#/components/schemas/EntityRefDto'
         properties:
-          additionalProperties: {}
+          additionalProperties:
+            $ref: '#/components/schemas/KgPropertyValue'
+          description: "Properties stored on the relationship: scalar values (string,\
+            \ boolean, int64, or double) or arrays of scalars."
     EntityWriteRequestDto:
       example:
         domain: domain
@@ -659,7 +1011,7 @@ components:
         type: type
         ttlSeconds: -1
         properties:
-          key: properties
+          key: KgPropertyValue
       properties:
         domain:
           minLength: 1
@@ -677,7 +1029,11 @@ components:
             type: string
         properties:
           additionalProperties:
-            type: string
+            $ref: '#/components/schemas/KgPropertyValue'
+          description: "Custom properties to store on the entity. Values must be scalars\
+            \ (string, boolean, or number) or arrays of scalars; nested objects, nested\
+            \ arrays, and null values are rejected. Integral numbers are stored as\
+            \ 64-bit signed integers and floating-point numbers as IEEE-754 doubles."
         ttlSeconds:
           description: "Time-to-live in seconds. Positive values expire the entity\
             \ after that many seconds, 0 expires it immediately, and negative values\
@@ -690,12 +1046,121 @@ components:
       - name
       - ttlSeconds
       - type
+    GraphWriteRequestDto:
+      description: Batch of entities and relationships to upsert atomically. At least
+        one of `entities` or `relationships` must be non-empty; an empty request is
+        a 422.
+      example:
+        relationships:
+        - domain: domain
+          from:
+            domain: domain
+            scope:
+              key: scope
+            name: name
+            type: type
+          to:
+            domain: domain
+            scope:
+              key: scope
+            name: name
+            type: type
+          type: type
+          ttlSeconds: -1
+          properties:
+            key: KgPropertyValue
+        - domain: domain
+          from:
+            domain: domain
+            scope:
+              key: scope
+            name: name
+            type: type
+          to:
+            domain: domain
+            scope:
+              key: scope
+            name: name
+            type: type
+          type: type
+          ttlSeconds: -1
+          properties:
+            key: KgPropertyValue
+        entities:
+        - domain: domain
+          scope:
+            key: scope
+          name: name
+          type: type
+          ttlSeconds: -1
+          properties:
+            key: KgPropertyValue
+        - domain: domain
+          scope:
+            key: scope
+          name: name
+          type: type
+          ttlSeconds: -1
+          properties:
+            key: KgPropertyValue
+      properties:
+        entities:
+          items:
+            $ref: '#/components/schemas/EntityWriteRequestDto'
+          type: array
+        relationships:
+          items:
+            $ref: '#/components/schemas/RelationshipWriteRequestDto'
+          type: array
+    GraphWriteResponseDto:
+      example:
+        entitiesWritten: 0
+        relationshipsWritten: 6
+      properties:
+        entitiesWritten:
+          description: "Count of entities in the accepted batch (idempotent upsert\
+            \ count, not a created-vs-updated breakdown)."
+          format: int64
+          type: integer
+        relationshipsWritten:
+          description: "Count of relationships in the accepted batch (idempotent upsert\
+            \ count, not a created-vs-updated breakdown)."
+          format: int64
+          type: integer
     EntityWriteResponseDto:
       example:
         domain: domain
         scope:
           key: scope
         name: name
+        type: type
+        properties:
+          key: KgPropertyValue
+      properties:
+        domain:
+          type: string
+        type:
+          type: string
+        name:
+          type: string
+        scope:
+          additionalProperties:
+            type: string
+        properties:
+          additionalProperties:
+            $ref: '#/components/schemas/KgPropertyValue'
+          description: "Properties stored on the entity: scalar values (string, boolean,\
+            \ int64, or double) or arrays of scalars."
+    EntityReadResponseDto:
+      example:
+        domain: domain
+        scope:
+          key: scope
+        name: name
+        active: false
+        connectedTypes:
+        - connectedTypes
+        - connectedTypes
         type: type
         properties:
           key: ""
@@ -709,9 +1174,79 @@ components:
         scope:
           additionalProperties:
             type: string
+        active:
+          default: false
+          description: Whether the entity is currently active (not expired).
+          type: boolean
         properties:
           additionalProperties: {}
+          description: "Properties stored on the entity: scalar values (string, boolean,\
+            \ int64, or double) or arrays of scalars."
+        connectedTypes:
+          description: Entity types this entity has at least one relationship to;
+            useful for building follow-up /entities/connected queries.
+          items:
+            type: string
+          type: array
+    ConnectedEntitiesResponseDto:
+      example:
+        offset: 6
+        limit: 0
+        items:
+        - domain: domain
+          scope:
+            key: scope
+          name: name
+          active: false
+          connectedTypes:
+          - connectedTypes
+          - connectedTypes
+          type: type
+          properties:
+            key: ""
+        - domain: domain
+          scope:
+            key: scope
+          name: name
+          active: false
+          connectedTypes:
+          - connectedTypes
+          - connectedTypes
+          type: type
+          properties:
+            key: ""
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/EntityReadResponseDto'
+          type: array
+        limit:
+          format: int32
+          type: integer
+        offset:
+          format: int32
+          type: integer
+    KgPropertyScalar:
+      description: "A scalar property value. Integral numbers are stored as 64-bit\
+        \ signed integers and floating-point numbers as IEEE-754 doubles; NaN, Infinity,\
+        \ and integers overflowing 64 bits are rejected."
+      oneOf:
+      - type: string
+      - type: boolean
+      - format: double
+        type: number
+    KgPropertyValue:
+      description: "A property value: a scalar, or a (possibly mixed) array of scalars.\
+        \ Nested objects, nested arrays, and null values are rejected."
+      oneOf:
+      - type: string
+      - type: boolean
+      - format: double
+        type: number
+      - items:
+          $ref: '#/components/schemas/KgPropertyScalar'
     ApiError_subErrors_inner:
       oneOf:
       - $ref: '#/components/schemas/ApiSubError'
+      - $ref: '#/components/schemas/ApiQuerySyntaxError'
       - $ref: '#/components/schemas/ApiValidationError'

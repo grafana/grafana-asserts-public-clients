@@ -1,6 +1,6 @@
 # \KnowledgeGraphWriteAPIAPI
 
-All URIs are relative to *http://localhost:8030/api-server*
+All URIs are relative to *http://localhost:8030*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -8,6 +8,7 @@ Method | HTTP request | Description
 [**DeleteRelationship**](KnowledgeGraphWriteAPIAPI.md#DeleteRelationship) | **Delete** /apis/kg.grafana.com/v1alpha1/namespaces/{namespace}/relationships | Delete a custom relationship
 [**UpsertEntity**](KnowledgeGraphWriteAPIAPI.md#UpsertEntity) | **Post** /apis/kg.grafana.com/v1alpha1/namespaces/{namespace}/entities | Create or update a custom entity
 [**UpsertRelationship**](KnowledgeGraphWriteAPIAPI.md#UpsertRelationship) | **Post** /apis/kg.grafana.com/v1alpha1/namespaces/{namespace}/relationships | Create or update a custom relationship
+[**WriteGraph**](KnowledgeGraphWriteAPIAPI.md#WriteGraph) | **Post** /apis/kg.grafana.com/v1alpha1/namespaces/{namespace}/graph | Write a batch of custom entities and relationships
 
 
 
@@ -32,7 +33,7 @@ import (
 )
 
 func main() {
-	namespace := "namespace_example" // string | Tenant namespace, formatted as stacks-<stackId> (default to "")
+	namespace := "namespace_example" // string | Tenant namespace, formatted as stacks-<stackId>
 	domain := "domain_example" // string | 
 	type_ := "type__example" // string | 
 	name := "name_example" // string | 
@@ -55,7 +56,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**namespace** | **string** | Tenant namespace, formatted as stacks-&lt;stackId&gt; | [default to &quot;&quot;]
+**namespace** | **string** | Tenant namespace, formatted as stacks-&lt;stackId&gt; | 
 
 ### Other Parameters
 
@@ -110,7 +111,7 @@ import (
 )
 
 func main() {
-	namespace := "namespace_example" // string | Tenant namespace, formatted as stacks-<stackId> (default to "")
+	namespace := "namespace_example" // string | Tenant namespace, formatted as stacks-<stackId>
 	type_ := "type__example" // string | 
 	fromDomain := "fromDomain_example" // string | 
 	fromType := "fromType_example" // string | 
@@ -138,7 +139,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**namespace** | **string** | Tenant namespace, formatted as stacks-&lt;stackId&gt; | [default to &quot;&quot;]
+**namespace** | **string** | Tenant namespace, formatted as stacks-&lt;stackId&gt; | 
 
 ### Other Parameters
 
@@ -198,7 +199,7 @@ import (
 )
 
 func main() {
-	namespace := "namespace_example" // string | Tenant namespace, formatted as stacks-<stackId>; must match the request tenant (default to "")
+	namespace := "namespace_example" // string | Tenant namespace, formatted as stacks-<stackId>; must match the request tenant
 	entityWriteRequestDto := *openapiclient.NewEntityWriteRequestDto("Domain_example", "Type_example", "Name_example", int64(-1)) // EntityWriteRequestDto | 
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
@@ -220,7 +221,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**namespace** | **string** | Tenant namespace, formatted as stacks-&lt;stackId&gt;; must match the request tenant | [default to &quot;&quot;]
+**namespace** | **string** | Tenant namespace, formatted as stacks-&lt;stackId&gt;; must match the request tenant | 
 
 ### Other Parameters
 
@@ -272,7 +273,7 @@ import (
 )
 
 func main() {
-	namespace := "namespace_example" // string | Tenant namespace, formatted as stacks-<stackId> (default to "")
+	namespace := "namespace_example" // string | Tenant namespace, formatted as stacks-<stackId>
 	relationshipWriteRequestDto := *openapiclient.NewRelationshipWriteRequestDto("Domain_example", "Type_example", *openapiclient.NewEntityRefDto("Domain_example", "Type_example", "Name_example"), *openapiclient.NewEntityRefDto("Domain_example", "Type_example", "Name_example"), int64(-1)) // RelationshipWriteRequestDto | 
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
@@ -294,7 +295,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**namespace** | **string** | Tenant namespace, formatted as stacks-&lt;stackId&gt; | [default to &quot;&quot;]
+**namespace** | **string** | Tenant namespace, formatted as stacks-&lt;stackId&gt; | 
 
 ### Other Parameters
 
@@ -310,6 +311,80 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**RelationshipWriteResponseDto**](RelationshipWriteResponseDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json, application/x-yml, application/x-yaml
+- **Accept**: application/json, application/x-yml, application/x-yaml
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## WriteGraph
+
+> GraphWriteResponseDto WriteGraph(ctx, namespace).GraphWriteRequestDto(graphWriteRequestDto).XScopeOrgID(xScopeOrgID).Execute()
+
+Write a batch of custom entities and relationships
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/grafana/grafana-asserts-public-clients/go/kgwrite"
+)
+
+func main() {
+	namespace := "namespace_example" // string | Tenant namespace, formatted as stacks-<stackId>
+	graphWriteRequestDto := *openapiclient.NewGraphWriteRequestDto() // GraphWriteRequestDto | 
+	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.KnowledgeGraphWriteAPIAPI.WriteGraph(context.Background(), namespace).GraphWriteRequestDto(graphWriteRequestDto).XScopeOrgID(xScopeOrgID).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `KnowledgeGraphWriteAPIAPI.WriteGraph``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `WriteGraph`: GraphWriteResponseDto
+	fmt.Fprintf(os.Stdout, "Response from `KnowledgeGraphWriteAPIAPI.WriteGraph`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**namespace** | **string** | Tenant namespace, formatted as stacks-&lt;stackId&gt; | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiWriteGraphRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **graphWriteRequestDto** | [**GraphWriteRequestDto**](GraphWriteRequestDto.md) |  | 
+ **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
+
+### Return type
+
+[**GraphWriteResponseDto**](GraphWriteResponseDto.md)
 
 ### Authorization
 

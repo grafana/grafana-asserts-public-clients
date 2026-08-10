@@ -49,6 +49,8 @@ type APIClient struct {
 
 	// API Services
 
+	KnowledgeGraphReadAPIAPI *KnowledgeGraphReadAPIAPIService
+
 	KnowledgeGraphWriteAPIAPI *KnowledgeGraphWriteAPIAPIService
 }
 
@@ -68,6 +70,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.common.client = c
 
 	// API Services
+	c.KnowledgeGraphReadAPIAPI = (*KnowledgeGraphReadAPIAPIService)(&c.common)
 	c.KnowledgeGraphWriteAPIAPI = (*KnowledgeGraphWriteAPIAPIService)(&c.common)
 
 	return c

@@ -1,15 +1,15 @@
 # \ThresholdsV2ConfigControllerAPI
 
-All URIs are relative to *http://localhost:8030/asserts/api-server*
+All URIs are relative to *http://localhost:8030*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteThresholds**](ThresholdsV2ConfigControllerAPI.md#DeleteThresholds) | **Delete** /v2/config/threshold | 
-[**GetThresholds**](ThresholdsV2ConfigControllerAPI.md#GetThresholds) | **Get** /v2/config/threshold | 
-[**UpdateAllThresholds**](ThresholdsV2ConfigControllerAPI.md#UpdateAllThresholds) | **Post** /v2/config/threshold | 
-[**UpdateHealthThresholds**](ThresholdsV2ConfigControllerAPI.md#UpdateHealthThresholds) | **Post** /v2/config/threshold/health | 
-[**UpdateRequestThresholds**](ThresholdsV2ConfigControllerAPI.md#UpdateRequestThresholds) | **Post** /v2/config/threshold/request | 
-[**UpdateResourceThresholds**](ThresholdsV2ConfigControllerAPI.md#UpdateResourceThresholds) | **Post** /v2/config/threshold/resource | 
+[**DeleteThresholds**](ThresholdsV2ConfigControllerAPI.md#DeleteThresholds) | **Delete** /asserts/api-server/v2/config/threshold | 
+[**GetThresholds**](ThresholdsV2ConfigControllerAPI.md#GetThresholds) | **Get** /asserts/api-server/v2/config/threshold | 
+[**UpdateAllThresholds**](ThresholdsV2ConfigControllerAPI.md#UpdateAllThresholds) | **Post** /asserts/api-server/v2/config/threshold | 
+[**UpdateHealthThresholds**](ThresholdsV2ConfigControllerAPI.md#UpdateHealthThresholds) | **Post** /asserts/api-server/v2/config/threshold/health | 
+[**UpdateRequestThresholds**](ThresholdsV2ConfigControllerAPI.md#UpdateRequestThresholds) | **Post** /asserts/api-server/v2/config/threshold/request | 
+[**UpdateResourceThresholds**](ThresholdsV2ConfigControllerAPI.md#UpdateResourceThresholds) | **Post** /asserts/api-server/v2/config/threshold/resource | 
 
 
 

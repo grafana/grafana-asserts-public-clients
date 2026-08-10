@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.07.20-131035
+API version: 2026.08.10-151153
 Contact: support@asserts.ai
 */
 
@@ -68,7 +68,7 @@ func (a *ModelMappingControllerAPIService) DeleteExecute(r ApiDeleteRequest) (*h
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/model-mapping/{name}"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/model-mapping/{name}"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -171,7 +171,7 @@ func (a *ModelMappingControllerAPIService) GetExecute(r ApiGetRequest) (*ModelMa
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/model-mapping/{name}"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/model-mapping/{name}"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -292,7 +292,7 @@ func (a *ModelMappingControllerAPIService) PutExecute(r ApiPutRequest) (*http.Re
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/model-mapping/{name}"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/model-mapping/{name}"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
 
 	localVarHeaderParams := make(map[string]string)

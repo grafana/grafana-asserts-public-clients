@@ -20,11 +20,12 @@ var _ MappedNullable = &EntityWriteResponseDto{}
 
 // EntityWriteResponseDto struct for EntityWriteResponseDto
 type EntityWriteResponseDto struct {
-	Domain               *string                `json:"domain,omitempty"`
-	Type                 *string                `json:"type,omitempty"`
-	Name                 *string                `json:"name,omitempty"`
-	Scope                map[string]string      `json:"scope,omitempty"`
-	Properties           map[string]interface{} `json:"properties,omitempty"`
+	Domain *string           `json:"domain,omitempty"`
+	Type   *string           `json:"type,omitempty"`
+	Name   *string           `json:"name,omitempty"`
+	Scope  map[string]string `json:"scope,omitempty"`
+	// Properties stored on the entity: scalar values (string, boolean, int64, or double) or arrays of scalars.
+	Properties           map[string]KgPropertyValue `json:"properties,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -176,9 +177,9 @@ func (o *EntityWriteResponseDto) SetScope(v map[string]string) {
 }
 
 // GetProperties returns the Properties field value if set, zero value otherwise.
-func (o *EntityWriteResponseDto) GetProperties() map[string]interface{} {
+func (o *EntityWriteResponseDto) GetProperties() map[string]KgPropertyValue {
 	if o == nil || IsNil(o.Properties) {
-		var ret map[string]interface{}
+		var ret map[string]KgPropertyValue
 		return ret
 	}
 	return o.Properties
@@ -186,9 +187,9 @@ func (o *EntityWriteResponseDto) GetProperties() map[string]interface{} {
 
 // GetPropertiesOk returns a tuple with the Properties field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EntityWriteResponseDto) GetPropertiesOk() (map[string]interface{}, bool) {
+func (o *EntityWriteResponseDto) GetPropertiesOk() (map[string]KgPropertyValue, bool) {
 	if o == nil || IsNil(o.Properties) {
-		return map[string]interface{}{}, false
+		return map[string]KgPropertyValue{}, false
 	}
 	return o.Properties, true
 }
@@ -202,8 +203,8 @@ func (o *EntityWriteResponseDto) HasProperties() bool {
 	return false
 }
 
-// SetProperties gets a reference to the given map[string]interface{} and assigns it to the Properties field.
-func (o *EntityWriteResponseDto) SetProperties(v map[string]interface{}) {
+// SetProperties gets a reference to the given map[string]KgPropertyValue and assigns it to the Properties field.
+func (o *EntityWriteResponseDto) SetProperties(v map[string]KgPropertyValue) {
 	o.Properties = v
 }
 

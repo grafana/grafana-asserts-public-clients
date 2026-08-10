@@ -1,13 +1,13 @@
 # \EntityTypeControllerAPI
 
-All URIs are relative to *http://localhost:8030/asserts/api-server*
+All URIs are relative to *http://localhost:8030*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetAll**](EntityTypeControllerAPI.md#GetAll) | **Get** /v1/entity_type | 
-[**GetCountByEntityType**](EntityTypeControllerAPI.md#GetCountByEntityType) | **Post** /v1/entity_type/count | 
-[**GetEntityType**](EntityTypeControllerAPI.md#GetEntityType) | **Get** /v1/entity_type/{type} | 
-[**GetPropertyValues**](EntityTypeControllerAPI.md#GetPropertyValues) | **Post** /v1/entity_type/property_values | 
+[**GetAll**](EntityTypeControllerAPI.md#GetAll) | **Get** /asserts/api-server/v1/entity_type | 
+[**GetCountByEntityType**](EntityTypeControllerAPI.md#GetCountByEntityType) | **Post** /asserts/api-server/v1/entity_type/count | 
+[**GetEntityType**](EntityTypeControllerAPI.md#GetEntityType) | **Get** /asserts/api-server/v1/entity_type/{type} | 
+[**GetPropertyValues**](EntityTypeControllerAPI.md#GetPropertyValues) | **Post** /asserts/api-server/v1/entity_type/property_values | 
 
 
 

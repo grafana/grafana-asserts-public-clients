@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.07.20-131035
+API version: 2026.08.10-151153
 Contact: support@asserts.ai
 */
 
@@ -22,6 +22,9 @@ var _ MappedNullable = &AssertionSourceMetricResponseDto{}
 type AssertionSourceMetricResponseDto struct {
 	MetricName           *string                         `json:"metricName,omitempty"`
 	Labels               []AssertionSourceMetricLabelDto `json:"labels,omitempty"`
+	MetricType           *string                         `json:"metricType,omitempty"`
+	CustomRateInterval   *string                         `json:"customRateInterval,omitempty"`
+	CustomFunction       *string                         `json:"customFunction,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -108,6 +111,102 @@ func (o *AssertionSourceMetricResponseDto) SetLabels(v []AssertionSourceMetricLa
 	o.Labels = v
 }
 
+// GetMetricType returns the MetricType field value if set, zero value otherwise.
+func (o *AssertionSourceMetricResponseDto) GetMetricType() string {
+	if o == nil || IsNil(o.MetricType) {
+		var ret string
+		return ret
+	}
+	return *o.MetricType
+}
+
+// GetMetricTypeOk returns a tuple with the MetricType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AssertionSourceMetricResponseDto) GetMetricTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.MetricType) {
+		return nil, false
+	}
+	return o.MetricType, true
+}
+
+// HasMetricType returns a boolean if a field has been set.
+func (o *AssertionSourceMetricResponseDto) HasMetricType() bool {
+	if o != nil && !IsNil(o.MetricType) {
+		return true
+	}
+
+	return false
+}
+
+// SetMetricType gets a reference to the given string and assigns it to the MetricType field.
+func (o *AssertionSourceMetricResponseDto) SetMetricType(v string) {
+	o.MetricType = &v
+}
+
+// GetCustomRateInterval returns the CustomRateInterval field value if set, zero value otherwise.
+func (o *AssertionSourceMetricResponseDto) GetCustomRateInterval() string {
+	if o == nil || IsNil(o.CustomRateInterval) {
+		var ret string
+		return ret
+	}
+	return *o.CustomRateInterval
+}
+
+// GetCustomRateIntervalOk returns a tuple with the CustomRateInterval field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AssertionSourceMetricResponseDto) GetCustomRateIntervalOk() (*string, bool) {
+	if o == nil || IsNil(o.CustomRateInterval) {
+		return nil, false
+	}
+	return o.CustomRateInterval, true
+}
+
+// HasCustomRateInterval returns a boolean if a field has been set.
+func (o *AssertionSourceMetricResponseDto) HasCustomRateInterval() bool {
+	if o != nil && !IsNil(o.CustomRateInterval) {
+		return true
+	}
+
+	return false
+}
+
+// SetCustomRateInterval gets a reference to the given string and assigns it to the CustomRateInterval field.
+func (o *AssertionSourceMetricResponseDto) SetCustomRateInterval(v string) {
+	o.CustomRateInterval = &v
+}
+
+// GetCustomFunction returns the CustomFunction field value if set, zero value otherwise.
+func (o *AssertionSourceMetricResponseDto) GetCustomFunction() string {
+	if o == nil || IsNil(o.CustomFunction) {
+		var ret string
+		return ret
+	}
+	return *o.CustomFunction
+}
+
+// GetCustomFunctionOk returns a tuple with the CustomFunction field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AssertionSourceMetricResponseDto) GetCustomFunctionOk() (*string, bool) {
+	if o == nil || IsNil(o.CustomFunction) {
+		return nil, false
+	}
+	return o.CustomFunction, true
+}
+
+// HasCustomFunction returns a boolean if a field has been set.
+func (o *AssertionSourceMetricResponseDto) HasCustomFunction() bool {
+	if o != nil && !IsNil(o.CustomFunction) {
+		return true
+	}
+
+	return false
+}
+
+// SetCustomFunction gets a reference to the given string and assigns it to the CustomFunction field.
+func (o *AssertionSourceMetricResponseDto) SetCustomFunction(v string) {
+	o.CustomFunction = &v
+}
+
 func (o AssertionSourceMetricResponseDto) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -123,6 +222,15 @@ func (o AssertionSourceMetricResponseDto) ToMap() (map[string]interface{}, error
 	}
 	if !IsNil(o.Labels) {
 		toSerialize["labels"] = o.Labels
+	}
+	if !IsNil(o.MetricType) {
+		toSerialize["metricType"] = o.MetricType
+	}
+	if !IsNil(o.CustomRateInterval) {
+		toSerialize["customRateInterval"] = o.CustomRateInterval
+	}
+	if !IsNil(o.CustomFunction) {
+		toSerialize["customFunction"] = o.CustomFunction
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -148,6 +256,9 @@ func (o *AssertionSourceMetricResponseDto) UnmarshalJSON(data []byte) (err error
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "metricName")
 		delete(additionalProperties, "labels")
+		delete(additionalProperties, "metricType")
+		delete(additionalProperties, "customRateInterval")
+		delete(additionalProperties, "customFunction")
 		o.AdditionalProperties = additionalProperties
 	}
 

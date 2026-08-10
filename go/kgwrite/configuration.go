@@ -91,7 +91,7 @@ func NewConfiguration() *Configuration {
 		Debug:         false,
 		Servers: ServerConfigurations{
 			{
-				URL:         "http://localhost:8030/api-server",
+				URL:         "http://localhost:8030",
 				Description: "Generated server url",
 			},
 		},

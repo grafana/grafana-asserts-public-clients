@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Type** | **string** |  | 
 **Name** | **string** |  | 
 **Scope** | Pointer to **map[string]string** |  | [optional] 
-**Properties** | Pointer to **map[string]string** |  | [optional] 
+**Properties** | Pointer to [**map[string]KgPropertyValue**](KgPropertyValue.md) | Custom properties to store on the entity. Values must be scalars (string, boolean, or number) or arrays of scalars; nested objects, nested arrays, and null values are rejected. Integral numbers are stored as 64-bit signed integers and floating-point numbers as IEEE-754 doubles. | [optional] 
 **TtlSeconds** | **int64** | Time-to-live in seconds. Positive values expire the entity after that many seconds, 0 expires it immediately, and negative values mean no expiry. | 
 
 ## Methods
@@ -117,20 +117,20 @@ HasScope returns a boolean if a field has been set.
 
 ### GetProperties
 
-`func (o *EntityWriteRequestDto) GetProperties() map[string]string`
+`func (o *EntityWriteRequestDto) GetProperties() map[string]KgPropertyValue`
 
 GetProperties returns the Properties field if non-nil, zero value otherwise.
 
 ### GetPropertiesOk
 
-`func (o *EntityWriteRequestDto) GetPropertiesOk() (*map[string]string, bool)`
+`func (o *EntityWriteRequestDto) GetPropertiesOk() (*map[string]KgPropertyValue, bool)`
 
 GetPropertiesOk returns a tuple with the Properties field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetProperties
 
-`func (o *EntityWriteRequestDto) SetProperties(v map[string]string)`
+`func (o *EntityWriteRequestDto) SetProperties(v map[string]KgPropertyValue)`
 
 SetProperties sets Properties field to given value.
 

@@ -1,12 +1,12 @@
 # \ModelMappingControllerAPI
 
-All URIs are relative to *http://localhost:8030/asserts/api-server*
+All URIs are relative to *http://localhost:8030*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Delete**](ModelMappingControllerAPI.md#Delete) | **Delete** /v1/config/model-mapping/{name} | 
-[**Get**](ModelMappingControllerAPI.md#Get) | **Get** /v1/config/model-mapping/{name} | 
-[**Put**](ModelMappingControllerAPI.md#Put) | **Put** /v1/config/model-mapping/{name} | 
+[**Delete**](ModelMappingControllerAPI.md#Delete) | **Delete** /asserts/api-server/v1/config/model-mapping/{name} | 
+[**Get**](ModelMappingControllerAPI.md#Get) | **Get** /asserts/api-server/v1/config/model-mapping/{name} | 
+[**Put**](ModelMappingControllerAPI.md#Put) | **Put** /asserts/api-server/v1/config/model-mapping/{name} | 
 
 
 

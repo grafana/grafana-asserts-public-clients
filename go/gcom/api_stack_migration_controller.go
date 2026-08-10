@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.07.20-131035
+API version: 2026.08.10-151153
 Contact: support@asserts.ai
 */
 
@@ -70,7 +70,7 @@ func (a *StackMigrationControllerAPIService) MigrateStackExecute(r ApiMigrateSta
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/stack/migrate"
+	localVarPath := localBasePath + "/asserts/api-server/v1/stack/migrate"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
