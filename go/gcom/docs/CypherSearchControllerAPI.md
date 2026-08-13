@@ -1,10 +1,10 @@
 # \CypherSearchControllerAPI
 
-All URIs are relative to *http://localhost:8030/asserts/api-server*
+All URIs are relative to *http://localhost:8030*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Search1**](CypherSearchControllerAPI.md#Search1) | **Post** /v1/search/cypher | 
+[**Search1**](CypherSearchControllerAPI.md#Search1) | **Post** /asserts/api-server/v1/search/cypher | 
 
 
 

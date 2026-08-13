@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.07.20-131035
+API version: 2026.08.13-141456
 Contact: support@asserts.ai
 */
 
@@ -67,7 +67,7 @@ func (a *RulesControllerAPIService) GetAllRulesExecute(r ApiGetAllRulesRequest) 
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v5/prometheus/rules"
+	localVarPath := localBasePath + "/asserts/api-server/v5/prometheus/rules"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

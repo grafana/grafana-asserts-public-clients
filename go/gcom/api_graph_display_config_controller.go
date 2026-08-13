@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.07.20-131035
+API version: 2026.08.13-141456
 Contact: support@asserts.ai
 */
 
@@ -68,7 +68,7 @@ func (a *GraphDisplayConfigControllerAPIService) DeleteGraphEdgeDisplayConfigExe
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/display/graph/edge_type/{name}"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/display/graph/edge_type/{name}"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -168,7 +168,7 @@ func (a *GraphDisplayConfigControllerAPIService) DeleteGraphEntityDisplayConfigE
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/display/graph/entity_type/{name}"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/display/graph/entity_type/{name}"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -268,7 +268,7 @@ func (a *GraphDisplayConfigControllerAPIService) GetGraphDisplayConfigExecute(r 
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/display/graph"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/display/graph"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -379,7 +379,7 @@ func (a *GraphDisplayConfigControllerAPIService) PutGraphDisplayConfigExecute(r 
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/display/graph"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/display/graph"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

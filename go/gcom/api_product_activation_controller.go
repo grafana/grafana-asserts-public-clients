@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.07.20-131035
+API version: 2026.08.13-141456
 Contact: support@asserts.ai
 */
 
@@ -71,7 +71,7 @@ func (a *ProductActivationControllerAPIService) GetProductActivationExecute(r Ap
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/product/activation/{product}"
+	localVarPath := localBasePath + "/asserts/api-server/v1/product/activation/{product}"
 	localVarPath = strings.Replace(localVarPath, "{"+"product"+"}", url.PathEscape(parameterValueToString(r.product, "product")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -183,7 +183,7 @@ func (a *ProductActivationControllerAPIService) UpsertProductActivationExecute(r
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/product/activation"
+	localVarPath := localBasePath + "/asserts/api-server/v1/product/activation"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.07.20-131035
+API version: 2026.08.13-141456
 Contact: support@asserts.ai
 */
 
@@ -73,7 +73,7 @@ func (a *PromQlValidationControllerAPIService) ValidatePromQLExecute(r ApiValida
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/validate/prometheus-query"
+	localVarPath := localBasePath + "/asserts/api-server/v1/validate/prometheus-query"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

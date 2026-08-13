@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.07.20-131035
+API version: 2026.08.13-141456
 Contact: support@asserts.ai
 */
 
@@ -74,7 +74,7 @@ func (a *ConfigExportImportControllerAPIService) ExportConfigurationsExecute(r A
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/export"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/export"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -193,7 +193,7 @@ func (a *ConfigExportImportControllerAPIService) GetSupportedConfigTypesExecute(
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/types"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/types"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -307,7 +307,7 @@ func (a *ConfigExportImportControllerAPIService) ImportConfigurationsExecute(r A
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/import"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/import"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

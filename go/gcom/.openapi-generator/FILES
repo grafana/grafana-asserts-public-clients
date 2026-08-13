@@ -25,6 +25,7 @@ api_entity_type_controller.go
 api_external_logging_controller.go
 api_graph_display_config_controller.go
 api_incident_controller.go
+api_knowledge_graph_read_api.go
 api_kpi_display_config_controller.go
 api_kubernetes_events.go
 api_latency_threshold_controller.go
@@ -68,6 +69,7 @@ docs/AllRulesDto.md
 docs/ApiError.md
 docs/ApiErrorStatus.md
 docs/ApiErrorSubErrorsInner.md
+docs/ApiQuerySyntaxError.md
 docs/ApiSubError.md
 docs/ApiValidationError.md
 docs/AssertionClusterDto.md
@@ -94,6 +96,7 @@ docs/ComplianceWindowDto.md
 docs/ConfigExportImportControllerAPI.md
 docs/ConfigImportResultDto.md
 docs/ConfigValidationResponseDto.md
+docs/ConnectedEntitiesResponseDto.md
 docs/CustomDashConfigControllerAPI.md
 docs/CustomDashConfigDto.md
 docs/CustomDashConfigsDto.md
@@ -151,6 +154,7 @@ docs/EntityMonitoringStatusDto.md
 docs/EntityPropertyDto.md
 docs/EntityPropertyValuesDto.md
 docs/EntityPropertyValuesRequestDto.md
+docs/EntityReadResponseDto.md
 docs/EntityRuleDto.md
 docs/EntityScopeControllerAPI.md
 docs/EntityScopesRequestDto.md
@@ -185,8 +189,10 @@ docs/IncidentSummaryDto.md
 docs/IncidentSummaryListDto.md
 docs/IndexMappingDto.md
 docs/InfraEventDto.md
+docs/InsightCriteriaDto.md
 docs/KGEntityKey.md
 docs/KGScope.md
+docs/KnowledgeGraphReadAPIAPI.md
 docs/KpiDisplayConfigControllerAPI.md
 docs/KpiDisplayConfigDto.md
 docs/KpiGroupDto.md
@@ -289,8 +295,10 @@ docs/ScopeCriteriaDto.md
 docs/ScopeValueDto.md
 docs/SearchControllerAPI.md
 docs/SearchCountRequestDto.md
+docs/SearchCountRequestDtoScopeCriteria.md
 docs/SearchCountRequestDtoTimeCriteria.md
 docs/SearchCountRequestEntryDto.md
+docs/SearchCountRequestEntryDtoNameMatcher.md
 docs/SearchDefinitionBindingDto.md
 docs/SearchDefinitionControllerAPI.md
 docs/SearchDefinitionDto.md
@@ -373,6 +381,7 @@ model_all_rules_dto.go
 model_api_error.go
 model_api_error_status.go
 model_api_error_sub_errors_inner.go
+model_api_query_syntax_error.go
 model_api_sub_error.go
 model_api_validation_error.go
 model_assertion_cluster_dto.go
@@ -394,6 +403,7 @@ model_auto_complete_response_dto.go
 model_compliance_window_dto.go
 model_config_import_result_dto.go
 model_config_validation_response_dto.go
+model_connected_entities_response_dto.go
 model_custom_dash_config_dto.go
 model_custom_dash_configs_dto.go
 model_custom_kpi_dash_config_dto.go
@@ -441,6 +451,7 @@ model_entity_monitoring_status_dto.go
 model_entity_property_dto.go
 model_entity_property_values_dto.go
 model_entity_property_values_request_dto.go
+model_entity_read_response_dto.go
 model_entity_rule_dto.go
 model_entity_scopes_request_dto.go
 model_entity_scopes_response_dto.go
@@ -470,6 +481,7 @@ model_incident_summary_dto.go
 model_incident_summary_list_dto.go
 model_index_mapping_dto.go
 model_infra_event_dto.go
+model_insight_criteria_dto.go
 model_kg_entity_key.go
 model_kg_scope.go
 model_kpi_display_config_dto.go
@@ -554,8 +566,10 @@ model_sample_search_response_dto.go
 model_scope_criteria_dto.go
 model_scope_value_dto.go
 model_search_count_request_dto.go
+model_search_count_request_dto_scope_criteria.go
 model_search_count_request_dto_time_criteria.go
 model_search_count_request_entry_dto.go
+model_search_count_request_entry_dto_name_matcher.go
 model_search_definition_binding_dto.go
 model_search_definition_dto.go
 model_search_definition_item_dto.go
@@ -639,6 +653,7 @@ test/api_entity_type_controller_test.go
 test/api_external_logging_controller_test.go
 test/api_graph_display_config_controller_test.go
 test/api_incident_controller_test.go
+test/api_knowledge_graph_read_api_test.go
 test/api_kpi_display_config_controller_test.go
 test/api_kubernetes_events_test.go
 test/api_latency_threshold_controller_test.go

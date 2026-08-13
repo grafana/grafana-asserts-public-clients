@@ -1,10 +1,10 @@
 # \DrilldownConfigMigrationControllerAPI
 
-All URIs are relative to *http://localhost:8030/asserts/api-server*
+All URIs are relative to *http://localhost:8030*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**MigrateConfigs**](DrilldownConfigMigrationControllerAPI.md#MigrateConfigs) | **Post** /v2/config/drilldown-migration | 
+[**MigrateConfigs**](DrilldownConfigMigrationControllerAPI.md#MigrateConfigs) | **Post** /asserts/api-server/v2/config/drilldown-migration | 
 
 
 

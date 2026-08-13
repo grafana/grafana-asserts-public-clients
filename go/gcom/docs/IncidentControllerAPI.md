@@ -1,12 +1,12 @@
 # \IncidentControllerAPI
 
-All URIs are relative to *http://localhost:8030/asserts/api-server*
+All URIs are relative to *http://localhost:8030*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetIncidents**](IncidentControllerAPI.md#GetIncidents) | **Post** /v1/incidents | 
-[**GetSloIncidents**](IncidentControllerAPI.md#GetSloIncidents) | **Post** /v1/slo/incidents | 
-[**GetTopIncidents**](IncidentControllerAPI.md#GetTopIncidents) | **Post** /v1/incidents/top | 
+[**GetIncidents**](IncidentControllerAPI.md#GetIncidents) | **Post** /asserts/api-server/v1/incidents | 
+[**GetSloIncidents**](IncidentControllerAPI.md#GetSloIncidents) | **Post** /asserts/api-server/v1/slo/incidents | 
+[**GetTopIncidents**](IncidentControllerAPI.md#GetTopIncidents) | **Post** /asserts/api-server/v1/incidents/top | 
 
 
 

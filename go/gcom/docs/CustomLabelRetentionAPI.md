@@ -1,12 +1,12 @@
 # \CustomLabelRetentionAPI
 
-All URIs are relative to *http://localhost:8030/asserts/api-server*
+All URIs are relative to *http://localhost:8030*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteConfig**](CustomLabelRetentionAPI.md#DeleteConfig) | **Delete** /v1/config/custom-labels | Delete retained label config for the current tenant
-[**GetConfig**](CustomLabelRetentionAPI.md#GetConfig) | **Get** /v1/config/custom-labels | Get retained label config for the current tenant
-[**PutConfig**](CustomLabelRetentionAPI.md#PutConfig) | **Post** /v1/config/custom-labels | Create or update retained label config for the current tenant
+[**DeleteConfig**](CustomLabelRetentionAPI.md#DeleteConfig) | **Delete** /asserts/api-server/v1/config/custom-labels | Delete retained label config for the current tenant
+[**GetConfig**](CustomLabelRetentionAPI.md#GetConfig) | **Get** /asserts/api-server/v1/config/custom-labels | Get retained label config for the current tenant
+[**PutConfig**](CustomLabelRetentionAPI.md#PutConfig) | **Post** /asserts/api-server/v1/config/custom-labels | Create or update retained label config for the current tenant
 
 
 

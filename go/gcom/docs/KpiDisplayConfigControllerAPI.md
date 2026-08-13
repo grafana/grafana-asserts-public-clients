@@ -1,11 +1,11 @@
 # \KpiDisplayConfigControllerAPI
 
-All URIs are relative to *http://localhost:8030/asserts/api-server*
+All URIs are relative to *http://localhost:8030*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetKpiViewConfig**](KpiDisplayConfigControllerAPI.md#GetKpiViewConfig) | **Get** /v1/config/display/kpi | 
-[**PutKpiViewConfig**](KpiDisplayConfigControllerAPI.md#PutKpiViewConfig) | **Post** /v1/config/display/kpi | 
+[**GetKpiViewConfig**](KpiDisplayConfigControllerAPI.md#GetKpiViewConfig) | **Get** /asserts/api-server/v1/config/display/kpi | 
+[**PutKpiViewConfig**](KpiDisplayConfigControllerAPI.md#PutKpiViewConfig) | **Post** /asserts/api-server/v1/config/display/kpi | 
 
 
 

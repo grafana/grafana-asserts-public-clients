@@ -77,4 +77,18 @@ func Test_kgwrite_KnowledgeGraphWriteAPIAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test KnowledgeGraphWriteAPIAPIService WriteGraph", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		var namespace string
+
+		resp, httpRes, err := apiClient.KnowledgeGraphWriteAPIAPI.WriteGraph(context.Background(), namespace).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 }

@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.07.20-131035
+API version: 2026.08.13-141456
 Contact: support@asserts.ai
 */
 
@@ -70,7 +70,7 @@ func (a *ThresholdRulesConfigControllerAPIService) DeleteCustomThresholdRuleExec
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/threshold-rule/delete"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/threshold-rule/delete"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -174,7 +174,7 @@ func (a *ThresholdRulesConfigControllerAPIService) GetCustomThresholdRulesExecut
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/threshold-rules"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/threshold-rules"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -282,7 +282,7 @@ func (a *ThresholdRulesConfigControllerAPIService) GetRequestThresholdRulesExecu
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/threshold-rules/request"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/threshold-rules/request"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -390,7 +390,7 @@ func (a *ThresholdRulesConfigControllerAPIService) GetResourceThresholdRulesExec
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/threshold-rules/resource"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/threshold-rules/resource"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -501,7 +501,7 @@ func (a *ThresholdRulesConfigControllerAPIService) UpdateCustomThresholdRuleExec
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/threshold-rule"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/threshold-rule"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -608,7 +608,7 @@ func (a *ThresholdRulesConfigControllerAPIService) UpdateCustomThresholdRulesExe
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/threshold-rules"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/threshold-rules"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

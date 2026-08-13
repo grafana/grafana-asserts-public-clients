@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Total** | **int64** |  | 
-**WithInsights** | Pointer to **NullableInt64** |  | [optional] 
+**WithInsights** | Pointer to **int64** |  | [optional] 
 **GroupBy** | Pointer to [**[]GroupedEntityCountDto**](GroupedEntityCountDto.md) |  | [optional] 
 
 ## Methods
@@ -72,16 +72,6 @@ SetWithInsights sets WithInsights field to given value.
 
 HasWithInsights returns a boolean if a field has been set.
 
-### SetWithInsightsNil
-
-`func (o *EntityCountDto) SetWithInsightsNil(b bool)`
-
- SetWithInsightsNil sets the value for WithInsights to be an explicit nil
-
-### UnsetWithInsights
-`func (o *EntityCountDto) UnsetWithInsights()`
-
-UnsetWithInsights ensures that no value is present for WithInsights, not even an explicit nil
 ### GetGroupBy
 
 `func (o *EntityCountDto) GetGroupBy() []GroupedEntityCountDto`
