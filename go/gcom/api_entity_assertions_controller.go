@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.07.20-131035
+API version: 2026.08.13-141456
 Contact: support@asserts.ai
 */
 
@@ -73,7 +73,7 @@ func (a *EntityAssertionsControllerAPIService) EntityAssertionsDetailsExecute(r 
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/assertions/entity-metric"
+	localVarPath := localBasePath + "/asserts/api-server/v1/assertions/entity-metric"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -192,7 +192,7 @@ func (a *EntityAssertionsControllerAPIService) GetAssertionAffectedEntitiesExecu
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/assertion/affected-entities"
+	localVarPath := localBasePath + "/asserts/api-server/v1/assertion/affected-entities"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -311,7 +311,7 @@ func (a *EntityAssertionsControllerAPIService) GetAssertionEntityNamesExecute(r 
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/assertion/affected-entity-names"
+	localVarPath := localBasePath + "/asserts/api-server/v1/assertion/affected-entity-names"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -436,7 +436,7 @@ func (a *EntityAssertionsControllerAPIService) GetAssertionsExecute(r ApiGetAsse
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/assertions"
+	localVarPath := localBasePath + "/asserts/api-server/v1/assertions"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -564,7 +564,7 @@ func (a *EntityAssertionsControllerAPIService) GetAssertionsSummaryExecute(r Api
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/assertions/summary"
+	localVarPath := localBasePath + "/asserts/api-server/v1/assertions/summary"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -686,7 +686,7 @@ func (a *EntityAssertionsControllerAPIService) GetEntityAssertionSourceMetricsEx
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/assertion/source-metrics"
+	localVarPath := localBasePath + "/asserts/api-server/v1/assertion/source-metrics"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -805,7 +805,7 @@ func (a *EntityAssertionsControllerAPIService) GetEntityAssertionsGraphExecute(r
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/assertions/graph"
+	localVarPath := localBasePath + "/asserts/api-server/v1/assertions/graph"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -930,7 +930,7 @@ func (a *EntityAssertionsControllerAPIService) SearchAssertionsExecute(r ApiSear
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/search/assertions"
+	localVarPath := localBasePath + "/asserts/api-server/v1/search/assertions"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1058,7 +1058,7 @@ func (a *EntityAssertionsControllerAPIService) SearchAssertionsSummaryExecute(r 
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/search/assertions/summary"
+	localVarPath := localBasePath + "/asserts/api-server/v1/search/assertions/summary"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

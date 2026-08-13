@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.07.20-131035
+API version: 2026.08.13-141456
 Contact: support@asserts.ai
 */
 
@@ -67,7 +67,7 @@ func (a *KpiDisplayConfigControllerAPIService) GetKpiViewConfigExecute(r ApiGetK
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/display/kpi"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/display/kpi"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -178,7 +178,7 @@ func (a *KpiDisplayConfigControllerAPIService) PutKpiViewConfigExecute(r ApiPutK
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/display/kpi"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/display/kpi"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

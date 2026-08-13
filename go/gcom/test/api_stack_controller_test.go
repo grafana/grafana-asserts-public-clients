@@ -204,6 +204,18 @@ func Test_gcom_StackControllerAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test StackControllerAPIService PauseGraphWrites", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		resp, httpRes, err := apiClient.StackControllerAPI.PauseGraphWrites(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test StackControllerAPIService PutV2Stack", func(t *testing.T) {
 
 		t.Skip("skip test") // remove to run test
@@ -211,6 +223,18 @@ func Test_gcom_StackControllerAPIService(t *testing.T) {
 		httpRes, err := apiClient.StackControllerAPI.PutV2Stack(context.Background()).Execute()
 
 		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test StackControllerAPIService ResumeGraphWrites", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		resp, httpRes, err := apiClient.StackControllerAPI.ResumeGraphWrites(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
 
 	})

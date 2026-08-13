@@ -1,11 +1,11 @@
 # \AssertionInfoControllerAPI
 
-All URIs are relative to *http://localhost:8030/asserts/api-server*
+All URIs are relative to *http://localhost:8030*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetAssertionInfo**](AssertionInfoControllerAPI.md#GetAssertionInfo) | **Get** /v1/assertion/{name}/info | 
-[**GetAssertionInfo1**](AssertionInfoControllerAPI.md#GetAssertionInfo1) | **Post** /v1/assertion/{name}/info | 
+[**GetAssertionInfo**](AssertionInfoControllerAPI.md#GetAssertionInfo) | **Get** /asserts/api-server/v1/assertion/{name}/info | 
+[**GetAssertionInfo1**](AssertionInfoControllerAPI.md#GetAssertionInfo1) | **Post** /asserts/api-server/v1/assertion/{name}/info | 
 
 
 

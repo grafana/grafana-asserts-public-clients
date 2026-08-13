@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.07.20-131035
+API version: 2026.08.13-141456
 Contact: support@asserts.ai
 */
 
@@ -68,7 +68,7 @@ func (a *StackControllerAPIService) AllowLargeTenantOnboardingExecute(r ApiAllow
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v2/stack/allow-large-tenant-onboarding"
+	localVarPath := localBasePath + "/asserts/api-server/v2/stack/allow-large-tenant-onboarding"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -179,7 +179,7 @@ func (a *StackControllerAPIService) CreateStackExecute(r ApiCreateStackRequest) 
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/stack"
+	localVarPath := localBasePath + "/asserts/api-server/v1/stack"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -283,7 +283,7 @@ func (a *StackControllerAPIService) DetectAndAutoConfigureDatasetsExecute(r ApiD
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v2/stack/datasets/auto-setup"
+	localVarPath := localBasePath + "/asserts/api-server/v2/stack/datasets/auto-setup"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -388,7 +388,7 @@ func (a *StackControllerAPIService) DisableStackExecute(r ApiDisableStackRequest
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/stack/disable"
+	localVarPath := localBasePath + "/asserts/api-server/v1/stack/disable"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -484,7 +484,7 @@ func (a *StackControllerAPIService) DisableV2StackExecute(r ApiDisableV2StackReq
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v2/stack/disable"
+	localVarPath := localBasePath + "/asserts/api-server/v2/stack/disable"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -583,7 +583,7 @@ func (a *StackControllerAPIService) DiscoverVendorsForCurrentTenantExecute(r Api
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/stack/vendor-integration"
+	localVarPath := localBasePath + "/asserts/api-server/v1/stack/vendor-integration"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -697,7 +697,7 @@ func (a *StackControllerAPIService) EnableStackExecute(r ApiEnableStackRequest) 
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/stack/enable"
+	localVarPath := localBasePath + "/asserts/api-server/v1/stack/enable"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -810,7 +810,7 @@ func (a *StackControllerAPIService) EnableV2StackExecute(r ApiEnableV2StackReque
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v2/stack/enable"
+	localVarPath := localBasePath + "/asserts/api-server/v2/stack/enable"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -921,7 +921,7 @@ func (a *StackControllerAPIService) FetchDatasetExecute(r ApiFetchDatasetRequest
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v2/stack/dataset/{dataset}"
+	localVarPath := localBasePath + "/asserts/api-server/v2/stack/dataset/{dataset}"
 	localVarPath = strings.Replace(localVarPath, "{"+"dataset"+"}", url.PathEscape(parameterValueToString(r.dataset, "dataset")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1033,7 +1033,7 @@ func (a *StackControllerAPIService) GetDatasetVendorsExecute(r ApiGetDatasetVend
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v2/stack/dataset/{dataset}/vendors"
+	localVarPath := localBasePath + "/asserts/api-server/v2/stack/dataset/{dataset}/vendors"
 	localVarPath = strings.Replace(localVarPath, "{"+"dataset"+"}", url.PathEscape(parameterValueToString(r.dataset, "dataset")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1142,7 +1142,7 @@ func (a *StackControllerAPIService) GetDatasetsExecute(r ApiGetDatasetsRequest) 
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v2/stack/datasets"
+	localVarPath := localBasePath + "/asserts/api-server/v2/stack/datasets"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1250,7 +1250,7 @@ func (a *StackControllerAPIService) GetStackDetailExecute(r ApiGetStackDetailReq
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/stack"
+	localVarPath := localBasePath + "/asserts/api-server/v1/stack"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1358,7 +1358,7 @@ func (a *StackControllerAPIService) GetStackEnableExecute(r ApiGetStackEnableReq
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/stack/enable"
+	localVarPath := localBasePath + "/asserts/api-server/v1/stack/enable"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1472,7 +1472,7 @@ func (a *StackControllerAPIService) GetStackUpdateBucketExecute(r ApiGetStackUpd
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/stack/update-bucket"
+	localVarPath := localBasePath + "/asserts/api-server/v1/stack/update-bucket"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1583,7 +1583,115 @@ func (a *StackControllerAPIService) GetStatusExecute(r ApiGetStatusRequest) (*St
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/stack/status"
+	localVarPath := localBasePath + "/asserts/api-server/v1/stack/status"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.xScopeOrgID != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Scope-OrgID", r.xScopeOrgID, "")
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiPauseGraphWritesRequest struct {
+	ctx         context.Context
+	ApiService  *StackControllerAPIService
+	xScopeOrgID *string
+}
+
+// Grafana Tenant/Stack ID
+func (r ApiPauseGraphWritesRequest) XScopeOrgID(xScopeOrgID string) ApiPauseGraphWritesRequest {
+	r.xScopeOrgID = &xScopeOrgID
+	return r
+}
+
+func (r ApiPauseGraphWritesRequest) Execute() (*StackStatusDto, *http.Response, error) {
+	return r.ApiService.PauseGraphWritesExecute(r)
+}
+
+/*
+PauseGraphWrites Method for PauseGraphWrites
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiPauseGraphWritesRequest
+*/
+func (a *StackControllerAPIService) PauseGraphWrites(ctx context.Context) ApiPauseGraphWritesRequest {
+	return ApiPauseGraphWritesRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return StackStatusDto
+func (a *StackControllerAPIService) PauseGraphWritesExecute(r ApiPauseGraphWritesRequest) (*StackStatusDto, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *StackStatusDto
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "StackControllerAPIService.PauseGraphWrites")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/asserts/api-server/v1/stack/pause"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1694,7 +1802,7 @@ func (a *StackControllerAPIService) PutV2StackExecute(r ApiPutV2StackRequest) (*
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v2/stack"
+	localVarPath := localBasePath + "/asserts/api-server/v2/stack"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1753,6 +1861,114 @@ func (a *StackControllerAPIService) PutV2StackExecute(r ApiPutV2StackRequest) (*
 	return localVarHTTPResponse, nil
 }
 
+type ApiResumeGraphWritesRequest struct {
+	ctx         context.Context
+	ApiService  *StackControllerAPIService
+	xScopeOrgID *string
+}
+
+// Grafana Tenant/Stack ID
+func (r ApiResumeGraphWritesRequest) XScopeOrgID(xScopeOrgID string) ApiResumeGraphWritesRequest {
+	r.xScopeOrgID = &xScopeOrgID
+	return r
+}
+
+func (r ApiResumeGraphWritesRequest) Execute() (*StackStatusDto, *http.Response, error) {
+	return r.ApiService.ResumeGraphWritesExecute(r)
+}
+
+/*
+ResumeGraphWrites Method for ResumeGraphWrites
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiResumeGraphWritesRequest
+*/
+func (a *StackControllerAPIService) ResumeGraphWrites(ctx context.Context) ApiResumeGraphWritesRequest {
+	return ApiResumeGraphWritesRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return StackStatusDto
+func (a *StackControllerAPIService) ResumeGraphWritesExecute(r ApiResumeGraphWritesRequest) (*StackStatusDto, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *StackStatusDto
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "StackControllerAPIService.ResumeGraphWrites")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/asserts/api-server/v1/stack/unpause"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.xScopeOrgID != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Scope-OrgID", r.xScopeOrgID, "")
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiRunDatasetSanityChecksRequest struct {
 	ctx         context.Context
 	ApiService  *StackControllerAPIService
@@ -1801,7 +2017,7 @@ func (a *StackControllerAPIService) RunDatasetSanityChecksExecute(r ApiRunDatase
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v2/stack/dataset/{dataset}/sanity"
+	localVarPath := localBasePath + "/asserts/api-server/v2/stack/dataset/{dataset}/sanity"
 	localVarPath = strings.Replace(localVarPath, "{"+"dataset"+"}", url.PathEscape(parameterValueToString(r.dataset, "dataset")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1910,7 +2126,7 @@ func (a *StackControllerAPIService) RunMetricSanityChecksExecute(r ApiRunMetricS
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/stack/sanity"
+	localVarPath := localBasePath + "/asserts/api-server/v1/stack/sanity"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2024,7 +2240,7 @@ func (a *StackControllerAPIService) UpdateDatasetExecute(r ApiUpdateDatasetReque
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v2/stack/dataset"
+	localVarPath := localBasePath + "/asserts/api-server/v2/stack/dataset"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2140,7 +2356,7 @@ func (a *StackControllerAPIService) UpdateStackExecute(r ApiUpdateStackRequest) 
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/stack"
+	localVarPath := localBasePath + "/asserts/api-server/v1/stack"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2247,7 +2463,7 @@ func (a *StackControllerAPIService) UpdateStatusExecute(r ApiUpdateStatusRequest
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/stack/status/{status}"
+	localVarPath := localBasePath + "/asserts/api-server/v1/stack/status/{status}"
 	localVarPath = strings.Replace(localVarPath, "{"+"status"+"}", url.PathEscape(parameterValueToString(r.status, "status")), -1)
 
 	localVarHeaderParams := make(map[string]string)

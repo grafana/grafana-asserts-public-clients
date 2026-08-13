@@ -1,11 +1,11 @@
 # \ProductActivationControllerAPI
 
-All URIs are relative to *http://localhost:8030/asserts/api-server*
+All URIs are relative to *http://localhost:8030*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetProductActivation**](ProductActivationControllerAPI.md#GetProductActivation) | **Get** /v1/product/activation/{product} | 
-[**UpsertProductActivation**](ProductActivationControllerAPI.md#UpsertProductActivation) | **Put** /v1/product/activation | 
+[**GetProductActivation**](ProductActivationControllerAPI.md#GetProductActivation) | **Get** /asserts/api-server/v1/product/activation/{product} | 
+[**UpsertProductActivation**](ProductActivationControllerAPI.md#UpsertProductActivation) | **Put** /asserts/api-server/v1/product/activation | 
 
 
 

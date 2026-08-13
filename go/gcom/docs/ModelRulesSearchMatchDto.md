@@ -6,8 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **FileName** | Pointer to **string** | Rule identifier: builtin rules use the file name (e.g., entities_awsapp_sqs.yml), custom rules use the config name (e.g., my_custom_redis) | [optional] [default to ""]
 **Source** | Pointer to **string** | Source of the rule: &#39;builtin&#39; or &#39;custom&#39; | [optional] [default to ""]
-**EntityTypes** | Pointer to **[]string** | Entity types referenced in this rule (from entity definitions and relationship start/end types) | [optional] [default to ]
-**Vendors** | Pointer to **[]string** | Vendor keywords from the &#39;when&#39; clause | [optional] [default to ]
+**EntityTypes** | Pointer to **[]string** | Entity types referenced in this rule (from entity definitions and relationship start/end types) | [optional] 
+**Vendors** | Pointer to **[]string** | Vendor keywords from the &#39;when&#39; clause | [optional] 
 **Rules** | Pointer to [**ModelRulesDto**](ModelRulesDto.md) |  | [optional] 
 
 ## Methods

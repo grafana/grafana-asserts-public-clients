@@ -1,10 +1,10 @@
 # \TraceControllerAPI
 
-All URIs are relative to *http://localhost:8030/asserts/api-server*
+All URIs are relative to *http://localhost:8030*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**BuildTraceUrl**](TraceControllerAPI.md#BuildTraceUrl) | **Post** /v1/integration/trace | 
+[**BuildTraceUrl**](TraceControllerAPI.md#BuildTraceUrl) | **Post** /asserts/api-server/v1/integration/trace | 
 
 
 

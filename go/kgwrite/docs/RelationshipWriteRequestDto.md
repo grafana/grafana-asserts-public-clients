@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Type** | **string** |  | 
 **From** | [**EntityRefDto**](EntityRefDto.md) |  | 
 **To** | [**EntityRefDto**](EntityRefDto.md) |  | 
-**Properties** | Pointer to **map[string]string** |  | [optional] 
+**Properties** | Pointer to [**map[string]KgPropertyValue**](KgPropertyValue.md) | Custom properties to store on the relationship. Values must be scalars (string, boolean, or number) or arrays of scalars; nested objects, nested arrays, and null values are rejected. Integral numbers are stored as 64-bit signed integers and floating-point numbers as IEEE-754 doubles. | [optional] 
 **TtlSeconds** | **int64** | Time-to-live in seconds. Positive values expire the relationship after that many seconds, 0 expires it immediately, and negative values mean no expiry. | 
 
 ## Methods
@@ -112,20 +112,20 @@ SetTo sets To field to given value.
 
 ### GetProperties
 
-`func (o *RelationshipWriteRequestDto) GetProperties() map[string]string`
+`func (o *RelationshipWriteRequestDto) GetProperties() map[string]KgPropertyValue`
 
 GetProperties returns the Properties field if non-nil, zero value otherwise.
 
 ### GetPropertiesOk
 
-`func (o *RelationshipWriteRequestDto) GetPropertiesOk() (*map[string]string, bool)`
+`func (o *RelationshipWriteRequestDto) GetPropertiesOk() (*map[string]KgPropertyValue, bool)`
 
 GetPropertiesOk returns a tuple with the Properties field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetProperties
 
-`func (o *RelationshipWriteRequestDto) SetProperties(v map[string]string)`
+`func (o *RelationshipWriteRequestDto) SetProperties(v map[string]KgPropertyValue)`
 
 SetProperties sets Properties field to given value.
 

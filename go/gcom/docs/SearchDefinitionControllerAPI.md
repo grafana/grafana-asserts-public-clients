@@ -1,14 +1,14 @@
 # \SearchDefinitionControllerAPI
 
-All URIs are relative to *http://localhost:8030/asserts/api-server*
+All URIs are relative to *http://localhost:8030*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateSearchDefinition**](SearchDefinitionControllerAPI.md#CreateSearchDefinition) | **Post** /v1/search/definition | 
-[**DeleteSearchDefinition**](SearchDefinitionControllerAPI.md#DeleteSearchDefinition) | **Delete** /v1/search/definition/{id} | 
-[**GetSearchDefinition**](SearchDefinitionControllerAPI.md#GetSearchDefinition) | **Get** /v1/search/definition/{id} | 
-[**SearchDefinitions**](SearchDefinitionControllerAPI.md#SearchDefinitions) | **Get** /v1/search/definition | 
-[**UpdateSearchDefinition**](SearchDefinitionControllerAPI.md#UpdateSearchDefinition) | **Put** /v1/search/definition/{id} | 
+[**CreateSearchDefinition**](SearchDefinitionControllerAPI.md#CreateSearchDefinition) | **Post** /asserts/api-server/v1/search/definition | 
+[**DeleteSearchDefinition**](SearchDefinitionControllerAPI.md#DeleteSearchDefinition) | **Delete** /asserts/api-server/v1/search/definition/{id} | 
+[**GetSearchDefinition**](SearchDefinitionControllerAPI.md#GetSearchDefinition) | **Get** /asserts/api-server/v1/search/definition/{id} | 
+[**SearchDefinitions**](SearchDefinitionControllerAPI.md#SearchDefinitions) | **Get** /asserts/api-server/v1/search/definition | 
+[**UpdateSearchDefinition**](SearchDefinitionControllerAPI.md#UpdateSearchDefinition) | **Put** /asserts/api-server/v1/search/definition/{id} | 
 
 
 

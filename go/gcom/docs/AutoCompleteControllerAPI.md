@@ -1,10 +1,10 @@
 # \AutoCompleteControllerAPI
 
-All URIs are relative to *http://localhost:8030/asserts/api-server*
+All URIs are relative to *http://localhost:8030*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AutoComplete**](AutoCompleteControllerAPI.md#AutoComplete) | **Get** /v1/search/autocomplete/{index} | 
+[**AutoComplete**](AutoCompleteControllerAPI.md#AutoComplete) | **Get** /asserts/api-server/v1/search/autocomplete/{index} | 
 
 
 

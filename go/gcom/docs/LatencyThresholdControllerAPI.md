@@ -1,11 +1,11 @@
 # \LatencyThresholdControllerAPI
 
-All URIs are relative to *http://localhost:8030/asserts/api-server*
+All URIs are relative to *http://localhost:8030*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetLatencyThresholds**](LatencyThresholdControllerAPI.md#GetLatencyThresholds) | **Post** /v2/latency-thresholds | 
-[**GetLatencyThresholds1**](LatencyThresholdControllerAPI.md#GetLatencyThresholds1) | **Post** /v1/latency-thresholds | 
+[**GetLatencyThresholds**](LatencyThresholdControllerAPI.md#GetLatencyThresholds) | **Post** /asserts/api-server/v2/latency-thresholds | 
+[**GetLatencyThresholds1**](LatencyThresholdControllerAPI.md#GetLatencyThresholds1) | **Post** /asserts/api-server/v1/latency-thresholds | 
 
 
 

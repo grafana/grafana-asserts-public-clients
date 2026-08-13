@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** | Literal value used to match the target entity&#39;s name property | [default to ""]
-**Scope** | Pointer to **map[string]string** | Literal scope label values used to match the target entity | [optional] [default to ]
-**Properties** | Pointer to **map[string]string** | Literal property keys and values to patch onto the target entity | [optional] [default to ]
+**Scope** | Pointer to **map[string]string** | Literal scope label values used to match the target entity | [optional] 
+**Properties** | Pointer to **map[string]string** | Literal property keys and values to patch onto the target entity | [optional] 
 
 ## Methods
 

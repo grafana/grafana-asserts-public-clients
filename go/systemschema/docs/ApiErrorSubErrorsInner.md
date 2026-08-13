@@ -5,6 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Message** | Pointer to **string** |  | [optional] 
+**Line** | Pointer to **int32** |  | [optional] 
+**Column** | Pointer to **int32** |  | [optional] 
 **Field** | Pointer to **string** |  | [optional] 
 **RejectedValue** | Pointer to **interface{}** |  | [optional] 
 
@@ -51,6 +53,56 @@ SetMessage sets Message field to given value.
 `func (o *ApiErrorSubErrorsInner) HasMessage() bool`
 
 HasMessage returns a boolean if a field has been set.
+
+### GetLine
+
+`func (o *ApiErrorSubErrorsInner) GetLine() int32`
+
+GetLine returns the Line field if non-nil, zero value otherwise.
+
+### GetLineOk
+
+`func (o *ApiErrorSubErrorsInner) GetLineOk() (*int32, bool)`
+
+GetLineOk returns a tuple with the Line field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLine
+
+`func (o *ApiErrorSubErrorsInner) SetLine(v int32)`
+
+SetLine sets Line field to given value.
+
+### HasLine
+
+`func (o *ApiErrorSubErrorsInner) HasLine() bool`
+
+HasLine returns a boolean if a field has been set.
+
+### GetColumn
+
+`func (o *ApiErrorSubErrorsInner) GetColumn() int32`
+
+GetColumn returns the Column field if non-nil, zero value otherwise.
+
+### GetColumnOk
+
+`func (o *ApiErrorSubErrorsInner) GetColumnOk() (*int32, bool)`
+
+GetColumnOk returns a tuple with the Column field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetColumn
+
+`func (o *ApiErrorSubErrorsInner) SetColumn(v int32)`
+
+SetColumn sets Column field to given value.
+
+### HasColumn
+
+`func (o *ApiErrorSubErrorsInner) HasColumn() bool`
+
+HasColumn returns a boolean if a field has been set.
 
 ### GetField
 

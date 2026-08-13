@@ -1,15 +1,15 @@
 # \SloConfigControllerAPI
 
-All URIs are relative to *http://localhost:8030/asserts/api-server*
+All URIs are relative to *http://localhost:8030*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteSloConfig**](SloConfigControllerAPI.md#DeleteSloConfig) | **Delete** /v1/config/slo/{name} | 
-[**GetSloConfig**](SloConfigControllerAPI.md#GetSloConfig) | **Get** /v1/config/slo/{name} | 
-[**GetSloConfigs**](SloConfigControllerAPI.md#GetSloConfigs) | **Get** /v1/config/slo | 
-[**PostSloConfig**](SloConfigControllerAPI.md#PostSloConfig) | **Post** /v1/config/slo | 
-[**RegenerateSloRules**](SloConfigControllerAPI.md#RegenerateSloRules) | **Post** /v1/config/slo-generate-rules | 
-[**Validate**](SloConfigControllerAPI.md#Validate) | **Post** /v1/config/slo-validate | 
+[**DeleteSloConfig**](SloConfigControllerAPI.md#DeleteSloConfig) | **Delete** /asserts/api-server/v1/config/slo/{name} | 
+[**GetSloConfig**](SloConfigControllerAPI.md#GetSloConfig) | **Get** /asserts/api-server/v1/config/slo/{name} | 
+[**GetSloConfigs**](SloConfigControllerAPI.md#GetSloConfigs) | **Get** /asserts/api-server/v1/config/slo | 
+[**PostSloConfig**](SloConfigControllerAPI.md#PostSloConfig) | **Post** /asserts/api-server/v1/config/slo | 
+[**RegenerateSloRules**](SloConfigControllerAPI.md#RegenerateSloRules) | **Post** /asserts/api-server/v1/config/slo-generate-rules | 
+[**Validate**](SloConfigControllerAPI.md#Validate) | **Post** /asserts/api-server/v1/config/slo-validate | 
 
 
 
