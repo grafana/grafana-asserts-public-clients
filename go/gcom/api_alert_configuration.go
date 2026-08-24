@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.07.20-131035
+API version: 2026.08.24-122123
 Contact: support@asserts.ai
 */
 
@@ -70,7 +70,7 @@ func (a *AlertConfigurationAPIService) DeleteAlertConfigExecute(r ApiDeleteAlert
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/alert/{name}"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/alert/{name}"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -182,7 +182,7 @@ func (a *AlertConfigurationAPIService) DeleteDisabledAlertConfigExecute(r ApiDel
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/disabled-alert/{name}"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/disabled-alert/{name}"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -294,7 +294,7 @@ func (a *AlertConfigurationAPIService) GetAllAlertConfigsExecute(r ApiGetAllAler
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/alerts"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/alerts"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -414,7 +414,7 @@ func (a *AlertConfigurationAPIService) GetAllDisabledAlertConfigsExecute(r ApiGe
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/disabled-alerts"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/disabled-alerts"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -534,7 +534,7 @@ func (a *AlertConfigurationAPIService) GetDisabledHealthAlertConfigsExecute(r Ap
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/disabled-alerts/health"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/disabled-alerts/health"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -654,7 +654,7 @@ func (a *AlertConfigurationAPIService) GetDisabledRequestAlertConfigsExecute(r A
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/disabled-alerts/request"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/disabled-alerts/request"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -774,7 +774,7 @@ func (a *AlertConfigurationAPIService) GetDisabledResourceAlertConfigsExecute(r 
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/disabled-alerts/resource"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/disabled-alerts/resource"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -908,7 +908,7 @@ func (a *AlertConfigurationAPIService) GetFailureRuleGroupsExecute(r ApiGetFailu
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/failure-rules"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/failure-rules"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1040,7 +1040,7 @@ func (a *AlertConfigurationAPIService) GetHealthAlertConfigsExecute(r ApiGetHeal
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/alerts/health"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/alerts/health"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1160,7 +1160,7 @@ func (a *AlertConfigurationAPIService) GetRequestAlertConfigsExecute(r ApiGetReq
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/alerts/request"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/alerts/request"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1280,7 +1280,7 @@ func (a *AlertConfigurationAPIService) GetResourceAlertConfigsExecute(r ApiGetRe
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/alerts/resource"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/alerts/resource"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1400,7 +1400,7 @@ func (a *AlertConfigurationAPIService) GetSloAlertConfigsExecute(r ApiGetSloAler
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/alerts/slo"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/alerts/slo"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1523,7 +1523,7 @@ func (a *AlertConfigurationAPIService) PutAlertConfigExecute(r ApiPutAlertConfig
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/alert"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/alert"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1653,7 +1653,7 @@ func (a *AlertConfigurationAPIService) PutAlertConfigsExecute(r ApiPutAlertConfi
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/alerts"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/alerts"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1783,7 +1783,7 @@ func (a *AlertConfigurationAPIService) PutDisabledAlertConfigExecute(r ApiPutDis
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/disabled-alert"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/disabled-alert"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1913,7 +1913,7 @@ func (a *AlertConfigurationAPIService) PutDisabledAlertConfigsExecute(r ApiPutDi
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/disabled-alerts"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/disabled-alerts"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1993,6 +1993,244 @@ func (a *AlertConfigurationAPIService) PutDisabledAlertConfigsExecute(r ApiPutDi
 	return localVarHTTPResponse, nil
 }
 
+type ApiValidateAlertConfigRequest struct {
+	ctx            context.Context
+	ApiService     *AlertConfigurationAPIService
+	alertConfigDto *AlertConfigDto
+	xScopeOrgID    *string
+}
+
+func (r ApiValidateAlertConfigRequest) AlertConfigDto(alertConfigDto AlertConfigDto) ApiValidateAlertConfigRequest {
+	r.alertConfigDto = &alertConfigDto
+	return r
+}
+
+// Grafana Tenant/Stack ID
+func (r ApiValidateAlertConfigRequest) XScopeOrgID(xScopeOrgID string) ApiValidateAlertConfigRequest {
+	r.xScopeOrgID = &xScopeOrgID
+	return r
+}
+
+func (r ApiValidateAlertConfigRequest) Execute() (*http.Response, error) {
+	return r.ApiService.ValidateAlertConfigExecute(r)
+}
+
+/*
+ValidateAlertConfig Validate a single alert configuration
+
+Validates a single alert configuration without persisting it. Returns 200 if valid, 422 with error details if invalid.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiValidateAlertConfigRequest
+*/
+func (a *AlertConfigurationAPIService) ValidateAlertConfig(ctx context.Context) ApiValidateAlertConfigRequest {
+	return ApiValidateAlertConfigRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AlertConfigurationAPIService) ValidateAlertConfigExecute(r ApiValidateAlertConfigRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AlertConfigurationAPIService.ValidateAlertConfig")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/alert-validate"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.alertConfigDto == nil {
+		return nil, reportError("alertConfigDto is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json", "application/x-yml", "application/x-yaml"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/x-yml", "application/x-yaml"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.xScopeOrgID != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Scope-OrgID", r.xScopeOrgID, "")
+	}
+	// body params
+	localVarPostBody = r.alertConfigDto
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 422 {
+			var v ApiError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type ApiValidateAlertConfigsRequest struct {
+	ctx             context.Context
+	ApiService      *AlertConfigurationAPIService
+	alertConfigsDto *AlertConfigsDto
+	xScopeOrgID     *string
+}
+
+func (r ApiValidateAlertConfigsRequest) AlertConfigsDto(alertConfigsDto AlertConfigsDto) ApiValidateAlertConfigsRequest {
+	r.alertConfigsDto = &alertConfigsDto
+	return r
+}
+
+// Grafana Tenant/Stack ID
+func (r ApiValidateAlertConfigsRequest) XScopeOrgID(xScopeOrgID string) ApiValidateAlertConfigsRequest {
+	r.xScopeOrgID = &xScopeOrgID
+	return r
+}
+
+func (r ApiValidateAlertConfigsRequest) Execute() (*http.Response, error) {
+	return r.ApiService.ValidateAlertConfigsExecute(r)
+}
+
+/*
+ValidateAlertConfigs Validate multiple alert configurations
+
+Validates a batch of alert configurations without persisting them. Returns 200 if valid, 422 with error details if invalid.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiValidateAlertConfigsRequest
+*/
+func (a *AlertConfigurationAPIService) ValidateAlertConfigs(ctx context.Context) ApiValidateAlertConfigsRequest {
+	return ApiValidateAlertConfigsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AlertConfigurationAPIService) ValidateAlertConfigsExecute(r ApiValidateAlertConfigsRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AlertConfigurationAPIService.ValidateAlertConfigs")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/alerts-validate"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.alertConfigsDto == nil {
+		return nil, reportError("alertConfigsDto is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json", "application/x-yml", "application/x-yaml"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/x-yml", "application/x-yaml"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.xScopeOrgID != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Scope-OrgID", r.xScopeOrgID, "")
+	}
+	// body params
+	localVarPostBody = r.alertConfigsDto
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 422 {
+			var v ApiError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
 type ApiValidateDisabledAlertConfigRequest struct {
 	ctx                    context.Context
 	ApiService             *AlertConfigurationAPIService
@@ -2043,7 +2281,7 @@ func (a *AlertConfigurationAPIService) ValidateDisabledAlertConfigExecute(r ApiV
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/disabled-alert-validate"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/disabled-alert-validate"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2162,7 +2400,7 @@ func (a *AlertConfigurationAPIService) ValidateDisabledAlertConfigsExecute(r Api
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/disabled-alerts-validate"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/disabled-alerts-validate"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

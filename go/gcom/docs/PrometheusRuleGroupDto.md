@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** | Group name | [default to ""]
 **Interval** | Pointer to **string** | Evaluation interval (e.g., &#39;30s&#39;, &#39;1m&#39;) | [optional] [default to ""]
-**Rules** | [**[]PrometheusRuleDto**](PrometheusRuleDto.md) | List of alert and recording rules in this group | [default to ]
+**Rules** | [**[]PrometheusRuleDto**](PrometheusRuleDto.md) | List of alert and recording rules in this group | 
 
 ## Methods
 

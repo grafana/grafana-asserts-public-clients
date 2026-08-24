@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.07.20-131035
+API version: 2026.08.24-122123
 Contact: support@asserts.ai
 */
 
@@ -68,7 +68,7 @@ func (a *SloConfigControllerAPIService) DeleteSloConfigExecute(r ApiDeleteSloCon
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/slo/{name}"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/slo/{name}"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -171,7 +171,7 @@ func (a *SloConfigControllerAPIService) GetSloConfigExecute(r ApiGetSloConfigReq
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/slo/{name}"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/slo/{name}"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -280,7 +280,7 @@ func (a *SloConfigControllerAPIService) GetSloConfigsExecute(r ApiGetSloConfigsR
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/slo"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/slo"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -391,7 +391,7 @@ func (a *SloConfigControllerAPIService) PostSloConfigExecute(r ApiPostSloConfigR
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/slo"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/slo"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -492,7 +492,7 @@ func (a *SloConfigControllerAPIService) RegenerateSloRulesExecute(r ApiRegenerat
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/slo-generate-rules"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/slo-generate-rules"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -609,7 +609,7 @@ func (a *SloConfigControllerAPIService) ValidateExecute(r ApiValidateRequest) (*
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/config/slo-validate"
+	localVarPath := localBasePath + "/asserts/api-server/v1/config/slo-validate"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

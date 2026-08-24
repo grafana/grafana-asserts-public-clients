@@ -6,12 +6,12 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** | Entity type name (e.g., &#39;Service&#39;, &#39;Pod&#39;, &#39;Jvm&#39;) | [default to ""]
 **Name** | **string** | Entity name pattern | [default to ""]
-**Scope** | Pointer to **map[string]string** | Scope definitions for the entity | [optional] [default to ]
-**Lookup** | Pointer to **map[string]string** | Lookup mappings | [optional] [default to ]
-**DefinedBy** | Pointer to [**[]PropertyRuleDto**](PropertyRuleDto.md) | Query/metric definitions that define this entity | [optional] [default to ]
-**EnrichedBy** | Pointer to [**[]PropertyRuleDto**](PropertyRuleDto.md) | Enrichment rules for this entity | [optional] [default to ]
-**DefinedStatically** | Pointer to [**[]StaticEntityDto**](StaticEntityDto.md) | Literal entity records that create and keep this type alive (mutually exclusive with definedBy) | [optional] [default to ]
-**EnrichedStatically** | Pointer to [**[]StaticEnrichmentDto**](StaticEnrichmentDto.md) | Literal enrichment records that patch existing entities of this type without keeping them alive | [optional] [default to ]
+**Scope** | Pointer to **map[string]string** | Scope definitions for the entity | [optional] 
+**Lookup** | Pointer to **map[string]string** | Lookup mappings | [optional] 
+**DefinedBy** | Pointer to [**[]PropertyRuleDto**](PropertyRuleDto.md) | Query/metric definitions that define this entity | [optional] 
+**EnrichedBy** | Pointer to [**[]PropertyRuleDto**](PropertyRuleDto.md) | Enrichment rules for this entity | [optional] 
+**DefinedStatically** | Pointer to [**[]StaticEntityDto**](StaticEntityDto.md) | Literal entity records that create and keep this type alive (mutually exclusive with definedBy) | [optional] 
+**EnrichedStatically** | Pointer to [**[]StaticEnrichmentDto**](StaticEnrichmentDto.md) | Literal enrichment records that patch existing entities of this type without keeping them alive | [optional] 
 **Disabled** | Pointer to **bool** | Whether this entity rule is disabled | [optional] [default to false]
 
 ## Methods

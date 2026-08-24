@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Items** | [**[]SearchCountRequestEntryDto**](SearchCountRequestEntryDto.md) |  | 
 **TimeCriteria** | [**SearchCountRequestDtoTimeCriteria**](SearchCountRequestDtoTimeCriteria.md) |  | 
-**ScopeCriteria** | Pointer to [**nil**](nil.md) |  | [optional] 
+**ScopeCriteria** | Pointer to [**SearchCountRequestDtoScopeCriteria**](SearchCountRequestDtoScopeCriteria.md) |  | [optional] 
 
 ## Methods
 
@@ -69,20 +69,20 @@ SetTimeCriteria sets TimeCriteria field to given value.
 
 ### GetScopeCriteria
 
-`func (o *SearchCountRequestDto) GetScopeCriteria() nil`
+`func (o *SearchCountRequestDto) GetScopeCriteria() SearchCountRequestDtoScopeCriteria`
 
 GetScopeCriteria returns the ScopeCriteria field if non-nil, zero value otherwise.
 
 ### GetScopeCriteriaOk
 
-`func (o *SearchCountRequestDto) GetScopeCriteriaOk() (*nil, bool)`
+`func (o *SearchCountRequestDto) GetScopeCriteriaOk() (*SearchCountRequestDtoScopeCriteria, bool)`
 
 GetScopeCriteriaOk returns a tuple with the ScopeCriteria field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetScopeCriteria
 
-`func (o *SearchCountRequestDto) SetScopeCriteria(v nil)`
+`func (o *SearchCountRequestDto) SetScopeCriteria(v SearchCountRequestDtoScopeCriteria)`
 
 SetScopeCriteria sets ScopeCriteria field to given value.
 

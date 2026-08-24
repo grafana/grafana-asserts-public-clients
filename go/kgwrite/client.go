@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 0.0.0
+API version: v2.38.0
 Contact: support@asserts.ai
 */
 
@@ -41,13 +41,15 @@ var (
 	queryDescape    = strings.NewReplacer("%5B", "[", "%5D", "]")
 )
 
-// APIClient manages communication with the Asserts, Inc API v0.0.0
+// APIClient manages communication with the Asserts, Inc API vv2.38.0
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration
 	common service // Reuse a single struct instead of allocating one for each service on the heap.
 
 	// API Services
+
+	KnowledgeGraphReadAPIAPI *KnowledgeGraphReadAPIAPIService
 
 	KnowledgeGraphWriteAPIAPI *KnowledgeGraphWriteAPIAPIService
 }
@@ -68,6 +70,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.common.client = c
 
 	// API Services
+	c.KnowledgeGraphReadAPIAPI = (*KnowledgeGraphReadAPIAPIService)(&c.common)
 	c.KnowledgeGraphWriteAPIAPI = (*KnowledgeGraphWriteAPIAPIService)(&c.common)
 
 	return c

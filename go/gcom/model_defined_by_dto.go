@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.07.20-131035
+API version: 2026.08.24-122123
 Contact: support@asserts.ai
 */
 
@@ -21,8 +21,12 @@ var _ MappedNullable = &DefinedByDto{}
 // DefinedByDto Base class for relation definitions
 type DefinedByDto struct {
 	// Static properties to attach to the relation
-	StaticProperties     map[string]interface{} `json:"staticProperties,omitempty"`
-	Source               string                 `json:"source"`
+	StaticProperties map[string]interface{} `json:"staticProperties,omitempty"`
+	// KG domain the start entity must be in. Omit to address the default telemetry domain — omitting the field is the only spelling for it, so the reserved telemetry domain values are rejected here rather than treated as the default. Set this to bind entities written through the KG Write API, which can never live in the default domain. Required when the endpoint type is declared only by a published kg schema and not by any entity rule, since without it the rule would be accepted and then match nothing. PROPERTY_MATCH only — rejected on a METRICS relation.
+	StartDomain *string `json:"startDomain,omitempty" validate:"regexp=^(?!kg$)(?!metrics$)[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"`
+	// KG domain the end entity must be in. Same semantics as startDomain.
+	EndDomain            *string `json:"endDomain,omitempty" validate:"regexp=^(?!kg$)(?!metrics$)[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"`
+	Source               string  `json:"source"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -34,6 +38,10 @@ type _DefinedByDto DefinedByDto
 // will change when the set of required properties is changed
 func NewDefinedByDto(source string) *DefinedByDto {
 	this := DefinedByDto{}
+	var startDomain string = ""
+	this.StartDomain = &startDomain
+	var endDomain string = ""
+	this.EndDomain = &endDomain
 	this.Source = source
 	return &this
 }
@@ -43,6 +51,10 @@ func NewDefinedByDto(source string) *DefinedByDto {
 // but it doesn't guarantee that properties required by API are set
 func NewDefinedByDtoWithDefaults() *DefinedByDto {
 	this := DefinedByDto{}
+	var startDomain string = ""
+	this.StartDomain = &startDomain
+	var endDomain string = ""
+	this.EndDomain = &endDomain
 	return &this
 }
 
@@ -76,6 +88,70 @@ func (o *DefinedByDto) HasStaticProperties() bool {
 // SetStaticProperties gets a reference to the given map[string]interface{} and assigns it to the StaticProperties field.
 func (o *DefinedByDto) SetStaticProperties(v map[string]interface{}) {
 	o.StaticProperties = v
+}
+
+// GetStartDomain returns the StartDomain field value if set, zero value otherwise.
+func (o *DefinedByDto) GetStartDomain() string {
+	if o == nil || IsNil(o.StartDomain) {
+		var ret string
+		return ret
+	}
+	return *o.StartDomain
+}
+
+// GetStartDomainOk returns a tuple with the StartDomain field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DefinedByDto) GetStartDomainOk() (*string, bool) {
+	if o == nil || IsNil(o.StartDomain) {
+		return nil, false
+	}
+	return o.StartDomain, true
+}
+
+// HasStartDomain returns a boolean if a field has been set.
+func (o *DefinedByDto) HasStartDomain() bool {
+	if o != nil && !IsNil(o.StartDomain) {
+		return true
+	}
+
+	return false
+}
+
+// SetStartDomain gets a reference to the given string and assigns it to the StartDomain field.
+func (o *DefinedByDto) SetStartDomain(v string) {
+	o.StartDomain = &v
+}
+
+// GetEndDomain returns the EndDomain field value if set, zero value otherwise.
+func (o *DefinedByDto) GetEndDomain() string {
+	if o == nil || IsNil(o.EndDomain) {
+		var ret string
+		return ret
+	}
+	return *o.EndDomain
+}
+
+// GetEndDomainOk returns a tuple with the EndDomain field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DefinedByDto) GetEndDomainOk() (*string, bool) {
+	if o == nil || IsNil(o.EndDomain) {
+		return nil, false
+	}
+	return o.EndDomain, true
+}
+
+// HasEndDomain returns a boolean if a field has been set.
+func (o *DefinedByDto) HasEndDomain() bool {
+	if o != nil && !IsNil(o.EndDomain) {
+		return true
+	}
+
+	return false
+}
+
+// SetEndDomain gets a reference to the given string and assigns it to the EndDomain field.
+func (o *DefinedByDto) SetEndDomain(v string) {
+	o.EndDomain = &v
 }
 
 // GetSource returns the Source field value
@@ -115,6 +191,12 @@ func (o DefinedByDto) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.StaticProperties) {
 		toSerialize["staticProperties"] = o.StaticProperties
 	}
+	if !IsNil(o.StartDomain) {
+		toSerialize["startDomain"] = o.StartDomain
+	}
+	if !IsNil(o.EndDomain) {
+		toSerialize["endDomain"] = o.EndDomain
+	}
 	toSerialize["source"] = o.Source
 
 	for key, value := range o.AdditionalProperties {
@@ -147,6 +229,8 @@ func (o *DefinedByDto) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "staticProperties")
+		delete(additionalProperties, "startDomain")
+		delete(additionalProperties, "endDomain")
 		delete(additionalProperties, "source")
 		o.AdditionalProperties = additionalProperties
 	}

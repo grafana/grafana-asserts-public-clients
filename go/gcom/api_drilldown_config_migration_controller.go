@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.07.20-131035
+API version: 2026.08.24-122123
 Contact: support@asserts.ai
 */
 
@@ -70,7 +70,7 @@ func (a *DrilldownConfigMigrationControllerAPIService) MigrateConfigsExecute(r A
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v2/config/drilldown-migration"
+	localVarPath := localBasePath + "/asserts/api-server/v2/config/drilldown-migration"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

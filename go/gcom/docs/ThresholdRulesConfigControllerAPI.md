@@ -1,15 +1,15 @@
 # \ThresholdRulesConfigControllerAPI
 
-All URIs are relative to *http://localhost:8030/asserts/api-server*
+All URIs are relative to *http://localhost:8030*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteCustomThresholdRule**](ThresholdRulesConfigControllerAPI.md#DeleteCustomThresholdRule) | **Post** /v1/config/threshold-rule/delete | 
-[**GetCustomThresholdRules**](ThresholdRulesConfigControllerAPI.md#GetCustomThresholdRules) | **Get** /v1/config/threshold-rules | 
-[**GetRequestThresholdRules**](ThresholdRulesConfigControllerAPI.md#GetRequestThresholdRules) | **Get** /v1/config/threshold-rules/request | 
-[**GetResourceThresholdRules**](ThresholdRulesConfigControllerAPI.md#GetResourceThresholdRules) | **Get** /v1/config/threshold-rules/resource | 
-[**UpdateCustomThresholdRule**](ThresholdRulesConfigControllerAPI.md#UpdateCustomThresholdRule) | **Post** /v1/config/threshold-rule | 
-[**UpdateCustomThresholdRules**](ThresholdRulesConfigControllerAPI.md#UpdateCustomThresholdRules) | **Post** /v1/config/threshold-rules | 
+[**DeleteCustomThresholdRule**](ThresholdRulesConfigControllerAPI.md#DeleteCustomThresholdRule) | **Post** /asserts/api-server/v1/config/threshold-rule/delete | 
+[**GetCustomThresholdRules**](ThresholdRulesConfigControllerAPI.md#GetCustomThresholdRules) | **Get** /asserts/api-server/v1/config/threshold-rules | 
+[**GetRequestThresholdRules**](ThresholdRulesConfigControllerAPI.md#GetRequestThresholdRules) | **Get** /asserts/api-server/v1/config/threshold-rules/request | 
+[**GetResourceThresholdRules**](ThresholdRulesConfigControllerAPI.md#GetResourceThresholdRules) | **Get** /asserts/api-server/v1/config/threshold-rules/resource | 
+[**UpdateCustomThresholdRule**](ThresholdRulesConfigControllerAPI.md#UpdateCustomThresholdRule) | **Post** /asserts/api-server/v1/config/threshold-rule | 
+[**UpdateCustomThresholdRules**](ThresholdRulesConfigControllerAPI.md#UpdateCustomThresholdRules) | **Post** /asserts/api-server/v1/config/threshold-rules | 
 
 
 

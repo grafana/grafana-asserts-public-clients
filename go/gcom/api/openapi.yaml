@@ -7,21 +7,23 @@ info:
   description: Asserts Public API
   termsOfService: https://www.asserts.ai/terms-of-service
   title: "Asserts, Inc"
-  version: 2026.07.20-131035
+  version: 2026.08.24-122123
 servers:
 - description: Generated server url
-  url: http://localhost:8030/asserts/api-server
+  url: http://localhost:8030
 tags:
 - description: Query Kubernetes events for entities
   name: Kubernetes Events
 - description: APIs for managing model rule configurations
   name: Model Rules Configuration
+- description: Read Knowledge Graph entities by stable identity (type + name + scope)
+  name: Knowledge Graph Read API
 - description: APIs for managing alert configurations
   name: Alert Configuration
 - description: APIs for managing per-tenant retained Prometheus labels
   name: Custom Label Retention
 paths:
-  /v2/stack:
+  /asserts/api-server/v2/stack:
     put:
       operationId: putV2Stack
       parameters:
@@ -37,7 +39,7 @@ paths:
           description: OK
       tags:
       - stack-controller
-  /v2/stack/dataset:
+  /asserts/api-server/v2/stack/dataset:
     put:
       operationId: updateDataset
       parameters:
@@ -57,7 +59,7 @@ paths:
           description: OK
       tags:
       - stack-controller
-  /v2/config/trace/reorder:
+  /asserts/api-server/v2/config/trace/reorder:
     put:
       description: Accepts a list of trace drilldown configuration names and their
         new priorities to reorder the configurations for the tenant
@@ -110,7 +112,7 @@ paths:
       summary: Reorder trace drilldown configuration priorities
       tags:
       - trace-drilldown-config-controller
-  /v2/config/relabel-rules/prologue:
+  /asserts/api-server/v2/config/relabel-rules/prologue:
     delete:
       operationId: deletePrologueRelabelRules
       parameters:
@@ -160,7 +162,7 @@ paths:
           description: OK
       tags:
       - mimir-relabel-rules-config-controller
-  /v2/config/relabel-rules/epilogue:
+  /asserts/api-server/v2/config/relabel-rules/epilogue:
     delete:
       operationId: deleteEpilogueRelabelRules
       parameters:
@@ -210,7 +212,7 @@ paths:
           description: OK
       tags:
       - mimir-relabel-rules-config-controller
-  /v2/config/profile/reorder:
+  /asserts/api-server/v2/config/profile/reorder:
     put:
       description: Accepts a list of profile drilldown configuration names and their
         new priorities to reorder the configurations for the tenant
@@ -263,7 +265,7 @@ paths:
       summary: Reorder profile drilldown configuration priorities
       tags:
       - profile-drilldown-config-controller
-  /v2/config/log/reorder:
+  /asserts/api-server/v2/config/log/reorder:
     put:
       description: Accepts a list of log drilldown configuration names and their new
         priorities to reorder the configurations for the tenant
@@ -316,7 +318,7 @@ paths:
       summary: Reorder log drilldown configuration priorities
       tags:
       - log-drilldown-config-controller
-  /v1/stack:
+  /asserts/api-server/v1/stack:
     get:
       operationId: getStackDetail
       parameters:
@@ -360,7 +362,7 @@ paths:
           description: OK
       tags:
       - stack-controller
-  /v1/search/definition/{id}:
+  /asserts/api-server/v1/search/definition/{id}:
     delete:
       operationId: deleteSearchDefinition
       parameters:
@@ -425,7 +427,7 @@ paths:
           description: OK
       tags:
       - search-definition-controller
-  /v1/product/activation:
+  /asserts/api-server/v1/product/activation:
     put:
       operationId: upsertProductActivation
       parameters:
@@ -441,7 +443,7 @@ paths:
           description: OK
       tags:
       - product-activation-controller
-  /v1/config/prom-rules:
+  /asserts/api-server/v1/config/prom-rules:
     get:
       operationId: listPromRules
       parameters:
@@ -482,7 +484,7 @@ paths:
           description: OK
       tags:
       - prom-rules-config-controller
-  /v1/config/model-rules:
+  /asserts/api-server/v1/config/model-rules:
     get:
       description: Retrieves a list of all available custom model rule configuration
         names for the current tenant.
@@ -559,7 +561,7 @@ paths:
       summary: Create or update custom model rules
       tags:
       - Model Rules Configuration
-  /v1/config/model-rules/{name}:
+  /asserts/api-server/v1/config/model-rules/{name}:
     delete:
       description: Permanently deletes a specific custom model rules configuration
         by its name.
@@ -686,7 +688,7 @@ paths:
       summary: Create or update custom model rules by name
       tags:
       - Model Rules Configuration
-  /v1/config/model-mapping/{name}:
+  /asserts/api-server/v1/config/model-mapping/{name}:
     delete:
       operationId: delete
       parameters:
@@ -765,7 +767,7 @@ paths:
           description: OK
       tags:
       - model-mapping-controller
-  /v2/stack/enable:
+  /asserts/api-server/v2/stack/enable:
     post:
       operationId: enableV2Stack
       parameters:
@@ -779,7 +781,7 @@ paths:
           description: OK
       tags:
       - stack-controller
-  /v2/stack/disable:
+  /asserts/api-server/v2/stack/disable:
     post:
       operationId: disableV2Stack
       parameters:
@@ -789,7 +791,7 @@ paths:
           description: OK
       tags:
       - stack-controller
-  /v2/stack/datasets/auto-setup:
+  /asserts/api-server/v2/stack/datasets/auto-setup:
     post:
       operationId: detectAndAutoConfigureDatasets
       parameters:
@@ -805,6 +807,7 @@ paths:
                   - prometheus
                   - otel
                   - hosto11y
+                  - feo11y
                   - aws
                   - azure
                   - gcp
@@ -815,7 +818,7 @@ paths:
           description: OK
       tags:
       - stack-controller
-  /v2/stack/allow-large-tenant-onboarding:
+  /asserts/api-server/v2/stack/allow-large-tenant-onboarding:
     post:
       operationId: allowLargeTenantOnboarding
       parameters:
@@ -829,7 +832,7 @@ paths:
           description: OK
       tags:
       - stack-controller
-  /v2/latency-thresholds:
+  /asserts/api-server/v2/latency-thresholds:
     post:
       operationId: getLatencyThresholds
       parameters:
@@ -853,7 +856,7 @@ paths:
           description: OK
       tags:
       - latency-threshold-controller
-  /v2/entity_scope:
+  /asserts/api-server/v2/entity_scope:
     get:
       operationId: getAllEntityScopesV2
       parameters:
@@ -902,7 +905,7 @@ paths:
           description: OK
       tags:
       - entity-scope-controller
-  /v2/config/trace:
+  /asserts/api-server/v2/config/trace:
     get:
       description: Retrieves all the trace drilldown configuration entries for the
         tenant
@@ -961,7 +964,7 @@ paths:
       summary: Upsert trace drilldown configuration
       tags:
       - trace-drilldown-config-controller
-  /v2/config/threshold:
+  /asserts/api-server/v2/config/threshold:
     delete:
       operationId: deleteThresholds
       parameters:
@@ -1004,7 +1007,7 @@ paths:
           description: OK
       tags:
       - thresholds-v-2-config-controller
-  /v2/config/threshold/resource:
+  /asserts/api-server/v2/config/threshold/resource:
     post:
       operationId: updateResourceThresholds
       parameters:
@@ -1022,7 +1025,7 @@ paths:
           description: OK
       tags:
       - thresholds-v-2-config-controller
-  /v2/config/threshold/request:
+  /asserts/api-server/v2/config/threshold/request:
     post:
       operationId: updateRequestThresholds
       parameters:
@@ -1040,7 +1043,7 @@ paths:
           description: OK
       tags:
       - thresholds-v-2-config-controller
-  /v2/config/threshold/health:
+  /asserts/api-server/v2/config/threshold/health:
     post:
       operationId: updateHealthThresholds
       parameters:
@@ -1058,7 +1061,7 @@ paths:
           description: OK
       tags:
       - thresholds-v-2-config-controller
-  /v2/config/profile:
+  /asserts/api-server/v2/config/profile:
     get:
       description: Retrieves all the profile drilldown configuration entries for the
         tenant
@@ -1117,7 +1120,66 @@ paths:
       summary: Upsert profile drilldown configuration
       tags:
       - profile-drilldown-config-controller
-  /v2/config/log:
+  /asserts/api-server/v2/config/metric:
+    get:
+      description: Retrieves all the metric drilldown configuration entries for the
+        tenant
+      operationId: getTenantMetricConfig
+      parameters:
+      - $ref: '#/components/parameters/TenantId'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TenantMetricConfigResponseDto'
+          description: Successfully retrieved metric configuration
+      summary: Get tenant metric configuration
+      tags:
+      - metric-drilldown-config-controller
+    post:
+      description: Creates or updates the metric drilldown configuration entry for
+        the tenant
+      operationId: upsertMetricDrilldownConfig
+      parameters:
+      - $ref: '#/components/parameters/TenantId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              default: ""
+              description: Metric drilldown configuration data
+              type: string
+          application/x-yml:
+            schema:
+              default: ""
+              description: Metric drilldown configuration data
+              type: string
+          application/yaml:
+            schema:
+              default: ""
+              description: Metric drilldown configuration data
+              type: string
+        required: true
+      responses:
+        "200":
+          description: Configuration upserted successfully
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Invalid configuration data
+      summary: Upsert metric drilldown configuration
+      tags:
+      - metric-drilldown-config-controller
+  /asserts/api-server/v2/config/log:
     get:
       description: Retrieves all the log drilldown configuration entries for the tenant
       operationId: getTenantLogConfig
@@ -1175,7 +1237,7 @@ paths:
       summary: Upsert log drilldown configuration
       tags:
       - log-drilldown-config-controller
-  /v2/config/drilldown-migration:
+  /asserts/api-server/v2/config/drilldown-migration:
     post:
       operationId: migrateConfigs
       parameters:
@@ -1191,7 +1253,7 @@ paths:
           description: OK
       tags:
       - drilldown-config-migration-controller
-  /v1/validate/prometheus-query:
+  /asserts/api-server/v1/validate/prometheus-query:
     post:
       operationId: validatePromQL
       parameters:
@@ -1211,7 +1273,21 @@ paths:
           description: OK
       tags:
       - prom-ql-validation-controller
-  /v1/stack/status/{status}:
+  /asserts/api-server/v1/stack/unpause:
+    post:
+      operationId: resumeGraphWrites
+      parameters:
+      - $ref: '#/components/parameters/TenantId'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StackStatusDto'
+          description: OK
+      tags:
+      - stack-controller
+  /asserts/api-server/v1/stack/status/{status}:
     post:
       operationId: updateStatus
       parameters:
@@ -1232,7 +1308,21 @@ paths:
           description: OK
       tags:
       - stack-controller
-  /v1/stack/migrate:
+  /asserts/api-server/v1/stack/pause:
+    post:
+      operationId: pauseGraphWrites
+      parameters:
+      - $ref: '#/components/parameters/TenantId'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StackStatusDto'
+          description: OK
+      tags:
+      - stack-controller
+  /asserts/api-server/v1/stack/migrate:
     post:
       operationId: migrateStack
       parameters:
@@ -1248,7 +1338,7 @@ paths:
           description: OK
       tags:
       - stack-migration-controller
-  /v1/stack/enable:
+  /asserts/api-server/v1/stack/enable:
     get:
       operationId: getStackEnable
       parameters:
@@ -1281,7 +1371,7 @@ paths:
           description: OK
       tags:
       - stack-controller
-  /v1/stack/disable:
+  /asserts/api-server/v1/stack/disable:
     post:
       operationId: disableStack
       parameters:
@@ -1291,7 +1381,7 @@ paths:
           description: OK
       tags:
       - stack-controller
-  /v1/slo:
+  /asserts/api-server/v1/slo:
     post:
       operationId: getSlos
       parameters:
@@ -1311,7 +1401,7 @@ paths:
           description: OK
       tags:
       - service-level-controller
-  /v1/slo/top:
+  /asserts/api-server/v1/slo/top:
     post:
       operationId: getTopSloTargets
       parameters:
@@ -1331,7 +1421,7 @@ paths:
           description: OK
       tags:
       - service-level-controller
-  /v1/slo/incidents:
+  /asserts/api-server/v1/slo/incidents:
     post:
       operationId: getSloIncidents
       parameters:
@@ -1351,7 +1441,7 @@ paths:
           description: OK
       tags:
       - incident-controller
-  /v1/slo/chart:
+  /asserts/api-server/v1/slo/chart:
     post:
       operationId: getSloChart
       parameters:
@@ -1371,7 +1461,7 @@ paths:
           description: OK
       tags:
       - service-level-controller
-  /v1/search:
+  /asserts/api-server/v1/search:
     post:
       operationId: search
       parameters:
@@ -1397,7 +1487,7 @@ paths:
           description: OK
       tags:
       - search-controller
-  /v1/search/sample:
+  /asserts/api-server/v1/search/sample:
     post:
       operationId: searchSample
       parameters:
@@ -1423,7 +1513,7 @@ paths:
           description: OK
       tags:
       - sample-search-controller
-  /v1/search/definition:
+  /asserts/api-server/v1/search/definition:
     get:
       operationId: searchDefinitions
       parameters:
@@ -1487,7 +1577,7 @@ paths:
           description: OK
       tags:
       - search-definition-controller
-  /v1/search/cypher:
+  /asserts/api-server/v1/search/cypher:
     post:
       operationId: search_1
       parameters:
@@ -1513,7 +1603,7 @@ paths:
           description: OK
       tags:
       - cypher-search-controller
-  /v1/search/count:
+  /asserts/api-server/v1/search/count:
     post:
       operationId: searchCount
       parameters:
@@ -1534,7 +1624,7 @@ paths:
           description: OK
       tags:
       - search-controller
-  /v1/search/assertions:
+  /asserts/api-server/v1/search/assertions:
     post:
       operationId: searchAssertions
       parameters:
@@ -1561,7 +1651,7 @@ paths:
           description: OK
       tags:
       - entity-assertions-controller
-  /v1/search/assertions/summary:
+  /asserts/api-server/v1/search/assertions/summary:
     post:
       operationId: searchAssertionsSummary
       parameters:
@@ -1588,7 +1678,7 @@ paths:
           description: OK
       tags:
       - entity-assertions-controller
-  /v1/search/assertions/llm-summary:
+  /asserts/api-server/v1/search/assertions/llm-summary:
     post:
       operationId: getLlmRcaSummary
       parameters:
@@ -1614,7 +1704,7 @@ paths:
           description: OK
       tags:
       - llm-rca-controller
-  /v1/patterns/search:
+  /asserts/api-server/v1/patterns/search:
     post:
       operationId: search_2
       parameters:
@@ -1640,7 +1730,7 @@ paths:
           description: OK
       tags:
       - rca-pattern-controller
-  /v1/patterns/list:
+  /asserts/api-server/v1/patterns/list:
     post:
       operationId: list
       parameters:
@@ -1672,7 +1762,7 @@ paths:
           description: OK
       tags:
       - rca-pattern-controller
-  /v1/patterns/custom:
+  /asserts/api-server/v1/patterns/custom:
     get:
       operationId: listCustom
       parameters:
@@ -1719,7 +1809,7 @@ paths:
           description: OK
       tags:
       - custom-rca-pattern-controller
-  /v1/monitoring-status/for-entities:
+  /asserts/api-server/v1/monitoring-status/for-entities:
     post:
       operationId: getEntityMonitoringStatus
       parameters:
@@ -1739,7 +1829,7 @@ paths:
           description: OK
       tags:
       - monitoring-status-controller
-  /v1/logging/external:
+  /asserts/api-server/v1/logging/external:
     post:
       operationId: buildExternalLoggingUrl
       parameters:
@@ -1759,7 +1849,7 @@ paths:
           description: OK
       tags:
       - external-logging-controller
-  /v1/latency-thresholds:
+  /asserts/api-server/v1/latency-thresholds:
     post:
       operationId: getLatencyThresholds_1
       parameters:
@@ -1781,7 +1871,7 @@ paths:
           description: OK
       tags:
       - latency-threshold-controller
-  /v1/kpi/summary/for-entities/{kpi_name}:
+  /asserts/api-server/v1/kpi/summary/for-entities/{kpi_name}:
     post:
       operationId: getKpiSummary
       parameters:
@@ -1809,7 +1899,7 @@ paths:
           description: OK
       tags:
       - entity-kpi-controller
-  /v1/integration/trace:
+  /asserts/api-server/v1/integration/trace:
     post:
       operationId: buildTraceUrl
       parameters:
@@ -1829,7 +1919,7 @@ paths:
           description: OK
       tags:
       - trace-controller
-  /v1/incidents:
+  /asserts/api-server/v1/incidents:
     post:
       operationId: getIncidents
       parameters:
@@ -1849,7 +1939,7 @@ paths:
           description: OK
       tags:
       - incident-controller
-  /v1/incidents/top:
+  /asserts/api-server/v1/incidents/top:
     post:
       operationId: getTopIncidents
       parameters:
@@ -1869,7 +1959,7 @@ paths:
           description: OK
       tags:
       - incident-controller
-  /v1/entity_type/property_values:
+  /asserts/api-server/v1/entity_type/property_values:
     post:
       operationId: getPropertyValues
       parameters:
@@ -1889,7 +1979,7 @@ paths:
           description: OK
       tags:
       - entity-type-controller
-  /v1/entity_type/count:
+  /asserts/api-server/v1/entity_type/count:
     post:
       operationId: getCountByEntityType
       parameters:
@@ -1911,7 +2001,7 @@ paths:
           description: OK
       tags:
       - entity-type-controller
-  /v1/entity_scope:
+  /asserts/api-server/v1/entity_scope:
     get:
       operationId: getAllEntityScopes
       parameters:
@@ -1960,7 +2050,7 @@ paths:
           description: OK
       tags:
       - entity-scope-controller
-  /v1/customer/metric:
+  /asserts/api-server/v1/customer/metric:
     get:
       operationId: getAllMetrics
       parameters:
@@ -1993,7 +2083,7 @@ paths:
           description: OK
       tags:
       - customer-metric-controller
-  /v1/config/trace:
+  /asserts/api-server/v1/config/trace:
     get:
       operationId: getTenantTraceEnvConfig
       parameters:
@@ -2034,7 +2124,7 @@ paths:
           description: OK
       tags:
       - trace-config-controller
-  /v1/config/threshold-rules:
+  /asserts/api-server/v1/config/threshold-rules:
     get:
       operationId: getCustomThresholdRules
       parameters:
@@ -2075,7 +2165,7 @@ paths:
           description: OK
       tags:
       - threshold-rules-config-controller
-  /v1/config/threshold-rule:
+  /asserts/api-server/v1/config/threshold-rule:
     post:
       operationId: updateCustomThresholdRule
       parameters:
@@ -2091,7 +2181,7 @@ paths:
           description: OK
       tags:
       - threshold-rules-config-controller
-  /v1/config/threshold-rule/delete:
+  /asserts/api-server/v1/config/threshold-rule/delete:
     post:
       operationId: deleteCustomThresholdRule
       parameters:
@@ -2107,7 +2197,7 @@ paths:
           description: OK
       tags:
       - threshold-rules-config-controller
-  /v1/config/slo:
+  /asserts/api-server/v1/config/slo:
     get:
       operationId: getSloConfigs
       parameters:
@@ -2154,7 +2244,7 @@ paths:
           description: OK
       tags:
       - slo-config-controller
-  /v1/config/slo-validate:
+  /asserts/api-server/v1/config/slo-validate:
     post:
       operationId: validate
       parameters:
@@ -2202,7 +2292,7 @@ paths:
           description: OK
       tags:
       - slo-config-controller
-  /v1/config/slo-generate-rules:
+  /asserts/api-server/v1/config/slo-generate-rules:
     post:
       operationId: regenerateSloRules
       parameters:
@@ -2212,7 +2302,7 @@ paths:
           description: OK
       tags:
       - slo-config-controller
-  /v1/config/prom-rules/{name}:
+  /asserts/api-server/v1/config/prom-rules/{name}:
     delete:
       operationId: deletePromRules
       parameters:
@@ -2283,7 +2373,7 @@ paths:
           description: OK
       tags:
       - prom-rules-config-controller
-  /v1/config/prom-rules/{name}/delete:
+  /asserts/api-server/v1/config/prom-rules/{name}/delete:
     post:
       operationId: deleteRule
       parameters:
@@ -2312,7 +2402,7 @@ paths:
           description: OK
       tags:
       - prom-rules-config-controller
-  /v1/config/prom-rules/generate:
+  /asserts/api-server/v1/config/prom-rules/generate:
     post:
       operationId: generateRules
       parameters:
@@ -2338,7 +2428,7 @@ paths:
           description: OK
       tags:
       - recording-rule-controller
-  /v1/config/prom-rules-validate:
+  /asserts/api-server/v1/config/prom-rules-validate:
     post:
       operationId: submitValidation
       parameters:
@@ -2370,7 +2460,7 @@ paths:
           description: OK
       tags:
       - prom-rules-config-controller
-  /v1/config/prom-rules-validate-sync:
+  /asserts/api-server/v1/config/prom-rules-validate-sync:
     post:
       description: "Runs the same synchronous validation as create/update against\
         \ the rules in the request body but never persists them. Returns 200 if valid,\
@@ -2398,7 +2488,7 @@ paths:
       summary: Validate Prometheus rules synchronously without persisting
       tags:
       - prom-rules-config-controller
-  /v1/config/prom-rules-enable/{name}:
+  /asserts/api-server/v1/config/prom-rules-enable/{name}:
     post:
       operationId: enableRule
       parameters:
@@ -2415,7 +2505,7 @@ paths:
           description: OK
       tags:
       - prom-rules-config-controller
-  /v1/config/prom-rules-disable/{name}:
+  /asserts/api-server/v1/config/prom-rules-disable/{name}:
     post:
       operationId: disableRule
       parameters:
@@ -2432,7 +2522,7 @@ paths:
           description: OK
       tags:
       - prom-rules-config-controller
-  /v1/config/model-rules-validate:
+  /asserts/api-server/v1/config/model-rules-validate:
     post:
       description: "Runs the same validation as create/update against the model rules\
         \ in the request body but never persists them. Returns 200 if valid, 422 with\
@@ -2476,7 +2566,7 @@ paths:
       summary: Validate custom model rules without persisting
       tags:
       - Model Rules Configuration
-  /v1/config/import:
+  /asserts/api-server/v1/config/import:
     post:
       operationId: importConfigurations
       parameters:
@@ -2503,7 +2593,7 @@ paths:
           description: OK
       tags:
       - config-export-import-controller
-  /v1/config/environment:
+  /asserts/api-server/v1/config/environment:
     get:
       operationId: getTenantEnvConfig
       parameters:
@@ -2544,7 +2634,7 @@ paths:
           description: OK
       tags:
       - log-config-controller
-  /v1/config/display/pinned-filters:
+  /asserts/api-server/v1/config/display/pinned-filters:
     get:
       operationId: getPinnedFiltersConfig
       parameters:
@@ -2572,7 +2662,7 @@ paths:
           description: OK
       tags:
       - pinned-filters-config-controller
-  /v1/config/display/kpi:
+  /asserts/api-server/v1/config/display/kpi:
     get:
       operationId: getKpiViewConfig
       parameters:
@@ -2601,7 +2691,7 @@ paths:
           description: OK
       tags:
       - kpi-display-config-controller
-  /v1/config/display/graph:
+  /asserts/api-server/v1/config/display/graph:
     get:
       operationId: getGraphDisplayConfig
       parameters:
@@ -2630,7 +2720,7 @@ paths:
           description: OK
       tags:
       - graph-display-config-controller
-  /v1/config/disabled-alerts:
+  /asserts/api-server/v1/config/disabled-alerts:
     get:
       description: Retrieves a list of all currently disabled alert configurations
         for the tenant.
@@ -2706,7 +2796,7 @@ paths:
       summary: Disable multiple alert configurations
       tags:
       - Alert Configuration
-  /v1/config/disabled-alerts-validate:
+  /asserts/api-server/v1/config/disabled-alerts-validate:
     post:
       description: "Validates a batch of disabled alert configurations without persisting\
         \ them. Returns 200 if valid, 422 with error details if invalid."
@@ -2743,7 +2833,7 @@ paths:
       summary: Validate disabled alert configurations
       tags:
       - Alert Configuration
-  /v1/config/disabled-alert:
+  /asserts/api-server/v1/config/disabled-alert:
     post:
       description: "Creates a new disabled alert configuration, effectively silencing\
         \ it."
@@ -2792,7 +2882,7 @@ paths:
       summary: Disable a single alert configuration
       tags:
       - Alert Configuration
-  /v1/config/disabled-alert-validate:
+  /asserts/api-server/v1/config/disabled-alert-validate:
     post:
       description: "Validates a single disabled alert configuration without persisting\
         \ it. Returns 200 if valid, 422 with error details if invalid."
@@ -2829,7 +2919,7 @@ paths:
       summary: Validate a single disabled alert configuration
       tags:
       - Alert Configuration
-  /v1/config/dashboard/{entity_type}:
+  /asserts/api-server/v1/config/dashboard/{entity_type}:
     get:
       operationId: getCustomDashConfig
       parameters:
@@ -2872,7 +2962,7 @@ paths:
           description: OK
       tags:
       - custom-dash-config-controller
-  /v1/config/dashboard/delete/{entity_type}:
+  /asserts/api-server/v1/config/dashboard/delete/{entity_type}:
     post:
       operationId: deleteCustomDashConfig
       parameters:
@@ -2895,7 +2985,7 @@ paths:
           description: OK
       tags:
       - custom-dash-config-controller
-  /v1/config/custom-labels:
+  /asserts/api-server/v1/config/custom-labels:
     delete:
       operationId: deleteConfig
       parameters:
@@ -2936,7 +3026,7 @@ paths:
       summary: Create or update retained label config for the current tenant
       tags:
       - Custom Label Retention
-  /v1/config/alerts:
+  /asserts/api-server/v1/config/alerts:
     get:
       description: Retrieves a list of all alert configurations for the tenant.
       operationId: getAllAlertConfigs
@@ -3011,7 +3101,44 @@ paths:
       summary: Create or update multiple alert configurations
       tags:
       - Alert Configuration
-  /v1/config/alert:
+  /asserts/api-server/v1/config/alerts-validate:
+    post:
+      description: "Validates a batch of alert configurations without persisting them.\
+        \ Returns 200 if valid, 422 with error details if invalid."
+      operationId: validateAlertConfigs
+      parameters:
+      - $ref: '#/components/parameters/TenantId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlertConfigsDto'
+          application/x-yml:
+            schema:
+              $ref: '#/components/schemas/AlertConfigsDto'
+          application/x-yaml:
+            schema:
+              $ref: '#/components/schemas/AlertConfigsDto'
+        required: true
+      responses:
+        "200":
+          description: Configuration is valid
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Invalid configuration provided
+      summary: Validate multiple alert configurations
+      tags:
+      - Alert Configuration
+  /asserts/api-server/v1/config/alert:
     post:
       description: Creates a new alert configuration or updates an existing one based
         on the provided data.
@@ -3060,7 +3187,44 @@ paths:
       summary: Create or update a single alert configuration
       tags:
       - Alert Configuration
-  /v1/assertions:
+  /asserts/api-server/v1/config/alert-validate:
+    post:
+      description: "Validates a single alert configuration without persisting it.\
+        \ Returns 200 if valid, 422 with error details if invalid."
+      operationId: validateAlertConfig
+      parameters:
+      - $ref: '#/components/parameters/TenantId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlertConfigDto'
+          application/x-yml:
+            schema:
+              $ref: '#/components/schemas/AlertConfigDto'
+          application/x-yaml:
+            schema:
+              $ref: '#/components/schemas/AlertConfigDto'
+        required: true
+      responses:
+        "200":
+          description: Configuration is valid
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Invalid configuration provided
+      summary: Validate a single alert configuration
+      tags:
+      - Alert Configuration
+  /asserts/api-server/v1/assertions:
     post:
       operationId: getAssertions
       parameters:
@@ -3087,7 +3251,7 @@ paths:
           description: OK
       tags:
       - entity-assertions-controller
-  /v1/assertions/summary:
+  /asserts/api-server/v1/assertions/summary:
     post:
       operationId: getAssertionsSummary
       parameters:
@@ -3114,7 +3278,7 @@ paths:
           description: OK
       tags:
       - entity-assertions-controller
-  /v1/assertions/search:
+  /asserts/api-server/v1/assertions/search:
     post:
       operationId: search_3
       parameters:
@@ -3136,7 +3300,7 @@ paths:
           description: OK
       tags:
       - assertion-search-controller
-  /v1/assertions/llm-summary:
+  /asserts/api-server/v1/assertions/llm-summary:
     post:
       operationId: getLlmRcaSummary_1
       parameters:
@@ -3162,7 +3326,7 @@ paths:
           description: OK
       tags:
       - llm-rca-controller
-  /v1/assertions/graph:
+  /asserts/api-server/v1/assertions/graph:
     post:
       operationId: getEntityAssertionsGraph
       parameters:
@@ -3182,7 +3346,7 @@ paths:
           description: OK
       tags:
       - entity-assertions-controller
-  /v1/assertions/entity-metric:
+  /asserts/api-server/v1/assertions/entity-metric:
     post:
       operationId: entityAssertionsDetails
       parameters:
@@ -3202,7 +3366,7 @@ paths:
           description: OK
       tags:
       - entity-assertions-controller
-  /v1/assertion_scores:
+  /asserts/api-server/v1/assertion_scores:
     post:
       operationId: getAssertionScores
       parameters:
@@ -3222,7 +3386,7 @@ paths:
           description: OK
       tags:
       - assertion-score-controller
-  /v1/assertion_scores/top_entities:
+  /asserts/api-server/v1/assertion_scores/top_entities:
     post:
       operationId: getTopNAssertingEntities
       parameters:
@@ -3244,7 +3408,7 @@ paths:
           description: OK
       tags:
       - assertion-score-controller
-  /v1/assertion_scores/search:
+  /asserts/api-server/v1/assertion_scores/search:
     post:
       operationId: getAssertionScoresFromSearch
       parameters:
@@ -3264,7 +3428,7 @@ paths:
           description: OK
       tags:
       - assertion-score-controller
-  /v1/assertion/{name}/info:
+  /asserts/api-server/v1/assertion/{name}/info:
     get:
       deprecated: true
       operationId: getAssertionInfo
@@ -3305,7 +3469,7 @@ paths:
           description: OK
       tags:
       - assertion-info-controller
-  /v1/assertion/source-metrics:
+  /asserts/api-server/v1/assertion/source-metrics:
     post:
       operationId: getEntityAssertionSourceMetrics
       parameters:
@@ -3327,7 +3491,7 @@ paths:
           description: OK
       tags:
       - entity-assertions-controller
-  /v1/assertion/affected-entity-names:
+  /asserts/api-server/v1/assertion/affected-entity-names:
     post:
       operationId: getAssertionEntityNames
       parameters:
@@ -3347,7 +3511,7 @@ paths:
           description: OK
       tags:
       - entity-assertions-controller
-  /v1/assertion/affected-entities:
+  /asserts/api-server/v1/assertion/affected-entities:
     post:
       operationId: getAssertionAffectedEntities
       parameters:
@@ -3367,7 +3531,7 @@ paths:
           description: OK
       tags:
       - entity-assertions-controller
-  /v5/prometheus/rules:
+  /asserts/api-server/v5/prometheus/rules:
     get:
       operationId: getAllRules
       parameters:
@@ -3387,7 +3551,7 @@ paths:
           description: OK
       tags:
       - rules-controller
-  /v2/stack/datasets:
+  /asserts/api-server/v2/stack/datasets:
     get:
       operationId: getDatasets
       parameters:
@@ -3401,7 +3565,7 @@ paths:
           description: OK
       tags:
       - stack-controller
-  /v2/stack/dataset/{dataset}:
+  /asserts/api-server/v2/stack/dataset/{dataset}:
     get:
       operationId: fetchDataset
       parameters:
@@ -3415,6 +3579,7 @@ paths:
           - prometheus
           - otel
           - hosto11y
+          - feo11y
           - aws
           - azure
           - gcp
@@ -3431,7 +3596,7 @@ paths:
           description: OK
       tags:
       - stack-controller
-  /v2/stack/dataset/{dataset}/vendors:
+  /asserts/api-server/v2/stack/dataset/{dataset}/vendors:
     get:
       operationId: getDatasetVendors
       parameters:
@@ -3445,6 +3610,7 @@ paths:
           - prometheus
           - otel
           - hosto11y
+          - feo11y
           - aws
           - azure
           - gcp
@@ -3461,7 +3627,7 @@ paths:
           description: OK
       tags:
       - stack-controller
-  /v2/stack/dataset/{dataset}/sanity:
+  /asserts/api-server/v2/stack/dataset/{dataset}/sanity:
     get:
       operationId: runDatasetSanityChecks
       parameters:
@@ -3475,6 +3641,7 @@ paths:
           - prometheus
           - otel
           - hosto11y
+          - feo11y
           - aws
           - azure
           - gcp
@@ -3491,7 +3658,7 @@ paths:
           description: OK
       tags:
       - stack-controller
-  /v2/config/relabel-rules/generated:
+  /asserts/api-server/v2/config/relabel-rules/generated:
     get:
       operationId: getGeneratedRelabelRules
       parameters:
@@ -3511,7 +3678,7 @@ paths:
           description: OK
       tags:
       - mimir-relabel-rules-config-controller
-  /v1/vendor-names:
+  /asserts/api-server/v1/vendor-names:
     get:
       operationId: getVendorNames
       parameters:
@@ -3531,7 +3698,7 @@ paths:
           description: OK
       tags:
       - prom-rules-config-controller
-  /v1/stack/vendor-integration:
+  /asserts/api-server/v1/stack/vendor-integration:
     get:
       operationId: discoverVendorsForCurrentTenant
       parameters:
@@ -3545,7 +3712,7 @@ paths:
           description: OK
       tags:
       - stack-controller
-  /v1/stack/update-bucket:
+  /asserts/api-server/v1/stack/update-bucket:
     get:
       operationId: getStackUpdateBucket
       parameters:
@@ -3566,7 +3733,7 @@ paths:
           description: OK
       tags:
       - stack-controller
-  /v1/stack/status:
+  /asserts/api-server/v1/stack/status:
     get:
       operationId: getStatus
       parameters:
@@ -3580,7 +3747,7 @@ paths:
           description: OK
       tags:
       - stack-controller
-  /v1/stack/sanity:
+  /asserts/api-server/v1/stack/sanity:
     get:
       operationId: runMetricSanityChecks
       parameters:
@@ -3594,7 +3761,7 @@ paths:
           description: OK
       tags:
       - stack-controller
-  /v1/search/autocomplete/{index}:
+  /asserts/api-server/v1/search/autocomplete/{index}:
     get:
       operationId: autoComplete
       parameters:
@@ -3637,7 +3804,7 @@ paths:
           description: OK
       tags:
       - auto-complete-controller
-  /v1/product/activation/{product}:
+  /asserts/api-server/v1/product/activation/{product}:
     get:
       operationId: getProductActivation
       parameters:
@@ -3663,7 +3830,7 @@ paths:
           description: OK
       tags:
       - product-activation-controller
-  /v1/patterns/custom/{name}:
+  /asserts/api-server/v1/patterns/custom/{name}:
     delete:
       operationId: deleteCustom
       parameters:
@@ -3708,7 +3875,7 @@ paths:
           description: OK
       tags:
       - custom-rca-pattern-controller
-  /v1/kpi/list:
+  /asserts/api-server/v1/kpi/list:
     get:
       operationId: getKpisByEntityType
       parameters:
@@ -3722,7 +3889,7 @@ paths:
           description: OK
       tags:
       - entity-kpi-controller
-  /v1/events:
+  /asserts/api-server/v1/events:
     get:
       description: Returns all Kubernetes events within a time range (for debugging)
       operationId: getAllEvents
@@ -3767,7 +3934,7 @@ paths:
       summary: Get all Kubernetes events
       tags:
       - Kubernetes Events
-  /v1/entity_type:
+  /asserts/api-server/v1/entity_type:
     get:
       operationId: getAll
       parameters:
@@ -3805,7 +3972,7 @@ paths:
           description: OK
       tags:
       - entity-type-controller
-  /v1/entity_type/{type}:
+  /asserts/api-server/v1/entity_type/{type}:
     get:
       operationId: getEntityType
       parameters:
@@ -3826,7 +3993,7 @@ paths:
           description: OK
       tags:
       - entity-type-controller
-  /v1/entity:
+  /asserts/api-server/v1/entity:
     get:
       operationId: lookupEntityFromAlertLabels
       parameters:
@@ -3892,7 +4059,7 @@ paths:
           description: OK
       tags:
       - entity-controller
-  /v1/entity/info:
+  /asserts/api-server/v1/entity/info:
     get:
       operationId: getEntity
       parameters:
@@ -3964,7 +4131,7 @@ paths:
           description: OK
       tags:
       - entity-controller
-  /v1/entity/events:
+  /asserts/api-server/v1/entity/events:
     get:
       description: Returns Kubernetes change events associated with a specific entity
         within a time range
@@ -4053,7 +4220,7 @@ paths:
       summary: Get Kubernetes events for an entity
       tags:
       - Kubernetes Events
-  /v1/config/types:
+  /asserts/api-server/v1/config/types:
     get:
       operationId: getSupportedConfigTypes
       parameters:
@@ -4070,7 +4237,7 @@ paths:
           description: OK
       tags:
       - config-export-import-controller
-  /v1/config/threshold-rules/resource:
+  /asserts/api-server/v1/config/threshold-rules/resource:
     get:
       operationId: getResourceThresholdRules
       parameters:
@@ -4084,7 +4251,7 @@ paths:
           description: OK
       tags:
       - threshold-rules-config-controller
-  /v1/config/threshold-rules/request:
+  /asserts/api-server/v1/config/threshold-rules/request:
     get:
       operationId: getRequestThresholdRules
       parameters:
@@ -4098,7 +4265,7 @@ paths:
           description: OK
       tags:
       - threshold-rules-config-controller
-  /v1/config/slo/{name}:
+  /asserts/api-server/v1/config/slo/{name}:
     delete:
       operationId: deleteSloConfig
       parameters:
@@ -4141,7 +4308,7 @@ paths:
           description: OK
       tags:
       - slo-config-controller
-  /v1/config/prom-rules/schema:
+  /asserts/api-server/v1/config/prom-rules/schema:
     get:
       operationId: getPrometheusRulesSchema
       parameters:
@@ -4156,7 +4323,7 @@ paths:
       summary: Get JSON Schema for Prometheus Rules configuration
       tags:
       - prom-rules-config-controller
-  /v1/config/prom-rules-validate/{id}:
+  /asserts/api-server/v1/config/prom-rules-validate/{id}:
     delete:
       operationId: abortValidation
       parameters:
@@ -4209,7 +4376,7 @@ paths:
           description: OK
       tags:
       - prom-rules-config-controller
-  /v1/config/prom-rules-disable:
+  /asserts/api-server/v1/config/prom-rules-disable:
     get:
       operationId: getDisabledRules
       parameters:
@@ -4229,7 +4396,7 @@ paths:
           description: OK
       tags:
       - prom-rules-config-controller
-  /v1/config/model-rules/search:
+  /asserts/api-server/v1/config/model-rules/search:
     get:
       description: "Searches built-in and custom model rule files by case-insensitive\
         \ substring match against filenames, entity type names, relationship entity\
@@ -4264,7 +4431,7 @@ paths:
       summary: Search model rules by keyword
       tags:
       - Model Rules Configuration
-  /v1/config/model-rules/schema:
+  /asserts/api-server/v1/config/model-rules/schema:
     get:
       description: Returns a JSON Schema Draft 2020-12 document that describes the
         structure of the Model Rules configuration.
@@ -4295,7 +4462,7 @@ paths:
       summary: Get JSON Schema for the Model Rules configuration
       tags:
       - Model Rules Configuration
-  /v1/config/model-rules/ontology:
+  /asserts/api-server/v1/config/model-rules/ontology:
     get:
       description: "Returns the active (base + custom, vendor-filtered) model rules\
         \ for the current tenant as an OWL ontology serialized in Turtle. Entity-type\
@@ -4316,8 +4483,7 @@ paths:
           content:
             text/turtle:
               schema:
-                additionalProperties:
-                  default: ""
+                additionalProperties: {}
                 default: ""
                 description: OWL 2 ontology serialized as Turtle.
                 example: |-
@@ -4381,7 +4547,7 @@ paths:
       summary: Get OWL ontology for active model rules
       tags:
       - Model Rules Configuration
-  /v1/config/model-rules-types/{type}:
+  /asserts/api-server/v1/config/model-rules-types/{type}:
     get:
       description: "Retrieves base, active, or custom model rules for the current\
         \ tenant."
@@ -4417,7 +4583,21 @@ paths:
       summary: "Get base, active, or custom model rules"
       tags:
       - Model Rules Configuration
-  /v1/config/failure-rules:
+  /asserts/api-server/v1/config/kg-sizing:
+    get:
+      operationId: getKgSizing
+      parameters:
+      - $ref: '#/components/parameters/TenantId'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KgSizingDto'
+          description: OK
+      tags:
+      - kg-sizing-config-controller
+  /asserts/api-server/v1/config/failure-rules:
     get:
       description: Retrieves Prometheus rule groups related to failures. Can be filtered
         for custom or all rules.
@@ -4458,7 +4638,7 @@ paths:
       summary: Get Prometheus failure rule groups
       tags:
       - Alert Configuration
-  /v1/config/export:
+  /asserts/api-server/v1/config/export:
     get:
       operationId: exportConfigurations
       parameters:
@@ -4483,7 +4663,7 @@ paths:
           description: OK
       tags:
       - config-export-import-controller
-  /v1/config/disabled-alerts/resource:
+  /asserts/api-server/v1/config/disabled-alerts/resource:
     get:
       description: Retrieves disabled alert configurations specifically for resources.
       operationId: getDisabledResourceAlertConfigs
@@ -4505,7 +4685,7 @@ paths:
       summary: Get disabled resource-based alert configurations
       tags:
       - Alert Configuration
-  /v1/config/disabled-alerts/request:
+  /asserts/api-server/v1/config/disabled-alerts/request:
     get:
       description: Retrieves disabled alert configurations specifically for requests.
       operationId: getDisabledRequestAlertConfigs
@@ -4527,7 +4707,7 @@ paths:
       summary: Get disabled request-based alert configurations
       tags:
       - Alert Configuration
-  /v1/config/disabled-alerts/health:
+  /asserts/api-server/v1/config/disabled-alerts/health:
     get:
       description: Retrieves disabled alert configurations related to system health.
       operationId: getDisabledHealthAlertConfigs
@@ -4549,7 +4729,7 @@ paths:
       summary: Get disabled health-based alert configurations
       tags:
       - Alert Configuration
-  /v1/config/datasource/prometheus:
+  /asserts/api-server/v1/config/datasource/prometheus:
     get:
       operationId: getPromDatasourceDetail
       parameters:
@@ -4569,7 +4749,7 @@ paths:
           description: OK
       tags:
       - data-sources-config-controller
-  /v1/config/dashboard:
+  /asserts/api-server/v1/config/dashboard:
     get:
       operationId: getAllCustomDashConfig
       parameters:
@@ -4583,7 +4763,7 @@ paths:
           description: OK
       tags:
       - custom-dash-config-controller
-  /v1/config/alerts/slo:
+  /asserts/api-server/v1/config/alerts/slo:
     get:
       description: Retrieves alert configurations related to Service Level Objectives.
       operationId: getSloAlertConfigs
@@ -4605,7 +4785,7 @@ paths:
       summary: Get SLO-based alert configurations
       tags:
       - Alert Configuration
-  /v1/config/alerts/resource:
+  /asserts/api-server/v1/config/alerts/resource:
     get:
       description: Retrieves alert configurations specifically for resources.
       operationId: getResourceAlertConfigs
@@ -4627,7 +4807,7 @@ paths:
       summary: Get resource-based alert configurations
       tags:
       - Alert Configuration
-  /v1/config/alerts/request:
+  /asserts/api-server/v1/config/alerts/request:
     get:
       description: Retrieves alert configurations specifically for requests.
       operationId: getRequestAlertConfigs
@@ -4649,7 +4829,7 @@ paths:
       summary: Get request-based alert configurations
       tags:
       - Alert Configuration
-  /v1/config/alerts/health:
+  /asserts/api-server/v1/config/alerts/health:
     get:
       description: Retrieves alert configurations related to system health.
       operationId: getHealthAlertConfigs
@@ -4671,7 +4851,7 @@ paths:
       summary: Get health-based alert configurations
       tags:
       - Alert Configuration
-  /v1/assertion/alert-affected-entity:
+  /asserts/api-server/v1/assertion/alert-affected-entity:
     get:
       operationId: getAffectedEntity
       parameters:
@@ -4693,7 +4873,193 @@ paths:
           description: OK
       tags:
       - alert-entity-controller
-  /v2/config/trace/{name}:
+  /apis/kg.grafana.com/v1alpha1/namespaces/{namespace}/entities:
+    get:
+      description: "Resolves a single entity by domain + type + name + exact scope\
+        \ (scope[key]=value query params). The scope must be the entity's complete\
+        \ scope; a subset of its scope keys does not match. Omit scope for scope-less\
+        \ entities and domain for the default telemetry domain."
+      operationId: lookupEntity
+      parameters:
+      - description: "Tenant namespace, formatted as stacks-<stackId>"
+        explode: false
+        in: path
+        name: namespace
+        required: true
+        schema:
+          default: ""
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: type
+        required: true
+        schema:
+          minLength: 1
+          pattern: "^[A-Za-z][A-Za-z0-9_]*$"
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: name
+        required: true
+        schema:
+          minLength: 1
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: domain
+        required: false
+        schema:
+          pattern: "^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+          type: string
+        style: form
+      - $ref: '#/components/parameters/TenantId'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityReadResponseDto'
+          description: Entity details
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Missing tenant context or malformed namespace
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Namespace does not match the request tenant
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: No entity with the given identity
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Identity params failed validation
+      summary: Get one entity by its identity
+      tags:
+      - Knowledge Graph Read API
+  /apis/kg.grafana.com/v1alpha1/namespaces/{namespace}/entities/connected:
+    get:
+      description: "Lists entities with at least one relationship to the anchor entity\
+        \ addressed by domain + type + name + exact scope; optionally filtered to\
+        \ one connected entity type. Expired connections are included with active:\
+        \ false. Results are ordered by name, with identity tiebreakers (type, domain,\
+        \ scope) for stable pagination."
+      operationId: lookupConnectedEntities
+      parameters:
+      - description: "Tenant namespace, formatted as stacks-<stackId>"
+        explode: false
+        in: path
+        name: namespace
+        required: true
+        schema:
+          default: ""
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: type
+        required: true
+        schema:
+          minLength: 1
+          pattern: "^[A-Za-z][A-Za-z0-9_]*$"
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: name
+        required: true
+        schema:
+          minLength: 1
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: domain
+        required: false
+        schema:
+          pattern: "^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+          type: string
+        style: form
+      - description: Restrict results to connected entities of this type
+        explode: true
+        in: query
+        name: connected_type
+        required: false
+        schema:
+          default: ""
+          pattern: "^[A-Za-z][A-Za-z0-9_]*$"
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 25
+          format: int32
+          maximum: 100
+          minimum: 1
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          default: 0
+          format: int32
+          minimum: 0
+          type: integer
+        style: form
+      - $ref: '#/components/parameters/TenantId'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConnectedEntitiesResponseDto'
+          description: Connected entities
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Missing tenant context or malformed namespace
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Namespace does not match the request tenant
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: No entity with the given identity
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Identity params failed validation
+      summary: Get entities connected to the entity with the given identity
+      tags:
+      - Knowledge Graph Read API
+  /asserts/api-server/v2/config/trace/{name}:
     delete:
       description: Deletes the specified trace drilldown configuration entry for the
         tenant
@@ -4715,7 +5081,7 @@ paths:
       summary: Delete trace drilldown configuration
       tags:
       - trace-drilldown-config-controller
-  /v2/config/profile/{name}:
+  /asserts/api-server/v2/config/profile/{name}:
     delete:
       description: Deletes the specified profile drilldown configuration entry for
         the tenant
@@ -4737,7 +5103,7 @@ paths:
       summary: Delete profile drilldown configuration
       tags:
       - profile-drilldown-config-controller
-  /v2/config/log/{name}:
+  /asserts/api-server/v2/config/log/{name}:
     delete:
       description: Deletes the specified log drilldown configuration entry for the
         tenant
@@ -4759,7 +5125,7 @@ paths:
       summary: Delete log drilldown configuration
       tags:
       - log-drilldown-config-controller
-  /v1/config/trace/{name}:
+  /asserts/api-server/v1/config/trace/{name}:
     delete:
       operationId: deleteTraceConfig
       parameters:
@@ -4776,7 +5142,7 @@ paths:
           description: OK
       tags:
       - trace-config-controller
-  /v1/config/environment/{name}:
+  /asserts/api-server/v1/config/environment/{name}:
     delete:
       operationId: deleteConfig_4
       parameters:
@@ -4793,7 +5159,7 @@ paths:
           description: OK
       tags:
       - log-config-controller
-  /v1/config/display/graph/entity_type/{name}:
+  /asserts/api-server/v1/config/display/graph/entity_type/{name}:
     delete:
       operationId: deleteGraphEntityDisplayConfig
       parameters:
@@ -4810,7 +5176,7 @@ paths:
           description: OK
       tags:
       - graph-display-config-controller
-  /v1/config/display/graph/edge_type/{name}:
+  /asserts/api-server/v1/config/display/graph/edge_type/{name}:
     delete:
       operationId: deleteGraphEdgeDisplayConfig
       parameters:
@@ -4827,7 +5193,7 @@ paths:
           description: OK
       tags:
       - graph-display-config-controller
-  /v1/config/disabled-alert/{name}:
+  /asserts/api-server/v1/config/disabled-alert/{name}:
     delete:
       description: "Deletes a 'disabled' configuration, which re-enables the alert."
       operationId: deleteDisabledAlertConfig
@@ -4860,7 +5226,7 @@ paths:
       summary: Re-enable an alert configuration by name
       tags:
       - Alert Configuration
-  /v1/config/alert/{name}:
+  /asserts/api-server/v1/config/alert/{name}:
     delete:
       description: Deletes a specific alert configuration identified by its name.
       operationId: deleteAlertConfig
@@ -4981,6 +5347,7 @@ components:
           - prometheus
           - otel
           - hosto11y
+          - feo11y
           - aws
           - azure
           - gcp
@@ -5151,6 +5518,7 @@ components:
     ApiError:
       example:
         trace_id: trace_id
+        code: code
         span_id: span_id
         requestId: requestId
         debugMessage: debugMessage
@@ -5182,10 +5550,22 @@ components:
           items:
             $ref: '#/components/schemas/ApiError_subErrors_inner'
           type: array
+        code:
+          type: string
         trace_id:
           type: string
         span_id:
           type: string
+    ApiQuerySyntaxError:
+      allOf:
+      - $ref: '#/components/schemas/ApiSubError'
+      - properties:
+          line:
+            format: int32
+            type: integer
+          column:
+            format: int32
+            type: integer
     ApiSubError:
       example:
         message: message
@@ -5915,16 +6295,13 @@ components:
         annotations:
           additionalProperties:
             type: string
-          default: ""
           description: "Annotations for alert rules (e.g., summary, description)"
         labels:
           additionalProperties:
             type: string
-          default: ""
           description: "Labels to attach to the alert/metric. For alerts, must include\
             \ 'asserts_severity' and 'asserts_alert_category'"
         disableInGroups:
-          default: ""
           description: List of rule groups where this rule should be disabled
           items:
             type: string
@@ -5978,7 +6355,6 @@ components:
           example: 30s
           type: string
         rules:
-          default: ""
           description: List of alert and recording rules in this group
           items:
             $ref: '#/components/schemas/PrometheusRuleDto'
@@ -6057,7 +6433,6 @@ components:
           description: Configuration name for the Prometheus rule file
           type: string
         groups:
-          default: ""
           description: List of rule groups containing alert and recording rules
           items:
             $ref: '#/components/schemas/PrometheusRuleGroupDto'
@@ -6673,8 +7048,10 @@ components:
             - blockers
           checkName: checkName
           dataPresent: true
+        blockedReason: blockedReason
         useGrafanaManagedAlerts: true
         otelNative: true
+        blockedOnManualIntervention: true
         disabledTime: 2000-01-23T04:56:07.000+00:00
         version: 0
         enabled: true
@@ -6703,6 +7080,10 @@ components:
           type: boolean
         otelNative:
           type: boolean
+        blockedOnManualIntervention:
+          type: boolean
+        blockedReason:
+          type: string
     EntityKeyDto:
       example:
         scope:
@@ -7871,6 +8252,8 @@ components:
         type: type
         destinationScope:
           key: ""
+        properties:
+          key: ""
       properties:
         type:
           type: string
@@ -7885,6 +8268,8 @@ components:
         destinationType:
           type: string
         destinationScope:
+          additionalProperties: {}
+        properties:
           additionalProperties: {}
     CypherSearchEntityDto:
       example:
@@ -7991,6 +8376,8 @@ components:
           type: type
           destinationScope:
             key: ""
+          properties:
+            key: ""
         - sourceType: sourceType
           destinationName: destinationName
           destinationType: destinationType
@@ -8000,6 +8387,9 @@ components:
           type: type
           destinationScope:
             key: ""
+          properties:
+            key: ""
+        pageSize: 6
         pageNum: 0
       properties:
         entities:
@@ -8013,9 +8403,17 @@ components:
         pageNum:
           format: int32
           type: integer
+        pageSize:
+          format: int32
+          type: integer
         lastPage:
           type: boolean
     InsightCriteriaDto:
+      example:
+        alertCategories:
+        - saturation
+        - saturation
+        insightSource: SELF
       properties:
         insightSource:
           enum:
@@ -8045,15 +8443,33 @@ components:
           groupBy:
           - groupBy
           - groupBy
-          nameMatcher: ""
-          withInsights: ""
+          nameMatcher:
+            op: EQUALS
+            name: name
+            value: ""
+          withInsights:
+            alertCategories:
+            - saturation
+            - saturation
+            insightSource: SELF
         - entityType: entityType
           groupBy:
           - groupBy
           - groupBy
-          nameMatcher: ""
-          withInsights: ""
-        scopeCriteria: ""
+          nameMatcher:
+            op: EQUALS
+            name: name
+            value: ""
+          withInsights:
+            alertCategories:
+            - saturation
+            - saturation
+            insightSource: SELF
+        scopeCriteria:
+          nameAndValues:
+            key:
+            - nameAndValues
+            - nameAndValues
       properties:
         items:
           items:
@@ -8062,15 +8478,16 @@ components:
         timeCriteria:
           $ref: '#/components/schemas/SearchCountRequestDtoTimeCriteria'
         scopeCriteria:
-          properties:
-            nameAndValues:
-              additionalProperties:
-                items:
-                  type: string
+          $ref: '#/components/schemas/SearchCountRequestDtoScopeCriteria'
       required:
       - items
       - timeCriteria
     SearchCountRequestDtoScopeCriteria:
+      example:
+        nameAndValues:
+          key:
+          - nameAndValues
+          - nameAndValues
       properties:
         nameAndValues:
           additionalProperties:
@@ -8096,55 +8513,22 @@ components:
         groupBy:
         - groupBy
         - groupBy
-        nameMatcher: ""
-        withInsights: ""
+        nameMatcher:
+          op: EQUALS
+          name: name
+          value: ""
+        withInsights:
+          alertCategories:
+          - saturation
+          - saturation
+          insightSource: SELF
       properties:
         entityType:
           type: string
         nameMatcher:
-          properties:
-            name:
-              type: string
-            value:
-              nullable: true
-            op:
-              enum:
-              - EQUALS
-              - NOT_EQUALS
-              - LESS_THAN
-              - GREATER_THAN
-              - LESS_THAN_EQUAL
-              - GREATER_THAN_EQUAL
-              - IS_NULL
-              - IS_NOT_NULL
-              - STARTS_WITH
-              - ENDS_WITH
-              - CONTAINS
-              - IN
-              type: string
-          required:
-          - name
-          - op
+          $ref: '#/components/schemas/SearchCountRequestEntryDtoNameMatcher'
         withInsights:
-          properties:
-            insightSource:
-              enum:
-              - SELF
-              - PROPAGATED
-              - SELF_OR_PROPAGATED
-              type: string
-            alertCategories:
-              items:
-                enum:
-                - saturation
-                - anomaly
-                - amend
-                - failure
-                - error
-                type: string
-              type: array
-          required:
-          - insightSource
+          $ref: '#/components/schemas/InsightCriteriaDto'
         groupBy:
           items:
             type: string
@@ -8152,11 +8536,14 @@ components:
       required:
       - entityType
     SearchCountRequestEntryDtoNameMatcher:
+      example:
+        op: EQUALS
+        name: name
+        value: ""
       properties:
         name:
           type: string
-        value:
-          nullable: true
+        value: {}
         op:
           enum:
           - EQUALS
@@ -8182,7 +8569,6 @@ components:
           type: integer
         withInsights:
           format: int64
-          nullable: true
           type: integer
         groupBy:
           items:
@@ -8197,7 +8583,6 @@ components:
           type: integer
         withInsights:
           format: int64
-          nullable: true
           type: integer
         groupedBy:
           additionalProperties:
@@ -11597,7 +11982,10 @@ components:
           type: string
     AssertionSourceMetricResponseDto:
       example:
+        metricType: metricType
         metricName: metricName
+        customFunction: customFunction
+        customRateInterval: customRateInterval
         labels:
         - op: op
           label: label
@@ -11612,6 +12000,12 @@ components:
           items:
             $ref: '#/components/schemas/AssertionSourceMetricLabelDto'
           type: array
+        metricType:
+          type: string
+        customRateInterval:
+          type: string
+        customFunction:
+          type: string
     AffectedEntityNamesDto:
       example:
         entityNames:
@@ -12928,6 +13322,89 @@ components:
           items:
             $ref: '#/components/schemas/DatasetVendorDto'
           type: array
+    MetricDrilldownConfigDto:
+      example:
+        dataSourceUid: dataSourceUid
+        managedBy: managedBy
+        defaultConfig: true
+        entityPropertyToMetricLabelMapping:
+          key: entityPropertyToMetricLabelMapping
+        name: name
+        match:
+        - op: op
+          values:
+          - values
+          - values
+          property: property
+        - op: op
+          values:
+          - values
+          - values
+          property: property
+        priority: 0
+      properties:
+        name:
+          type: string
+        priority:
+          format: int32
+          type: integer
+        match:
+          items:
+            $ref: '#/components/schemas/PropertyMatchEntryDto'
+          type: array
+        defaultConfig:
+          type: boolean
+        dataSourceUid:
+          type: string
+        entityPropertyToMetricLabelMapping:
+          additionalProperties:
+            type: string
+        managedBy:
+          type: string
+    TenantMetricConfigResponseDto:
+      example:
+        metricDrilldownConfigs:
+        - dataSourceUid: dataSourceUid
+          managedBy: managedBy
+          defaultConfig: true
+          entityPropertyToMetricLabelMapping:
+            key: entityPropertyToMetricLabelMapping
+          name: name
+          match:
+          - op: op
+            values:
+            - values
+            - values
+            property: property
+          - op: op
+            values:
+            - values
+            - values
+            property: property
+          priority: 0
+        - dataSourceUid: dataSourceUid
+          managedBy: managedBy
+          defaultConfig: true
+          entityPropertyToMetricLabelMapping:
+            key: entityPropertyToMetricLabelMapping
+          name: name
+          match:
+          - op: op
+            values:
+            - values
+            - values
+            property: property
+          - op: op
+            values:
+            - values
+            - values
+            property: property
+          priority: 0
+      properties:
+        metricDrilldownConfigs:
+          items:
+            $ref: '#/components/schemas/MetricDrilldownConfigDto'
+          type: array
     VendorNamesDto:
       example:
         vendorNames:
@@ -12941,15 +13418,107 @@ components:
     StackDetailDto:
       example:
         orgSlug: orgSlug
-        contactPointUID: contactPointUID
+        lokiToken: lokiToken
         alertManagerConfigured: true
         currentActiveSeries: 5
         stackId: 0
         useGrafanaManagedAlerts: true
         version: 1
+        stackDatasets:
+        - disabledVendors:
+          - disabledVendors
+          - disabledVendors
+          datasetType: kubernetes
+          filterGroups:
+          - envLabelValues:
+            - envLabelValues
+            - envLabelValues
+            siteLabelValues:
+            - siteLabelValues
+            - siteLabelValues
+            envName: envName
+            envLabel: envLabel
+            filters:
+            - values:
+              - values
+              - values
+              name: name
+              operator: operator
+            - values:
+              - values
+              - values
+              name: name
+              operator: operator
+            siteLabel: siteLabel
+          - envLabelValues:
+            - envLabelValues
+            - envLabelValues
+            siteLabelValues:
+            - siteLabelValues
+            - siteLabelValues
+            envName: envName
+            envLabel: envLabel
+            filters:
+            - values:
+              - values
+              - values
+              name: name
+              operator: operator
+            - values:
+              - values
+              - values
+              name: name
+              operator: operator
+            siteLabel: siteLabel
+        - disabledVendors:
+          - disabledVendors
+          - disabledVendors
+          datasetType: kubernetes
+          filterGroups:
+          - envLabelValues:
+            - envLabelValues
+            - envLabelValues
+            siteLabelValues:
+            - siteLabelValues
+            - siteLabelValues
+            envName: envName
+            envLabel: envLabel
+            filters:
+            - values:
+              - values
+              - values
+              name: name
+              operator: operator
+            - values:
+              - values
+              - values
+              name: name
+              operator: operator
+            siteLabel: siteLabel
+          - envLabelValues:
+            - envLabelValues
+            - envLabelValues
+            siteLabelValues:
+            - siteLabelValues
+            - siteLabelValues
+            envName: envName
+            envLabel: envLabel
+            filters:
+            - values:
+              - values
+              - values
+              name: name
+              operator: operator
+            - values:
+              - values
+              - values
+              name: name
+              operator: operator
+            siteLabel: siteLabel
         orgId: 6
         enabled: true
         allowLargeTenantOnboarding: true
+        pyroscopeToken: pyroscopeToken
         grafanaToken: grafanaToken
         gcomToken: gcomToken
         disabledTime: 2000-01-23T04:56:07.000+00:00
@@ -12977,6 +13546,10 @@ components:
           type: string
         grafanaToken:
           type: string
+        lokiToken:
+          type: string
+        pyroscopeToken:
+          type: string
         enabled:
           type: boolean
         alertManagerConfigured:
@@ -12993,13 +13566,15 @@ components:
         version:
           format: int32
           type: integer
-        contactPointUID:
-          type: string
         allowLargeTenantOnboarding:
           type: boolean
         currentActiveSeries:
           format: int32
           type: integer
+        stackDatasets:
+          items:
+            $ref: '#/components/schemas/StackDatasetDto'
+          type: array
     VendorIntegrationDto:
       example:
         name: name
@@ -13961,8 +14536,25 @@ components:
       properties:
         staticProperties:
           additionalProperties: {}
-          default: ""
           description: Static properties to attach to the relation
+        startDomain:
+          default: ""
+          description: "KG domain the start entity must be in. Omit to address the\
+            \ default telemetry domain — omitting the field is the only spelling for\
+            \ it, so the reserved telemetry domain values are rejected here rather\
+            \ than treated as the default. Set this to bind entities written through\
+            \ the KG Write API, which can never live in the default domain. Required\
+            \ when the endpoint type is declared only by a published kg schema and\
+            \ not by any entity rule, since without it the rule would be accepted\
+            \ and then match nothing. PROPERTY_MATCH only — rejected on a METRICS\
+            \ relation."
+          pattern: "^(?!kg$)(?!metrics$)[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+          type: string
+        endDomain:
+          default: ""
+          description: KG domain the end entity must be in. Same semantics as startDomain.
+          pattern: "^(?!kg$)(?!metrics$)[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+          type: string
         source:
           type: string
       required:
@@ -13978,15 +14570,15 @@ components:
           startEntityMatchers:
             additionalProperties:
               type: string
-            default: ""
             description: Label matchers for start entity
           endEntityMatchers:
             additionalProperties:
               type: string
-            default: ""
             description: Label matchers for end entity
       description: Metrics-based relation definition
       example:
+        startDomain: ""
+        endDomain: ""
         pattern: ""
         staticProperties:
           key: ""
@@ -14002,13 +14594,11 @@ components:
       - $ref: '#/components/schemas/DefinedByDto'
       - properties:
           startEntityProperties:
-            default: ""
             description: Properties from start entity to match
             items:
               type: string
             type: array
           endEntityProperties:
-            default: ""
             description: Properties from end entity to match
             items:
               type: string
@@ -14088,34 +14678,28 @@ components:
         scope:
           additionalProperties:
             type: string
-          default: ""
           description: Scope definitions for the entity
         lookup:
           additionalProperties:
             type: string
-          default: ""
           description: Lookup mappings
         definedBy:
-          default: ""
           description: Query/metric definitions that define this entity
           items:
             $ref: '#/components/schemas/PropertyRuleDto'
           type: array
         enrichedBy:
-          default: ""
           description: Enrichment rules for this entity
           items:
             $ref: '#/components/schemas/PropertyRuleDto'
           type: array
         definedStatically:
-          default: ""
           description: Literal entity records that create and keep this type alive
             (mutually exclusive with definedBy)
           items:
             $ref: '#/components/schemas/StaticEntityDto'
           type: array
         enrichedStatically:
-          default: ""
           description: Literal enrichment records that patch existing entities of
             this type without keeping them alive
           items:
@@ -14256,6 +14840,8 @@ components:
         - startEntityType: ""
           endEntityType: ""
           definedBy:
+            startDomain: ""
+            endDomain: ""
             pattern: ""
             staticProperties:
               key: ""
@@ -14268,6 +14854,8 @@ components:
         - startEntityType: ""
           endEntityType: ""
           definedBy:
+            startDomain: ""
+            endDomain: ""
             pattern: ""
             staticProperties:
               key: ""
@@ -14283,13 +14871,11 @@ components:
           description: Configuration name
           type: string
         entities:
-          default: ""
           description: Entity type definitions
           items:
             $ref: '#/components/schemas/EntityRuleDto'
           type: array
         relations:
-          default: ""
           description: Relationship rules between entities
           items:
             $ref: '#/components/schemas/RelationRuleDto'
@@ -14329,6 +14915,8 @@ components:
         startEntityType: ""
         endEntityType: ""
         definedBy:
+          startDomain: ""
+          endDomain: ""
           pattern: ""
           staticProperties:
             key: ""
@@ -14375,12 +14963,10 @@ components:
         scope:
           additionalProperties:
             type: string
-          default: ""
           description: Literal scope label values used to match the target entity
         properties:
           additionalProperties:
             type: string
-          default: ""
           description: Literal property keys and values to patch onto the target entity
       required:
       - name
@@ -14400,13 +14986,11 @@ components:
         scope:
           additionalProperties:
             type: string
-          default: ""
           description: Literal scope label values; may be empty when the type has
             no scope
         properties:
           additionalProperties:
             type: string
-          default: ""
           description: Literal property keys and values to set on the upserted entity
       required:
       - name
@@ -14543,6 +15127,8 @@ components:
           - startEntityType: ""
             endEntityType: ""
             definedBy:
+              startDomain: ""
+              endDomain: ""
               pattern: ""
               staticProperties:
                 key: ""
@@ -14555,6 +15141,8 @@ components:
           - startEntityType: ""
             endEntityType: ""
             definedBy:
+              startDomain: ""
+              endDomain: ""
               pattern: ""
               staticProperties:
                 key: ""
@@ -14579,14 +15167,12 @@ components:
           description: "Source of the rule: 'builtin' or 'custom'"
           type: string
         entityTypes:
-          default: ""
           description: Entity types referenced in this rule (from entity definitions
             and relationship start/end types)
           items:
             type: string
           type: array
         vendors:
-          default: ""
           description: Vendor keywords from the 'when' clause
           items:
             type: string
@@ -14728,6 +15314,8 @@ components:
             - startEntityType: ""
               endEntityType: ""
               definedBy:
+                startDomain: ""
+                endDomain: ""
                 pattern: ""
                 staticProperties:
                   key: ""
@@ -14740,6 +15328,8 @@ components:
             - startEntityType: ""
               endEntityType: ""
               definedBy:
+                startDomain: ""
+                endDomain: ""
                 pattern: ""
                 staticProperties:
                   key: ""
@@ -14883,6 +15473,8 @@ components:
             - startEntityType: ""
               endEntityType: ""
               definedBy:
+                startDomain: ""
+                endDomain: ""
                 pattern: ""
                 staticProperties:
                   key: ""
@@ -14895,6 +15487,8 @@ components:
             - startEntityType: ""
               endEntityType: ""
               definedBy:
+                startDomain: ""
+                endDomain: ""
                 pattern: ""
                 staticProperties:
                   key: ""
@@ -14914,11 +15508,73 @@ components:
           description: The search query that was used
           type: string
         results:
-          default: ""
           description: List of matching model rule files
           items:
             $ref: '#/components/schemas/ModelRulesSearchMatchDto'
           type: array
+    KgSizingDenominatorDto:
+      example:
+        datasource: datasource
+        query: query
+        description: description
+      properties:
+        query:
+          type: string
+        datasource:
+          type: string
+        description:
+          type: string
+    KgSizingDto:
+      example:
+        schemaVersion: 0
+        perTenantConstantSeries: 6
+        levels:
+        - footprintWindow: footprintWindow
+          vendor: vendor
+          seriesPerEntity: 1
+          dimension: dimension
+          footprintQuery: footprintQuery
+        - footprintWindow: footprintWindow
+          vendor: vendor
+          seriesPerEntity: 1
+          dimension: dimension
+          footprintQuery: footprintQuery
+        denominator:
+          datasource: datasource
+          query: query
+          description: description
+      properties:
+        schemaVersion:
+          format: int32
+          type: integer
+        perTenantConstantSeries:
+          format: int32
+          type: integer
+        denominator:
+          $ref: '#/components/schemas/KgSizingDenominatorDto'
+        levels:
+          items:
+            $ref: '#/components/schemas/KgSizingLevelDto'
+          type: array
+    KgSizingLevelDto:
+      example:
+        footprintWindow: footprintWindow
+        vendor: vendor
+        seriesPerEntity: 1
+        dimension: dimension
+        footprintQuery: footprintQuery
+      properties:
+        dimension:
+          type: string
+        vendor:
+          type: string
+        seriesPerEntity:
+          format: int32
+          type: integer
+        footprintWindow:
+          type: string
+        footprintQuery:
+          type: string
     TenantEnvConfigResponseDto:
       example:
         supportedLogTools:
@@ -15165,6 +15821,81 @@ components:
           items:
             $ref: '#/components/schemas/CustomDashConfigsDto'
           type: array
+    EntityReadResponseDto:
+      example:
+        domain: domain
+        scope:
+          key: scope
+        name: name
+        active: false
+        connectedTypes:
+        - connectedTypes
+        - connectedTypes
+        type: type
+        properties:
+          key: ""
+      properties:
+        domain:
+          type: string
+        type:
+          type: string
+        name:
+          type: string
+        scope:
+          additionalProperties:
+            type: string
+        active:
+          default: false
+          description: Whether the entity is currently active (not expired).
+          type: boolean
+        properties:
+          additionalProperties: {}
+          description: "Properties stored on the entity: scalar values (string, boolean,\
+            \ int64, or double) or arrays of scalars."
+        connectedTypes:
+          description: Entity types this entity has at least one relationship to;
+            useful for building follow-up /entities/connected queries.
+          items:
+            type: string
+          type: array
+    ConnectedEntitiesResponseDto:
+      example:
+        offset: 6
+        limit: 0
+        items:
+        - domain: domain
+          scope:
+            key: scope
+          name: name
+          active: false
+          connectedTypes:
+          - connectedTypes
+          - connectedTypes
+          type: type
+          properties:
+            key: ""
+        - domain: domain
+          scope:
+            key: scope
+          name: name
+          active: false
+          connectedTypes:
+          - connectedTypes
+          - connectedTypes
+          type: type
+          properties:
+            key: ""
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/EntityReadResponseDto'
+          type: array
+        limit:
+          format: int32
+          type: integer
+        offset:
+          format: int32
+          type: integer
     ApiError_status:
       oneOf:
       - $ref: '#/components/schemas/DefaultHttpStatusCode'
@@ -15172,6 +15903,7 @@ components:
     ApiError_subErrors_inner:
       oneOf:
       - $ref: '#/components/schemas/ApiSubError'
+      - $ref: '#/components/schemas/ApiQuerySyntaxError'
       - $ref: '#/components/schemas/ApiValidationError'
     ModelMappingEntityDto_signals_inner:
       oneOf:
@@ -15206,7 +15938,6 @@ components:
       properties:
         empty: {}
     RelationRuleDto_definedBy:
-      default: ""
       description: "Relation definition (polymorphic: METRICS or PROPERTY_MATCH)"
       oneOf:
       - $ref: '#/components/schemas/DefinedByMetricsDto'

@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.07.20-131035
+API version: 2026.08.24-122123
 Contact: support@asserts.ai
 */
 
@@ -64,7 +64,7 @@ func (a *MimirRelabelRulesConfigControllerAPIService) DeleteEpilogueRelabelRules
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v2/config/relabel-rules/epilogue"
+	localVarPath := localBasePath + "/asserts/api-server/v2/config/relabel-rules/epilogue"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -160,7 +160,7 @@ func (a *MimirRelabelRulesConfigControllerAPIService) DeletePrologueRelabelRules
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v2/config/relabel-rules/prologue"
+	localVarPath := localBasePath + "/asserts/api-server/v2/config/relabel-rules/prologue"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -259,7 +259,7 @@ func (a *MimirRelabelRulesConfigControllerAPIService) GetEpilogueRelabelRulesExe
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v2/config/relabel-rules/epilogue"
+	localVarPath := localBasePath + "/asserts/api-server/v2/config/relabel-rules/epilogue"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -367,7 +367,7 @@ func (a *MimirRelabelRulesConfigControllerAPIService) GetGeneratedRelabelRulesEx
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v2/config/relabel-rules/generated"
+	localVarPath := localBasePath + "/asserts/api-server/v2/config/relabel-rules/generated"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -475,7 +475,7 @@ func (a *MimirRelabelRulesConfigControllerAPIService) GetPrologueRelabelRulesExe
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v2/config/relabel-rules/prologue"
+	localVarPath := localBasePath + "/asserts/api-server/v2/config/relabel-rules/prologue"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -586,7 +586,7 @@ func (a *MimirRelabelRulesConfigControllerAPIService) PutMimirEpilogueRelabelRul
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v2/config/relabel-rules/epilogue"
+	localVarPath := localBasePath + "/asserts/api-server/v2/config/relabel-rules/epilogue"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -693,7 +693,7 @@ func (a *MimirRelabelRulesConfigControllerAPIService) PutMimirPrologueRelabelRul
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v2/config/relabel-rules/prologue"
+	localVarPath := localBasePath + "/asserts/api-server/v2/config/relabel-rules/prologue"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

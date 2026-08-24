@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Entities** | Pointer to [**[]CypherSearchEntityDto**](CypherSearchEntityDto.md) |  | [optional] 
 **Edges** | Pointer to [**[]CypherSearchEdgeDto**](CypherSearchEdgeDto.md) |  | [optional] 
 **PageNum** | Pointer to **int32** |  | [optional] 
+**PageSize** | Pointer to **int32** |  | [optional] 
 **LastPage** | Pointer to **bool** |  | [optional] 
 
 ## Methods
@@ -102,6 +103,31 @@ SetPageNum sets PageNum field to given value.
 `func (o *CypherSearchResponseDto) HasPageNum() bool`
 
 HasPageNum returns a boolean if a field has been set.
+
+### GetPageSize
+
+`func (o *CypherSearchResponseDto) GetPageSize() int32`
+
+GetPageSize returns the PageSize field if non-nil, zero value otherwise.
+
+### GetPageSizeOk
+
+`func (o *CypherSearchResponseDto) GetPageSizeOk() (*int32, bool)`
+
+GetPageSizeOk returns a tuple with the PageSize field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPageSize
+
+`func (o *CypherSearchResponseDto) SetPageSize(v int32)`
+
+SetPageSize sets PageSize field to given value.
+
+### HasPageSize
+
+`func (o *CypherSearchResponseDto) HasPageSize() bool`
+
+HasPageSize returns a boolean if a field has been set.
 
 ### GetLastPage
 

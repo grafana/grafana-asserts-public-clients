@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.07.20-131035
+API version: 2026.08.24-122123
 Contact: support@asserts.ai
 */
 
@@ -23,6 +23,7 @@ type CypherSearchResponseDto struct {
 	Entities             []CypherSearchEntityDto `json:"entities,omitempty"`
 	Edges                []CypherSearchEdgeDto   `json:"edges,omitempty"`
 	PageNum              *int32                  `json:"pageNum,omitempty"`
+	PageSize             *int32                  `json:"pageSize,omitempty"`
 	LastPage             *bool                   `json:"lastPage,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -142,6 +143,38 @@ func (o *CypherSearchResponseDto) SetPageNum(v int32) {
 	o.PageNum = &v
 }
 
+// GetPageSize returns the PageSize field value if set, zero value otherwise.
+func (o *CypherSearchResponseDto) GetPageSize() int32 {
+	if o == nil || IsNil(o.PageSize) {
+		var ret int32
+		return ret
+	}
+	return *o.PageSize
+}
+
+// GetPageSizeOk returns a tuple with the PageSize field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CypherSearchResponseDto) GetPageSizeOk() (*int32, bool) {
+	if o == nil || IsNil(o.PageSize) {
+		return nil, false
+	}
+	return o.PageSize, true
+}
+
+// HasPageSize returns a boolean if a field has been set.
+func (o *CypherSearchResponseDto) HasPageSize() bool {
+	if o != nil && !IsNil(o.PageSize) {
+		return true
+	}
+
+	return false
+}
+
+// SetPageSize gets a reference to the given int32 and assigns it to the PageSize field.
+func (o *CypherSearchResponseDto) SetPageSize(v int32) {
+	o.PageSize = &v
+}
+
 // GetLastPage returns the LastPage field value if set, zero value otherwise.
 func (o *CypherSearchResponseDto) GetLastPage() bool {
 	if o == nil || IsNil(o.LastPage) {
@@ -193,6 +226,9 @@ func (o CypherSearchResponseDto) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.PageNum) {
 		toSerialize["pageNum"] = o.PageNum
 	}
+	if !IsNil(o.PageSize) {
+		toSerialize["pageSize"] = o.PageSize
+	}
 	if !IsNil(o.LastPage) {
 		toSerialize["lastPage"] = o.LastPage
 	}
@@ -221,6 +257,7 @@ func (o *CypherSearchResponseDto) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "entities")
 		delete(additionalProperties, "edges")
 		delete(additionalProperties, "pageNum")
+		delete(additionalProperties, "pageSize")
 		delete(additionalProperties, "lastPage")
 		o.AdditionalProperties = additionalProperties
 	}

@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.07.20-131035
+API version: 2026.08.24-122123
 Contact: support@asserts.ai
 */
 
@@ -90,7 +90,7 @@ func (a *KubernetesEventsAPIService) GetAllEventsExecute(r ApiGetAllEventsReques
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/events"
+	localVarPath := localBasePath + "/asserts/api-server/v1/events"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -270,7 +270,7 @@ func (a *KubernetesEventsAPIService) GetEntityEventsExecute(r ApiGetEntityEvents
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/entity/events"
+	localVarPath := localBasePath + "/asserts/api-server/v1/entity/events"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

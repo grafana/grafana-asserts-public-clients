@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.07.20-131035
+API version: 2026.08.24-122123
 Contact: support@asserts.ai
 */
 
@@ -73,7 +73,7 @@ func (a *MonitoringStatusControllerAPIService) GetEntityMonitoringStatusExecute(
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/monitoring-status/for-entities"
+	localVarPath := localBasePath + "/asserts/api-server/v1/monitoring-status/for-entities"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

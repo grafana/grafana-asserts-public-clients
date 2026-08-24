@@ -1,11 +1,11 @@
 # \EntityControllerAPI
 
-All URIs are relative to *http://localhost:8030/asserts/api-server*
+All URIs are relative to *http://localhost:8030*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetEntity**](EntityControllerAPI.md#GetEntity) | **Get** /v1/entity/info | 
-[**LookupEntityFromAlertLabels**](EntityControllerAPI.md#LookupEntityFromAlertLabels) | **Get** /v1/entity | 
+[**GetEntity**](EntityControllerAPI.md#GetEntity) | **Get** /asserts/api-server/v1/entity/info | 
+[**LookupEntityFromAlertLabels**](EntityControllerAPI.md#LookupEntityFromAlertLabels) | **Get** /asserts/api-server/v1/entity | 
 
 
 

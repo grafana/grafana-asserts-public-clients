@@ -1,19 +1,19 @@
 # \ModelRulesConfigurationAPI
 
-All URIs are relative to *http://localhost:8030/asserts/api-server*
+All URIs are relative to *http://localhost:8030*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteModelRules**](ModelRulesConfigurationAPI.md#DeleteModelRules) | **Delete** /v1/config/model-rules/{name} | Delete custom model rules by name
-[**GetModelRules**](ModelRulesConfigurationAPI.md#GetModelRules) | **Get** /v1/config/model-rules/{name} | Get custom model rules by name
-[**GetModelRulesByType**](ModelRulesConfigurationAPI.md#GetModelRulesByType) | **Get** /v1/config/model-rules-types/{type} | Get base, active, or custom model rules
-[**GetModelRulesOntology**](ModelRulesConfigurationAPI.md#GetModelRulesOntology) | **Get** /v1/config/model-rules/ontology | Get OWL ontology for active model rules
-[**GetModelRulesSchema**](ModelRulesConfigurationAPI.md#GetModelRulesSchema) | **Get** /v1/config/model-rules/schema | Get JSON Schema for the Model Rules configuration
-[**ListModelRules**](ModelRulesConfigurationAPI.md#ListModelRules) | **Get** /v1/config/model-rules | List all custom model rule names
-[**PutModelRules**](ModelRulesConfigurationAPI.md#PutModelRules) | **Put** /v1/config/model-rules | Create or update custom model rules
-[**PutModelRulesByName**](ModelRulesConfigurationAPI.md#PutModelRulesByName) | **Put** /v1/config/model-rules/{name} | Create or update custom model rules by name
-[**SearchModelRules**](ModelRulesConfigurationAPI.md#SearchModelRules) | **Get** /v1/config/model-rules/search | Search model rules by keyword
-[**ValidateModelRules**](ModelRulesConfigurationAPI.md#ValidateModelRules) | **Post** /v1/config/model-rules-validate | Validate custom model rules without persisting
+[**DeleteModelRules**](ModelRulesConfigurationAPI.md#DeleteModelRules) | **Delete** /asserts/api-server/v1/config/model-rules/{name} | Delete custom model rules by name
+[**GetModelRules**](ModelRulesConfigurationAPI.md#GetModelRules) | **Get** /asserts/api-server/v1/config/model-rules/{name} | Get custom model rules by name
+[**GetModelRulesByType**](ModelRulesConfigurationAPI.md#GetModelRulesByType) | **Get** /asserts/api-server/v1/config/model-rules-types/{type} | Get base, active, or custom model rules
+[**GetModelRulesOntology**](ModelRulesConfigurationAPI.md#GetModelRulesOntology) | **Get** /asserts/api-server/v1/config/model-rules/ontology | Get OWL ontology for active model rules
+[**GetModelRulesSchema**](ModelRulesConfigurationAPI.md#GetModelRulesSchema) | **Get** /asserts/api-server/v1/config/model-rules/schema | Get JSON Schema for the Model Rules configuration
+[**ListModelRules**](ModelRulesConfigurationAPI.md#ListModelRules) | **Get** /asserts/api-server/v1/config/model-rules | List all custom model rule names
+[**PutModelRules**](ModelRulesConfigurationAPI.md#PutModelRules) | **Put** /asserts/api-server/v1/config/model-rules | Create or update custom model rules
+[**PutModelRulesByName**](ModelRulesConfigurationAPI.md#PutModelRulesByName) | **Put** /asserts/api-server/v1/config/model-rules/{name} | Create or update custom model rules by name
+[**SearchModelRules**](ModelRulesConfigurationAPI.md#SearchModelRules) | **Get** /asserts/api-server/v1/config/model-rules/search | Search model rules by keyword
+[**ValidateModelRules**](ModelRulesConfigurationAPI.md#ValidateModelRules) | **Post** /asserts/api-server/v1/config/model-rules-validate | Validate custom model rules without persisting
 
 
 

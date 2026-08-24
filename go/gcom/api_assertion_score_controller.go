@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.07.20-131035
+API version: 2026.08.24-122123
 Contact: support@asserts.ai
 */
 
@@ -73,7 +73,7 @@ func (a *AssertionScoreControllerAPIService) GetAssertionScoresExecute(r ApiGetA
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/assertion_scores"
+	localVarPath := localBasePath + "/asserts/api-server/v1/assertion_scores"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -192,7 +192,7 @@ func (a *AssertionScoreControllerAPIService) GetAssertionScoresFromSearchExecute
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/assertion_scores/search"
+	localVarPath := localBasePath + "/asserts/api-server/v1/assertion_scores/search"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -311,7 +311,7 @@ func (a *AssertionScoreControllerAPIService) GetTopNAssertingEntitiesExecute(r A
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/assertion_scores/top_entities"
+	localVarPath := localBasePath + "/asserts/api-server/v1/assertion_scores/top_entities"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

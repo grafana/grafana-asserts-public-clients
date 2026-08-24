@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 0.0.0
+API version: v2.38.0
 Contact: support@asserts.ai
 */
 
@@ -20,11 +20,12 @@ var _ MappedNullable = &RelationshipWriteResponseDto{}
 
 // RelationshipWriteResponseDto struct for RelationshipWriteResponseDto
 type RelationshipWriteResponseDto struct {
-	Domain               *string                `json:"domain,omitempty"`
-	Type                 *string                `json:"type,omitempty"`
-	From                 *EntityRefDto          `json:"from,omitempty"`
-	To                   *EntityRefDto          `json:"to,omitempty"`
-	Properties           map[string]interface{} `json:"properties,omitempty"`
+	Domain *string       `json:"domain,omitempty"`
+	Type   *string       `json:"type,omitempty"`
+	From   *EntityRefDto `json:"from,omitempty"`
+	To     *EntityRefDto `json:"to,omitempty"`
+	// Properties stored on the relationship: scalar values (string, boolean, int64, or double) or arrays of scalars.
+	Properties           map[string]KgPropertyValue `json:"properties,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -176,9 +177,9 @@ func (o *RelationshipWriteResponseDto) SetTo(v EntityRefDto) {
 }
 
 // GetProperties returns the Properties field value if set, zero value otherwise.
-func (o *RelationshipWriteResponseDto) GetProperties() map[string]interface{} {
+func (o *RelationshipWriteResponseDto) GetProperties() map[string]KgPropertyValue {
 	if o == nil || IsNil(o.Properties) {
-		var ret map[string]interface{}
+		var ret map[string]KgPropertyValue
 		return ret
 	}
 	return o.Properties
@@ -186,9 +187,9 @@ func (o *RelationshipWriteResponseDto) GetProperties() map[string]interface{} {
 
 // GetPropertiesOk returns a tuple with the Properties field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RelationshipWriteResponseDto) GetPropertiesOk() (map[string]interface{}, bool) {
+func (o *RelationshipWriteResponseDto) GetPropertiesOk() (map[string]KgPropertyValue, bool) {
 	if o == nil || IsNil(o.Properties) {
-		return map[string]interface{}{}, false
+		return map[string]KgPropertyValue{}, false
 	}
 	return o.Properties, true
 }
@@ -202,8 +203,8 @@ func (o *RelationshipWriteResponseDto) HasProperties() bool {
 	return false
 }
 
-// SetProperties gets a reference to the given map[string]interface{} and assigns it to the Properties field.
-func (o *RelationshipWriteResponseDto) SetProperties(v map[string]interface{}) {
+// SetProperties gets a reference to the given map[string]KgPropertyValue and assigns it to the Properties field.
+func (o *RelationshipWriteResponseDto) SetProperties(v map[string]KgPropertyValue) {
 	o.Properties = v
 }
 

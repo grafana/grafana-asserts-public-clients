@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** | Literal value for the entity&#39;s name property | [default to ""]
-**Scope** | Pointer to **map[string]string** | Literal scope label values; may be empty when the type has no scope | [optional] [default to ]
-**Properties** | Pointer to **map[string]string** | Literal property keys and values to set on the upserted entity | [optional] [default to ]
+**Scope** | Pointer to **map[string]string** | Literal scope label values; may be empty when the type has no scope | [optional] 
+**Properties** | Pointer to **map[string]string** | Literal property keys and values to set on the upserted entity | [optional] 
 
 ## Methods
 

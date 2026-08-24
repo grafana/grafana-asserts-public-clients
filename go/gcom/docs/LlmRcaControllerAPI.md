@@ -1,11 +1,11 @@
 # \LlmRcaControllerAPI
 
-All URIs are relative to *http://localhost:8030/asserts/api-server*
+All URIs are relative to *http://localhost:8030*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetLlmRcaSummary**](LlmRcaControllerAPI.md#GetLlmRcaSummary) | **Post** /v1/search/assertions/llm-summary | 
-[**GetLlmRcaSummary1**](LlmRcaControllerAPI.md#GetLlmRcaSummary1) | **Post** /v1/assertions/llm-summary | 
+[**GetLlmRcaSummary**](LlmRcaControllerAPI.md#GetLlmRcaSummary) | **Post** /asserts/api-server/v1/search/assertions/llm-summary | 
+[**GetLlmRcaSummary1**](LlmRcaControllerAPI.md#GetLlmRcaSummary1) | **Post** /asserts/api-server/v1/assertions/llm-summary | 
 
 
 

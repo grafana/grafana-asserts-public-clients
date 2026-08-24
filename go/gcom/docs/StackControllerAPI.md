@@ -1,30 +1,32 @@
 # \StackControllerAPI
 
-All URIs are relative to *http://localhost:8030/asserts/api-server*
+All URIs are relative to *http://localhost:8030*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AllowLargeTenantOnboarding**](StackControllerAPI.md#AllowLargeTenantOnboarding) | **Post** /v2/stack/allow-large-tenant-onboarding | 
-[**CreateStack**](StackControllerAPI.md#CreateStack) | **Post** /v1/stack | 
-[**DetectAndAutoConfigureDatasets**](StackControllerAPI.md#DetectAndAutoConfigureDatasets) | **Post** /v2/stack/datasets/auto-setup | 
-[**DisableStack**](StackControllerAPI.md#DisableStack) | **Post** /v1/stack/disable | 
-[**DisableV2Stack**](StackControllerAPI.md#DisableV2Stack) | **Post** /v2/stack/disable | 
-[**DiscoverVendorsForCurrentTenant**](StackControllerAPI.md#DiscoverVendorsForCurrentTenant) | **Get** /v1/stack/vendor-integration | 
-[**EnableStack**](StackControllerAPI.md#EnableStack) | **Post** /v1/stack/enable | 
-[**EnableV2Stack**](StackControllerAPI.md#EnableV2Stack) | **Post** /v2/stack/enable | 
-[**FetchDataset**](StackControllerAPI.md#FetchDataset) | **Get** /v2/stack/dataset/{dataset} | 
-[**GetDatasetVendors**](StackControllerAPI.md#GetDatasetVendors) | **Get** /v2/stack/dataset/{dataset}/vendors | 
-[**GetDatasets**](StackControllerAPI.md#GetDatasets) | **Get** /v2/stack/datasets | 
-[**GetStackDetail**](StackControllerAPI.md#GetStackDetail) | **Get** /v1/stack | 
-[**GetStackEnable**](StackControllerAPI.md#GetStackEnable) | **Get** /v1/stack/enable | 
-[**GetStackUpdateBucket**](StackControllerAPI.md#GetStackUpdateBucket) | **Get** /v1/stack/update-bucket | 
-[**GetStatus**](StackControllerAPI.md#GetStatus) | **Get** /v1/stack/status | 
-[**PutV2Stack**](StackControllerAPI.md#PutV2Stack) | **Put** /v2/stack | 
-[**RunDatasetSanityChecks**](StackControllerAPI.md#RunDatasetSanityChecks) | **Get** /v2/stack/dataset/{dataset}/sanity | 
-[**RunMetricSanityChecks**](StackControllerAPI.md#RunMetricSanityChecks) | **Get** /v1/stack/sanity | 
-[**UpdateDataset**](StackControllerAPI.md#UpdateDataset) | **Put** /v2/stack/dataset | 
-[**UpdateStack**](StackControllerAPI.md#UpdateStack) | **Put** /v1/stack | 
-[**UpdateStatus**](StackControllerAPI.md#UpdateStatus) | **Post** /v1/stack/status/{status} | 
+[**AllowLargeTenantOnboarding**](StackControllerAPI.md#AllowLargeTenantOnboarding) | **Post** /asserts/api-server/v2/stack/allow-large-tenant-onboarding | 
+[**CreateStack**](StackControllerAPI.md#CreateStack) | **Post** /asserts/api-server/v1/stack | 
+[**DetectAndAutoConfigureDatasets**](StackControllerAPI.md#DetectAndAutoConfigureDatasets) | **Post** /asserts/api-server/v2/stack/datasets/auto-setup | 
+[**DisableStack**](StackControllerAPI.md#DisableStack) | **Post** /asserts/api-server/v1/stack/disable | 
+[**DisableV2Stack**](StackControllerAPI.md#DisableV2Stack) | **Post** /asserts/api-server/v2/stack/disable | 
+[**DiscoverVendorsForCurrentTenant**](StackControllerAPI.md#DiscoverVendorsForCurrentTenant) | **Get** /asserts/api-server/v1/stack/vendor-integration | 
+[**EnableStack**](StackControllerAPI.md#EnableStack) | **Post** /asserts/api-server/v1/stack/enable | 
+[**EnableV2Stack**](StackControllerAPI.md#EnableV2Stack) | **Post** /asserts/api-server/v2/stack/enable | 
+[**FetchDataset**](StackControllerAPI.md#FetchDataset) | **Get** /asserts/api-server/v2/stack/dataset/{dataset} | 
+[**GetDatasetVendors**](StackControllerAPI.md#GetDatasetVendors) | **Get** /asserts/api-server/v2/stack/dataset/{dataset}/vendors | 
+[**GetDatasets**](StackControllerAPI.md#GetDatasets) | **Get** /asserts/api-server/v2/stack/datasets | 
+[**GetStackDetail**](StackControllerAPI.md#GetStackDetail) | **Get** /asserts/api-server/v1/stack | 
+[**GetStackEnable**](StackControllerAPI.md#GetStackEnable) | **Get** /asserts/api-server/v1/stack/enable | 
+[**GetStackUpdateBucket**](StackControllerAPI.md#GetStackUpdateBucket) | **Get** /asserts/api-server/v1/stack/update-bucket | 
+[**GetStatus**](StackControllerAPI.md#GetStatus) | **Get** /asserts/api-server/v1/stack/status | 
+[**PauseGraphWrites**](StackControllerAPI.md#PauseGraphWrites) | **Post** /asserts/api-server/v1/stack/pause | 
+[**PutV2Stack**](StackControllerAPI.md#PutV2Stack) | **Put** /asserts/api-server/v2/stack | 
+[**ResumeGraphWrites**](StackControllerAPI.md#ResumeGraphWrites) | **Post** /asserts/api-server/v1/stack/unpause | 
+[**RunDatasetSanityChecks**](StackControllerAPI.md#RunDatasetSanityChecks) | **Get** /asserts/api-server/v2/stack/dataset/{dataset}/sanity | 
+[**RunMetricSanityChecks**](StackControllerAPI.md#RunMetricSanityChecks) | **Get** /asserts/api-server/v1/stack/sanity | 
+[**UpdateDataset**](StackControllerAPI.md#UpdateDataset) | **Put** /asserts/api-server/v2/stack/dataset | 
+[**UpdateStack**](StackControllerAPI.md#UpdateStack) | **Put** /asserts/api-server/v1/stack | 
+[**UpdateStatus**](StackControllerAPI.md#UpdateStatus) | **Post** /asserts/api-server/v1/stack/status/{status} | 
 
 
 
@@ -1000,6 +1002,70 @@ No authorization required
 [[Back to README]](../README.md)
 
 
+## PauseGraphWrites
+
+> StackStatusDto PauseGraphWrites(ctx).XScopeOrgID(xScopeOrgID).Execute()
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/grafana/grafana-asserts-public-clients/go/gcom"
+)
+
+func main() {
+	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.StackControllerAPI.PauseGraphWrites(context.Background()).XScopeOrgID(xScopeOrgID).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `StackControllerAPI.PauseGraphWrites``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PauseGraphWrites`: StackStatusDto
+	fmt.Fprintf(os.Stdout, "Response from `StackControllerAPI.PauseGraphWrites`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPauseGraphWritesRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
+
+### Return type
+
+[**StackStatusDto**](StackStatusDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## PutV2Stack
 
 > PutV2Stack(ctx).StackDto(stackDto).XScopeOrgID(xScopeOrgID).Execute()
@@ -1058,6 +1124,70 @@ No authorization required
 
 - **Content-Type**: application/json
 - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ResumeGraphWrites
+
+> StackStatusDto ResumeGraphWrites(ctx).XScopeOrgID(xScopeOrgID).Execute()
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/grafana/grafana-asserts-public-clients/go/gcom"
+)
+
+func main() {
+	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.StackControllerAPI.ResumeGraphWrites(context.Background()).XScopeOrgID(xScopeOrgID).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `StackControllerAPI.ResumeGraphWrites``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ResumeGraphWrites`: StackStatusDto
+	fmt.Fprintf(os.Stdout, "Response from `StackControllerAPI.ResumeGraphWrites`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiResumeGraphWritesRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
+
+### Return type
+
+[**StackStatusDto**](StackStatusDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

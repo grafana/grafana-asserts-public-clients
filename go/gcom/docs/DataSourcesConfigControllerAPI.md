@@ -1,10 +1,10 @@
 # \DataSourcesConfigControllerAPI
 
-All URIs are relative to *http://localhost:8030/asserts/api-server*
+All URIs are relative to *http://localhost:8030*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetPromDatasourceDetail**](DataSourcesConfigControllerAPI.md#GetPromDatasourceDetail) | **Get** /v1/config/datasource/prometheus | 
+[**GetPromDatasourceDetail**](DataSourcesConfigControllerAPI.md#GetPromDatasourceDetail) | **Get** /asserts/api-server/v1/config/datasource/prometheus | 
 
 
 

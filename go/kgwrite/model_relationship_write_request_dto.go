@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 0.0.0
+API version: v2.38.0
 Contact: support@asserts.ai
 */
 
@@ -20,11 +20,12 @@ var _ MappedNullable = &RelationshipWriteRequestDto{}
 
 // RelationshipWriteRequestDto struct for RelationshipWriteRequestDto
 type RelationshipWriteRequestDto struct {
-	Domain     string            `json:"domain" validate:"regexp=^(?!kg$)[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"`
-	Type       string            `json:"type" validate:"regexp=^[A-Za-z][A-Za-z0-9_]*$"`
-	From       EntityRefDto      `json:"from"`
-	To         EntityRefDto      `json:"to"`
-	Properties map[string]string `json:"properties,omitempty"`
+	Domain string       `json:"domain" validate:"regexp=^(?!kg$)(?!metrics$)[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"`
+	Type   string       `json:"type" validate:"regexp=^[A-Za-z][A-Za-z0-9_]*$"`
+	From   EntityRefDto `json:"from"`
+	To     EntityRefDto `json:"to"`
+	// Custom properties to store on the relationship. Values must be scalars (string, boolean, or number) or arrays of scalars; nested objects, nested arrays, and null values are rejected. Integral numbers are stored as 64-bit signed integers and floating-point numbers as IEEE-754 doubles.
+	Properties map[string]KgPropertyValue `json:"properties,omitempty"`
 	// Time-to-live in seconds. Positive values expire the relationship after that many seconds, 0 expires it immediately, and negative values mean no expiry.
 	TtlSeconds           int64 `json:"ttlSeconds"`
 	AdditionalProperties map[string]interface{}
@@ -151,9 +152,9 @@ func (o *RelationshipWriteRequestDto) SetTo(v EntityRefDto) {
 }
 
 // GetProperties returns the Properties field value if set, zero value otherwise.
-func (o *RelationshipWriteRequestDto) GetProperties() map[string]string {
+func (o *RelationshipWriteRequestDto) GetProperties() map[string]KgPropertyValue {
 	if o == nil || IsNil(o.Properties) {
-		var ret map[string]string
+		var ret map[string]KgPropertyValue
 		return ret
 	}
 	return o.Properties
@@ -161,9 +162,9 @@ func (o *RelationshipWriteRequestDto) GetProperties() map[string]string {
 
 // GetPropertiesOk returns a tuple with the Properties field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RelationshipWriteRequestDto) GetPropertiesOk() (map[string]string, bool) {
+func (o *RelationshipWriteRequestDto) GetPropertiesOk() (map[string]KgPropertyValue, bool) {
 	if o == nil || IsNil(o.Properties) {
-		return map[string]string{}, false
+		return map[string]KgPropertyValue{}, false
 	}
 	return o.Properties, true
 }
@@ -177,8 +178,8 @@ func (o *RelationshipWriteRequestDto) HasProperties() bool {
 	return false
 }
 
-// SetProperties gets a reference to the given map[string]string and assigns it to the Properties field.
-func (o *RelationshipWriteRequestDto) SetProperties(v map[string]string) {
+// SetProperties gets a reference to the given map[string]KgPropertyValue and assigns it to the Properties field.
+func (o *RelationshipWriteRequestDto) SetProperties(v map[string]KgPropertyValue) {
 	o.Properties = v
 }
 
