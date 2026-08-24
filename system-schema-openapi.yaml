@@ -7,13 +7,13 @@ info:
     name: Support
     url: "https://www.grafana.com"
     email: support@asserts.ai
-  version: 0.0.0
+  version: v2.38.0
 servers:
-  - url: http://localhost:8030/api-server
+  - url: http://localhost:8030
     description: Generated server url
 tags:
   - name: System KgSchema API
-    description: Receive and store cluster-scoped system schemas
+    description: Serve stored cluster-scoped system schemas
 paths:
   /apis/kg.grafana.com/v1alpha1/systemschemas:
     get:
@@ -35,95 +35,6 @@ paths:
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/SystemKgSchemaRefListDto"
-    post:
-      tags:
-        - System KgSchema API
-      summary: Push a system schema bundle
-      description: "Creates or fully replaces the schema for the given domain/version. Returns 201 on first push, 200 on update."
-      operationId: upsert
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/SystemKgSchemaBundleDto"
-          application/x-yml:
-            schema:
-              $ref: "#/components/schemas/SystemKgSchemaBundleDto"
-          application/x-yaml:
-            schema:
-              $ref: "#/components/schemas/SystemKgSchemaBundleDto"
-        required: true
-      responses:
-        "201":
-          description: Schema created
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/SystemKgSchemaResponseDto"
-            application/x-yml:
-              schema:
-                $ref: "#/components/schemas/SystemKgSchemaResponseDto"
-            application/x-yaml:
-              schema:
-                $ref: "#/components/schemas/SystemKgSchemaResponseDto"
-        "200":
-          description: Schema updated (idempotent re-push returns 200)
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/SystemKgSchemaResponseDto"
-            application/x-yml:
-              schema:
-                $ref: "#/components/schemas/SystemKgSchemaResponseDto"
-            application/x-yaml:
-              schema:
-                $ref: "#/components/schemas/SystemKgSchemaResponseDto"
-        "422":
-          description: Validation failed
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiError"
-            application/x-yml:
-              schema:
-                $ref: "#/components/schemas/ApiError"
-            application/x-yaml:
-              schema:
-                $ref: "#/components/schemas/ApiError"
-  /apis/kg.grafana.com/v1alpha1/systemschemas/validate:
-    post:
-      tags:
-        - System KgSchema API
-      summary: Validate a system schema bundle without storing it
-      description: "Runs exactly the validation a push would (bean validation plus the structural validator) and persists nothing."
-      operationId: validate
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/SystemKgSchemaBundleDto"
-          application/x-yml:
-            schema:
-              $ref: "#/components/schemas/SystemKgSchemaBundleDto"
-          application/x-yaml:
-            schema:
-              $ref: "#/components/schemas/SystemKgSchemaBundleDto"
-        required: true
-      responses:
-        "204":
-          description: Bundle is valid
-        "422":
-          description: Validation failed
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiError"
-            application/x-yml:
-              schema:
-                $ref: "#/components/schemas/ApiError"
-            application/x-yaml:
-              schema:
-                $ref: "#/components/schemas/ApiError"
   /apis/kg.grafana.com/v1alpha1/systemschemas/{domain}/{version}:
     get:
       tags:
@@ -169,6 +80,29 @@ paths:
                 $ref: "#/components/schemas/ApiError"
 components:
   schemas:
+    SchemaDomainDto:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          pattern: "^[a-z][a-z0-9]*$"
+        displayName:
+          type: string
+        version:
+          type: string
+          minLength: 1
+          pattern: "^v(?<major>[0-9]+)(?:(?<pre>alpha|beta)(?<preNum>[0-9]+))?$"
+      required:
+        - name
+        - version
+    SystemKgSchemaRefListDto:
+      type: object
+      properties:
+        schemas:
+          type: array
+          items:
+            $ref: "#/components/schemas/SchemaDomainDto"
     ApiError:
       type: object
       properties:
@@ -190,11 +124,27 @@ components:
           items:
             oneOf:
               - $ref: "#/components/schemas/ApiSubError"
+              - $ref: "#/components/schemas/ApiQuerySyntaxError"
               - $ref: "#/components/schemas/ApiValidationError"
+        code:
+          type: string
+          description: "Stable machine-readable error code, present only for errors that define one"
+          example: KG_NOT_PROVISIONED
         trace_id:
           type: string
         span_id:
           type: string
+    ApiQuerySyntaxError:
+      allOf:
+        - $ref: "#/components/schemas/ApiSubError"
+        - type: object
+          properties:
+            line:
+              type: integer
+              format: int32
+            column:
+              type: integer
+              format: int32
     ApiSubError:
       type: object
       properties:
@@ -223,22 +173,6 @@ components:
         - from
         - name
         - to
-    SchemaDomainDto:
-      type: object
-      properties:
-        name:
-          type: string
-          minLength: 1
-          pattern: "^[a-z][a-z0-9]*$"
-        displayName:
-          type: string
-        version:
-          type: string
-          minLength: 1
-          pattern: "^v[0-9]+(alpha[0-9]+|beta[0-9]+)?$"
-      required:
-        - name
-        - version
     SchemaEndpointDto:
       type: object
       properties:
@@ -247,7 +181,6 @@ components:
           items:
             type: string
             pattern: "^([a-z][a-z0-9]*\\.)?[A-Z][A-Za-z0-9]*$"
-          minItems: 1
         cardinality:
           type: string
           pattern: ^(one|many)$
@@ -270,7 +203,7 @@ components:
           type: array
           items:
             type: string
-            pattern: "^[A-Z][A-Za-z0-9]*$"
+            minLength: 1
         label:
           type: object
           additionalProperties:
@@ -296,7 +229,7 @@ components:
         version:
           type: string
           minLength: 1
-          pattern: "^v[0-9]+(alpha[0-9]+|beta[0-9]+)?$"
+          pattern: "^v(?<major>[0-9]+)(?:(?<pre>alpha|beta)(?<preNum>[0-9]+))?$"
       required:
         - domain
         - version
@@ -306,11 +239,14 @@ components:
         name:
           type: string
           minLength: 1
-          pattern: "^[a-z][A-Za-z0-9]*$"
+          pattern: "^[a-z][A-Za-z0-9_]*$"
         type:
           type: string
           minLength: 1
-          pattern: ^(string|int|double|bool|date|time|datetime|list|map|enum)$
+          pattern: ^(string|int|double|bool|date|time|datetime|list|enum)$
+        elementType:
+          type: string
+          pattern: ^(string|int|double|bool|date|time|datetime)$
         required:
           type: boolean
         enum:
@@ -337,7 +273,7 @@ components:
           type: array
           items:
             type: string
-            pattern: "^[A-Z][A-Z0-9_]*$"
+            minLength: 1
         label:
           type: object
           additionalProperties:
@@ -369,7 +305,7 @@ components:
         name:
           type: string
           minLength: 1
-          pattern: "^[a-z][A-Za-z0-9]*$"
+          pattern: "^[a-z][A-Za-z0-9_]*$"
         type:
           type: string
           minLength: 1
@@ -410,26 +346,4 @@ components:
         - domain
         - entityTypes
         - relationshipTypes
-    SystemKgSchemaResponseDto:
-      type: object
-      properties:
-        domain:
-          type: string
-        version:
-          type: string
-        contentHash:
-          type: string
-        entityTypeCount:
-          type: integer
-          format: int32
-        relationshipTypeCount:
-          type: integer
-          format: int32
-    SystemKgSchemaRefListDto:
-      type: object
-      properties:
-        schemas:
-          type: array
-          items:
-            $ref: "#/components/schemas/SchemaDomainDto"
   parameters: {}
