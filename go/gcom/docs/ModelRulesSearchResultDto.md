@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Query** | Pointer to **string** | The search query that was used | [optional] [default to ""]
-**Results** | Pointer to [**[]ModelRulesSearchMatchDto**](ModelRulesSearchMatchDto.md) | List of matching model rule files | [optional] [default to ]
+**Results** | Pointer to [**[]ModelRulesSearchMatchDto**](ModelRulesSearchMatchDto.md) | List of matching model rule files | [optional] 
 
 ## Methods
 

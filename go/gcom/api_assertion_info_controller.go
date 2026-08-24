@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.07.20-131035
+API version: 2026.08.24-122123
 Contact: support@asserts.ai
 */
 
@@ -75,7 +75,7 @@ func (a *AssertionInfoControllerAPIService) GetAssertionInfoExecute(r ApiGetAsse
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/assertion/{name}/info"
+	localVarPath := localBasePath + "/asserts/api-server/v1/assertion/{name}/info"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -190,7 +190,7 @@ func (a *AssertionInfoControllerAPIService) GetAssertionInfo1Execute(r ApiGetAss
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/assertion/{name}/info"
+	localVarPath := localBasePath + "/asserts/api-server/v1/assertion/{name}/info"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

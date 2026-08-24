@@ -1,27 +1,29 @@
 # \AlertConfigurationAPI
 
-All URIs are relative to *http://localhost:8030/asserts/api-server*
+All URIs are relative to *http://localhost:8030*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteAlertConfig**](AlertConfigurationAPI.md#DeleteAlertConfig) | **Delete** /v1/config/alert/{name} | Delete an alert configuration by name
-[**DeleteDisabledAlertConfig**](AlertConfigurationAPI.md#DeleteDisabledAlertConfig) | **Delete** /v1/config/disabled-alert/{name} | Re-enable an alert configuration by name
-[**GetAllAlertConfigs**](AlertConfigurationAPI.md#GetAllAlertConfigs) | **Get** /v1/config/alerts | Get all alert configurations
-[**GetAllDisabledAlertConfigs**](AlertConfigurationAPI.md#GetAllDisabledAlertConfigs) | **Get** /v1/config/disabled-alerts | Get all disabled alert configurations
-[**GetDisabledHealthAlertConfigs**](AlertConfigurationAPI.md#GetDisabledHealthAlertConfigs) | **Get** /v1/config/disabled-alerts/health | Get disabled health-based alert configurations
-[**GetDisabledRequestAlertConfigs**](AlertConfigurationAPI.md#GetDisabledRequestAlertConfigs) | **Get** /v1/config/disabled-alerts/request | Get disabled request-based alert configurations
-[**GetDisabledResourceAlertConfigs**](AlertConfigurationAPI.md#GetDisabledResourceAlertConfigs) | **Get** /v1/config/disabled-alerts/resource | Get disabled resource-based alert configurations
-[**GetFailureRuleGroups**](AlertConfigurationAPI.md#GetFailureRuleGroups) | **Get** /v1/config/failure-rules | Get Prometheus failure rule groups
-[**GetHealthAlertConfigs**](AlertConfigurationAPI.md#GetHealthAlertConfigs) | **Get** /v1/config/alerts/health | Get health-based alert configurations
-[**GetRequestAlertConfigs**](AlertConfigurationAPI.md#GetRequestAlertConfigs) | **Get** /v1/config/alerts/request | Get request-based alert configurations
-[**GetResourceAlertConfigs**](AlertConfigurationAPI.md#GetResourceAlertConfigs) | **Get** /v1/config/alerts/resource | Get resource-based alert configurations
-[**GetSloAlertConfigs**](AlertConfigurationAPI.md#GetSloAlertConfigs) | **Get** /v1/config/alerts/slo | Get SLO-based alert configurations
-[**PutAlertConfig**](AlertConfigurationAPI.md#PutAlertConfig) | **Post** /v1/config/alert | Create or update a single alert configuration
-[**PutAlertConfigs**](AlertConfigurationAPI.md#PutAlertConfigs) | **Post** /v1/config/alerts | Create or update multiple alert configurations
-[**PutDisabledAlertConfig**](AlertConfigurationAPI.md#PutDisabledAlertConfig) | **Post** /v1/config/disabled-alert | Disable a single alert configuration
-[**PutDisabledAlertConfigs**](AlertConfigurationAPI.md#PutDisabledAlertConfigs) | **Post** /v1/config/disabled-alerts | Disable multiple alert configurations
-[**ValidateDisabledAlertConfig**](AlertConfigurationAPI.md#ValidateDisabledAlertConfig) | **Post** /v1/config/disabled-alert-validate | Validate a single disabled alert configuration
-[**ValidateDisabledAlertConfigs**](AlertConfigurationAPI.md#ValidateDisabledAlertConfigs) | **Post** /v1/config/disabled-alerts-validate | Validate disabled alert configurations
+[**DeleteAlertConfig**](AlertConfigurationAPI.md#DeleteAlertConfig) | **Delete** /asserts/api-server/v1/config/alert/{name} | Delete an alert configuration by name
+[**DeleteDisabledAlertConfig**](AlertConfigurationAPI.md#DeleteDisabledAlertConfig) | **Delete** /asserts/api-server/v1/config/disabled-alert/{name} | Re-enable an alert configuration by name
+[**GetAllAlertConfigs**](AlertConfigurationAPI.md#GetAllAlertConfigs) | **Get** /asserts/api-server/v1/config/alerts | Get all alert configurations
+[**GetAllDisabledAlertConfigs**](AlertConfigurationAPI.md#GetAllDisabledAlertConfigs) | **Get** /asserts/api-server/v1/config/disabled-alerts | Get all disabled alert configurations
+[**GetDisabledHealthAlertConfigs**](AlertConfigurationAPI.md#GetDisabledHealthAlertConfigs) | **Get** /asserts/api-server/v1/config/disabled-alerts/health | Get disabled health-based alert configurations
+[**GetDisabledRequestAlertConfigs**](AlertConfigurationAPI.md#GetDisabledRequestAlertConfigs) | **Get** /asserts/api-server/v1/config/disabled-alerts/request | Get disabled request-based alert configurations
+[**GetDisabledResourceAlertConfigs**](AlertConfigurationAPI.md#GetDisabledResourceAlertConfigs) | **Get** /asserts/api-server/v1/config/disabled-alerts/resource | Get disabled resource-based alert configurations
+[**GetFailureRuleGroups**](AlertConfigurationAPI.md#GetFailureRuleGroups) | **Get** /asserts/api-server/v1/config/failure-rules | Get Prometheus failure rule groups
+[**GetHealthAlertConfigs**](AlertConfigurationAPI.md#GetHealthAlertConfigs) | **Get** /asserts/api-server/v1/config/alerts/health | Get health-based alert configurations
+[**GetRequestAlertConfigs**](AlertConfigurationAPI.md#GetRequestAlertConfigs) | **Get** /asserts/api-server/v1/config/alerts/request | Get request-based alert configurations
+[**GetResourceAlertConfigs**](AlertConfigurationAPI.md#GetResourceAlertConfigs) | **Get** /asserts/api-server/v1/config/alerts/resource | Get resource-based alert configurations
+[**GetSloAlertConfigs**](AlertConfigurationAPI.md#GetSloAlertConfigs) | **Get** /asserts/api-server/v1/config/alerts/slo | Get SLO-based alert configurations
+[**PutAlertConfig**](AlertConfigurationAPI.md#PutAlertConfig) | **Post** /asserts/api-server/v1/config/alert | Create or update a single alert configuration
+[**PutAlertConfigs**](AlertConfigurationAPI.md#PutAlertConfigs) | **Post** /asserts/api-server/v1/config/alerts | Create or update multiple alert configurations
+[**PutDisabledAlertConfig**](AlertConfigurationAPI.md#PutDisabledAlertConfig) | **Post** /asserts/api-server/v1/config/disabled-alert | Disable a single alert configuration
+[**PutDisabledAlertConfigs**](AlertConfigurationAPI.md#PutDisabledAlertConfigs) | **Post** /asserts/api-server/v1/config/disabled-alerts | Disable multiple alert configurations
+[**ValidateAlertConfig**](AlertConfigurationAPI.md#ValidateAlertConfig) | **Post** /asserts/api-server/v1/config/alert-validate | Validate a single alert configuration
+[**ValidateAlertConfigs**](AlertConfigurationAPI.md#ValidateAlertConfigs) | **Post** /asserts/api-server/v1/config/alerts-validate | Validate multiple alert configurations
+[**ValidateDisabledAlertConfig**](AlertConfigurationAPI.md#ValidateDisabledAlertConfig) | **Post** /asserts/api-server/v1/config/disabled-alert-validate | Validate a single disabled alert configuration
+[**ValidateDisabledAlertConfigs**](AlertConfigurationAPI.md#ValidateDisabledAlertConfigs) | **Post** /asserts/api-server/v1/config/disabled-alerts-validate | Validate disabled alert configurations
 
 
 
@@ -1073,6 +1075,138 @@ Other parameters are passed through a pointer to a apiPutDisabledAlertConfigsReq
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **disabledAlertConfigsDto** | [**DisabledAlertConfigsDto**](DisabledAlertConfigsDto.md) |  | 
+ **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json, application/x-yml, application/x-yaml
+- **Accept**: application/json, application/x-yml, application/x-yaml
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ValidateAlertConfig
+
+> ValidateAlertConfig(ctx).AlertConfigDto(alertConfigDto).XScopeOrgID(xScopeOrgID).Execute()
+
+Validate a single alert configuration
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/grafana/grafana-asserts-public-clients/go/gcom"
+)
+
+func main() {
+	alertConfigDto := *openapiclient.NewAlertConfigDto() // AlertConfigDto | 
+	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.AlertConfigurationAPI.ValidateAlertConfig(context.Background()).AlertConfigDto(alertConfigDto).XScopeOrgID(xScopeOrgID).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AlertConfigurationAPI.ValidateAlertConfig``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiValidateAlertConfigRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **alertConfigDto** | [**AlertConfigDto**](AlertConfigDto.md) |  | 
+ **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json, application/x-yml, application/x-yaml
+- **Accept**: application/json, application/x-yml, application/x-yaml
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ValidateAlertConfigs
+
+> ValidateAlertConfigs(ctx).AlertConfigsDto(alertConfigsDto).XScopeOrgID(xScopeOrgID).Execute()
+
+Validate multiple alert configurations
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/grafana/grafana-asserts-public-clients/go/gcom"
+)
+
+func main() {
+	alertConfigsDto := *openapiclient.NewAlertConfigsDto() // AlertConfigsDto | 
+	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.AlertConfigurationAPI.ValidateAlertConfigs(context.Background()).AlertConfigsDto(alertConfigsDto).XScopeOrgID(xScopeOrgID).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AlertConfigurationAPI.ValidateAlertConfigs``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiValidateAlertConfigsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **alertConfigsDto** | [**AlertConfigsDto**](AlertConfigsDto.md) |  | 
  **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
 
 ### Return type

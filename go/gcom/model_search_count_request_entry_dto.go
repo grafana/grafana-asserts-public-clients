@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.07.20-131035
+API version: 2026.08.24-122123
 Contact: support@asserts.ai
 */
 
@@ -20,10 +20,10 @@ var _ MappedNullable = &SearchCountRequestEntryDto{}
 
 // SearchCountRequestEntryDto struct for SearchCountRequestEntryDto
 type SearchCountRequestEntryDto struct {
-	EntityType           string   `json:"entityType"`
-	NameMatcher          *nil     `json:"nameMatcher,omitempty"`
-	WithInsights         *nil     `json:"withInsights,omitempty"`
-	GroupBy              []string `json:"groupBy,omitempty"`
+	EntityType           string                                 `json:"entityType"`
+	NameMatcher          *SearchCountRequestEntryDtoNameMatcher `json:"nameMatcher,omitempty"`
+	WithInsights         *InsightCriteriaDto                    `json:"withInsights,omitempty"`
+	GroupBy              []string                               `json:"groupBy,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -72,9 +72,9 @@ func (o *SearchCountRequestEntryDto) SetEntityType(v string) {
 }
 
 // GetNameMatcher returns the NameMatcher field value if set, zero value otherwise.
-func (o *SearchCountRequestEntryDto) GetNameMatcher() nil {
+func (o *SearchCountRequestEntryDto) GetNameMatcher() SearchCountRequestEntryDtoNameMatcher {
 	if o == nil || IsNil(o.NameMatcher) {
-		var ret nil
+		var ret SearchCountRequestEntryDtoNameMatcher
 		return ret
 	}
 	return *o.NameMatcher
@@ -82,7 +82,7 @@ func (o *SearchCountRequestEntryDto) GetNameMatcher() nil {
 
 // GetNameMatcherOk returns a tuple with the NameMatcher field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SearchCountRequestEntryDto) GetNameMatcherOk() (*nil, bool) {
+func (o *SearchCountRequestEntryDto) GetNameMatcherOk() (*SearchCountRequestEntryDtoNameMatcher, bool) {
 	if o == nil || IsNil(o.NameMatcher) {
 		return nil, false
 	}
@@ -98,15 +98,15 @@ func (o *SearchCountRequestEntryDto) HasNameMatcher() bool {
 	return false
 }
 
-// SetNameMatcher gets a reference to the given nil and assigns it to the NameMatcher field.
-func (o *SearchCountRequestEntryDto) SetNameMatcher(v nil) {
+// SetNameMatcher gets a reference to the given SearchCountRequestEntryDtoNameMatcher and assigns it to the NameMatcher field.
+func (o *SearchCountRequestEntryDto) SetNameMatcher(v SearchCountRequestEntryDtoNameMatcher) {
 	o.NameMatcher = &v
 }
 
 // GetWithInsights returns the WithInsights field value if set, zero value otherwise.
-func (o *SearchCountRequestEntryDto) GetWithInsights() nil {
+func (o *SearchCountRequestEntryDto) GetWithInsights() InsightCriteriaDto {
 	if o == nil || IsNil(o.WithInsights) {
-		var ret nil
+		var ret InsightCriteriaDto
 		return ret
 	}
 	return *o.WithInsights
@@ -114,7 +114,7 @@ func (o *SearchCountRequestEntryDto) GetWithInsights() nil {
 
 // GetWithInsightsOk returns a tuple with the WithInsights field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SearchCountRequestEntryDto) GetWithInsightsOk() (*nil, bool) {
+func (o *SearchCountRequestEntryDto) GetWithInsightsOk() (*InsightCriteriaDto, bool) {
 	if o == nil || IsNil(o.WithInsights) {
 		return nil, false
 	}
@@ -130,8 +130,8 @@ func (o *SearchCountRequestEntryDto) HasWithInsights() bool {
 	return false
 }
 
-// SetWithInsights gets a reference to the given nil and assigns it to the WithInsights field.
-func (o *SearchCountRequestEntryDto) SetWithInsights(v nil) {
+// SetWithInsights gets a reference to the given InsightCriteriaDto and assigns it to the WithInsights field.
+func (o *SearchCountRequestEntryDto) SetWithInsights(v InsightCriteriaDto) {
 	o.WithInsights = &v
 }
 

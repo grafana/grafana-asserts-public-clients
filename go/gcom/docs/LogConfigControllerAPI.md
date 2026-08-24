@@ -1,12 +1,12 @@
 # \LogConfigControllerAPI
 
-All URIs are relative to *http://localhost:8030/asserts/api-server*
+All URIs are relative to *http://localhost:8030*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteConfig4**](LogConfigControllerAPI.md#DeleteConfig4) | **Delete** /v1/config/environment/{name} | 
-[**GetTenantEnvConfig**](LogConfigControllerAPI.md#GetTenantEnvConfig) | **Get** /v1/config/environment | 
-[**UpsertEnvironmentConfig**](LogConfigControllerAPI.md#UpsertEnvironmentConfig) | **Post** /v1/config/environment | 
+[**DeleteConfig4**](LogConfigControllerAPI.md#DeleteConfig4) | **Delete** /asserts/api-server/v1/config/environment/{name} | 
+[**GetTenantEnvConfig**](LogConfigControllerAPI.md#GetTenantEnvConfig) | **Get** /asserts/api-server/v1/config/environment | 
+[**UpsertEnvironmentConfig**](LogConfigControllerAPI.md#UpsertEnvironmentConfig) | **Post** /asserts/api-server/v1/config/environment | 
 
 
 

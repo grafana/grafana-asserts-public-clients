@@ -1,10 +1,10 @@
 # \ExternalLoggingControllerAPI
 
-All URIs are relative to *http://localhost:8030/asserts/api-server*
+All URIs are relative to *http://localhost:8030*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**BuildExternalLoggingUrl**](ExternalLoggingControllerAPI.md#BuildExternalLoggingUrl) | **Post** /v1/logging/external | 
+[**BuildExternalLoggingUrl**](ExternalLoggingControllerAPI.md#BuildExternalLoggingUrl) | **Post** /asserts/api-server/v1/logging/external | 
 
 
 

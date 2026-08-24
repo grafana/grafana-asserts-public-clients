@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.07.20-131035
+API version: 2026.08.24-122123
 Contact: support@asserts.ai
 */
 
@@ -41,7 +41,7 @@ var (
 	queryDescape    = strings.NewReplacer("%5B", "[", "%5D", "]")
 )
 
-// APIClient manages communication with the Asserts, Inc API v2026.07.20-131035
+// APIClient manages communication with the Asserts, Inc API v2026.08.24-122123
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration
@@ -93,6 +93,10 @@ type APIClient struct {
 
 	IncidentControllerAPI *IncidentControllerAPIService
 
+	KgSizingConfigControllerAPI *KgSizingConfigControllerAPIService
+
+	KnowledgeGraphReadAPIAPI *KnowledgeGraphReadAPIAPIService
+
 	KpiDisplayConfigControllerAPI *KpiDisplayConfigControllerAPIService
 
 	KubernetesEventsAPI *KubernetesEventsAPIService
@@ -104,6 +108,8 @@ type APIClient struct {
 	LogConfigControllerAPI *LogConfigControllerAPIService
 
 	LogDrilldownConfigControllerAPI *LogDrilldownConfigControllerAPIService
+
+	MetricDrilldownConfigControllerAPI *MetricDrilldownConfigControllerAPIService
 
 	MimirRelabelRulesConfigControllerAPI *MimirRelabelRulesConfigControllerAPIService
 
@@ -192,12 +198,15 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.ExternalLoggingControllerAPI = (*ExternalLoggingControllerAPIService)(&c.common)
 	c.GraphDisplayConfigControllerAPI = (*GraphDisplayConfigControllerAPIService)(&c.common)
 	c.IncidentControllerAPI = (*IncidentControllerAPIService)(&c.common)
+	c.KgSizingConfigControllerAPI = (*KgSizingConfigControllerAPIService)(&c.common)
+	c.KnowledgeGraphReadAPIAPI = (*KnowledgeGraphReadAPIAPIService)(&c.common)
 	c.KpiDisplayConfigControllerAPI = (*KpiDisplayConfigControllerAPIService)(&c.common)
 	c.KubernetesEventsAPI = (*KubernetesEventsAPIService)(&c.common)
 	c.LatencyThresholdControllerAPI = (*LatencyThresholdControllerAPIService)(&c.common)
 	c.LlmRcaControllerAPI = (*LlmRcaControllerAPIService)(&c.common)
 	c.LogConfigControllerAPI = (*LogConfigControllerAPIService)(&c.common)
 	c.LogDrilldownConfigControllerAPI = (*LogDrilldownConfigControllerAPIService)(&c.common)
+	c.MetricDrilldownConfigControllerAPI = (*MetricDrilldownConfigControllerAPIService)(&c.common)
 	c.MimirRelabelRulesConfigControllerAPI = (*MimirRelabelRulesConfigControllerAPIService)(&c.common)
 	c.ModelMappingControllerAPI = (*ModelMappingControllerAPIService)(&c.common)
 	c.ModelRulesConfigurationAPI = (*ModelRulesConfigurationAPIService)(&c.common)

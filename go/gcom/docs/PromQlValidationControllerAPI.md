@@ -1,10 +1,10 @@
 # \PromQlValidationControllerAPI
 
-All URIs are relative to *http://localhost:8030/asserts/api-server*
+All URIs are relative to *http://localhost:8030*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ValidatePromQL**](PromQlValidationControllerAPI.md#ValidatePromQL) | **Post** /v1/validate/prometheus-query | 
+[**ValidatePromQL**](PromQlValidationControllerAPI.md#ValidatePromQL) | **Post** /asserts/api-server/v1/validate/prometheus-query | 
 
 
 

@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 0.0.0
+API version: v2.38.0
 Contact: support@asserts.ai
 */
 
@@ -20,7 +20,7 @@ var _ MappedNullable = &SchemaScopeKeyDto{}
 
 // SchemaScopeKeyDto struct for SchemaScopeKeyDto
 type SchemaScopeKeyDto struct {
-	Name                 string   `json:"name" validate:"regexp=^[a-z][A-Za-z0-9]*$"`
+	Name                 string   `json:"name" validate:"regexp=^[a-z][A-Za-z0-9_]*$"`
 	Type                 string   `json:"type" validate:"regexp=^(string|int|double|bool|enum)$"`
 	Required             *bool    `json:"required,omitempty"`
 	Enum                 []string `json:"enum,omitempty"`

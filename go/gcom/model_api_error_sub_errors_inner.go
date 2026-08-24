@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.07.20-131035
+API version: 2026.08.24-122123
 Contact: support@asserts.ai
 */
 
@@ -20,8 +20,16 @@ import (
 
 // ApiErrorSubErrorsInner - struct for ApiErrorSubErrorsInner
 type ApiErrorSubErrorsInner struct {
-	ApiSubError        *ApiSubError
-	ApiValidationError *ApiValidationError
+	ApiQuerySyntaxError *ApiQuerySyntaxError
+	ApiSubError         *ApiSubError
+	ApiValidationError  *ApiValidationError
+}
+
+// ApiQuerySyntaxErrorAsApiErrorSubErrorsInner is a convenience function that returns ApiQuerySyntaxError wrapped in ApiErrorSubErrorsInner
+func ApiQuerySyntaxErrorAsApiErrorSubErrorsInner(v *ApiQuerySyntaxError) ApiErrorSubErrorsInner {
+	return ApiErrorSubErrorsInner{
+		ApiQuerySyntaxError: v,
+	}
 }
 
 // ApiSubErrorAsApiErrorSubErrorsInner is a convenience function that returns ApiSubError wrapped in ApiErrorSubErrorsInner
@@ -42,6 +50,23 @@ func ApiValidationErrorAsApiErrorSubErrorsInner(v *ApiValidationError) ApiErrorS
 func (dst *ApiErrorSubErrorsInner) UnmarshalJSON(data []byte) error {
 	var err error
 	match := 0
+	// try to unmarshal data into ApiQuerySyntaxError
+	err = newStrictDecoder(data).Decode(&dst.ApiQuerySyntaxError)
+	if err == nil {
+		jsonApiQuerySyntaxError, _ := json.Marshal(dst.ApiQuerySyntaxError)
+		if string(jsonApiQuerySyntaxError) == "{}" { // empty struct
+			dst.ApiQuerySyntaxError = nil
+		} else {
+			if err = validator.Validate(dst.ApiQuerySyntaxError); err != nil {
+				dst.ApiQuerySyntaxError = nil
+			} else {
+				match++
+			}
+		}
+	} else {
+		dst.ApiQuerySyntaxError = nil
+	}
+
 	// try to unmarshal data into ApiSubError
 	err = newStrictDecoder(data).Decode(&dst.ApiSubError)
 	if err == nil {
@@ -78,6 +103,7 @@ func (dst *ApiErrorSubErrorsInner) UnmarshalJSON(data []byte) error {
 
 	if match > 1 { // more than 1 match
 		// reset to nil
+		dst.ApiQuerySyntaxError = nil
 		dst.ApiSubError = nil
 		dst.ApiValidationError = nil
 
@@ -91,6 +117,10 @@ func (dst *ApiErrorSubErrorsInner) UnmarshalJSON(data []byte) error {
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src ApiErrorSubErrorsInner) MarshalJSON() ([]byte, error) {
+	if src.ApiQuerySyntaxError != nil {
+		return json.Marshal(&src.ApiQuerySyntaxError)
+	}
+
 	if src.ApiSubError != nil {
 		return json.Marshal(&src.ApiSubError)
 	}
@@ -107,6 +137,10 @@ func (obj *ApiErrorSubErrorsInner) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
+	if obj.ApiQuerySyntaxError != nil {
+		return obj.ApiQuerySyntaxError
+	}
+
 	if obj.ApiSubError != nil {
 		return obj.ApiSubError
 	}

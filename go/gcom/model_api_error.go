@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.07.20-131035
+API version: 2026.08.24-122123
 Contact: support@asserts.ai
 */
 
@@ -26,6 +26,7 @@ type ApiError struct {
 	Message              *string                  `json:"message,omitempty"`
 	DebugMessage         *string                  `json:"debugMessage,omitempty"`
 	SubErrors            []ApiErrorSubErrorsInner `json:"subErrors,omitempty"`
+	Code                 *string                  `json:"code,omitempty"`
 	TraceId              *string                  `json:"trace_id,omitempty"`
 	SpanId               *string                  `json:"span_id,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -242,6 +243,38 @@ func (o *ApiError) SetSubErrors(v []ApiErrorSubErrorsInner) {
 	o.SubErrors = v
 }
 
+// GetCode returns the Code field value if set, zero value otherwise.
+func (o *ApiError) GetCode() string {
+	if o == nil || IsNil(o.Code) {
+		var ret string
+		return ret
+	}
+	return *o.Code
+}
+
+// GetCodeOk returns a tuple with the Code field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiError) GetCodeOk() (*string, bool) {
+	if o == nil || IsNil(o.Code) {
+		return nil, false
+	}
+	return o.Code, true
+}
+
+// HasCode returns a boolean if a field has been set.
+func (o *ApiError) HasCode() bool {
+	if o != nil && !IsNil(o.Code) {
+		return true
+	}
+
+	return false
+}
+
+// SetCode gets a reference to the given string and assigns it to the Code field.
+func (o *ApiError) SetCode(v string) {
+	o.Code = &v
+}
+
 // GetTraceId returns the TraceId field value if set, zero value otherwise.
 func (o *ApiError) GetTraceId() string {
 	if o == nil || IsNil(o.TraceId) {
@@ -334,6 +367,9 @@ func (o ApiError) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.SubErrors) {
 		toSerialize["subErrors"] = o.SubErrors
 	}
+	if !IsNil(o.Code) {
+		toSerialize["code"] = o.Code
+	}
 	if !IsNil(o.TraceId) {
 		toSerialize["trace_id"] = o.TraceId
 	}
@@ -368,6 +404,7 @@ func (o *ApiError) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "message")
 		delete(additionalProperties, "debugMessage")
 		delete(additionalProperties, "subErrors")
+		delete(additionalProperties, "code")
 		delete(additionalProperties, "trace_id")
 		delete(additionalProperties, "span_id")
 		o.AdditionalProperties = additionalProperties

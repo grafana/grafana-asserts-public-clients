@@ -12,6 +12,8 @@ Name | Type | Description | Notes
 **MimirToken** | Pointer to **string** |  | [optional] 
 **AssertionDetectorToken** | Pointer to **string** |  | [optional] 
 **GrafanaToken** | Pointer to **string** |  | [optional] 
+**LokiToken** | Pointer to **string** |  | [optional] 
+**PyroscopeToken** | Pointer to **string** |  | [optional] 
 **Enabled** | Pointer to **bool** |  | [optional] 
 **AlertManagerConfigured** | Pointer to **bool** |  | [optional] 
 **GraphInstanceCreated** | Pointer to **bool** |  | [optional] 
@@ -19,9 +21,9 @@ Name | Type | Description | Notes
 **Status** | Pointer to **string** |  | [optional] 
 **DisabledTime** | Pointer to **time.Time** |  | [optional] 
 **Version** | Pointer to **int32** |  | [optional] 
-**ContactPointUID** | Pointer to **string** |  | [optional] 
 **AllowLargeTenantOnboarding** | Pointer to **bool** |  | [optional] 
 **CurrentActiveSeries** | Pointer to **int32** |  | [optional] 
+**StackDatasets** | Pointer to [**[]StackDatasetDto**](StackDatasetDto.md) |  | [optional] 
 
 ## Methods
 
@@ -242,6 +244,56 @@ SetGrafanaToken sets GrafanaToken field to given value.
 
 HasGrafanaToken returns a boolean if a field has been set.
 
+### GetLokiToken
+
+`func (o *StackDetailDto) GetLokiToken() string`
+
+GetLokiToken returns the LokiToken field if non-nil, zero value otherwise.
+
+### GetLokiTokenOk
+
+`func (o *StackDetailDto) GetLokiTokenOk() (*string, bool)`
+
+GetLokiTokenOk returns a tuple with the LokiToken field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLokiToken
+
+`func (o *StackDetailDto) SetLokiToken(v string)`
+
+SetLokiToken sets LokiToken field to given value.
+
+### HasLokiToken
+
+`func (o *StackDetailDto) HasLokiToken() bool`
+
+HasLokiToken returns a boolean if a field has been set.
+
+### GetPyroscopeToken
+
+`func (o *StackDetailDto) GetPyroscopeToken() string`
+
+GetPyroscopeToken returns the PyroscopeToken field if non-nil, zero value otherwise.
+
+### GetPyroscopeTokenOk
+
+`func (o *StackDetailDto) GetPyroscopeTokenOk() (*string, bool)`
+
+GetPyroscopeTokenOk returns a tuple with the PyroscopeToken field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPyroscopeToken
+
+`func (o *StackDetailDto) SetPyroscopeToken(v string)`
+
+SetPyroscopeToken sets PyroscopeToken field to given value.
+
+### HasPyroscopeToken
+
+`func (o *StackDetailDto) HasPyroscopeToken() bool`
+
+HasPyroscopeToken returns a boolean if a field has been set.
+
 ### GetEnabled
 
 `func (o *StackDetailDto) GetEnabled() bool`
@@ -417,31 +469,6 @@ SetVersion sets Version field to given value.
 
 HasVersion returns a boolean if a field has been set.
 
-### GetContactPointUID
-
-`func (o *StackDetailDto) GetContactPointUID() string`
-
-GetContactPointUID returns the ContactPointUID field if non-nil, zero value otherwise.
-
-### GetContactPointUIDOk
-
-`func (o *StackDetailDto) GetContactPointUIDOk() (*string, bool)`
-
-GetContactPointUIDOk returns a tuple with the ContactPointUID field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetContactPointUID
-
-`func (o *StackDetailDto) SetContactPointUID(v string)`
-
-SetContactPointUID sets ContactPointUID field to given value.
-
-### HasContactPointUID
-
-`func (o *StackDetailDto) HasContactPointUID() bool`
-
-HasContactPointUID returns a boolean if a field has been set.
-
 ### GetAllowLargeTenantOnboarding
 
 `func (o *StackDetailDto) GetAllowLargeTenantOnboarding() bool`
@@ -491,6 +518,31 @@ SetCurrentActiveSeries sets CurrentActiveSeries field to given value.
 `func (o *StackDetailDto) HasCurrentActiveSeries() bool`
 
 HasCurrentActiveSeries returns a boolean if a field has been set.
+
+### GetStackDatasets
+
+`func (o *StackDetailDto) GetStackDatasets() []StackDatasetDto`
+
+GetStackDatasets returns the StackDatasets field if non-nil, zero value otherwise.
+
+### GetStackDatasetsOk
+
+`func (o *StackDetailDto) GetStackDatasetsOk() (*[]StackDatasetDto, bool)`
+
+GetStackDatasetsOk returns a tuple with the StackDatasets field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStackDatasets
+
+`func (o *StackDetailDto) SetStackDatasets(v []StackDatasetDto)`
+
+SetStackDatasets sets StackDatasets field to given value.
+
+### HasStackDatasets
+
+`func (o *StackDetailDto) HasStackDatasets() bool`
+
+HasStackDatasets returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

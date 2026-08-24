@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.07.20-131035
+API version: 2026.08.24-122123
 Contact: support@asserts.ai
 */
 
@@ -73,7 +73,7 @@ func (a *IncidentControllerAPIService) GetIncidentsExecute(r ApiGetIncidentsRequ
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/incidents"
+	localVarPath := localBasePath + "/asserts/api-server/v1/incidents"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -192,7 +192,7 @@ func (a *IncidentControllerAPIService) GetSloIncidentsExecute(r ApiGetSloInciden
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/slo/incidents"
+	localVarPath := localBasePath + "/asserts/api-server/v1/slo/incidents"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -311,7 +311,7 @@ func (a *IncidentControllerAPIService) GetTopIncidentsExecute(r ApiGetTopInciden
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/incidents/top"
+	localVarPath := localBasePath + "/asserts/api-server/v1/incidents/top"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

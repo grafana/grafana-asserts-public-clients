@@ -1,12 +1,12 @@
 # \ConfigExportImportControllerAPI
 
-All URIs are relative to *http://localhost:8030/asserts/api-server*
+All URIs are relative to *http://localhost:8030*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ExportConfigurations**](ConfigExportImportControllerAPI.md#ExportConfigurations) | **Get** /v1/config/export | 
-[**GetSupportedConfigTypes**](ConfigExportImportControllerAPI.md#GetSupportedConfigTypes) | **Get** /v1/config/types | 
-[**ImportConfigurations**](ConfigExportImportControllerAPI.md#ImportConfigurations) | **Post** /v1/config/import | 
+[**ExportConfigurations**](ConfigExportImportControllerAPI.md#ExportConfigurations) | **Get** /asserts/api-server/v1/config/export | 
+[**GetSupportedConfigTypes**](ConfigExportImportControllerAPI.md#GetSupportedConfigTypes) | **Get** /asserts/api-server/v1/config/types | 
+[**ImportConfigurations**](ConfigExportImportControllerAPI.md#ImportConfigurations) | **Post** /asserts/api-server/v1/config/import | 
 
 
 

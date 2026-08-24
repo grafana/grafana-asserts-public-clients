@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.07.20-131035
+API version: 2026.08.24-122123
 Contact: support@asserts.ai
 */
 
@@ -70,7 +70,7 @@ func (a *LogDrilldownConfigControllerAPIService) DeleteConfig3Execute(r ApiDelet
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v2/config/log/{name}"
+	localVarPath := localBasePath + "/asserts/api-server/v2/config/log/{name}"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -172,7 +172,7 @@ func (a *LogDrilldownConfigControllerAPIService) GetTenantLogConfigExecute(r Api
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v2/config/log"
+	localVarPath := localBasePath + "/asserts/api-server/v2/config/log"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -288,7 +288,7 @@ func (a *LogDrilldownConfigControllerAPIService) ReorderLogConfigPrioritiesExecu
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v2/config/log/reorder"
+	localVarPath := localBasePath + "/asserts/api-server/v2/config/log/reorder"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -416,7 +416,7 @@ func (a *LogDrilldownConfigControllerAPIService) UpsertLogDrilldownConfigExecute
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v2/config/log"
+	localVarPath := localBasePath + "/asserts/api-server/v2/config/log"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

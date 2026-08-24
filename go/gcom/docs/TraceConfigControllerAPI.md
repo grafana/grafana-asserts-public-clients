@@ -1,12 +1,12 @@
 # \TraceConfigControllerAPI
 
-All URIs are relative to *http://localhost:8030/asserts/api-server*
+All URIs are relative to *http://localhost:8030*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteTraceConfig**](TraceConfigControllerAPI.md#DeleteTraceConfig) | **Delete** /v1/config/trace/{name} | 
-[**GetTenantTraceEnvConfig**](TraceConfigControllerAPI.md#GetTenantTraceEnvConfig) | **Get** /v1/config/trace | 
-[**UpsertTraceEnvConfig**](TraceConfigControllerAPI.md#UpsertTraceEnvConfig) | **Post** /v1/config/trace | 
+[**DeleteTraceConfig**](TraceConfigControllerAPI.md#DeleteTraceConfig) | **Delete** /asserts/api-server/v1/config/trace/{name} | 
+[**GetTenantTraceEnvConfig**](TraceConfigControllerAPI.md#GetTenantTraceEnvConfig) | **Get** /asserts/api-server/v1/config/trace | 
+[**UpsertTraceEnvConfig**](TraceConfigControllerAPI.md#UpsertTraceEnvConfig) | **Post** /asserts/api-server/v1/config/trace | 
 
 
 

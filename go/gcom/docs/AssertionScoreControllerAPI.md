@@ -1,12 +1,12 @@
 # \AssertionScoreControllerAPI
 
-All URIs are relative to *http://localhost:8030/asserts/api-server*
+All URIs are relative to *http://localhost:8030*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetAssertionScores**](AssertionScoreControllerAPI.md#GetAssertionScores) | **Post** /v1/assertion_scores | 
-[**GetAssertionScoresFromSearch**](AssertionScoreControllerAPI.md#GetAssertionScoresFromSearch) | **Post** /v1/assertion_scores/search | 
-[**GetTopNAssertingEntities**](AssertionScoreControllerAPI.md#GetTopNAssertingEntities) | **Post** /v1/assertion_scores/top_entities | 
+[**GetAssertionScores**](AssertionScoreControllerAPI.md#GetAssertionScores) | **Post** /asserts/api-server/v1/assertion_scores | 
+[**GetAssertionScoresFromSearch**](AssertionScoreControllerAPI.md#GetAssertionScoresFromSearch) | **Post** /asserts/api-server/v1/assertion_scores/search | 
+[**GetTopNAssertingEntities**](AssertionScoreControllerAPI.md#GetTopNAssertingEntities) | **Post** /asserts/api-server/v1/assertion_scores/top_entities | 
 
 
 
