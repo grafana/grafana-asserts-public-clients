@@ -1,26 +1,27 @@
 openapi: 3.1.0
 info:
   title: "Asserts, Inc"
+  version: "2.53.4"
   description: Asserts Public API
   termsOfService: https://www.asserts.ai/terms-of-service
   contact:
     name: Support
     url: "https://www.grafana.com"
     email: support@asserts.ai
-  version: v2.38.0
 servers:
-  - url: http://localhost:8030
-    description: Generated server url
+- url: http://localhost:8030
+  description: Generated server url
 tags:
-  - name: System KgSchema API
-    description: Serve stored cluster-scoped system schemas
+- name: System KgSchema API
+  description: Serve stored cluster-scoped system schemas
 paths:
   /apis/kg.grafana.com/v1alpha1/systemschemas:
     get:
       tags:
-        - System KgSchema API
+      - System KgSchema API
       summary: List all system schema references
-      description: Returns a wrapped list of domain/version/displayName refs for all stored system schemas.
+      description: Returns a wrapped list of domain/version/displayName refs for all
+        stored system schemas.
       operationId: list
       responses:
         "200":
@@ -38,21 +39,22 @@ paths:
   /apis/kg.grafana.com/v1alpha1/systemschemas/{domain}/{version}:
     get:
       tags:
-        - System KgSchema API
+      - System KgSchema API
       summary: Get a system schema bundle by domain and version
-      description: Returns the full schema bundle stored for the given domain/version key.
+      description: Returns the full schema bundle stored for the given domain/version
+        key.
       operationId: get
       parameters:
-        - name: domain
-          in: path
-          required: true
-          schema:
-            type: string
-        - name: version
-          in: path
-          required: true
-          schema:
-            type: string
+      - name: domain
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: version
+        in: path
+        required: true
+        schema:
+          type: string
       responses:
         "200":
           description: Schema bundle found
@@ -94,8 +96,8 @@ components:
           minLength: 1
           pattern: "^v(?<major>[0-9]+)(?:(?<pre>alpha|beta)(?<preNum>[0-9]+))?$"
       required:
-        - name
-        - version
+      - name
+      - version
     SystemKgSchemaRefListDto:
       type: object
       properties:
@@ -123,12 +125,13 @@ components:
           type: array
           items:
             oneOf:
-              - $ref: "#/components/schemas/ApiSubError"
-              - $ref: "#/components/schemas/ApiQuerySyntaxError"
-              - $ref: "#/components/schemas/ApiValidationError"
+            - $ref: "#/components/schemas/ApiSubError"
+            - $ref: "#/components/schemas/ApiQuerySyntaxError"
+            - $ref: "#/components/schemas/ApiValidationError"
         code:
           type: string
-          description: "Stable machine-readable error code, present only for errors that define one"
+          description: "Stable machine-readable error code, present only for errors\
+            \ that define one"
           example: KG_NOT_PROVISIONED
         trace_id:
           type: string
@@ -136,15 +139,15 @@ components:
           type: string
     ApiQuerySyntaxError:
       allOf:
-        - $ref: "#/components/schemas/ApiSubError"
-        - type: object
-          properties:
-            line:
-              type: integer
-              format: int32
-            column:
-              type: integer
-              format: int32
+      - $ref: "#/components/schemas/ApiSubError"
+      - type: object
+        properties:
+          line:
+            type: integer
+            format: int32
+          column:
+            type: integer
+            format: int32
     ApiSubError:
       type: object
       properties:
@@ -152,12 +155,12 @@ components:
           type: string
     ApiValidationError:
       allOf:
-        - $ref: "#/components/schemas/ApiSubError"
-        - type: object
-          properties:
-            field:
-              type: string
-            rejectedValue: {}
+      - $ref: "#/components/schemas/ApiSubError"
+      - type: object
+        properties:
+          field:
+            type: string
+          rejectedValue: {}
     SchemaBindingDto:
       type: object
       properties:
@@ -170,9 +173,9 @@ components:
         to:
           $ref: "#/components/schemas/SchemaEndpointDto"
       required:
-        - from
-        - name
-        - to
+      - from
+      - name
+      - to
     SchemaEndpointDto:
       type: object
       properties:
@@ -185,7 +188,7 @@ components:
           type: string
           pattern: ^(one|many)$
       required:
-        - types
+      - types
     SchemaEntityTypeDto:
       type: object
       properties:
@@ -217,8 +220,8 @@ components:
           items:
             $ref: "#/components/schemas/SchemaPropertyDto"
       required:
-        - description
-        - name
+      - description
+      - name
     SchemaImportDto:
       type: object
       properties:
@@ -231,8 +234,8 @@ components:
           minLength: 1
           pattern: "^v(?<major>[0-9]+)(?:(?<pre>alpha|beta)(?<preNum>[0-9]+))?$"
       required:
-        - domain
-        - version
+      - domain
+      - version
     SchemaPropertyDto:
       type: object
       properties:
@@ -254,8 +257,8 @@ components:
           items:
             type: string
       required:
-        - name
-        - type
+      - name
+      - type
     SchemaRelationshipTypeDto:
       type: object
       properties:
@@ -295,10 +298,10 @@ components:
           items:
             $ref: "#/components/schemas/SchemaPropertyDto"
       required:
-        - description
-        - from
-        - name
-        - to
+      - description
+      - from
+      - name
+      - to
     SchemaScopeKeyDto:
       type: object
       properties:
@@ -317,8 +320,8 @@ components:
           items:
             type: string
       required:
-        - name
-        - type
+      - name
+      - type
     SystemKgSchemaBundleDto:
       type: object
       properties:
@@ -343,7 +346,7 @@ components:
           items:
             $ref: "#/components/schemas/SchemaBindingDto"
       required:
-        - domain
-        - entityTypes
-        - relationshipTypes
+      - domain
+      - entityTypes
+      - relationshipTypes
   parameters: {}

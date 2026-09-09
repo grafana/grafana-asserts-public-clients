@@ -52,7 +52,6 @@ api_search_definition_controller.go
 api_service_level_controller.go
 api_slo_config_controller.go
 api_stack_controller.go
-api_stack_migration_controller.go
 api_threshold_rules_config_controller.go
 api_thresholds_v2_config_controller.go
 api_trace_config_controller.go
@@ -228,7 +227,6 @@ docs/MetricDrilldownConfigControllerAPI.md
 docs/MetricDrilldownConfigDto.md
 docs/MetricDto.md
 docs/MetricMatchDto.md
-docs/MetricSanityCheckDto.md
 docs/MetricSanityCheckResult.md
 docs/MetricSanityCheckStepResult.md
 docs/MetricSetsDto.md
@@ -341,8 +339,6 @@ docs/StackDto.md
 docs/StackEnableDto.md
 docs/StackFilterDto.md
 docs/StackFilterGroupDto.md
-docs/StackMigrationControllerAPI.md
-docs/StackMigrationDto.md
 docs/StackStatusDto.md
 docs/StackUpdateBucketDto.md
 docs/StaticEnrichmentDto.md
@@ -372,8 +368,6 @@ docs/TraceEnvConfigDto.md
 docs/TraceEnvConfigResponseDto.md
 docs/TraceIntegrationRequestDto.md
 docs/TraceIntegrationResponseDto.md
-docs/VendorIntegrationDto.md
-docs/VendorIntegrationsDto.md
 docs/VendorNamesDto.md
 docs/VersionedMimirRelabelRuleGroup.md
 docs/VersionedMimirRelabelRulesPayload.md
@@ -518,7 +512,6 @@ model_matcher_tree_dto.go
 model_metric_drilldown_config_dto.go
 model_metric_dto.go
 model_metric_match_dto.go
-model_metric_sanity_check_dto.go
 model_metric_sanity_check_result.go
 model_metric_sanity_check_step_result.go
 model_metric_sets_dto.go
@@ -613,7 +606,6 @@ model_stack_dto.go
 model_stack_enable_dto.go
 model_stack_filter_dto.go
 model_stack_filter_group_dto.go
-model_stack_migration_dto.go
 model_stack_status_dto.go
 model_stack_update_bucket_dto.go
 model_static_enrichment_dto.go
@@ -638,8 +630,6 @@ model_trace_env_config_dto.go
 model_trace_env_config_response_dto.go
 model_trace_integration_request_dto.go
 model_trace_integration_response_dto.go
-model_vendor_integration_dto.go
-model_vendor_integrations_dto.go
 model_vendor_names_dto.go
 model_versioned_mimir_relabel_rule_group.go
 model_versioned_mimir_relabel_rules_payload.go
@@ -694,7 +684,6 @@ test/api_search_definition_controller_test.go
 test/api_service_level_controller_test.go
 test/api_slo_config_controller_test.go
 test/api_stack_controller_test.go
-test/api_stack_migration_controller_test.go
 test/api_threshold_rules_config_controller_test.go
 test/api_thresholds_v2_config_controller_test.go
 test/api_trace_config_controller_test.go

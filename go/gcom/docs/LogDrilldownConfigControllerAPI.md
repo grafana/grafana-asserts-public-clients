@@ -1,19 +1,19 @@
 # \LogDrilldownConfigControllerAPI
 
-All URIs are relative to *http://localhost:8030*
+All URIs are relative to *http://localhost:18031*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteConfig3**](LogDrilldownConfigControllerAPI.md#DeleteConfig3) | **Delete** /asserts/api-server/v2/config/log/{name} | Delete log drilldown configuration
+[**DeleteConfig4**](LogDrilldownConfigControllerAPI.md#DeleteConfig4) | **Delete** /asserts/api-server/v2/config/log/{name} | Delete log drilldown configuration
 [**GetTenantLogConfig**](LogDrilldownConfigControllerAPI.md#GetTenantLogConfig) | **Get** /asserts/api-server/v2/config/log | Get tenant log configuration
 [**ReorderLogConfigPriorities**](LogDrilldownConfigControllerAPI.md#ReorderLogConfigPriorities) | **Put** /asserts/api-server/v2/config/log/reorder | Reorder log drilldown configuration priorities
 [**UpsertLogDrilldownConfig**](LogDrilldownConfigControllerAPI.md#UpsertLogDrilldownConfig) | **Post** /asserts/api-server/v2/config/log | Upsert log drilldown configuration
 
 
 
-## DeleteConfig3
+## DeleteConfig4
 
-> DeleteConfig3(ctx, name).XScopeOrgID(xScopeOrgID).Execute()
+> DeleteConfig4(ctx, name).XScopeOrgID(xScopeOrgID).Execute()
 
 Delete log drilldown configuration
 
@@ -37,9 +37,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.LogDrilldownConfigControllerAPI.DeleteConfig3(context.Background(), name).XScopeOrgID(xScopeOrgID).Execute()
+	r, err := apiClient.LogDrilldownConfigControllerAPI.DeleteConfig4(context.Background(), name).XScopeOrgID(xScopeOrgID).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `LogDrilldownConfigControllerAPI.DeleteConfig3``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `LogDrilldownConfigControllerAPI.DeleteConfig4``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -55,7 +55,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDeleteConfig3Request struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteConfig4Request struct via the builder pattern
 
 
 Name | Type | Description  | Notes

@@ -1,16 +1,12 @@
 # \StackControllerAPI
 
-All URIs are relative to *http://localhost:8030*
+All URIs are relative to *http://localhost:18031*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**AllowLargeTenantOnboarding**](StackControllerAPI.md#AllowLargeTenantOnboarding) | **Post** /asserts/api-server/v2/stack/allow-large-tenant-onboarding | 
-[**CreateStack**](StackControllerAPI.md#CreateStack) | **Post** /asserts/api-server/v1/stack | 
 [**DetectAndAutoConfigureDatasets**](StackControllerAPI.md#DetectAndAutoConfigureDatasets) | **Post** /asserts/api-server/v2/stack/datasets/auto-setup | 
-[**DisableStack**](StackControllerAPI.md#DisableStack) | **Post** /asserts/api-server/v1/stack/disable | 
 [**DisableV2Stack**](StackControllerAPI.md#DisableV2Stack) | **Post** /asserts/api-server/v2/stack/disable | 
-[**DiscoverVendorsForCurrentTenant**](StackControllerAPI.md#DiscoverVendorsForCurrentTenant) | **Get** /asserts/api-server/v1/stack/vendor-integration | 
-[**EnableStack**](StackControllerAPI.md#EnableStack) | **Post** /asserts/api-server/v1/stack/enable | 
 [**EnableV2Stack**](StackControllerAPI.md#EnableV2Stack) | **Post** /asserts/api-server/v2/stack/enable | 
 [**FetchDataset**](StackControllerAPI.md#FetchDataset) | **Get** /asserts/api-server/v2/stack/dataset/{dataset} | 
 [**GetDatasetVendors**](StackControllerAPI.md#GetDatasetVendors) | **Get** /asserts/api-server/v2/stack/dataset/{dataset}/vendors | 
@@ -23,9 +19,7 @@ Method | HTTP request | Description
 [**PutV2Stack**](StackControllerAPI.md#PutV2Stack) | **Put** /asserts/api-server/v2/stack | 
 [**ResumeGraphWrites**](StackControllerAPI.md#ResumeGraphWrites) | **Post** /asserts/api-server/v1/stack/unpause | 
 [**RunDatasetSanityChecks**](StackControllerAPI.md#RunDatasetSanityChecks) | **Get** /asserts/api-server/v2/stack/dataset/{dataset}/sanity | 
-[**RunMetricSanityChecks**](StackControllerAPI.md#RunMetricSanityChecks) | **Get** /asserts/api-server/v1/stack/sanity | 
 [**UpdateDataset**](StackControllerAPI.md#UpdateDataset) | **Put** /asserts/api-server/v2/stack/dataset | 
-[**UpdateStack**](StackControllerAPI.md#UpdateStack) | **Put** /asserts/api-server/v1/stack | 
 [**UpdateStatus**](StackControllerAPI.md#UpdateStatus) | **Post** /asserts/api-server/v1/stack/status/{status} | 
 
 
@@ -88,70 +82,6 @@ No authorization required
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CreateStack
-
-> CreateStack(ctx).StackDto(stackDto).XScopeOrgID(xScopeOrgID).Execute()
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/grafana/grafana-asserts-public-clients/go/gcom"
-)
-
-func main() {
-	stackDto := *openapiclient.NewStackDto() // StackDto | 
-	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.StackControllerAPI.CreateStack(context.Background()).StackDto(stackDto).XScopeOrgID(xScopeOrgID).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `StackControllerAPI.CreateStack``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCreateStackRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **stackDto** | [**StackDto**](StackDto.md) |  | 
- **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -222,68 +152,6 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## DisableStack
-
-> DisableStack(ctx).XScopeOrgID(xScopeOrgID).Execute()
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/grafana/grafana-asserts-public-clients/go/gcom"
-)
-
-func main() {
-	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.StackControllerAPI.DisableStack(context.Background()).XScopeOrgID(xScopeOrgID).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `StackControllerAPI.DisableStack``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiDisableStackRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
 ## DisableV2Stack
 
 > DisableV2Stack(ctx).XScopeOrgID(xScopeOrgID).Execute()
@@ -340,136 +208,6 @@ No authorization required
 
 - **Content-Type**: Not defined
 - **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## DiscoverVendorsForCurrentTenant
-
-> VendorIntegrationsDto DiscoverVendorsForCurrentTenant(ctx).XScopeOrgID(xScopeOrgID).Execute()
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/grafana/grafana-asserts-public-clients/go/gcom"
-)
-
-func main() {
-	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.StackControllerAPI.DiscoverVendorsForCurrentTenant(context.Background()).XScopeOrgID(xScopeOrgID).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `StackControllerAPI.DiscoverVendorsForCurrentTenant``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `DiscoverVendorsForCurrentTenant`: VendorIntegrationsDto
-	fmt.Fprintf(os.Stdout, "Response from `StackControllerAPI.DiscoverVendorsForCurrentTenant`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiDiscoverVendorsForCurrentTenantRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
-
-### Return type
-
-[**VendorIntegrationsDto**](VendorIntegrationsDto.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## EnableStack
-
-> StackStatusDto EnableStack(ctx).StackEnableDto(stackEnableDto).XScopeOrgID(xScopeOrgID).Execute()
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/grafana/grafana-asserts-public-clients/go/gcom"
-)
-
-func main() {
-	stackEnableDto := *openapiclient.NewStackEnableDto() // StackEnableDto | 
-	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.StackControllerAPI.EnableStack(context.Background()).StackEnableDto(stackEnableDto).XScopeOrgID(xScopeOrgID).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `StackControllerAPI.EnableStack``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `EnableStack`: StackStatusDto
-	fmt.Fprintf(os.Stdout, "Response from `StackControllerAPI.EnableStack`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiEnableStackRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **stackEnableDto** | [**StackEnableDto**](StackEnableDto.md) |  | 
- **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
-
-### Return type
-
-[**StackStatusDto**](StackStatusDto.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1264,70 +1002,6 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## RunMetricSanityChecks
-
-> MetricSanityCheckDto RunMetricSanityChecks(ctx).XScopeOrgID(xScopeOrgID).Execute()
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/grafana/grafana-asserts-public-clients/go/gcom"
-)
-
-func main() {
-	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.StackControllerAPI.RunMetricSanityChecks(context.Background()).XScopeOrgID(xScopeOrgID).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `StackControllerAPI.RunMetricSanityChecks``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `RunMetricSanityChecks`: MetricSanityCheckDto
-	fmt.Fprintf(os.Stdout, "Response from `StackControllerAPI.RunMetricSanityChecks`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiRunMetricSanityChecksRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
-
-### Return type
-
-[**MetricSanityCheckDto**](MetricSanityCheckDto.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
 ## UpdateDataset
 
 > DatasetSanityChecksDto UpdateDataset(ctx).StackDatasetDto(stackDatasetDto).XScopeOrgID(xScopeOrgID).Execute()
@@ -1388,70 +1062,6 @@ No authorization required
 
 - **Content-Type**: application/json
 - **Accept**: */*
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## UpdateStack
-
-> UpdateStack(ctx).StackDto(stackDto).XScopeOrgID(xScopeOrgID).Execute()
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/grafana/grafana-asserts-public-clients/go/gcom"
-)
-
-func main() {
-	stackDto := *openapiclient.NewStackDto() // StackDto | 
-	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.StackControllerAPI.UpdateStack(context.Background()).StackDto(stackDto).XScopeOrgID(xScopeOrgID).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `StackControllerAPI.UpdateStack``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiUpdateStackRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **stackDto** | [**StackDto**](StackDto.md) |  | 
- **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

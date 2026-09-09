@@ -7,10 +7,10 @@ info:
   description: Asserts Public API
   termsOfService: https://www.asserts.ai/terms-of-service
   title: "Asserts, Inc"
-  version: 2026.08.24-122123
+  version: 2026.09.09-102835
 servers:
 - description: Generated server url
-  url: http://localhost:8030
+  url: http://localhost:18031
 tags:
 - description: Query Kubernetes events for entities
   name: Kubernetes Events
@@ -265,6 +265,71 @@ paths:
       summary: Reorder profile drilldown configuration priorities
       tags:
       - profile-drilldown-config-controller
+  /asserts/api-server/v2/config/metric/reorder:
+    put:
+      description: Accepts a list of metric drilldown configuration names and their
+        new priorities to reorder the configurations for the tenant
+      operationId: reorderMetricConfigPriorities
+      parameters:
+      - $ref: '#/components/parameters/TenantId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              default: ""
+              description: Metric drilldown configuration data
+              type: string
+          application/x-yml:
+            schema:
+              default: ""
+              description: Metric drilldown configuration data
+              type: string
+          application/yaml:
+            schema:
+              default: ""
+              description: Metric drilldown configuration data
+              type: string
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TenantMetricConfigResponseDto'
+            application/x-yml:
+              schema:
+                $ref: '#/components/schemas/TenantMetricConfigResponseDto'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/TenantMetricConfigResponseDto'
+          description: Configuration priorities updated successfully
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: The tenant has no metric drilldown configurations to reorder
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Invalid configuration data
+      summary: Reorder metric drilldown configuration priorities
+      tags:
+      - metric-drilldown-config-controller
   /asserts/api-server/v2/config/log/reorder:
     put:
       description: Accepts a list of log drilldown configuration names and their new
@@ -318,50 +383,6 @@ paths:
       summary: Reorder log drilldown configuration priorities
       tags:
       - log-drilldown-config-controller
-  /asserts/api-server/v1/stack:
-    get:
-      operationId: getStackDetail
-      parameters:
-      - $ref: '#/components/parameters/TenantId'
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StackDetailDto'
-          description: OK
-      tags:
-      - stack-controller
-    post:
-      operationId: createStack
-      parameters:
-      - $ref: '#/components/parameters/TenantId'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StackDto'
-        required: true
-      responses:
-        "200":
-          description: OK
-      tags:
-      - stack-controller
-    put:
-      operationId: updateStack
-      parameters:
-      - $ref: '#/components/parameters/TenantId'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StackDto'
-        required: true
-      responses:
-        "200":
-          description: OK
-      tags:
-      - stack-controller
   /asserts/api-server/v1/search/definition/{id}:
     delete:
       operationId: deleteSearchDefinition
@@ -1319,65 +1340,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/StackStatusDto'
-          description: OK
-      tags:
-      - stack-controller
-  /asserts/api-server/v1/stack/migrate:
-    post:
-      operationId: migrateStack
-      parameters:
-      - $ref: '#/components/parameters/TenantId'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StackMigrationDto'
-        required: true
-      responses:
-        "200":
-          description: OK
-      tags:
-      - stack-migration-controller
-  /asserts/api-server/v1/stack/enable:
-    get:
-      operationId: getStackEnable
-      parameters:
-      - $ref: '#/components/parameters/TenantId'
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StackEnableDto'
-          description: OK
-      tags:
-      - stack-controller
-    post:
-      operationId: enableStack
-      parameters:
-      - $ref: '#/components/parameters/TenantId'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StackEnableDto'
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StackStatusDto'
-          description: OK
-      tags:
-      - stack-controller
-  /asserts/api-server/v1/stack/disable:
-    post:
-      operationId: disableStack
-      parameters:
-      - $ref: '#/components/parameters/TenantId'
-      responses:
-        "200":
           description: OK
       tags:
       - stack-controller
@@ -3698,9 +3660,9 @@ paths:
           description: OK
       tags:
       - prom-rules-config-controller
-  /asserts/api-server/v1/stack/vendor-integration:
+  /asserts/api-server/v1/stack:
     get:
-      operationId: discoverVendorsForCurrentTenant
+      operationId: getStackDetail
       parameters:
       - $ref: '#/components/parameters/TenantId'
       responses:
@@ -3708,7 +3670,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/VendorIntegrationsDto'
+                $ref: '#/components/schemas/StackDetailDto'
           description: OK
       tags:
       - stack-controller
@@ -3747,9 +3709,9 @@ paths:
           description: OK
       tags:
       - stack-controller
-  /asserts/api-server/v1/stack/sanity:
+  /asserts/api-server/v1/stack/enable:
     get:
-      operationId: runMetricSanityChecks
+      operationId: getStackEnable
       parameters:
       - $ref: '#/components/parameters/TenantId'
       responses:
@@ -3757,7 +3719,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MetricSanityCheckDto'
+                $ref: '#/components/schemas/StackEnableDto'
           description: OK
       tags:
       - stack-controller
@@ -5103,11 +5065,33 @@ paths:
       summary: Delete profile drilldown configuration
       tags:
       - profile-drilldown-config-controller
+  /asserts/api-server/v2/config/metric/{name}:
+    delete:
+      description: Deletes the specified metric drilldown configuration entry for
+        the tenant
+      operationId: deleteConfig_3
+      parameters:
+      - description: Name of the metric configuration to delete
+        explode: false
+        in: path
+        name: name
+        required: true
+        schema:
+          default: ""
+          type: string
+        style: simple
+      - $ref: '#/components/parameters/TenantId'
+      responses:
+        "200":
+          description: Configuration deleted successfully
+      summary: Delete metric drilldown configuration
+      tags:
+      - metric-drilldown-config-controller
   /asserts/api-server/v2/config/log/{name}:
     delete:
       description: Deletes the specified log drilldown configuration entry for the
         tenant
-      operationId: deleteConfig_3
+      operationId: deleteConfig_4
       parameters:
       - description: Name of the log configuration to delete
         explode: false
@@ -5144,7 +5128,7 @@ paths:
       - trace-config-controller
   /asserts/api-server/v1/config/environment/{name}:
     delete:
-      operationId: deleteConfig_4
+      operationId: deleteConfig_5
       parameters:
       - explode: false
         in: path
@@ -5943,6 +5927,89 @@ components:
         profileDrilldownConfigs:
           items:
             $ref: '#/components/schemas/ProfileDrilldownConfigDto'
+          type: array
+    MetricDrilldownConfigDto:
+      example:
+        dataSourceUid: dataSourceUid
+        managedBy: managedBy
+        defaultConfig: true
+        entityPropertyToMetricLabelMapping:
+          key: entityPropertyToMetricLabelMapping
+        name: name
+        match:
+        - op: op
+          values:
+          - values
+          - values
+          property: property
+        - op: op
+          values:
+          - values
+          - values
+          property: property
+        priority: 0
+      properties:
+        name:
+          type: string
+        priority:
+          format: int32
+          type: integer
+        match:
+          items:
+            $ref: '#/components/schemas/PropertyMatchEntryDto'
+          type: array
+        defaultConfig:
+          type: boolean
+        dataSourceUid:
+          type: string
+        entityPropertyToMetricLabelMapping:
+          additionalProperties:
+            type: string
+        managedBy:
+          type: string
+    TenantMetricConfigResponseDto:
+      example:
+        metricDrilldownConfigs:
+        - dataSourceUid: dataSourceUid
+          managedBy: managedBy
+          defaultConfig: true
+          entityPropertyToMetricLabelMapping:
+            key: entityPropertyToMetricLabelMapping
+          name: name
+          match:
+          - op: op
+            values:
+            - values
+            - values
+            property: property
+          - op: op
+            values:
+            - values
+            - values
+            property: property
+          priority: 0
+        - dataSourceUid: dataSourceUid
+          managedBy: managedBy
+          defaultConfig: true
+          entityPropertyToMetricLabelMapping:
+            key: entityPropertyToMetricLabelMapping
+          name: name
+          match:
+          - op: op
+            values:
+            - values
+            - values
+            property: property
+          - op: op
+            values:
+            - values
+            - values
+            property: property
+          priority: 0
+      properties:
+        metricDrilldownConfigs:
+          items:
+            $ref: '#/components/schemas/MetricDrilldownConfigDto'
           type: array
     LogDrilldownConfigDto:
       example:
@@ -7311,68 +7378,6 @@ components:
           type: boolean
         recreateOtelLogConfig:
           type: boolean
-    StackMigrationDto:
-      example:
-        dryRun: true
-      properties:
-        dryRun:
-          type: boolean
-    StackEnableDto:
-      example:
-        groups:
-        - envLabelValues:
-          - envLabelValues
-          - envLabelValues
-          siteLabelValues:
-          - siteLabelValues
-          - siteLabelValues
-          envName: envName
-          envLabel: envLabel
-          filters:
-          - values:
-            - values
-            - values
-            name: name
-            operator: operator
-          - values:
-            - values
-            - values
-            name: name
-            operator: operator
-          siteLabel: siteLabel
-        - envLabelValues:
-          - envLabelValues
-          - envLabelValues
-          siteLabelValues:
-          - siteLabelValues
-          - siteLabelValues
-          envName: envName
-          envLabel: envLabel
-          filters:
-          - values:
-            - values
-            - values
-            name: name
-            operator: operator
-          - values:
-            - values
-            - values
-            name: name
-            operator: operator
-          siteLabel: siteLabel
-        vendors:
-        - vendors
-        - vendors
-      properties:
-        vendors:
-          items:
-            type: string
-          type: array
-          uniqueItems: true
-        groups:
-          items:
-            $ref: '#/components/schemas/StackFilterGroupDto'
-          type: array
     ScopeCriteriaDto:
       example:
         scopeCriteriaMap:
@@ -13322,89 +13327,6 @@ components:
           items:
             $ref: '#/components/schemas/DatasetVendorDto'
           type: array
-    MetricDrilldownConfigDto:
-      example:
-        dataSourceUid: dataSourceUid
-        managedBy: managedBy
-        defaultConfig: true
-        entityPropertyToMetricLabelMapping:
-          key: entityPropertyToMetricLabelMapping
-        name: name
-        match:
-        - op: op
-          values:
-          - values
-          - values
-          property: property
-        - op: op
-          values:
-          - values
-          - values
-          property: property
-        priority: 0
-      properties:
-        name:
-          type: string
-        priority:
-          format: int32
-          type: integer
-        match:
-          items:
-            $ref: '#/components/schemas/PropertyMatchEntryDto'
-          type: array
-        defaultConfig:
-          type: boolean
-        dataSourceUid:
-          type: string
-        entityPropertyToMetricLabelMapping:
-          additionalProperties:
-            type: string
-        managedBy:
-          type: string
-    TenantMetricConfigResponseDto:
-      example:
-        metricDrilldownConfigs:
-        - dataSourceUid: dataSourceUid
-          managedBy: managedBy
-          defaultConfig: true
-          entityPropertyToMetricLabelMapping:
-            key: entityPropertyToMetricLabelMapping
-          name: name
-          match:
-          - op: op
-            values:
-            - values
-            - values
-            property: property
-          - op: op
-            values:
-            - values
-            - values
-            property: property
-          priority: 0
-        - dataSourceUid: dataSourceUid
-          managedBy: managedBy
-          defaultConfig: true
-          entityPropertyToMetricLabelMapping:
-            key: entityPropertyToMetricLabelMapping
-          name: name
-          match:
-          - op: op
-            values:
-            - values
-            - values
-            property: property
-          - op: op
-            values:
-            - values
-            - values
-            property: property
-          priority: 0
-      properties:
-        metricDrilldownConfigs:
-          items:
-            $ref: '#/components/schemas/MetricDrilldownConfigDto'
-          type: array
     VendorNamesDto:
       example:
         vendorNames:
@@ -13575,32 +13497,6 @@ components:
           items:
             $ref: '#/components/schemas/StackDatasetDto'
           type: array
-    VendorIntegrationDto:
-      example:
-        name: name
-        enabled: true
-        assertified: true
-      properties:
-        name:
-          type: string
-        enabled:
-          type: boolean
-        assertified:
-          type: boolean
-    VendorIntegrationsDto:
-      example:
-        items:
-        - name: name
-          enabled: true
-          assertified: true
-        - name: name
-          enabled: true
-          assertified: true
-      properties:
-        items:
-          items:
-            $ref: '#/components/schemas/VendorIntegrationDto'
-          type: array
     StackUpdateBucketDto:
       example:
         bucket: 0
@@ -13623,51 +13519,61 @@ components:
           type: string
         timestamp:
           type: string
-    MetricSanityCheckDto:
+    StackEnableDto:
       example:
-        failedSanityCheckSteps:
-        - stepResults:
-          - troubleshoot: troubleshoot
-            warnings:
-            - warnings
-            - warnings
+        groups:
+        - envLabelValues:
+          - envLabelValues
+          - envLabelValues
+          siteLabelValues:
+          - siteLabelValues
+          - siteLabelValues
+          envName: envName
+          envLabel: envLabel
+          filters:
+          - values:
+            - values
+            - values
             name: name
-            blockers:
-            - blockers
-            - blockers
-          - troubleshoot: troubleshoot
-            warnings:
-            - warnings
-            - warnings
+            operator: operator
+          - values:
+            - values
+            - values
             name: name
-            blockers:
-            - blockers
-            - blockers
-          checkName: checkName
-          dataPresent: true
-        - stepResults:
-          - troubleshoot: troubleshoot
-            warnings:
-            - warnings
-            - warnings
+            operator: operator
+          siteLabel: siteLabel
+        - envLabelValues:
+          - envLabelValues
+          - envLabelValues
+          siteLabelValues:
+          - siteLabelValues
+          - siteLabelValues
+          envName: envName
+          envLabel: envLabel
+          filters:
+          - values:
+            - values
+            - values
             name: name
-            blockers:
-            - blockers
-            - blockers
-          - troubleshoot: troubleshoot
-            warnings:
-            - warnings
-            - warnings
+            operator: operator
+          - values:
+            - values
+            - values
             name: name
-            blockers:
-            - blockers
-            - blockers
-          checkName: checkName
-          dataPresent: true
+            operator: operator
+          siteLabel: siteLabel
+        vendors:
+        - vendors
+        - vendors
       properties:
-        failedSanityCheckSteps:
+        vendors:
           items:
-            $ref: '#/components/schemas/MetricSanityCheckResult'
+            type: string
+          type: array
+          uniqueItems: true
+        groups:
+          items:
+            $ref: '#/components/schemas/StackFilterGroupDto'
           type: array
     SearchDefinitionItemDto:
       example:
@@ -14635,6 +14541,7 @@ components:
           name: ""
           properties:
             key: properties
+        domain: ""
         scope:
           key: scope
         definedStatically:
@@ -14667,6 +14574,12 @@ components:
         disabled: false
         type: ""
       properties:
+        domain:
+          default: ""
+          description: Domain for entities produced by this rule. Omit for the default
+            domain.
+          pattern: "^(?!kg$)[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+          type: string
         type:
           default: ""
           description: "Entity type name (e.g., 'Service', 'Pod', 'Jvm')"
@@ -14744,6 +14657,7 @@ components:
             name: ""
             properties:
               key: properties
+          domain: ""
           scope:
             key: scope
           definedStatically:
@@ -14803,6 +14717,7 @@ components:
             name: ""
             properties:
               key: properties
+          domain: ""
           scope:
             key: scope
           definedStatically:
@@ -15031,6 +14946,7 @@ components:
               name: ""
               properties:
                 key: properties
+            domain: ""
             scope:
               key: scope
             definedStatically:
@@ -15090,6 +15006,7 @@ components:
               name: ""
               properties:
                 key: properties
+            domain: ""
             scope:
               key: scope
             definedStatically:
@@ -15218,6 +15135,7 @@ components:
                 name: ""
                 properties:
                   key: properties
+              domain: ""
               scope:
                 key: scope
               definedStatically:
@@ -15277,6 +15195,7 @@ components:
                 name: ""
                 properties:
                   key: properties
+              domain: ""
               scope:
                 key: scope
               definedStatically:
@@ -15377,6 +15296,7 @@ components:
                 name: ""
                 properties:
                   key: properties
+              domain: ""
               scope:
                 key: scope
               definedStatically:
@@ -15436,6 +15356,7 @@ components:
                 name: ""
                 properties:
                   key: properties
+              domain: ""
               scope:
                 key: scope
               definedStatically:

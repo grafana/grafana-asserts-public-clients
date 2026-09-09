@@ -23,11 +23,36 @@ func Test_gcom_MetricDrilldownConfigControllerAPIService(t *testing.T) {
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
+	t.Run("Test MetricDrilldownConfigControllerAPIService DeleteConfig3", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		var name string
+
+		httpRes, err := apiClient.MetricDrilldownConfigControllerAPI.DeleteConfig3(context.Background(), name).Execute()
+
+		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test MetricDrilldownConfigControllerAPIService GetTenantMetricConfig", func(t *testing.T) {
 
 		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.MetricDrilldownConfigControllerAPI.GetTenantMetricConfig(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test MetricDrilldownConfigControllerAPIService ReorderMetricConfigPriorities", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		resp, httpRes, err := apiClient.MetricDrilldownConfigControllerAPI.ReorderMetricConfigPriorities(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

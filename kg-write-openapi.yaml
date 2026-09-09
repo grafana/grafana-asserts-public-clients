@@ -1,37 +1,39 @@
 openapi: 3.1.0
 info:
   title: "Asserts, Inc"
+  version: "2.53.4"
   description: Asserts Public API
   termsOfService: https://www.asserts.ai/terms-of-service
   contact:
     name: Support
     url: "https://www.grafana.com"
     email: support@asserts.ai
-  version: v2.38.0
 servers:
-  - url: http://localhost:8030
-    description: Generated server url
+- url: http://localhost:8030
+  description: Generated server url
 tags:
-  - name: Knowledge Graph Read API
-    description: Read Knowledge Graph entities by stable identity (type + name + scope)
-  - name: Knowledge Graph Write API
-    description: Write custom (API-origin) entities and relationships into the Knowledge Graph
+- name: Knowledge Graph Read API
+  description: Read Knowledge Graph entities by stable identity (type + name + scope)
+- name: Knowledge Graph Write API
+  description: Write custom (API-origin) entities and relationships into the Knowledge
+    Graph
 paths:
   /apis/kg.grafana.com/v1alpha1/namespaces/{namespace}/relationships:
     post:
       tags:
-        - Knowledge Graph Write API
+      - Knowledge Graph Write API
       summary: Create or update a custom relationship
-      description: Upserts an API-origin edge between two existing entities; both endpoints must already exist.
+      description: Upserts an API-origin edge between two existing entities; both
+        endpoints must already exist.
       operationId: upsertRelationship
       parameters:
-        - name: namespace
-          in: path
-          description: "Tenant namespace, formatted as stacks-<stackId>"
-          required: true
-          schema:
-            type: string
-        - $ref: "#/components/parameters/TenantId"
+      - name: namespace
+        in: path
+        description: "Tenant namespace, formatted as stacks-<stackId>"
+        required: true
+        schema:
+          type: string
+      - $ref: "#/components/parameters/TenantId"
       requestBody:
         content:
           application/json:
@@ -94,7 +96,8 @@ paths:
               schema:
                 $ref: "#/components/schemas/ApiError"
         "409":
-          description: "Edge already exists with a non-API origin, or graph writes are paused for a graph migration"
+          description: "Edge already exists with a non-API origin, or graph writes\
+            \ are paused for a graph migration"
           content:
             application/json:
               schema:
@@ -119,85 +122,89 @@ paths:
                 $ref: "#/components/schemas/ApiError"
     delete:
       tags:
-        - Knowledge Graph Write API
+      - Knowledge Graph Write API
       summary: Delete a custom relationship
-      description: "Deletes an API-origin edge between the from/to entities. The relationship coordinates travel as query params (no request body): type, plus from.domain/from.type/from.name (+ from.scope[key]=value) and the matching to.* params. Putting type in the query string matches the entity DELETE shape on the collection path."
+      description: "Deletes an API-origin edge between the from/to entities. The relationship\
+        \ coordinates travel as query params (no request body): type, plus from.domain/from.type/from.name\
+        \ (+ from.scope[key]=value) and the matching to.* params. Putting type in\
+        \ the query string matches the entity DELETE shape on the collection path."
       operationId: deleteRelationship
       parameters:
-        - name: namespace
-          in: path
-          description: "Tenant namespace, formatted as stacks-<stackId>"
-          required: true
-          schema:
+      - name: namespace
+        in: path
+        description: "Tenant namespace, formatted as stacks-<stackId>"
+        required: true
+        schema:
+          type: string
+      - name: type
+        in: query
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          pattern: "^[A-Za-z][A-Za-z0-9_]*$"
+      - name: from.domain
+        in: query
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          pattern: "^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+      - name: from.type
+        in: query
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          pattern: "^[A-Za-z][A-Za-z0-9_]*$"
+      - name: from.name
+        in: query
+        required: true
+        schema:
+          type: string
+          minLength: 1
+      - name: to.domain
+        in: query
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          pattern: "^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+      - name: to.type
+        in: query
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          pattern: "^[A-Za-z][A-Za-z0-9_]*$"
+      - name: to.name
+        in: query
+        required: true
+        schema:
+          type: string
+          minLength: 1
+      - name: from.scope
+        in: query
+        description: "Optional scope key/value pairs identifying the 'from' entity\
+          \ (from.scope[key]=value)."
+        required: false
+        style: deepObject
+        explode: true
+        schema:
+          type: object
+          additionalProperties:
             type: string
-        - name: type
-          in: query
-          required: true
-          schema:
+      - name: to.scope
+        in: query
+        description: "Optional scope key/value pairs identifying the 'to' entity (to.scope[key]=value)."
+        required: false
+        style: deepObject
+        explode: true
+        schema:
+          type: object
+          additionalProperties:
             type: string
-            minLength: 1
-            pattern: "^[A-Za-z][A-Za-z0-9_]*$"
-        - name: from.domain
-          in: query
-          required: true
-          schema:
-            type: string
-            minLength: 1
-            pattern: "^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
-        - name: from.type
-          in: query
-          required: true
-          schema:
-            type: string
-            minLength: 1
-            pattern: "^[A-Za-z][A-Za-z0-9_]*$"
-        - name: from.name
-          in: query
-          required: true
-          schema:
-            type: string
-            minLength: 1
-        - name: to.domain
-          in: query
-          required: true
-          schema:
-            type: string
-            minLength: 1
-            pattern: "^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
-        - name: to.type
-          in: query
-          required: true
-          schema:
-            type: string
-            minLength: 1
-            pattern: "^[A-Za-z][A-Za-z0-9_]*$"
-        - name: to.name
-          in: query
-          required: true
-          schema:
-            type: string
-            minLength: 1
-        - name: from.scope
-          in: query
-          description: "Optional scope key/value pairs identifying the 'from' entity (from.scope[key]=value)."
-          required: false
-          style: deepObject
-          explode: true
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        - name: to.scope
-          in: query
-          description: "Optional scope key/value pairs identifying the 'to' entity (to.scope[key]=value)."
-          required: false
-          style: deepObject
-          explode: true
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        - $ref: "#/components/parameters/TenantId"
+      - $ref: "#/components/parameters/TenantId"
       responses:
         "204":
           description: Relationship deleted
@@ -214,7 +221,8 @@ paths:
               schema:
                 $ref: "#/components/schemas/ApiError"
         "403":
-          description: "Namespace does not match the request tenant, or edge is not API-origin"
+          description: "Namespace does not match the request tenant, or edge is not\
+            \ API-origin"
           content:
             application/json:
               schema:
@@ -264,18 +272,28 @@ paths:
   /apis/kg.grafana.com/v1alpha1/namespaces/{namespace}/graph:
     post:
       tags:
-        - Knowledge Graph Write API
+      - Knowledge Graph Write API
       summary: Write a batch of custom entities and relationships
-      description: "Upserts the request's entities first, then its relationships, as ONE atomic write: the entity and relationship data all commit together or not at all, and the server never splits a request internally. (Auto-registering a not-yet-seen entity type and its indexes runs before that atomic write and is idempotent, so it may persist even if the write then fails — retrying is safe.) A request may contain at most kg-write.batch.max-items total items (default 500); callers with larger loads send multiple requests, each independently atomic, and the upserts are idempotent so retrying a failed request is safe. No stub entities are created for unresolved relationship endpoints. The returned counts are the accepted (submitted) item counts, not a created-vs-updated breakdown."
+      description: "Upserts the request's entities first, then its relationships,\
+        \ as ONE atomic write: the entity and relationship data all commit together\
+        \ or not at all, and the server never splits a request internally. (Auto-registering\
+        \ a not-yet-seen entity type and its indexes runs before that atomic write\
+        \ and is idempotent, so it may persist even if the write then fails — retrying\
+        \ is safe.) A request may contain at most kg-write.batch.max-items total items\
+        \ (default 500); callers with larger loads send multiple requests, each independently\
+        \ atomic, and the upserts are idempotent so retrying a failed request is safe.\
+        \ No stub entities are created for unresolved relationship endpoints. The\
+        \ returned counts are the accepted (submitted) item counts, not a created-vs-updated\
+        \ breakdown."
       operationId: writeGraph
       parameters:
-        - name: namespace
-          in: path
-          description: "Tenant namespace, formatted as stacks-<stackId>"
-          required: true
-          schema:
-            type: string
-        - $ref: "#/components/parameters/TenantId"
+      - name: namespace
+        in: path
+        description: "Tenant namespace, formatted as stacks-<stackId>"
+        required: true
+        schema:
+          type: string
+      - $ref: "#/components/parameters/TenantId"
       requestBody:
         content:
           application/json:
@@ -326,7 +344,10 @@ paths:
               schema:
                 $ref: "#/components/schemas/ApiError"
         "409":
-          description: "Default-domain shadow conflict (an entity with this identity already exists in the telemetry domain), or graph writes are paused for a graph migration — nothing written"
+          description: "Entity or relationship ownership conflict (an entity identity\
+            \ exists in the telemetry domain, or a target entity or relationship is not\
+            \ API-owned), or graph writes are paused for a graph migration — nothing\
+            \ written"
           content:
             application/json:
               schema:
@@ -338,7 +359,9 @@ paths:
               schema:
                 $ref: "#/components/schemas/ApiError"
         "422":
-          description: "Validation failure (empty batch, bean validation, over-size batch, non-writable domain, duplicate entity identity, or unresolved relationship endpoint) — nothing written"
+          description: "Validation failure (empty batch, bean validation, over-size\
+            \ batch, non-writable domain, duplicate entity identity, or unresolved\
+            \ relationship endpoint) — nothing written"
           content:
             application/json:
               schema:
@@ -352,47 +375,50 @@ paths:
   /apis/kg.grafana.com/v1alpha1/namespaces/{namespace}/entities:
     get:
       tags:
-        - Knowledge Graph Read API
+      - Knowledge Graph Read API
       summary: Get one entity by its identity
-      description: "Resolves a single entity by domain + type + name + exact scope (scope[key]=value query params). The scope must be the entity's complete scope; a subset of its scope keys does not match. Omit scope for scope-less entities and domain for the default telemetry domain."
+      description: "Resolves a single entity by domain + type + name + exact scope\
+        \ (scope[key]=value query params). The scope must be the entity's complete\
+        \ scope; a subset of its scope keys does not match. Omit scope for scope-less\
+        \ entities and domain for the default telemetry domain."
       operationId: lookupEntity
       parameters:
-        - name: namespace
-          in: path
-          description: "Tenant namespace, formatted as stacks-<stackId>"
-          required: true
-          schema:
+      - name: namespace
+        in: path
+        description: "Tenant namespace, formatted as stacks-<stackId>"
+        required: true
+        schema:
+          type: string
+      - name: type
+        in: query
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          pattern: "^[A-Za-z][A-Za-z0-9_]*$"
+      - name: name
+        in: query
+        required: true
+        schema:
+          type: string
+          minLength: 1
+      - name: domain
+        in: query
+        required: false
+        schema:
+          type: string
+          pattern: "^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+      - name: scope
+        in: query
+        description: "Optional scope key/value pairs identifying the entity (scope[key]=value)."
+        required: false
+        style: deepObject
+        explode: true
+        schema:
+          type: object
+          additionalProperties:
             type: string
-        - name: type
-          in: query
-          required: true
-          schema:
-            type: string
-            minLength: 1
-            pattern: "^[A-Za-z][A-Za-z0-9_]*$"
-        - name: name
-          in: query
-          required: true
-          schema:
-            type: string
-            minLength: 1
-        - name: domain
-          in: query
-          required: false
-          schema:
-            type: string
-            pattern: "^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
-        - name: scope
-          in: query
-          description: "Optional scope key/value pairs identifying the entity (scope[key]=value)."
-          required: false
-          style: deepObject
-          explode: true
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        - $ref: "#/components/parameters/TenantId"
+      - $ref: "#/components/parameters/TenantId"
       responses:
         "200":
           description: Entity details
@@ -426,18 +452,20 @@ paths:
                 $ref: "#/components/schemas/ApiError"
     post:
       tags:
-        - Knowledge Graph Write API
+      - Knowledge Graph Write API
       summary: Create or update a custom entity
-      description: "Upserts an API-origin entity identified by (type, name, scope): 201 on create, 200 on update."
+      description: "Upserts an API-origin entity identified by (type, name, scope):\
+        \ 201 on create, 200 on update."
       operationId: upsertEntity
       parameters:
-        - name: namespace
-          in: path
-          description: "Tenant namespace, formatted as stacks-<stackId>; must match the request tenant"
-          required: true
-          schema:
-            type: string
-        - $ref: "#/components/parameters/TenantId"
+      - name: namespace
+        in: path
+        description: "Tenant namespace, formatted as stacks-<stackId>; must match\
+          \ the request tenant"
+        required: true
+        schema:
+          type: string
+      - $ref: "#/components/parameters/TenantId"
       requestBody:
         content:
           application/json:
@@ -500,7 +528,8 @@ paths:
               schema:
                 $ref: "#/components/schemas/ApiError"
         "409":
-          description: "Target already exists with a non-API origin, or graph writes are paused for a graph migration"
+          description: "Target already exists with a non-API origin, or graph writes\
+            \ are paused for a graph migration"
           content:
             application/json:
               schema:
@@ -512,7 +541,8 @@ paths:
               schema:
                 $ref: "#/components/schemas/ApiError"
         "422":
-          description: Request body failed validation (including an invalid entity type)
+          description: Request body failed validation (including an invalid entity
+            type)
           content:
             application/json:
               schema:
@@ -525,53 +555,58 @@ paths:
                 $ref: "#/components/schemas/ApiError"
     delete:
       tags:
-        - Knowledge Graph Write API
+      - Knowledge Graph Write API
       summary: Delete a custom entity
-      description: "Deletes an API-origin entity; only _origin=api objects may be deleted. The entity coordinates travel as query params (no request body): domain, type, and name, plus an optional nested scope map (scope[key]=value). Putting name in the query string (not the path) allows names that contain '/'."
+      description: "Deletes an API-origin entity; only _origin=api objects may be\
+        \ deleted. The entity coordinates travel as query params (no request body):\
+        \ domain, type, and name, plus an optional nested scope map (scope[key]=value).\
+        \ Putting name in the query string (not the path) allows names that contain\
+        \ '/'."
       operationId: deleteEntity
       parameters:
-        - name: namespace
-          in: path
-          description: "Tenant namespace, formatted as stacks-<stackId>"
-          required: true
-          schema:
+      - name: namespace
+        in: path
+        description: "Tenant namespace, formatted as stacks-<stackId>"
+        required: true
+        schema:
+          type: string
+      - name: domain
+        in: query
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          pattern: "^(?!kg$)(?!metrics$)[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+      - name: type
+        in: query
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          pattern: "^[A-Za-z][A-Za-z0-9_]*$"
+      - name: name
+        in: query
+        required: true
+        schema:
+          type: string
+          minLength: 1
+      - name: scope
+        in: query
+        description: "Optional scope key/value pairs identifying the entity (scope[key]=value)."
+        required: false
+        style: deepObject
+        explode: true
+        schema:
+          type: object
+          additionalProperties:
             type: string
-        - name: domain
-          in: query
-          required: true
-          schema:
-            type: string
-            minLength: 1
-            pattern: "^(?!kg$)(?!metrics$)[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
-        - name: type
-          in: query
-          required: true
-          schema:
-            type: string
-            minLength: 1
-            pattern: "^[A-Za-z][A-Za-z0-9_]*$"
-        - name: name
-          in: query
-          required: true
-          schema:
-            type: string
-            minLength: 1
-        - name: scope
-          in: query
-          description: "Optional scope key/value pairs identifying the entity (scope[key]=value)."
-          required: false
-          style: deepObject
-          explode: true
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        - $ref: "#/components/parameters/TenantId"
+      - $ref: "#/components/parameters/TenantId"
       responses:
         "204":
           description: Entity deleted
         "400":
-          description: "Missing tenant context, malformed namespace, or invalid type/scope key"
+          description: "Missing tenant context, malformed namespace, or invalid type/scope\
+            \ key"
           content:
             application/json:
               schema:
@@ -583,7 +618,8 @@ paths:
               schema:
                 $ref: "#/components/schemas/ApiError"
         "403":
-          description: "Namespace does not match the request tenant, or target is not API-origin"
+          description: "Namespace does not match the request tenant, or target is\
+            \ not API-origin"
           content:
             application/json:
               schema:
@@ -633,71 +669,75 @@ paths:
   /apis/kg.grafana.com/v1alpha1/namespaces/{namespace}/entities/connected:
     get:
       tags:
-        - Knowledge Graph Read API
+      - Knowledge Graph Read API
       summary: Get entities connected to the entity with the given identity
-      description: "Lists entities with at least one relationship to the anchor entity addressed by domain + type + name + exact scope; optionally filtered to one connected entity type. Expired connections are included with active: false. Results are ordered by name, with identity tiebreakers (type, domain, scope) for stable pagination."
+      description: "Lists entities with at least one relationship to the anchor entity\
+        \ addressed by domain + type + name + exact scope; optionally filtered to\
+        \ one connected entity type. Expired connections are included with active:\
+        \ false. Results are ordered by name, with identity tiebreakers (type, domain,\
+        \ scope) for stable pagination."
       operationId: lookupConnectedEntities
       parameters:
-        - name: namespace
-          in: path
-          description: "Tenant namespace, formatted as stacks-<stackId>"
-          required: true
-          schema:
+      - name: namespace
+        in: path
+        description: "Tenant namespace, formatted as stacks-<stackId>"
+        required: true
+        schema:
+          type: string
+      - name: type
+        in: query
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          pattern: "^[A-Za-z][A-Za-z0-9_]*$"
+      - name: name
+        in: query
+        required: true
+        schema:
+          type: string
+          minLength: 1
+      - name: domain
+        in: query
+        required: false
+        schema:
+          type: string
+          pattern: "^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+      - name: connected_type
+        in: query
+        description: Restrict results to connected entities of this type
+        required: false
+        schema:
+          type: string
+          pattern: "^[A-Za-z][A-Za-z0-9_]*$"
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 25
+          maximum: 100
+          minimum: 1
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
+          minimum: 0
+      - name: scope
+        in: query
+        description: "Exact scope key/value pairs identifying the anchor entity (scope[key]=value)."
+        required: false
+        style: deepObject
+        explode: true
+        schema:
+          type: object
+          additionalProperties:
             type: string
-        - name: type
-          in: query
-          required: true
-          schema:
-            type: string
-            minLength: 1
-            pattern: "^[A-Za-z][A-Za-z0-9_]*$"
-        - name: name
-          in: query
-          required: true
-          schema:
-            type: string
-            minLength: 1
-        - name: domain
-          in: query
-          required: false
-          schema:
-            type: string
-            pattern: "^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
-        - name: connected_type
-          in: query
-          description: Restrict results to connected entities of this type
-          required: false
-          schema:
-            type: string
-            pattern: "^[A-Za-z][A-Za-z0-9_]*$"
-        - name: limit
-          in: query
-          required: false
-          schema:
-            type: integer
-            format: int32
-            default: 25
-            maximum: 100
-            minimum: 1
-        - name: offset
-          in: query
-          required: false
-          schema:
-            type: integer
-            format: int32
-            default: 0
-            minimum: 0
-        - name: scope
-          in: query
-          description: "Exact scope key/value pairs identifying the anchor entity (scope[key]=value)."
-          required: false
-          style: deepObject
-          explode: true
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        - $ref: "#/components/parameters/TenantId"
+      - $ref: "#/components/parameters/TenantId"
       responses:
         "200":
           description: Connected entities
@@ -750,9 +790,9 @@ components:
           additionalProperties:
             type: string
       required:
-        - domain
-        - name
-        - type
+      - domain
+      - name
+      - type
     RelationshipWriteRequestDto:
       type: object
       properties:
@@ -772,18 +812,24 @@ components:
           type: object
           additionalProperties:
             $ref: "#/components/schemas/KgPropertyValue"
-          description: "Custom properties to store on the relationship. Values must be scalars (string, boolean, or number) or arrays of scalars; nested objects, nested arrays, and null values are rejected. Integral numbers are stored as 64-bit signed integers and floating-point numbers as IEEE-754 doubles."
+          description: "Custom properties to store on the relationship. Values must\
+            \ be scalars (string, boolean, or number) or arrays of scalars; nested\
+            \ objects, nested arrays, and null values are rejected. Integral numbers\
+            \ are stored as 64-bit signed integers and floating-point numbers as IEEE-754\
+            \ doubles."
         ttlSeconds:
           type: integer
           format: int64
-          description: "Time-to-live in seconds. Positive values expire the relationship after that many seconds, 0 expires it immediately, and negative values mean no expiry."
+          description: "Time-to-live in seconds. Positive values expire the relationship\
+            \ after that many seconds, 0 expires it immediately, and negative values\
+            \ mean no expiry."
           example: -1
       required:
-        - domain
-        - from
-        - to
-        - ttlSeconds
-        - type
+      - domain
+      - from
+      - to
+      - ttlSeconds
+      - type
     ApiError:
       type: object
       properties:
@@ -804,12 +850,13 @@ components:
           type: array
           items:
             oneOf:
-              - $ref: "#/components/schemas/ApiSubError"
-              - $ref: "#/components/schemas/ApiQuerySyntaxError"
-              - $ref: "#/components/schemas/ApiValidationError"
+            - $ref: "#/components/schemas/ApiSubError"
+            - $ref: "#/components/schemas/ApiQuerySyntaxError"
+            - $ref: "#/components/schemas/ApiValidationError"
         code:
           type: string
-          description: "Stable machine-readable error code, present only for errors that define one"
+          description: "Stable machine-readable error code, present only for errors\
+            \ that define one"
           example: KG_NOT_PROVISIONED
         trace_id:
           type: string
@@ -817,15 +864,15 @@ components:
           type: string
     ApiQuerySyntaxError:
       allOf:
-        - $ref: "#/components/schemas/ApiSubError"
-        - type: object
-          properties:
-            line:
-              type: integer
-              format: int32
-            column:
-              type: integer
-              format: int32
+      - $ref: "#/components/schemas/ApiSubError"
+      - type: object
+        properties:
+          line:
+            type: integer
+            format: int32
+          column:
+            type: integer
+            format: int32
     ApiSubError:
       type: object
       properties:
@@ -833,12 +880,12 @@ components:
           type: string
     ApiValidationError:
       allOf:
-        - $ref: "#/components/schemas/ApiSubError"
-        - type: object
-          properties:
-            field:
-              type: string
-            rejectedValue: {}
+      - $ref: "#/components/schemas/ApiSubError"
+      - type: object
+        properties:
+          field:
+            type: string
+          rejectedValue: {}
     RelationshipWriteResponseDto:
       type: object
       properties:
@@ -854,7 +901,8 @@ components:
           type: object
           additionalProperties:
             $ref: "#/components/schemas/KgPropertyValue"
-          description: "Properties stored on the relationship: scalar values (string, boolean, int64, or double) or arrays of scalars."
+          description: "Properties stored on the relationship: scalar values (string,\
+            \ boolean, int64, or double) or arrays of scalars."
     EntityWriteRequestDto:
       type: object
       properties:
@@ -877,20 +925,27 @@ components:
           type: object
           additionalProperties:
             $ref: "#/components/schemas/KgPropertyValue"
-          description: "Custom properties to store on the entity. Values must be scalars (string, boolean, or number) or arrays of scalars; nested objects, nested arrays, and null values are rejected. Integral numbers are stored as 64-bit signed integers and floating-point numbers as IEEE-754 doubles."
+          description: "Custom properties to store on the entity. Values must be scalars\
+            \ (string, boolean, or number) or arrays of scalars; nested objects, nested\
+            \ arrays, and null values are rejected. Integral numbers are stored as\
+            \ 64-bit signed integers and floating-point numbers as IEEE-754 doubles."
         ttlSeconds:
           type: integer
           format: int64
-          description: "Time-to-live in seconds. Positive values expire the entity after that many seconds, 0 expires it immediately, and negative values mean no expiry."
+          description: "Time-to-live in seconds. Positive values expire the entity\
+            \ after that many seconds, 0 expires it immediately, and negative values\
+            \ mean no expiry."
           example: -1
       required:
-        - domain
-        - name
-        - ttlSeconds
-        - type
+      - domain
+      - name
+      - ttlSeconds
+      - type
     GraphWriteRequestDto:
       type: object
-      description: Batch of entities and relationships to upsert atomically. At least one of `entities` or `relationships` must be non-empty; an empty request is a 422.
+      description: Batch of entities and relationships to upsert atomically. At least
+        one of `entities` or `relationships` must be non-empty; an empty request is
+        a 422.
       properties:
         entities:
           type: array
@@ -906,11 +961,13 @@ components:
         entitiesWritten:
           type: integer
           format: int64
-          description: "Count of entities in the accepted batch (idempotent upsert count, not a created-vs-updated breakdown)."
+          description: "Count of entities in the accepted batch (idempotent upsert\
+            \ count, not a created-vs-updated breakdown)."
         relationshipsWritten:
           type: integer
           format: int64
-          description: "Count of relationships in the accepted batch (idempotent upsert count, not a created-vs-updated breakdown)."
+          description: "Count of relationships in the accepted batch (idempotent upsert\
+            \ count, not a created-vs-updated breakdown)."
     EntityWriteResponseDto:
       type: object
       properties:
@@ -928,7 +985,8 @@ components:
           type: object
           additionalProperties:
             $ref: "#/components/schemas/KgPropertyValue"
-          description: "Properties stored on the entity: scalar values (string, boolean, int64, or double) or arrays of scalars."
+          description: "Properties stored on the entity: scalar values (string, boolean,\
+            \ int64, or double) or arrays of scalars."
     EntityReadResponseDto:
       type: object
       properties:
@@ -949,10 +1007,12 @@ components:
         properties:
           type: object
           additionalProperties: {}
-          description: "Properties stored on the entity: scalar values (string, boolean, int64, or double) or arrays of scalars."
+          description: "Properties stored on the entity: scalar values (string, boolean,\
+            \ int64, or double) or arrays of scalars."
         connectedTypes:
           type: array
-          description: Entity types this entity has at least one relationship to; useful for building follow-up /entities/connected queries.
+          description: Entity types this entity has at least one relationship to;
+            useful for building follow-up /entities/connected queries.
           items:
             type: string
     ConnectedEntitiesResponseDto:
@@ -969,22 +1029,25 @@ components:
           type: integer
           format: int32
     KgPropertyScalar:
-      description: "A scalar property value. Integral numbers are stored as 64-bit signed integers and floating-point numbers as IEEE-754 doubles; NaN, Infinity, and integers overflowing 64 bits are rejected."
+      description: "A scalar property value. Integral numbers are stored as 64-bit\
+        \ signed integers and floating-point numbers as IEEE-754 doubles; NaN, Infinity,\
+        \ and integers overflowing 64 bits are rejected."
       oneOf:
-        - type: string
-        - type: boolean
-        - type: number
-          format: double
+      - type: string
+      - type: boolean
+      - type: number
+        format: double
     KgPropertyValue:
-      description: "A property value: a scalar, or a (possibly mixed) array of scalars. Nested objects, nested arrays, and null values are rejected."
+      description: "A property value: a scalar, or a (possibly mixed) array of scalars.\
+        \ Nested objects, nested arrays, and null values are rejected."
       oneOf:
-        - type: string
-        - type: boolean
-        - type: number
-          format: double
-        - type: array
-          items:
-            $ref: "#/components/schemas/KgPropertyScalar"
+      - type: string
+      - type: boolean
+      - type: number
+        format: double
+      - type: array
+        items:
+          $ref: "#/components/schemas/KgPropertyScalar"
   parameters:
     TenantId:
       name: X-Scope-OrgID

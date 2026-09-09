@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.08.24-122123
+API version: 2026.09.09-102835
 Contact: support@asserts.ai
 */
 
@@ -20,6 +20,8 @@ var _ MappedNullable = &EntityRuleDto{}
 
 // EntityRuleDto Entity type rule definition
 type EntityRuleDto struct {
+	// Domain for entities produced by this rule. Omit for the default domain.
+	Domain *string `json:"domain,omitempty" validate:"regexp=^(?!kg$)[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"`
 	// Entity type name (e.g., 'Service', 'Pod', 'Jvm')
 	Type string `json:"type"`
 	// Entity name pattern
@@ -49,6 +51,8 @@ type _EntityRuleDto EntityRuleDto
 // will change when the set of required properties is changed
 func NewEntityRuleDto(type_ string, name string) *EntityRuleDto {
 	this := EntityRuleDto{}
+	var domain string = ""
+	this.Domain = &domain
 	this.Type = type_
 	this.Name = name
 	var disabled bool = false
@@ -61,6 +65,8 @@ func NewEntityRuleDto(type_ string, name string) *EntityRuleDto {
 // but it doesn't guarantee that properties required by API are set
 func NewEntityRuleDtoWithDefaults() *EntityRuleDto {
 	this := EntityRuleDto{}
+	var domain string = ""
+	this.Domain = &domain
 	var type_ string = ""
 	this.Type = type_
 	var name string = ""
@@ -68,6 +74,38 @@ func NewEntityRuleDtoWithDefaults() *EntityRuleDto {
 	var disabled bool = false
 	this.Disabled = &disabled
 	return &this
+}
+
+// GetDomain returns the Domain field value if set, zero value otherwise.
+func (o *EntityRuleDto) GetDomain() string {
+	if o == nil || IsNil(o.Domain) {
+		var ret string
+		return ret
+	}
+	return *o.Domain
+}
+
+// GetDomainOk returns a tuple with the Domain field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EntityRuleDto) GetDomainOk() (*string, bool) {
+	if o == nil || IsNil(o.Domain) {
+		return nil, false
+	}
+	return o.Domain, true
+}
+
+// HasDomain returns a boolean if a field has been set.
+func (o *EntityRuleDto) HasDomain() bool {
+	if o != nil && !IsNil(o.Domain) {
+		return true
+	}
+
+	return false
+}
+
+// SetDomain gets a reference to the given string and assigns it to the Domain field.
+func (o *EntityRuleDto) SetDomain(v string) {
+	o.Domain = &v
 }
 
 // GetType returns the Type field value
@@ -352,6 +390,9 @@ func (o EntityRuleDto) MarshalJSON() ([]byte, error) {
 
 func (o EntityRuleDto) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Domain) {
+		toSerialize["domain"] = o.Domain
+	}
 	toSerialize["type"] = o.Type
 	toSerialize["name"] = o.Name
 	if !IsNil(o.Scope) {
@@ -405,6 +446,7 @@ func (o *EntityRuleDto) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "domain")
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "scope")
