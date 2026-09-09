@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.08.24-122123
+API version: 2026.09.09-102835
 Contact: support@asserts.ai
 */
 
@@ -41,7 +41,7 @@ var (
 	queryDescape    = strings.NewReplacer("%5B", "[", "%5D", "]")
 )
 
-// APIClient manages communication with the Asserts, Inc API v2026.08.24-122123
+// APIClient manages communication with the Asserts, Inc API v2026.09.09-102835
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration
@@ -147,8 +147,6 @@ type APIClient struct {
 
 	StackControllerAPI *StackControllerAPIService
 
-	StackMigrationControllerAPI *StackMigrationControllerAPIService
-
 	ThresholdRulesConfigControllerAPI *ThresholdRulesConfigControllerAPIService
 
 	ThresholdsV2ConfigControllerAPI *ThresholdsV2ConfigControllerAPIService
@@ -225,7 +223,6 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.ServiceLevelControllerAPI = (*ServiceLevelControllerAPIService)(&c.common)
 	c.SloConfigControllerAPI = (*SloConfigControllerAPIService)(&c.common)
 	c.StackControllerAPI = (*StackControllerAPIService)(&c.common)
-	c.StackMigrationControllerAPI = (*StackMigrationControllerAPIService)(&c.common)
 	c.ThresholdRulesConfigControllerAPI = (*ThresholdRulesConfigControllerAPIService)(&c.common)
 	c.ThresholdsV2ConfigControllerAPI = (*ThresholdsV2ConfigControllerAPIService)(&c.common)
 	c.TraceConfigControllerAPI = (*TraceConfigControllerAPIService)(&c.common)

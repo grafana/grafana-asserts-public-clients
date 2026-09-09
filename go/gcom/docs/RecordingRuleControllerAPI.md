@@ -1,6 +1,6 @@
 # \RecordingRuleControllerAPI
 
-All URIs are relative to *http://localhost:8030*
+All URIs are relative to *http://localhost:18031*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------

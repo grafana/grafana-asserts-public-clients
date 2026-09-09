@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.08.24-122123
+API version: 2026.09.09-102835
 Contact: support@asserts.ai
 */
 
@@ -17,10 +17,113 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"strings"
 )
 
 // MetricDrilldownConfigControllerAPIService MetricDrilldownConfigControllerAPI service
 type MetricDrilldownConfigControllerAPIService service
+
+type ApiDeleteConfig3Request struct {
+	ctx         context.Context
+	ApiService  *MetricDrilldownConfigControllerAPIService
+	name        string
+	xScopeOrgID *string
+}
+
+// Grafana Tenant/Stack ID
+func (r ApiDeleteConfig3Request) XScopeOrgID(xScopeOrgID string) ApiDeleteConfig3Request {
+	r.xScopeOrgID = &xScopeOrgID
+	return r
+}
+
+func (r ApiDeleteConfig3Request) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteConfig3Execute(r)
+}
+
+/*
+DeleteConfig3 Delete metric drilldown configuration
+
+Deletes the specified metric drilldown configuration entry for the tenant
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param name Name of the metric configuration to delete
+	@return ApiDeleteConfig3Request
+*/
+func (a *MetricDrilldownConfigControllerAPIService) DeleteConfig3(ctx context.Context, name string) ApiDeleteConfig3Request {
+	return ApiDeleteConfig3Request{
+		ApiService: a,
+		ctx:        ctx,
+		name:       name,
+	}
+}
+
+// Execute executes the request
+func (a *MetricDrilldownConfigControllerAPIService) DeleteConfig3Execute(r ApiDeleteConfig3Request) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MetricDrilldownConfigControllerAPIService.DeleteConfig3")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/asserts/api-server/v2/config/metric/{name}"
+	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.xScopeOrgID != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Scope-OrgID", r.xScopeOrgID, "")
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
 
 type ApiGetTenantMetricConfigRequest struct {
 	ctx         context.Context
@@ -116,6 +219,148 @@ func (a *MetricDrilldownConfigControllerAPIService) GetTenantMetricConfigExecute
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiReorderMetricConfigPrioritiesRequest struct {
+	ctx         context.Context
+	ApiService  *MetricDrilldownConfigControllerAPIService
+	body        *string
+	xScopeOrgID *string
+}
+
+func (r ApiReorderMetricConfigPrioritiesRequest) Body(body string) ApiReorderMetricConfigPrioritiesRequest {
+	r.body = &body
+	return r
+}
+
+// Grafana Tenant/Stack ID
+func (r ApiReorderMetricConfigPrioritiesRequest) XScopeOrgID(xScopeOrgID string) ApiReorderMetricConfigPrioritiesRequest {
+	r.xScopeOrgID = &xScopeOrgID
+	return r
+}
+
+func (r ApiReorderMetricConfigPrioritiesRequest) Execute() (*TenantMetricConfigResponseDto, *http.Response, error) {
+	return r.ApiService.ReorderMetricConfigPrioritiesExecute(r)
+}
+
+/*
+ReorderMetricConfigPriorities Reorder metric drilldown configuration priorities
+
+Accepts a list of metric drilldown configuration names and their new priorities to reorder the configurations for the tenant
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiReorderMetricConfigPrioritiesRequest
+*/
+func (a *MetricDrilldownConfigControllerAPIService) ReorderMetricConfigPriorities(ctx context.Context) ApiReorderMetricConfigPrioritiesRequest {
+	return ApiReorderMetricConfigPrioritiesRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return TenantMetricConfigResponseDto
+func (a *MetricDrilldownConfigControllerAPIService) ReorderMetricConfigPrioritiesExecute(r ApiReorderMetricConfigPrioritiesRequest) (*TenantMetricConfigResponseDto, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TenantMetricConfigResponseDto
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MetricDrilldownConfigControllerAPIService.ReorderMetricConfigPriorities")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/asserts/api-server/v2/config/metric/reorder"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json", "application/x-yml", "application/yaml"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/x-yml", "application/yaml"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.xScopeOrgID != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Scope-OrgID", r.xScopeOrgID, "")
+	}
+	// body params
+	localVarPostBody = r.body
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v ApiError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 422 {
+			var v ApiError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

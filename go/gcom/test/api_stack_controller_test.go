@@ -35,17 +35,6 @@ func Test_gcom_StackControllerAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test StackControllerAPIService CreateStack", func(t *testing.T) {
-
-		t.Skip("skip test") // remove to run test
-
-		httpRes, err := apiClient.StackControllerAPI.CreateStack(context.Background()).Execute()
-
-		require.Nil(t, err)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
 	t.Run("Test StackControllerAPIService DetectAndAutoConfigureDatasets", func(t *testing.T) {
 
 		t.Skip("skip test") // remove to run test
@@ -58,17 +47,6 @@ func Test_gcom_StackControllerAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test StackControllerAPIService DisableStack", func(t *testing.T) {
-
-		t.Skip("skip test") // remove to run test
-
-		httpRes, err := apiClient.StackControllerAPI.DisableStack(context.Background()).Execute()
-
-		require.Nil(t, err)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
 	t.Run("Test StackControllerAPIService DisableV2Stack", func(t *testing.T) {
 
 		t.Skip("skip test") // remove to run test
@@ -76,30 +54,6 @@ func Test_gcom_StackControllerAPIService(t *testing.T) {
 		httpRes, err := apiClient.StackControllerAPI.DisableV2Stack(context.Background()).Execute()
 
 		require.Nil(t, err)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
-	t.Run("Test StackControllerAPIService DiscoverVendorsForCurrentTenant", func(t *testing.T) {
-
-		t.Skip("skip test") // remove to run test
-
-		resp, httpRes, err := apiClient.StackControllerAPI.DiscoverVendorsForCurrentTenant(context.Background()).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
-	t.Run("Test StackControllerAPIService EnableStack", func(t *testing.T) {
-
-		t.Skip("skip test") // remove to run test
-
-		resp, httpRes, err := apiClient.StackControllerAPI.EnableStack(context.Background()).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
 
 	})
@@ -253,18 +207,6 @@ func Test_gcom_StackControllerAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test StackControllerAPIService RunMetricSanityChecks", func(t *testing.T) {
-
-		t.Skip("skip test") // remove to run test
-
-		resp, httpRes, err := apiClient.StackControllerAPI.RunMetricSanityChecks(context.Background()).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
 	t.Run("Test StackControllerAPIService UpdateDataset", func(t *testing.T) {
 
 		t.Skip("skip test") // remove to run test
@@ -273,17 +215,6 @@ func Test_gcom_StackControllerAPIService(t *testing.T) {
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
-	t.Run("Test StackControllerAPIService UpdateStack", func(t *testing.T) {
-
-		t.Skip("skip test") // remove to run test
-
-		httpRes, err := apiClient.StackControllerAPI.UpdateStack(context.Background()).Execute()
-
-		require.Nil(t, err)
 		assert.Equal(t, 200, httpRes.StatusCode)
 
 	})
