@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.09.09-102835
+API version: 2026.09.15-093511
 Contact: support@asserts.ai
 */
 
@@ -91,7 +91,7 @@ func NewConfiguration() *Configuration {
 		Debug:         false,
 		Servers: ServerConfigurations{
 			{
-				URL:         "http://localhost:18031",
+				URL:         "http://localhost:8030",
 				Description: "Generated server url",
 			},
 		},

@@ -7,10 +7,10 @@ info:
   description: Asserts Public API
   termsOfService: https://www.asserts.ai/terms-of-service
   title: "Asserts, Inc"
-  version: 2026.09.09-102835
+  version: 2026.09.15-093511
 servers:
 - description: Generated server url
-  url: http://localhost:18031
+  url: http://localhost:8030
 tags:
 - description: Query Kubernetes events for entities
   name: Kubernetes Events
@@ -383,6 +383,50 @@ paths:
       summary: Reorder log drilldown configuration priorities
       tags:
       - log-drilldown-config-controller
+  /asserts/api-server/v1/stack:
+    get:
+      operationId: getStackDetail
+      parameters:
+      - $ref: '#/components/parameters/TenantId'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StackDetailDto'
+          description: OK
+      tags:
+      - stack-controller
+    post:
+      operationId: createStack
+      parameters:
+      - $ref: '#/components/parameters/TenantId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StackDto'
+        required: true
+      responses:
+        "200":
+          description: OK
+      tags:
+      - stack-controller
+    put:
+      operationId: updateStack
+      parameters:
+      - $ref: '#/components/parameters/TenantId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StackDto'
+        required: true
+      responses:
+        "200":
+          description: OK
+      tags:
+      - stack-controller
   /asserts/api-server/v1/search/definition/{id}:
     delete:
       operationId: deleteSearchDefinition
@@ -1340,6 +1384,65 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/StackStatusDto'
+          description: OK
+      tags:
+      - stack-controller
+  /asserts/api-server/v1/stack/migrate:
+    post:
+      operationId: migrateStack
+      parameters:
+      - $ref: '#/components/parameters/TenantId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StackMigrationDto'
+        required: true
+      responses:
+        "200":
+          description: OK
+      tags:
+      - stack-migration-controller
+  /asserts/api-server/v1/stack/enable:
+    get:
+      operationId: getStackEnable
+      parameters:
+      - $ref: '#/components/parameters/TenantId'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StackEnableDto'
+          description: OK
+      tags:
+      - stack-controller
+    post:
+      operationId: enableStack
+      parameters:
+      - $ref: '#/components/parameters/TenantId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StackEnableDto'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StackStatusDto'
+          description: OK
+      tags:
+      - stack-controller
+  /asserts/api-server/v1/stack/disable:
+    post:
+      operationId: disableStack
+      parameters:
+      - $ref: '#/components/parameters/TenantId'
+      responses:
+        "200":
           description: OK
       tags:
       - stack-controller
@@ -3660,9 +3763,9 @@ paths:
           description: OK
       tags:
       - prom-rules-config-controller
-  /asserts/api-server/v1/stack:
+  /asserts/api-server/v1/stack/vendor-integration:
     get:
-      operationId: getStackDetail
+      operationId: discoverVendorsForCurrentTenant
       parameters:
       - $ref: '#/components/parameters/TenantId'
       responses:
@@ -3670,7 +3773,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StackDetailDto'
+                $ref: '#/components/schemas/VendorIntegrationsDto'
           description: OK
       tags:
       - stack-controller
@@ -3709,9 +3812,9 @@ paths:
           description: OK
       tags:
       - stack-controller
-  /asserts/api-server/v1/stack/enable:
+  /asserts/api-server/v1/stack/sanity:
     get:
-      operationId: getStackEnable
+      operationId: runMetricSanityChecks
       parameters:
       - $ref: '#/components/parameters/TenantId'
       responses:
@@ -3719,7 +3822,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StackEnableDto'
+                $ref: '#/components/schemas/MetricSanityCheckDto'
           description: OK
       tags:
       - stack-controller
@@ -7378,6 +7481,68 @@ components:
           type: boolean
         recreateOtelLogConfig:
           type: boolean
+    StackMigrationDto:
+      example:
+        dryRun: true
+      properties:
+        dryRun:
+          type: boolean
+    StackEnableDto:
+      example:
+        groups:
+        - envLabelValues:
+          - envLabelValues
+          - envLabelValues
+          siteLabelValues:
+          - siteLabelValues
+          - siteLabelValues
+          envName: envName
+          envLabel: envLabel
+          filters:
+          - values:
+            - values
+            - values
+            name: name
+            operator: operator
+          - values:
+            - values
+            - values
+            name: name
+            operator: operator
+          siteLabel: siteLabel
+        - envLabelValues:
+          - envLabelValues
+          - envLabelValues
+          siteLabelValues:
+          - siteLabelValues
+          - siteLabelValues
+          envName: envName
+          envLabel: envLabel
+          filters:
+          - values:
+            - values
+            - values
+            name: name
+            operator: operator
+          - values:
+            - values
+            - values
+            name: name
+            operator: operator
+          siteLabel: siteLabel
+        vendors:
+        - vendors
+        - vendors
+      properties:
+        vendors:
+          items:
+            type: string
+          type: array
+          uniqueItems: true
+        groups:
+          items:
+            $ref: '#/components/schemas/StackFilterGroupDto'
+          type: array
     ScopeCriteriaDto:
       example:
         scopeCriteriaMap:
@@ -13497,6 +13662,32 @@ components:
           items:
             $ref: '#/components/schemas/StackDatasetDto'
           type: array
+    VendorIntegrationDto:
+      example:
+        name: name
+        enabled: true
+        assertified: true
+      properties:
+        name:
+          type: string
+        enabled:
+          type: boolean
+        assertified:
+          type: boolean
+    VendorIntegrationsDto:
+      example:
+        items:
+        - name: name
+          enabled: true
+          assertified: true
+        - name: name
+          enabled: true
+          assertified: true
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/VendorIntegrationDto'
+          type: array
     StackUpdateBucketDto:
       example:
         bucket: 0
@@ -13519,61 +13710,51 @@ components:
           type: string
         timestamp:
           type: string
-    StackEnableDto:
+    MetricSanityCheckDto:
       example:
-        groups:
-        - envLabelValues:
-          - envLabelValues
-          - envLabelValues
-          siteLabelValues:
-          - siteLabelValues
-          - siteLabelValues
-          envName: envName
-          envLabel: envLabel
-          filters:
-          - values:
-            - values
-            - values
+        failedSanityCheckSteps:
+        - stepResults:
+          - troubleshoot: troubleshoot
+            warnings:
+            - warnings
+            - warnings
             name: name
-            operator: operator
-          - values:
-            - values
-            - values
+            blockers:
+            - blockers
+            - blockers
+          - troubleshoot: troubleshoot
+            warnings:
+            - warnings
+            - warnings
             name: name
-            operator: operator
-          siteLabel: siteLabel
-        - envLabelValues:
-          - envLabelValues
-          - envLabelValues
-          siteLabelValues:
-          - siteLabelValues
-          - siteLabelValues
-          envName: envName
-          envLabel: envLabel
-          filters:
-          - values:
-            - values
-            - values
+            blockers:
+            - blockers
+            - blockers
+          checkName: checkName
+          dataPresent: true
+        - stepResults:
+          - troubleshoot: troubleshoot
+            warnings:
+            - warnings
+            - warnings
             name: name
-            operator: operator
-          - values:
-            - values
-            - values
+            blockers:
+            - blockers
+            - blockers
+          - troubleshoot: troubleshoot
+            warnings:
+            - warnings
+            - warnings
             name: name
-            operator: operator
-          siteLabel: siteLabel
-        vendors:
-        - vendors
-        - vendors
+            blockers:
+            - blockers
+            - blockers
+          checkName: checkName
+          dataPresent: true
       properties:
-        vendors:
+        failedSanityCheckSteps:
           items:
-            type: string
-          type: array
-          uniqueItems: true
-        groups:
-          items:
-            $ref: '#/components/schemas/StackFilterGroupDto'
+            $ref: '#/components/schemas/MetricSanityCheckResult'
           type: array
     SearchDefinitionItemDto:
       example:
