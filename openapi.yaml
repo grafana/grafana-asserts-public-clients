@@ -5,11 +5,11 @@ info:
   termsOfService: https://www.asserts.ai/terms-of-service
   contact:
     name: Support
-    url: "https://www.grafana.com"
+    url: https://www.grafana.com
     email: support@asserts.ai
-  version: 2026.09.09-102835
+  version: 2026.09.15-093511
 servers:
-  - url: http://localhost:18031
+  - url: http://localhost:8030
     description: Generated server url
 tags:
   - name: Kubernetes Events
@@ -391,6 +391,53 @@ paths:
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/ApiError"
+  /asserts/api-server/v1/stack:
+    get:
+      tags:
+        - stack-controller
+      operationId: getStackDetail
+      parameters:
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StackDetailDto"
+    put:
+      tags:
+        - stack-controller
+      operationId: updateStack
+      parameters:
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/StackDto"
+        required: true
+      responses:
+        "200":
+          description: OK
+    post:
+      tags:
+        - stack-controller
+      operationId: createStack
+      parameters:
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/StackDto"
+        required: true
+      responses:
+        "200":
+          description: OK
   /asserts/api-server/v1/search/definition/{id}:
     get:
       tags:
@@ -1354,6 +1401,69 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/StackStatusDto"
+  /asserts/api-server/v1/stack/migrate:
+    post:
+      tags:
+        - stack-migration-controller
+      operationId: migrateStack
+      parameters:
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/StackMigrationDto"
+        required: true
+      responses:
+        "200":
+          description: OK
+  /asserts/api-server/v1/stack/enable:
+    get:
+      tags:
+        - stack-controller
+      operationId: getStackEnable
+      parameters:
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StackEnableDto"
+    post:
+      tags:
+        - stack-controller
+      operationId: enableStack
+      parameters:
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/StackEnableDto"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StackStatusDto"
+  /asserts/api-server/v1/stack/disable:
+    post:
+      tags:
+        - stack-controller
+      operationId: disableStack
+      parameters:
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      responses:
+        "200":
+          description: OK
   /asserts/api-server/v1/slo:
     post:
       tags:
@@ -3711,11 +3821,11 @@ paths:
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/VendorNamesDto"
-  /asserts/api-server/v1/stack:
+  /asserts/api-server/v1/stack/vendor-integration:
     get:
       tags:
         - stack-controller
-      operationId: getStackDetail
+      operationId: discoverVendorsForCurrentTenant
       parameters:
         - in: header
           $ref: "#/components/parameters/TenantId"
@@ -3725,7 +3835,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/StackDetailDto"
+                $ref: "#/components/schemas/VendorIntegrationsDto"
   /asserts/api-server/v1/stack/update-bucket:
     get:
       tags:
@@ -3761,11 +3871,11 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/StackStatusDto"
-  /asserts/api-server/v1/stack/enable:
+  /asserts/api-server/v1/stack/sanity:
     get:
       tags:
         - stack-controller
-      operationId: getStackEnable
+      operationId: runMetricSanityChecks
       parameters:
         - in: header
           $ref: "#/components/parameters/TenantId"
@@ -3775,7 +3885,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/StackEnableDto"
+                $ref: "#/components/schemas/MetricSanityCheckDto"
   /asserts/api-server/v1/search/autocomplete/{index}:
     get:
       tags:
@@ -6231,6 +6341,23 @@ components:
           type: boolean
         recreateOtelLogConfig:
           type: boolean
+    StackMigrationDto:
+      type: object
+      properties:
+        dryRun:
+          type: boolean
+    StackEnableDto:
+      type: object
+      properties:
+        vendors:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+        groups:
+          type: array
+          items:
+            $ref: "#/components/schemas/StackFilterGroupDto"
     ScopeCriteriaDto:
       type: object
       properties:
@@ -8631,6 +8758,22 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/StackDatasetDto"
+    VendorIntegrationDto:
+      type: object
+      properties:
+        name:
+          type: string
+        enabled:
+          type: boolean
+        assertified:
+          type: boolean
+    VendorIntegrationsDto:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/VendorIntegrationDto"
     StackUpdateBucketDto:
       type: object
       properties:
@@ -8647,18 +8790,13 @@ components:
           type: string
         timestamp:
           type: string
-    StackEnableDto:
+    MetricSanityCheckDto:
       type: object
       properties:
-        vendors:
+        failedSanityCheckSteps:
           type: array
           items:
-            type: string
-          uniqueItems: true
-        groups:
-          type: array
-          items:
-            $ref: "#/components/schemas/StackFilterGroupDto"
+            $ref: "#/components/schemas/MetricSanityCheckResult"
     SearchDefinitionItemDto:
       type: object
       properties:

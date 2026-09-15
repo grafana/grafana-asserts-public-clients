@@ -1,13 +1,13 @@
 openapi: 3.1.0
 info:
   title: "Asserts, Inc"
-  version: "2.53.4"
   description: Asserts Public API
   termsOfService: https://www.asserts.ai/terms-of-service
   contact:
     name: Support
-    url: "https://www.grafana.com"
+    url: https://www.grafana.com
     email: support@asserts.ai
+  version: 1.0.0
 servers:
 - url: http://localhost:8030
   description: Generated server url

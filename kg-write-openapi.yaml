@@ -1,13 +1,13 @@
 openapi: 3.1.0
 info:
   title: "Asserts, Inc"
-  version: "2.53.4"
   description: Asserts Public API
   termsOfService: https://www.asserts.ai/terms-of-service
   contact:
     name: Support
-    url: "https://www.grafana.com"
+    url: https://www.grafana.com
     email: support@asserts.ai
+  version: 1.0.0
 servers:
 - url: http://localhost:8030
   description: Generated server url
@@ -345,8 +345,8 @@ paths:
                 $ref: "#/components/schemas/ApiError"
         "409":
           description: "Entity or relationship ownership conflict (an entity identity\
-            \ exists in the telemetry domain, or a target entity or relationship is not\
-            \ API-owned), or graph writes are paused for a graph migration — nothing\
+            \ exists in the telemetry domain, or a target entity or relationship is\
+            \ not API-owned), or graph writes are paused for a graph migration — nothing\
             \ written"
           content:
             application/json:
