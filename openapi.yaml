@@ -7,9 +7,9 @@ info:
     name: Support
     url: "https://www.grafana.com"
     email: support@asserts.ai
-  version: 2026.09.09-102835
+  version: 2026.09.15-092501
 servers:
-  - url: http://localhost:18031
+  - url: http://localhost:8030
     description: Generated server url
 tags:
   - name: Kubernetes Events
