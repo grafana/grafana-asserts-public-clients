@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2.53.4
+API version: 2.68.0
 Contact: support@asserts.ai
 */
 
@@ -20,7 +20,8 @@ var _ MappedNullable = &ApiSubError{}
 
 // ApiSubError struct for ApiSubError
 type ApiSubError struct {
-	Message              *string `json:"message,omitempty"`
+	Message              *string         `json:"message,omitempty"`
+	Type                 ApiSubErrorType `json:"@type"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -30,8 +31,9 @@ type _ApiSubError ApiSubError
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewApiSubError() *ApiSubError {
+func NewApiSubError(type_ ApiSubErrorType) *ApiSubError {
 	this := ApiSubError{}
+	this.Type = type_
 	return &this
 }
 
@@ -75,6 +77,30 @@ func (o *ApiSubError) SetMessage(v string) {
 	o.Message = &v
 }
 
+// GetType returns the Type field value
+func (o *ApiSubError) GetType() ApiSubErrorType {
+	if o == nil {
+		var ret ApiSubErrorType
+		return ret
+	}
+
+	return o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value
+// and a boolean to check if the value has been set.
+func (o *ApiSubError) GetTypeOk() (*ApiSubErrorType, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Type, true
+}
+
+// SetType sets field value
+func (o *ApiSubError) SetType(v ApiSubErrorType) {
+	o.Type = v
+}
+
 func (o ApiSubError) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -88,6 +114,7 @@ func (o ApiSubError) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Message) {
 		toSerialize["message"] = o.Message
 	}
+	toSerialize["@type"] = o.Type
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -97,6 +124,14 @@ func (o ApiSubError) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *ApiSubError) UnmarshalJSON(data []byte) (err error) {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
 	varApiSubError := _ApiSubError{}
 
 	err = json.Unmarshal(data, &varApiSubError)
@@ -111,6 +146,7 @@ func (o *ApiSubError) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "message")
+		delete(additionalProperties, "@type")
 		o.AdditionalProperties = additionalProperties
 	}
 

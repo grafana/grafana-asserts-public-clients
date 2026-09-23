@@ -9,8 +9,12 @@ configuration.go
 docs/ApiError.md
 docs/ApiErrorSubErrorsInner.md
 docs/ApiQuerySyntaxError.md
+docs/ApiQuerySyntaxErrorType.md
 docs/ApiSubError.md
+docs/ApiSubErrorFields.md
+docs/ApiSubErrorType.md
 docs/ApiValidationError.md
+docs/ApiValidationErrorType.md
 docs/SchemaBindingDto.md
 docs/SchemaDomainDto.md
 docs/SchemaEndpointDto.md
@@ -28,8 +32,12 @@ go.sum
 model_api_error.go
 model_api_error_sub_errors_inner.go
 model_api_query_syntax_error.go
+model_api_query_syntax_error_type.go
 model_api_sub_error.go
+model_api_sub_error_fields.go
+model_api_sub_error_type.go
 model_api_validation_error.go
+model_api_validation_error_type.go
 model_schema_binding_dto.go
 model_schema_domain_dto.go
 model_schema_endpoint_dto.go

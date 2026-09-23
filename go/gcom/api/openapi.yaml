@@ -7,10 +7,10 @@ info:
   description: Asserts Public API
   termsOfService: https://www.asserts.ai/terms-of-service
   title: "Asserts, Inc"
-  version: 2026.09.09-102835
+  version: 2026.09.23-074358
 servers:
 - description: Generated server url
-  url: http://localhost:18031
+  url: http://localhost:8030
 tags:
 - description: Query Kubernetes events for entities
   name: Kubernetes Events
@@ -1666,6 +1666,25 @@ paths:
           description: OK
       tags:
       - llm-rca-controller
+  /asserts/api-server/v1/query/cypher:
+    post:
+      operationId: query
+      parameters:
+      - $ref: '#/components/parameters/TenantId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CypherQueryRequestDto'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CypherQueryResponseDto'
+          description: OK
+      tags:
+      - cypher-query-controller
   /asserts/api-server/v1/patterns/search:
     post:
       operationId: search_2
@@ -5516,8 +5535,10 @@ components:
           is1xxInformational: true
         timestamp: 6
         subErrors:
-        - message: message
-        - message: message
+        - '@type': ApiSubError
+          message: message
+        - '@type': ApiSubError
+          message: message
       properties:
         status:
           $ref: '#/components/schemas/ApiError_status'
@@ -5542,7 +5563,7 @@ components:
           type: string
     ApiQuerySyntaxError:
       allOf:
-      - $ref: '#/components/schemas/ApiSubError'
+      - $ref: '#/components/schemas/ApiSubErrorFields'
       - properties:
           line:
             format: int32
@@ -5550,19 +5571,34 @@ components:
           column:
             format: int32
             type: integer
+      - properties:
+          '@type':
+            $ref: '#/components/schemas/ApiQuerySyntaxErrorType'
+        required:
+        - '@type'
     ApiSubError:
+      allOf:
+      - $ref: '#/components/schemas/ApiSubErrorFields'
+      - properties:
+          '@type':
+            $ref: '#/components/schemas/ApiSubErrorType'
+        required:
+        - '@type'
       example:
+        '@type': ApiSubError
         message: message
-      properties:
-        message:
-          type: string
     ApiValidationError:
       allOf:
-      - $ref: '#/components/schemas/ApiSubError'
+      - $ref: '#/components/schemas/ApiSubErrorFields'
       - properties:
           field:
             type: string
           rejectedValue: {}
+      - properties:
+          '@type':
+            $ref: '#/components/schemas/ApiValidationErrorType'
+        required:
+        - '@type'
     DefaultHttpStatusCode:
       allOf:
       - $ref: '#/components/schemas/HttpStatusCode'
@@ -5649,9 +5685,9 @@ components:
       properties:
         error:
           type: boolean
-        is3xxRedirection:
-          type: boolean
         is5xxServerError:
+          type: boolean
+        is3xxRedirection:
           type: boolean
         is4xxClientError:
           type: boolean
@@ -9691,6 +9727,69 @@ components:
           items:
             $ref: '#/components/schemas/LlmRcaPatternDto'
           type: array
+    CypherQueryRequestDto:
+      example:
+        query: query
+        start: 0
+        end: 6
+        parameters:
+          key: ""
+      properties:
+        query:
+          maxLength: 8192
+          minLength: 0
+          type: string
+        start:
+          format: int64
+          type: integer
+        end:
+          format: int64
+          type: integer
+        parameters:
+          additionalProperties: {}
+      required:
+      - query
+    CypherQueryResponseDto:
+      example:
+        stats:
+          rowCount: 0
+          columnCount: 6
+          elapsedMs: 1
+        columns:
+        - columns
+        - columns
+        rows:
+        - - ""
+          - ""
+        - - ""
+          - ""
+      properties:
+        columns:
+          items:
+            type: string
+          type: array
+        rows:
+          items:
+            items: {}
+            type: array
+          type: array
+        stats:
+          $ref: '#/components/schemas/CypherQueryStatsDto'
+    CypherQueryStatsDto:
+      example:
+        rowCount: 0
+        columnCount: 6
+        elapsedMs: 1
+      properties:
+        rowCount:
+          format: int32
+          type: integer
+        columnCount:
+          format: int32
+          type: integer
+        elapsedMs:
+          format: int64
+          type: integer
     RcaPatternSearchRequestDto:
       example:
         site: site
@@ -15817,11 +15916,33 @@ components:
         offset:
           format: int32
           type: integer
+    ApiSubErrorFields:
+      properties:
+        message:
+          type: string
+    ApiSubErrorType:
+      enum:
+      - ApiSubError
+      type: string
+    ApiQuerySyntaxErrorType:
+      enum:
+      - ApiQuerySyntaxError
+      type: string
+    ApiValidationErrorType:
+      enum:
+      - ApiValidationError
+      type: string
     ApiError_status:
       oneOf:
       - $ref: '#/components/schemas/DefaultHttpStatusCode'
       - $ref: '#/components/schemas/HttpStatus'
     ApiError_subErrors_inner:
+      discriminator:
+        mapping:
+          ApiSubError: '#/components/schemas/ApiSubError'
+          ApiQuerySyntaxError: '#/components/schemas/ApiQuerySyntaxError'
+          ApiValidationError: '#/components/schemas/ApiValidationError'
+        propertyName: '@type'
       oneOf:
       - $ref: '#/components/schemas/ApiSubError'
       - $ref: '#/components/schemas/ApiQuerySyntaxError'

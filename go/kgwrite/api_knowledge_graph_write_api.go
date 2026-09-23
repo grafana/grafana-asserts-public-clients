@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2.53.4
+API version: 2.68.0
 Contact: support@asserts.ai
 */
 
@@ -500,11 +500,18 @@ type ApiUpsertEntityRequest struct {
 	ApiService            *KnowledgeGraphWriteAPIAPIService
 	namespace             string
 	entityWriteRequestDto *EntityWriteRequestDto
+	allowUndeclared       *bool
 	xScopeOrgID           *string
 }
 
 func (r ApiUpsertEntityRequest) EntityWriteRequestDto(entityWriteRequestDto EntityWriteRequestDto) ApiUpsertEntityRequest {
 	r.entityWriteRequestDto = &entityWriteRequestDto
+	return r
+}
+
+// Permit undeclared types, properties and scope keys. Declared constraints still apply.
+func (r ApiUpsertEntityRequest) AllowUndeclared(allowUndeclared bool) ApiUpsertEntityRequest {
+	r.allowUndeclared = &allowUndeclared
 	return r
 }
 
@@ -561,6 +568,12 @@ func (a *KnowledgeGraphWriteAPIAPIService) UpsertEntityExecute(r ApiUpsertEntity
 		return localVarReturnValue, nil, reportError("entityWriteRequestDto is required and must be specified")
 	}
 
+	if r.allowUndeclared != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "allowUndeclared", r.allowUndeclared, "")
+	} else {
+		var defaultValue bool = true
+		r.allowUndeclared = &defaultValue
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json", "application/x-yml", "application/x-yaml"}
 
@@ -647,6 +660,17 @@ func (a *KnowledgeGraphWriteAPIAPIService) UpsertEntityExecute(r ApiUpsertEntity
 			}
 			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 503 {
+			var v ApiError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -668,11 +692,18 @@ type ApiUpsertRelationshipRequest struct {
 	ApiService                  *KnowledgeGraphWriteAPIAPIService
 	namespace                   string
 	relationshipWriteRequestDto *RelationshipWriteRequestDto
+	allowUndeclared             *bool
 	xScopeOrgID                 *string
 }
 
 func (r ApiUpsertRelationshipRequest) RelationshipWriteRequestDto(relationshipWriteRequestDto RelationshipWriteRequestDto) ApiUpsertRelationshipRequest {
 	r.relationshipWriteRequestDto = &relationshipWriteRequestDto
+	return r
+}
+
+// Permit undeclared types, properties and scope keys. Declared constraints still apply.
+func (r ApiUpsertRelationshipRequest) AllowUndeclared(allowUndeclared bool) ApiUpsertRelationshipRequest {
+	r.allowUndeclared = &allowUndeclared
 	return r
 }
 
@@ -729,6 +760,12 @@ func (a *KnowledgeGraphWriteAPIAPIService) UpsertRelationshipExecute(r ApiUpsert
 		return localVarReturnValue, nil, reportError("relationshipWriteRequestDto is required and must be specified")
 	}
 
+	if r.allowUndeclared != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "allowUndeclared", r.allowUndeclared, "")
+	} else {
+		var defaultValue bool = true
+		r.allowUndeclared = &defaultValue
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json", "application/x-yml", "application/x-yaml"}
 
@@ -826,6 +863,17 @@ func (a *KnowledgeGraphWriteAPIAPIService) UpsertRelationshipExecute(r ApiUpsert
 			}
 			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 503 {
+			var v ApiError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -847,11 +895,18 @@ type ApiWriteGraphRequest struct {
 	ApiService           *KnowledgeGraphWriteAPIAPIService
 	namespace            string
 	graphWriteRequestDto *GraphWriteRequestDto
+	allowUndeclared      *bool
 	xScopeOrgID          *string
 }
 
 func (r ApiWriteGraphRequest) GraphWriteRequestDto(graphWriteRequestDto GraphWriteRequestDto) ApiWriteGraphRequest {
 	r.graphWriteRequestDto = &graphWriteRequestDto
+	return r
+}
+
+// Permit undeclared types, properties and scope keys for the whole batch. Declared constraints still apply.
+func (r ApiWriteGraphRequest) AllowUndeclared(allowUndeclared bool) ApiWriteGraphRequest {
+	r.allowUndeclared = &allowUndeclared
 	return r
 }
 
@@ -908,6 +963,12 @@ func (a *KnowledgeGraphWriteAPIAPIService) WriteGraphExecute(r ApiWriteGraphRequ
 		return localVarReturnValue, nil, reportError("graphWriteRequestDto is required and must be specified")
 	}
 
+	if r.allowUndeclared != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "allowUndeclared", r.allowUndeclared, "")
+	} else {
+		var defaultValue bool = true
+		r.allowUndeclared = &defaultValue
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json", "application/x-yml", "application/x-yaml"}
 
@@ -986,6 +1047,17 @@ func (a *KnowledgeGraphWriteAPIAPIService) WriteGraphExecute(r ApiWriteGraphRequ
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 422 {
+			var v ApiError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 503 {
 			var v ApiError
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {

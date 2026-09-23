@@ -180,7 +180,7 @@ No authorization required
 
 ## UpsertEntity
 
-> EntityWriteResponseDto UpsertEntity(ctx, namespace).EntityWriteRequestDto(entityWriteRequestDto).XScopeOrgID(xScopeOrgID).Execute()
+> EntityWriteResponseDto UpsertEntity(ctx, namespace).EntityWriteRequestDto(entityWriteRequestDto).AllowUndeclared(allowUndeclared).XScopeOrgID(xScopeOrgID).Execute()
 
 Create or update a custom entity
 
@@ -201,11 +201,12 @@ import (
 func main() {
 	namespace := "namespace_example" // string | Tenant namespace, formatted as stacks-<stackId>; must match the request tenant
 	entityWriteRequestDto := *openapiclient.NewEntityWriteRequestDto("Domain_example", "Type_example", "Name_example", int64(-1)) // EntityWriteRequestDto | 
+	allowUndeclared := true // bool | Permit undeclared types, properties and scope keys. Declared constraints still apply. (optional) (default to true)
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.KnowledgeGraphWriteAPIAPI.UpsertEntity(context.Background(), namespace).EntityWriteRequestDto(entityWriteRequestDto).XScopeOrgID(xScopeOrgID).Execute()
+	resp, r, err := apiClient.KnowledgeGraphWriteAPIAPI.UpsertEntity(context.Background(), namespace).EntityWriteRequestDto(entityWriteRequestDto).AllowUndeclared(allowUndeclared).XScopeOrgID(xScopeOrgID).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `KnowledgeGraphWriteAPIAPI.UpsertEntity``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -232,6 +233,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **entityWriteRequestDto** | [**EntityWriteRequestDto**](EntityWriteRequestDto.md) |  | 
+ **allowUndeclared** | **bool** | Permit undeclared types, properties and scope keys. Declared constraints still apply. | [default to true]
  **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
 
 ### Return type
@@ -254,7 +256,7 @@ No authorization required
 
 ## UpsertRelationship
 
-> RelationshipWriteResponseDto UpsertRelationship(ctx, namespace).RelationshipWriteRequestDto(relationshipWriteRequestDto).XScopeOrgID(xScopeOrgID).Execute()
+> RelationshipWriteResponseDto UpsertRelationship(ctx, namespace).RelationshipWriteRequestDto(relationshipWriteRequestDto).AllowUndeclared(allowUndeclared).XScopeOrgID(xScopeOrgID).Execute()
 
 Create or update a custom relationship
 
@@ -275,11 +277,12 @@ import (
 func main() {
 	namespace := "namespace_example" // string | Tenant namespace, formatted as stacks-<stackId>
 	relationshipWriteRequestDto := *openapiclient.NewRelationshipWriteRequestDto("Domain_example", "Type_example", *openapiclient.NewEntityRefDto("Domain_example", "Type_example", "Name_example"), *openapiclient.NewEntityRefDto("Domain_example", "Type_example", "Name_example"), int64(-1)) // RelationshipWriteRequestDto | 
+	allowUndeclared := true // bool | Permit undeclared types, properties and scope keys. Declared constraints still apply. (optional) (default to true)
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.KnowledgeGraphWriteAPIAPI.UpsertRelationship(context.Background(), namespace).RelationshipWriteRequestDto(relationshipWriteRequestDto).XScopeOrgID(xScopeOrgID).Execute()
+	resp, r, err := apiClient.KnowledgeGraphWriteAPIAPI.UpsertRelationship(context.Background(), namespace).RelationshipWriteRequestDto(relationshipWriteRequestDto).AllowUndeclared(allowUndeclared).XScopeOrgID(xScopeOrgID).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `KnowledgeGraphWriteAPIAPI.UpsertRelationship``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -306,6 +309,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **relationshipWriteRequestDto** | [**RelationshipWriteRequestDto**](RelationshipWriteRequestDto.md) |  | 
+ **allowUndeclared** | **bool** | Permit undeclared types, properties and scope keys. Declared constraints still apply. | [default to true]
  **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
 
 ### Return type
@@ -328,7 +332,7 @@ No authorization required
 
 ## WriteGraph
 
-> GraphWriteResponseDto WriteGraph(ctx, namespace).GraphWriteRequestDto(graphWriteRequestDto).XScopeOrgID(xScopeOrgID).Execute()
+> GraphWriteResponseDto WriteGraph(ctx, namespace).GraphWriteRequestDto(graphWriteRequestDto).AllowUndeclared(allowUndeclared).XScopeOrgID(xScopeOrgID).Execute()
 
 Write a batch of custom entities and relationships
 
@@ -349,11 +353,12 @@ import (
 func main() {
 	namespace := "namespace_example" // string | Tenant namespace, formatted as stacks-<stackId>
 	graphWriteRequestDto := *openapiclient.NewGraphWriteRequestDto() // GraphWriteRequestDto | 
+	allowUndeclared := true // bool | Permit undeclared types, properties and scope keys for the whole batch. Declared constraints still apply. (optional) (default to true)
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.KnowledgeGraphWriteAPIAPI.WriteGraph(context.Background(), namespace).GraphWriteRequestDto(graphWriteRequestDto).XScopeOrgID(xScopeOrgID).Execute()
+	resp, r, err := apiClient.KnowledgeGraphWriteAPIAPI.WriteGraph(context.Background(), namespace).GraphWriteRequestDto(graphWriteRequestDto).AllowUndeclared(allowUndeclared).XScopeOrgID(xScopeOrgID).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `KnowledgeGraphWriteAPIAPI.WriteGraph``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -380,6 +385,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **graphWriteRequestDto** | [**GraphWriteRequestDto**](GraphWriteRequestDto.md) |  | 
+ **allowUndeclared** | **bool** | Permit undeclared types, properties and scope keys for the whole batch. Declared constraints still apply. | [default to true]
  **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
 
 ### Return type

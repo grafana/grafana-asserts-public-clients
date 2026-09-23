@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2.53.4
+API version: 2.68.0
 Contact: support@asserts.ai
 */
 
@@ -20,9 +20,10 @@ var _ MappedNullable = &ApiQuerySyntaxError{}
 
 // ApiQuerySyntaxError struct for ApiQuerySyntaxError
 type ApiQuerySyntaxError struct {
-	Message              *string `json:"message,omitempty"`
-	Line                 *int32  `json:"line,omitempty"`
-	Column               *int32  `json:"column,omitempty"`
+	Message              *string                 `json:"message,omitempty"`
+	Line                 *int32                  `json:"line,omitempty"`
+	Column               *int32                  `json:"column,omitempty"`
+	Type                 ApiQuerySyntaxErrorType `json:"@type"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -32,8 +33,9 @@ type _ApiQuerySyntaxError ApiQuerySyntaxError
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewApiQuerySyntaxError() *ApiQuerySyntaxError {
+func NewApiQuerySyntaxError(type_ ApiQuerySyntaxErrorType) *ApiQuerySyntaxError {
 	this := ApiQuerySyntaxError{}
+	this.Type = type_
 	return &this
 }
 
@@ -141,6 +143,30 @@ func (o *ApiQuerySyntaxError) SetColumn(v int32) {
 	o.Column = &v
 }
 
+// GetType returns the Type field value
+func (o *ApiQuerySyntaxError) GetType() ApiQuerySyntaxErrorType {
+	if o == nil {
+		var ret ApiQuerySyntaxErrorType
+		return ret
+	}
+
+	return o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value
+// and a boolean to check if the value has been set.
+func (o *ApiQuerySyntaxError) GetTypeOk() (*ApiQuerySyntaxErrorType, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Type, true
+}
+
+// SetType sets field value
+func (o *ApiQuerySyntaxError) SetType(v ApiQuerySyntaxErrorType) {
+	o.Type = v
+}
+
 func (o ApiQuerySyntaxError) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -160,6 +186,7 @@ func (o ApiQuerySyntaxError) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Column) {
 		toSerialize["column"] = o.Column
 	}
+	toSerialize["@type"] = o.Type
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -169,6 +196,14 @@ func (o ApiQuerySyntaxError) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *ApiQuerySyntaxError) UnmarshalJSON(data []byte) (err error) {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
 	varApiQuerySyntaxError := _ApiQuerySyntaxError{}
 
 	err = json.Unmarshal(data, &varApiQuerySyntaxError)
@@ -185,6 +220,7 @@ func (o *ApiQuerySyntaxError) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "message")
 		delete(additionalProperties, "line")
 		delete(additionalProperties, "column")
+		delete(additionalProperties, "@type")
 		o.AdditionalProperties = additionalProperties
 	}
 
