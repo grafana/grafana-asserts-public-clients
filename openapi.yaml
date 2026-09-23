@@ -7,9 +7,9 @@ info:
     name: Support
     url: "https://www.grafana.com"
     email: support@asserts.ai
-  version: 2026.09.09-102835
+  version: 2026.09.23-074358
 servers:
-  - url: http://localhost:18031
+  - url: http://localhost:8030
     description: Generated server url
 tags:
   - name: Kubernetes Events
@@ -1679,6 +1679,26 @@ paths:
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/LlmRcaSummariesDto"
+  /asserts/api-server/v1/query/cypher:
+    post:
+      tags:
+        - cypher-query-controller
+      operationId: query
+      parameters:
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CypherQueryRequestDto"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CypherQueryResponseDto"
   /asserts/api-server/v1/patterns/search:
     post:
       tags:
@@ -5320,6 +5340,12 @@ components:
         subErrors:
           type: array
           items:
+            discriminator:
+              propertyName: '@type'
+              mapping:
+                ApiSubError: "#/components/schemas/ApiSubError"
+                ApiQuerySyntaxError: "#/components/schemas/ApiQuerySyntaxError"
+                ApiValidationError: "#/components/schemas/ApiValidationError"
             oneOf:
               - $ref: "#/components/schemas/ApiSubError"
               - $ref: "#/components/schemas/ApiQuerySyntaxError"
@@ -5332,7 +5358,7 @@ components:
           type: string
     ApiQuerySyntaxError:
       allOf:
-        - $ref: "#/components/schemas/ApiSubError"
+        - $ref: "#/components/schemas/ApiSubErrorFields"
         - type: object
           properties:
             line:
@@ -5341,19 +5367,35 @@ components:
             column:
               type: integer
               format: int32
+        - type: object
+          properties:
+            '@type':
+              $ref: "#/components/schemas/ApiQuerySyntaxErrorType"
+          required:
+            - '@type'
     ApiSubError:
-      type: object
-      properties:
-        message:
-          type: string
+      allOf:
+        - $ref: "#/components/schemas/ApiSubErrorFields"
+        - type: object
+          properties:
+            '@type':
+              $ref: "#/components/schemas/ApiSubErrorType"
+          required:
+            - '@type'
     ApiValidationError:
       allOf:
-        - $ref: "#/components/schemas/ApiSubError"
+        - $ref: "#/components/schemas/ApiSubErrorFields"
         - type: object
           properties:
             field:
               type: string
             rejectedValue: {}
+        - type: object
+          properties:
+            '@type':
+              $ref: "#/components/schemas/ApiValidationErrorType"
+          required:
+            - '@type'
     DefaultHttpStatusCode:
       allOf:
         - $ref: "#/components/schemas/HttpStatusCode"
@@ -5435,9 +5477,9 @@ components:
       properties:
         error:
           type: boolean
-        is3xxRedirection:
-          type: boolean
         is5xxServerError:
+          type: boolean
+        is3xxRedirection:
           type: boolean
         is4xxClientError:
           type: boolean
@@ -7127,6 +7169,50 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/LlmRcaPatternDto"
+    CypherQueryRequestDto:
+      type: object
+      properties:
+        query:
+          type: string
+          maxLength: 8192
+          minLength: 0
+        start:
+          type: integer
+          format: int64
+        end:
+          type: integer
+          format: int64
+        parameters:
+          type: object
+          additionalProperties: {}
+      required:
+        - query
+    CypherQueryResponseDto:
+      type: object
+      properties:
+        columns:
+          type: array
+          items:
+            type: string
+        rows:
+          type: array
+          items:
+            type: array
+            items: {}
+        stats:
+          $ref: "#/components/schemas/CypherQueryStatsDto"
+    CypherQueryStatsDto:
+      type: object
+      properties:
+        rowCount:
+          type: integer
+          format: int32
+        columnCount:
+          type: integer
+          format: int32
+        elapsedMs:
+          type: integer
+          format: int64
     RcaPatternSearchRequestDto:
       type: object
       properties:
@@ -9375,6 +9461,23 @@ components:
         offset:
           type: integer
           format: int32
+    ApiSubErrorFields:
+      type: object
+      properties:
+        message:
+          type: string
+    ApiSubErrorType:
+      type: string
+      enum:
+        - ApiSubError
+    ApiQuerySyntaxErrorType:
+      type: string
+      enum:
+        - ApiQuerySyntaxError
+    ApiValidationErrorType:
+      type: string
+      enum:
+        - ApiValidationError
   parameters:
     TenantId:
       name: X-Scope-OrgID
