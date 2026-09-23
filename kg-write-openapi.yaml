@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: "Asserts, Inc"
-  version: "2.53.4"
+  version: "2.68.0"
   description: Asserts Public API
   termsOfService: https://www.asserts.ai/terms-of-service
   contact:
@@ -33,6 +33,14 @@ paths:
         required: true
         schema:
           type: string
+      - name: allowUndeclared
+        in: query
+        description: "Permit undeclared types, properties and scope keys. Declared\
+          \ constraints still apply."
+        required: false
+        schema:
+          type: boolean
+          default: true
       - $ref: "#/components/parameters/TenantId"
       requestBody:
         content:
@@ -110,6 +118,18 @@ paths:
                 $ref: "#/components/schemas/ApiError"
         "422":
           description: Request body failed validation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+            application/x-yml:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+            application/x-yaml:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+        "503":
+          description: Schema lookup unavailable; retry the request
           content:
             application/json:
               schema:
@@ -293,6 +313,14 @@ paths:
         required: true
         schema:
           type: string
+      - name: allowUndeclared
+        in: query
+        description: "Permit undeclared types, properties and scope keys for the whole\
+          \ batch. Declared constraints still apply."
+        required: false
+        schema:
+          type: boolean
+          default: true
       - $ref: "#/components/parameters/TenantId"
       requestBody:
         content:
@@ -345,8 +373,8 @@ paths:
                 $ref: "#/components/schemas/ApiError"
         "409":
           description: "Entity or relationship ownership conflict (an entity identity\
-            \ exists in the telemetry domain, or a target entity or relationship is not\
-            \ API-owned), or graph writes are paused for a graph migration — nothing\
+            \ exists in the telemetry domain, or a target entity or relationship is\
+            \ not API-owned), or graph writes are paused for a graph migration — nothing\
             \ written"
           content:
             application/json:
@@ -362,6 +390,18 @@ paths:
           description: "Validation failure (empty batch, bean validation, over-size\
             \ batch, non-writable domain, duplicate entity identity, or unresolved\
             \ relationship endpoint) — nothing written"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+            application/x-yml:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+            application/x-yaml:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+        "503":
+          description: Schema lookup unavailable; retry the request
           content:
             application/json:
               schema:
@@ -465,6 +505,14 @@ paths:
         required: true
         schema:
           type: string
+      - name: allowUndeclared
+        in: query
+        description: "Permit undeclared types, properties and scope keys. Declared\
+          \ constraints still apply."
+        required: false
+        schema:
+          type: boolean
+          default: true
       - $ref: "#/components/parameters/TenantId"
       requestBody:
         content:
@@ -543,6 +591,18 @@ paths:
         "422":
           description: Request body failed validation (including an invalid entity
             type)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+            application/x-yml:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+            application/x-yaml:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+        "503":
+          description: Schema lookup unavailable; retry the request
           content:
             application/json:
               schema:
@@ -849,6 +909,12 @@ components:
         subErrors:
           type: array
           items:
+            discriminator:
+              propertyName: '@type'
+              mapping:
+                ApiSubError: "#/components/schemas/ApiSubError"
+                ApiQuerySyntaxError: "#/components/schemas/ApiQuerySyntaxError"
+                ApiValidationError: "#/components/schemas/ApiValidationError"
             oneOf:
             - $ref: "#/components/schemas/ApiSubError"
             - $ref: "#/components/schemas/ApiQuerySyntaxError"
@@ -864,7 +930,7 @@ components:
           type: string
     ApiQuerySyntaxError:
       allOf:
-      - $ref: "#/components/schemas/ApiSubError"
+      - $ref: "#/components/schemas/ApiSubErrorFields"
       - type: object
         properties:
           line:
@@ -873,19 +939,35 @@ components:
           column:
             type: integer
             format: int32
+      - type: object
+        properties:
+          '@type':
+            $ref: "#/components/schemas/ApiQuerySyntaxErrorType"
+        required:
+        - '@type'
     ApiSubError:
-      type: object
-      properties:
-        message:
-          type: string
+      allOf:
+      - $ref: "#/components/schemas/ApiSubErrorFields"
+      - type: object
+        properties:
+          '@type':
+            $ref: "#/components/schemas/ApiSubErrorType"
+        required:
+        - '@type'
     ApiValidationError:
       allOf:
-      - $ref: "#/components/schemas/ApiSubError"
+      - $ref: "#/components/schemas/ApiSubErrorFields"
       - type: object
         properties:
           field:
             type: string
           rejectedValue: {}
+      - type: object
+        properties:
+          '@type':
+            $ref: "#/components/schemas/ApiValidationErrorType"
+        required:
+        - '@type'
     RelationshipWriteResponseDto:
       type: object
       properties:
@@ -1028,6 +1110,23 @@ components:
         offset:
           type: integer
           format: int32
+    ApiSubErrorFields:
+      type: object
+      properties:
+        message:
+          type: string
+    ApiSubErrorType:
+      type: string
+      enum:
+      - ApiSubError
+    ApiQuerySyntaxErrorType:
+      type: string
+      enum:
+      - ApiQuerySyntaxError
+    ApiValidationErrorType:
+      type: string
+      enum:
+      - ApiValidationError
     KgPropertyScalar:
       description: "A scalar property value. Integral numbers are stored as 64-bit\
         \ signed integers and floating-point numbers as IEEE-754 doubles; NaN, Infinity,\

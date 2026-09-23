@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: "Asserts, Inc"
-  version: "2.53.4"
+  version: "2.68.0"
   description: Asserts Public API
   termsOfService: https://www.asserts.ai/terms-of-service
   contact:
@@ -124,6 +124,12 @@ components:
         subErrors:
           type: array
           items:
+            discriminator:
+              propertyName: '@type'
+              mapping:
+                ApiSubError: "#/components/schemas/ApiSubError"
+                ApiQuerySyntaxError: "#/components/schemas/ApiQuerySyntaxError"
+                ApiValidationError: "#/components/schemas/ApiValidationError"
             oneOf:
             - $ref: "#/components/schemas/ApiSubError"
             - $ref: "#/components/schemas/ApiQuerySyntaxError"
@@ -139,7 +145,7 @@ components:
           type: string
     ApiQuerySyntaxError:
       allOf:
-      - $ref: "#/components/schemas/ApiSubError"
+      - $ref: "#/components/schemas/ApiSubErrorFields"
       - type: object
         properties:
           line:
@@ -148,19 +154,35 @@ components:
           column:
             type: integer
             format: int32
+      - type: object
+        properties:
+          '@type':
+            $ref: "#/components/schemas/ApiQuerySyntaxErrorType"
+        required:
+        - '@type'
     ApiSubError:
-      type: object
-      properties:
-        message:
-          type: string
+      allOf:
+      - $ref: "#/components/schemas/ApiSubErrorFields"
+      - type: object
+        properties:
+          '@type':
+            $ref: "#/components/schemas/ApiSubErrorType"
+        required:
+        - '@type'
     ApiValidationError:
       allOf:
-      - $ref: "#/components/schemas/ApiSubError"
+      - $ref: "#/components/schemas/ApiSubErrorFields"
       - type: object
         properties:
           field:
             type: string
           rejectedValue: {}
+      - type: object
+        properties:
+          '@type':
+            $ref: "#/components/schemas/ApiValidationErrorType"
+        required:
+        - '@type'
     SchemaBindingDto:
       type: object
       properties:
@@ -349,4 +371,21 @@ components:
       - domain
       - entityTypes
       - relationshipTypes
+    ApiSubErrorFields:
+      type: object
+      properties:
+        message:
+          type: string
+    ApiSubErrorType:
+      type: string
+      enum:
+      - ApiSubError
+    ApiQuerySyntaxErrorType:
+      type: string
+      enum:
+      - ApiQuerySyntaxError
+    ApiValidationErrorType:
+      type: string
+      enum:
+      - ApiValidationError
   parameters: {}

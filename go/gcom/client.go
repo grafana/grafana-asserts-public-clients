@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.09.09-102835
+API version: 2026.09.23-074358
 Contact: support@asserts.ai
 */
 
@@ -41,7 +41,7 @@ var (
 	queryDescape    = strings.NewReplacer("%5B", "[", "%5D", "]")
 )
 
-// APIClient manages communication with the Asserts, Inc API v2026.09.09-102835
+// APIClient manages communication with the Asserts, Inc API v2026.09.23-074358
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration
@@ -70,6 +70,8 @@ type APIClient struct {
 	CustomRcaPatternControllerAPI *CustomRcaPatternControllerAPIService
 
 	CustomerMetricControllerAPI *CustomerMetricControllerAPIService
+
+	CypherQueryControllerAPI *CypherQueryControllerAPIService
 
 	CypherSearchControllerAPI *CypherSearchControllerAPIService
 
@@ -185,6 +187,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.CustomLabelRetentionAPI = (*CustomLabelRetentionAPIService)(&c.common)
 	c.CustomRcaPatternControllerAPI = (*CustomRcaPatternControllerAPIService)(&c.common)
 	c.CustomerMetricControllerAPI = (*CustomerMetricControllerAPIService)(&c.common)
+	c.CypherQueryControllerAPI = (*CypherQueryControllerAPIService)(&c.common)
 	c.CypherSearchControllerAPI = (*CypherSearchControllerAPIService)(&c.common)
 	c.DataSourcesConfigControllerAPI = (*DataSourcesConfigControllerAPIService)(&c.common)
 	c.DrilldownConfigMigrationControllerAPI = (*DrilldownConfigMigrationControllerAPIService)(&c.common)

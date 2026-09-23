@@ -7,7 +7,7 @@ info:
   description: Asserts Public API
   termsOfService: https://www.asserts.ai/terms-of-service
   title: "Asserts, Inc"
-  version: 2.53.4
+  version: 2.68.0
 servers:
 - description: Generated server url
   url: http://localhost:8030
@@ -195,6 +195,16 @@ paths:
         schema:
           type: string
         style: simple
+      - description: "Permit undeclared types, properties and scope keys. Declared\
+          \ constraints still apply."
+        explode: true
+        in: query
+        name: allowUndeclared
+        required: false
+        schema:
+          default: true
+          type: boolean
+        style: form
       - $ref: '#/components/parameters/TenantId'
       requestBody:
         content:
@@ -282,6 +292,18 @@ paths:
               schema:
                 $ref: '#/components/schemas/ApiError'
           description: Request body failed validation
+        "503":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Schema lookup unavailable; retry the request
       summary: Create or update a custom relationship
       tags:
       - Knowledge Graph Write API
@@ -308,6 +330,16 @@ paths:
         schema:
           type: string
         style: simple
+      - description: "Permit undeclared types, properties and scope keys for the whole\
+          \ batch. Declared constraints still apply."
+        explode: true
+        in: query
+        name: allowUndeclared
+        required: false
+        schema:
+          default: true
+          type: boolean
+        style: form
       - $ref: '#/components/parameters/TenantId'
       requestBody:
         content:
@@ -387,6 +419,18 @@ paths:
           description: "Validation failure (empty batch, bean validation, over-size\
             \ batch, non-writable domain, duplicate entity identity, or unresolved\
             \ relationship endpoint) — nothing written"
+        "503":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Schema lookup unavailable; retry the request
       summary: Write a batch of custom entities and relationships
       tags:
       - Knowledge Graph Write API
@@ -609,6 +653,16 @@ paths:
         schema:
           type: string
         style: simple
+      - description: "Permit undeclared types, properties and scope keys. Declared\
+          \ constraints still apply."
+        explode: true
+        in: query
+        name: allowUndeclared
+        required: false
+        schema:
+          default: true
+          type: boolean
+        style: form
       - $ref: '#/components/parameters/TenantId'
       requestBody:
         content:
@@ -697,6 +751,18 @@ paths:
                 $ref: '#/components/schemas/ApiError'
           description: Request body failed validation (including an invalid entity
             type)
+        "503":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Schema lookup unavailable; retry the request
       summary: Create or update a custom entity
       tags:
       - Knowledge Graph Write API
@@ -919,8 +985,10 @@ components:
         status: NOT_FOUND
         timestamp: 0
         subErrors:
-        - message: message
-        - message: message
+        - '@type': ApiSubError
+          message: message
+        - '@type': ApiSubError
+          message: message
       properties:
         status:
           description: "HTTP status, e.g. NOT_FOUND"
@@ -950,7 +1018,7 @@ components:
           type: string
     ApiQuerySyntaxError:
       allOf:
-      - $ref: '#/components/schemas/ApiSubError'
+      - $ref: '#/components/schemas/ApiSubErrorFields'
       - properties:
           line:
             format: int32
@@ -958,19 +1026,34 @@ components:
           column:
             format: int32
             type: integer
+      - properties:
+          '@type':
+            $ref: '#/components/schemas/ApiQuerySyntaxErrorType'
+        required:
+        - '@type'
     ApiSubError:
+      allOf:
+      - $ref: '#/components/schemas/ApiSubErrorFields'
+      - properties:
+          '@type':
+            $ref: '#/components/schemas/ApiSubErrorType'
+        required:
+        - '@type'
       example:
+        '@type': ApiSubError
         message: message
-      properties:
-        message:
-          type: string
     ApiValidationError:
       allOf:
-      - $ref: '#/components/schemas/ApiSubError'
+      - $ref: '#/components/schemas/ApiSubErrorFields'
       - properties:
           field:
             type: string
           rejectedValue: {}
+      - properties:
+          '@type':
+            $ref: '#/components/schemas/ApiValidationErrorType'
+        required:
+        - '@type'
     RelationshipWriteResponseDto:
       example:
         domain: domain
@@ -1227,6 +1310,22 @@ components:
         offset:
           format: int32
           type: integer
+    ApiSubErrorFields:
+      properties:
+        message:
+          type: string
+    ApiSubErrorType:
+      enum:
+      - ApiSubError
+      type: string
+    ApiQuerySyntaxErrorType:
+      enum:
+      - ApiQuerySyntaxError
+      type: string
+    ApiValidationErrorType:
+      enum:
+      - ApiValidationError
+      type: string
     KgPropertyScalar:
       description: "A scalar property value. Integral numbers are stored as 64-bit\
         \ signed integers and floating-point numbers as IEEE-754 doubles; NaN, Infinity,\
@@ -1247,6 +1346,12 @@ components:
       - items:
           $ref: '#/components/schemas/KgPropertyScalar'
     ApiError_subErrors_inner:
+      discriminator:
+        mapping:
+          ApiSubError: '#/components/schemas/ApiSubError'
+          ApiQuerySyntaxError: '#/components/schemas/ApiQuerySyntaxError'
+          ApiValidationError: '#/components/schemas/ApiValidationError'
+        propertyName: '@type'
       oneOf:
       - $ref: '#/components/schemas/ApiSubError'
       - $ref: '#/components/schemas/ApiQuerySyntaxError'

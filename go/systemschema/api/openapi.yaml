@@ -7,7 +7,7 @@ info:
   description: Asserts Public API
   termsOfService: https://www.asserts.ai/terms-of-service
   title: "Asserts, Inc"
-  version: 2.53.4
+  version: 2.68.0
 servers:
 - description: Generated server url
   url: http://localhost:8030
@@ -131,8 +131,10 @@ components:
         status: NOT_FOUND
         timestamp: 1
         subErrors:
-        - message: message
-        - message: message
+        - '@type': ApiSubError
+          message: message
+        - '@type': ApiSubError
+          message: message
       properties:
         status:
           description: "HTTP status, e.g. NOT_FOUND"
@@ -162,7 +164,7 @@ components:
           type: string
     ApiQuerySyntaxError:
       allOf:
-      - $ref: '#/components/schemas/ApiSubError'
+      - $ref: '#/components/schemas/ApiSubErrorFields'
       - properties:
           line:
             format: int32
@@ -170,19 +172,34 @@ components:
           column:
             format: int32
             type: integer
+      - properties:
+          '@type':
+            $ref: '#/components/schemas/ApiQuerySyntaxErrorType'
+        required:
+        - '@type'
     ApiSubError:
+      allOf:
+      - $ref: '#/components/schemas/ApiSubErrorFields'
+      - properties:
+          '@type':
+            $ref: '#/components/schemas/ApiSubErrorType'
+        required:
+        - '@type'
       example:
+        '@type': ApiSubError
         message: message
-      properties:
-        message:
-          type: string
     ApiValidationError:
       allOf:
-      - $ref: '#/components/schemas/ApiSubError'
+      - $ref: '#/components/schemas/ApiSubErrorFields'
       - properties:
           field:
             type: string
           rejectedValue: {}
+      - properties:
+          '@type':
+            $ref: '#/components/schemas/ApiValidationErrorType'
+        required:
+        - '@type'
     SchemaBindingDto:
       example:
         name: name
@@ -652,7 +669,29 @@ components:
       - domain
       - entityTypes
       - relationshipTypes
+    ApiSubErrorFields:
+      properties:
+        message:
+          type: string
+    ApiSubErrorType:
+      enum:
+      - ApiSubError
+      type: string
+    ApiQuerySyntaxErrorType:
+      enum:
+      - ApiQuerySyntaxError
+      type: string
+    ApiValidationErrorType:
+      enum:
+      - ApiValidationError
+      type: string
     ApiError_subErrors_inner:
+      discriminator:
+        mapping:
+          ApiSubError: '#/components/schemas/ApiSubError'
+          ApiQuerySyntaxError: '#/components/schemas/ApiQuerySyntaxError'
+          ApiValidationError: '#/components/schemas/ApiValidationError'
+        propertyName: '@type'
       oneOf:
       - $ref: '#/components/schemas/ApiSubError'
       - $ref: '#/components/schemas/ApiQuerySyntaxError'

@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.09.09-102835
+API version: 2026.09.23-074358
 Contact: support@asserts.ai
 */
 
@@ -20,9 +20,10 @@ var _ MappedNullable = &ApiValidationError{}
 
 // ApiValidationError struct for ApiValidationError
 type ApiValidationError struct {
-	Message              *string     `json:"message,omitempty"`
-	Field                *string     `json:"field,omitempty"`
-	RejectedValue        interface{} `json:"rejectedValue,omitempty"`
+	Message              *string                `json:"message,omitempty"`
+	Field                *string                `json:"field,omitempty"`
+	RejectedValue        interface{}            `json:"rejectedValue,omitempty"`
+	Type                 ApiValidationErrorType `json:"@type"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -32,8 +33,9 @@ type _ApiValidationError ApiValidationError
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewApiValidationError() *ApiValidationError {
+func NewApiValidationError(type_ ApiValidationErrorType) *ApiValidationError {
 	this := ApiValidationError{}
+	this.Type = type_
 	return &this
 }
 
@@ -142,6 +144,30 @@ func (o *ApiValidationError) SetRejectedValue(v interface{}) {
 	o.RejectedValue = v
 }
 
+// GetType returns the Type field value
+func (o *ApiValidationError) GetType() ApiValidationErrorType {
+	if o == nil {
+		var ret ApiValidationErrorType
+		return ret
+	}
+
+	return o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value
+// and a boolean to check if the value has been set.
+func (o *ApiValidationError) GetTypeOk() (*ApiValidationErrorType, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Type, true
+}
+
+// SetType sets field value
+func (o *ApiValidationError) SetType(v ApiValidationErrorType) {
+	o.Type = v
+}
+
 func (o ApiValidationError) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -161,6 +187,7 @@ func (o ApiValidationError) ToMap() (map[string]interface{}, error) {
 	if o.RejectedValue != nil {
 		toSerialize["rejectedValue"] = o.RejectedValue
 	}
+	toSerialize["@type"] = o.Type
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -170,6 +197,14 @@ func (o ApiValidationError) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *ApiValidationError) UnmarshalJSON(data []byte) (err error) {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
 	varApiValidationError := _ApiValidationError{}
 
 	err = json.Unmarshal(data, &varApiValidationError)
@@ -186,6 +221,7 @@ func (o *ApiValidationError) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "message")
 		delete(additionalProperties, "field")
 		delete(additionalProperties, "rejectedValue")
+		delete(additionalProperties, "@type")
 		o.AdditionalProperties = additionalProperties
 	}
 
