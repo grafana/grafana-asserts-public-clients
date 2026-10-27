@@ -7,7 +7,7 @@ info:
   description: Asserts Public API
   termsOfService: https://www.asserts.ai/terms-of-service
   title: "Asserts, Inc"
-  version: 2.70.2
+  version: 2.105.3
 servers:
 - description: Generated server url
   url: http://localhost:8030
@@ -17,6 +17,8 @@ tags:
 - description: Write custom (API-origin) entities and relationships into the Knowledge
     Graph
   name: Knowledge Graph Write API
+- description: Discover the effective declared schemas for a tenant
+  name: Knowledge Graph Schema API
 paths:
   /apis/kg.grafana.com/v1alpha1/namespaces/{namespace}/relationships:
     delete:
@@ -141,8 +143,8 @@ paths:
             application/x-yaml:
               schema:
                 $ref: '#/components/schemas/ApiError'
-          description: "Namespace does not match the request tenant, or edge is not\
-            \ API-origin"
+          description: "Tenant write flag is disabled, namespace does not match the\
+            \ request tenant, or edge is not API-origin"
         "404":
           content:
             application/json:
@@ -254,7 +256,8 @@ paths:
             application/x-yaml:
               schema:
                 $ref: '#/components/schemas/ApiError'
-          description: Namespace does not match the request tenant
+          description: "Tenant write flag is disabled, namespace does not match the\
+            \ request tenant"
         "404":
           content:
             application/json:
@@ -389,7 +392,8 @@ paths:
             application/x-yaml:
               schema:
                 $ref: '#/components/schemas/ApiError'
-          description: Namespace does not match the request tenant
+          description: "Tenant write flag is disabled, namespace does not match the\
+            \ request tenant"
         "409":
           content:
             application/json:
@@ -514,8 +518,8 @@ paths:
             application/x-yaml:
               schema:
                 $ref: '#/components/schemas/ApiError'
-          description: "Namespace does not match the request tenant, or target is\
-            \ not API-origin"
+          description: "Tenant write flag is disabled, namespace does not match the\
+            \ request tenant, or target is not API-origin"
         "404":
           content:
             application/json:
@@ -724,7 +728,8 @@ paths:
             application/x-yaml:
               schema:
                 $ref: '#/components/schemas/ApiError'
-          description: Namespace does not match the request tenant
+          description: "Tenant write flag is disabled, namespace does not match the\
+            \ request tenant"
         "409":
           content:
             application/json:
@@ -766,6 +771,69 @@ paths:
       summary: Create or update a custom entity
       tags:
       - Knowledge Graph Write API
+  /apis/kg.grafana.com/v1alpha1/namespaces/{namespace}/schemas:
+    get:
+      description: "Returns installed system schemas for the authorized tenant namespace.\
+        \ By default, each domain includes only its highest-priority version and bundle\
+        \ details are omitted."
+      operationId: listSchemas
+      parameters:
+      - description: "Tenant namespace, formatted as stacks-<stackId>"
+        explode: false
+        in: path
+        name: namespace
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Include complete schema bundle contents
+        explode: true
+        in: query
+        name: expand
+        required: false
+        schema:
+          default: false
+          type: boolean
+        style: form
+      - description: Return only the highest-priority version of each domain
+        explode: true
+        in: query
+        name: latest_only
+        required: false
+        schema:
+          default: true
+          type: boolean
+        style: form
+      - $ref: '#/components/parameters/TenantId'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KgSchemaListDto'
+          description: Schema collection
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: "Missing tenant context, malformed namespace, or invalid query\
+            \ parameter"
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Namespace does not match the request tenant
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Schema store read failed
+      summary: List effective declared schemas
+      tags:
+      - Knowledge Graph Schema API
   /apis/kg.grafana.com/v1alpha1/namespaces/{namespace}/entities/connected:
     get:
       description: "Lists entities with at least one relationship to the anchor entity\
@@ -1235,6 +1303,860 @@ components:
             $ref: '#/components/schemas/KgPropertyValue'
           description: "Properties stored on the entity: scalar values (string, boolean,\
             \ int64, or double) or arrays of scalars."
+    KgSchemaDto:
+      example:
+        imports:
+        - domain: domain
+          version: version
+        - domain: domain
+          version: version
+        relationshipTypeBindings:
+        - name: name
+          from:
+            types:
+            - types
+            - types
+            cardinality: cardinality
+          to:
+            types:
+            - types
+            - types
+            cardinality: cardinality
+        - name: name
+          from:
+            types:
+            - types
+            - types
+            cardinality: cardinality
+          to:
+            types:
+            - types
+            - types
+            cardinality: cardinality
+        domain:
+          displayName: displayName
+          name: name
+          version: version
+        entityTypes:
+        - aliases:
+          - aliases
+          - aliases
+          retentionDays: 0
+          name: name
+          description: description
+          label:
+            key: label
+          properties:
+          - name: name
+            type: type
+            elementType: elementType
+            required: true
+            enum:
+            - enum
+            - enum
+          - name: name
+            type: type
+            elementType: elementType
+            required: true
+            enum:
+            - enum
+            - enum
+          scopeKeys:
+          - name: name
+            type: type
+            required: true
+            enum:
+            - enum
+            - enum
+          - name: name
+            type: type
+            required: true
+            enum:
+            - enum
+            - enum
+        - aliases:
+          - aliases
+          - aliases
+          retentionDays: 0
+          name: name
+          description: description
+          label:
+            key: label
+          properties:
+          - name: name
+            type: type
+            elementType: elementType
+            required: true
+            enum:
+            - enum
+            - enum
+          - name: name
+            type: type
+            elementType: elementType
+            required: true
+            enum:
+            - enum
+            - enum
+          scopeKeys:
+          - name: name
+            type: type
+            required: true
+            enum:
+            - enum
+            - enum
+          - name: name
+            type: type
+            required: true
+            enum:
+            - enum
+            - enum
+        relationshipTypes:
+        - inverse: inverse
+          characteristics:
+          - characteristics
+          - characteristics
+          aliases:
+          - aliases
+          - aliases
+          retentionDays: 6
+          name: name
+          description: description
+          from:
+            types:
+            - types
+            - types
+            cardinality: cardinality
+          label:
+            key: label
+          to:
+            types:
+            - types
+            - types
+            cardinality: cardinality
+          properties:
+          - name: name
+            type: type
+            elementType: elementType
+            required: true
+            enum:
+            - enum
+            - enum
+          - name: name
+            type: type
+            elementType: elementType
+            required: true
+            enum:
+            - enum
+            - enum
+        - inverse: inverse
+          characteristics:
+          - characteristics
+          - characteristics
+          aliases:
+          - aliases
+          - aliases
+          retentionDays: 6
+          name: name
+          description: description
+          from:
+            types:
+            - types
+            - types
+            cardinality: cardinality
+          label:
+            key: label
+          to:
+            types:
+            - types
+            - types
+            cardinality: cardinality
+          properties:
+          - name: name
+            type: type
+            elementType: elementType
+            required: true
+            enum:
+            - enum
+            - enum
+          - name: name
+            type: type
+            elementType: elementType
+            required: true
+            enum:
+            - enum
+            - enum
+      properties:
+        domain:
+          $ref: '#/components/schemas/SchemaDomainDto'
+        imports:
+          items:
+            $ref: '#/components/schemas/SchemaImportDto'
+          type: array
+        entityTypes:
+          items:
+            $ref: '#/components/schemas/SchemaEntityTypeDto'
+          type: array
+        relationshipTypes:
+          items:
+            $ref: '#/components/schemas/SchemaRelationshipTypeDto'
+          type: array
+        relationshipTypeBindings:
+          items:
+            $ref: '#/components/schemas/SchemaBindingDto'
+          type: array
+      required:
+      - domain
+    KgSchemaListDto:
+      example:
+        schemas:
+        - imports:
+          - domain: domain
+            version: version
+          - domain: domain
+            version: version
+          relationshipTypeBindings:
+          - name: name
+            from:
+              types:
+              - types
+              - types
+              cardinality: cardinality
+            to:
+              types:
+              - types
+              - types
+              cardinality: cardinality
+          - name: name
+            from:
+              types:
+              - types
+              - types
+              cardinality: cardinality
+            to:
+              types:
+              - types
+              - types
+              cardinality: cardinality
+          domain:
+            displayName: displayName
+            name: name
+            version: version
+          entityTypes:
+          - aliases:
+            - aliases
+            - aliases
+            retentionDays: 0
+            name: name
+            description: description
+            label:
+              key: label
+            properties:
+            - name: name
+              type: type
+              elementType: elementType
+              required: true
+              enum:
+              - enum
+              - enum
+            - name: name
+              type: type
+              elementType: elementType
+              required: true
+              enum:
+              - enum
+              - enum
+            scopeKeys:
+            - name: name
+              type: type
+              required: true
+              enum:
+              - enum
+              - enum
+            - name: name
+              type: type
+              required: true
+              enum:
+              - enum
+              - enum
+          - aliases:
+            - aliases
+            - aliases
+            retentionDays: 0
+            name: name
+            description: description
+            label:
+              key: label
+            properties:
+            - name: name
+              type: type
+              elementType: elementType
+              required: true
+              enum:
+              - enum
+              - enum
+            - name: name
+              type: type
+              elementType: elementType
+              required: true
+              enum:
+              - enum
+              - enum
+            scopeKeys:
+            - name: name
+              type: type
+              required: true
+              enum:
+              - enum
+              - enum
+            - name: name
+              type: type
+              required: true
+              enum:
+              - enum
+              - enum
+          relationshipTypes:
+          - inverse: inverse
+            characteristics:
+            - characteristics
+            - characteristics
+            aliases:
+            - aliases
+            - aliases
+            retentionDays: 6
+            name: name
+            description: description
+            from:
+              types:
+              - types
+              - types
+              cardinality: cardinality
+            label:
+              key: label
+            to:
+              types:
+              - types
+              - types
+              cardinality: cardinality
+            properties:
+            - name: name
+              type: type
+              elementType: elementType
+              required: true
+              enum:
+              - enum
+              - enum
+            - name: name
+              type: type
+              elementType: elementType
+              required: true
+              enum:
+              - enum
+              - enum
+          - inverse: inverse
+            characteristics:
+            - characteristics
+            - characteristics
+            aliases:
+            - aliases
+            - aliases
+            retentionDays: 6
+            name: name
+            description: description
+            from:
+              types:
+              - types
+              - types
+              cardinality: cardinality
+            label:
+              key: label
+            to:
+              types:
+              - types
+              - types
+              cardinality: cardinality
+            properties:
+            - name: name
+              type: type
+              elementType: elementType
+              required: true
+              enum:
+              - enum
+              - enum
+            - name: name
+              type: type
+              elementType: elementType
+              required: true
+              enum:
+              - enum
+              - enum
+        - imports:
+          - domain: domain
+            version: version
+          - domain: domain
+            version: version
+          relationshipTypeBindings:
+          - name: name
+            from:
+              types:
+              - types
+              - types
+              cardinality: cardinality
+            to:
+              types:
+              - types
+              - types
+              cardinality: cardinality
+          - name: name
+            from:
+              types:
+              - types
+              - types
+              cardinality: cardinality
+            to:
+              types:
+              - types
+              - types
+              cardinality: cardinality
+          domain:
+            displayName: displayName
+            name: name
+            version: version
+          entityTypes:
+          - aliases:
+            - aliases
+            - aliases
+            retentionDays: 0
+            name: name
+            description: description
+            label:
+              key: label
+            properties:
+            - name: name
+              type: type
+              elementType: elementType
+              required: true
+              enum:
+              - enum
+              - enum
+            - name: name
+              type: type
+              elementType: elementType
+              required: true
+              enum:
+              - enum
+              - enum
+            scopeKeys:
+            - name: name
+              type: type
+              required: true
+              enum:
+              - enum
+              - enum
+            - name: name
+              type: type
+              required: true
+              enum:
+              - enum
+              - enum
+          - aliases:
+            - aliases
+            - aliases
+            retentionDays: 0
+            name: name
+            description: description
+            label:
+              key: label
+            properties:
+            - name: name
+              type: type
+              elementType: elementType
+              required: true
+              enum:
+              - enum
+              - enum
+            - name: name
+              type: type
+              elementType: elementType
+              required: true
+              enum:
+              - enum
+              - enum
+            scopeKeys:
+            - name: name
+              type: type
+              required: true
+              enum:
+              - enum
+              - enum
+            - name: name
+              type: type
+              required: true
+              enum:
+              - enum
+              - enum
+          relationshipTypes:
+          - inverse: inverse
+            characteristics:
+            - characteristics
+            - characteristics
+            aliases:
+            - aliases
+            - aliases
+            retentionDays: 6
+            name: name
+            description: description
+            from:
+              types:
+              - types
+              - types
+              cardinality: cardinality
+            label:
+              key: label
+            to:
+              types:
+              - types
+              - types
+              cardinality: cardinality
+            properties:
+            - name: name
+              type: type
+              elementType: elementType
+              required: true
+              enum:
+              - enum
+              - enum
+            - name: name
+              type: type
+              elementType: elementType
+              required: true
+              enum:
+              - enum
+              - enum
+          - inverse: inverse
+            characteristics:
+            - characteristics
+            - characteristics
+            aliases:
+            - aliases
+            - aliases
+            retentionDays: 6
+            name: name
+            description: description
+            from:
+              types:
+              - types
+              - types
+              cardinality: cardinality
+            label:
+              key: label
+            to:
+              types:
+              - types
+              - types
+              cardinality: cardinality
+            properties:
+            - name: name
+              type: type
+              elementType: elementType
+              required: true
+              enum:
+              - enum
+              - enum
+            - name: name
+              type: type
+              elementType: elementType
+              required: true
+              enum:
+              - enum
+              - enum
+      properties:
+        schemas:
+          items:
+            $ref: '#/components/schemas/KgSchemaDto'
+          type: array
+      required:
+      - schemas
+    SchemaBindingDto:
+      example:
+        name: name
+        from:
+          types:
+          - types
+          - types
+          cardinality: cardinality
+        to:
+          types:
+          - types
+          - types
+          cardinality: cardinality
+      properties:
+        name:
+          minLength: 1
+          pattern: "^[a-z][a-z0-9]*\\.[A-Z][A-Z0-9_]*$"
+          type: string
+        from:
+          $ref: '#/components/schemas/SchemaEndpointDto'
+        to:
+          $ref: '#/components/schemas/SchemaEndpointDto'
+      required:
+      - from
+      - name
+      - to
+    SchemaDomainDto:
+      example:
+        displayName: displayName
+        name: name
+        version: version
+      properties:
+        name:
+          minLength: 1
+          pattern: "^[a-z][a-z0-9]*$"
+          type: string
+        displayName:
+          type: string
+        version:
+          minLength: 1
+          pattern: "^v(?<major>[0-9]+)(?:(?<pre>alpha|beta)(?<preNum>[0-9]+))?$"
+          type: string
+      required:
+      - name
+      - version
+    SchemaEndpointDto:
+      example:
+        types:
+        - types
+        - types
+        cardinality: cardinality
+      properties:
+        types:
+          items:
+            pattern: "^([a-z][a-z0-9]*\\.)?[A-Z][A-Za-z0-9]*$"
+            type: string
+          type: array
+        cardinality:
+          pattern: ^(one|many)$
+          type: string
+      required:
+      - types
+    SchemaEntityTypeDto:
+      example:
+        aliases:
+        - aliases
+        - aliases
+        retentionDays: 0
+        name: name
+        description: description
+        label:
+          key: label
+        properties:
+        - name: name
+          type: type
+          elementType: elementType
+          required: true
+          enum:
+          - enum
+          - enum
+        - name: name
+          type: type
+          elementType: elementType
+          required: true
+          enum:
+          - enum
+          - enum
+        scopeKeys:
+        - name: name
+          type: type
+          required: true
+          enum:
+          - enum
+          - enum
+        - name: name
+          type: type
+          required: true
+          enum:
+          - enum
+          - enum
+      properties:
+        name:
+          minLength: 1
+          pattern: "^[A-Z][A-Za-z0-9]*$"
+          type: string
+        description:
+          minLength: 1
+          type: string
+        retentionDays:
+          format: int32
+          type: integer
+        aliases:
+          items:
+            minLength: 1
+            type: string
+          type: array
+        label:
+          additionalProperties:
+            type: string
+        scopeKeys:
+          items:
+            $ref: '#/components/schemas/SchemaScopeKeyDto'
+          type: array
+        properties:
+          items:
+            $ref: '#/components/schemas/SchemaPropertyDto'
+          type: array
+      required:
+      - description
+      - name
+    SchemaImportDto:
+      example:
+        domain: domain
+        version: version
+      properties:
+        domain:
+          minLength: 1
+          pattern: "^[a-z][a-z0-9]*$"
+          type: string
+        version:
+          minLength: 1
+          pattern: "^v(?<major>[0-9]+)(?:(?<pre>alpha|beta)(?<preNum>[0-9]+))?$"
+          type: string
+      required:
+      - domain
+      - version
+    SchemaPropertyDto:
+      example:
+        name: name
+        type: type
+        elementType: elementType
+        required: true
+        enum:
+        - enum
+        - enum
+      properties:
+        name:
+          minLength: 1
+          pattern: "^[a-z][A-Za-z0-9_]*$"
+          type: string
+        type:
+          minLength: 1
+          pattern: ^(string|int|double|bool|date|time|datetime|list|enum)$
+          type: string
+        elementType:
+          pattern: ^(string|int|double|bool|date|time|datetime)$
+          type: string
+        required:
+          type: boolean
+        enum:
+          items:
+            type: string
+          type: array
+      required:
+      - name
+      - type
+    SchemaRelationshipTypeDto:
+      example:
+        inverse: inverse
+        characteristics:
+        - characteristics
+        - characteristics
+        aliases:
+        - aliases
+        - aliases
+        retentionDays: 6
+        name: name
+        description: description
+        from:
+          types:
+          - types
+          - types
+          cardinality: cardinality
+        label:
+          key: label
+        to:
+          types:
+          - types
+          - types
+          cardinality: cardinality
+        properties:
+        - name: name
+          type: type
+          elementType: elementType
+          required: true
+          enum:
+          - enum
+          - enum
+        - name: name
+          type: type
+          elementType: elementType
+          required: true
+          enum:
+          - enum
+          - enum
+      properties:
+        name:
+          minLength: 1
+          pattern: "^[A-Z][A-Z0-9_]*$"
+          type: string
+        description:
+          minLength: 1
+          type: string
+        retentionDays:
+          format: int32
+          type: integer
+        aliases:
+          items:
+            minLength: 1
+            type: string
+          type: array
+        label:
+          additionalProperties:
+            type: string
+        inverse:
+          pattern: "^[A-Z][A-Z0-9_]*$"
+          type: string
+        characteristics:
+          items:
+            pattern: ^(transitive|symmetric|functional|inverseFunctional)$
+            type: string
+          type: array
+        from:
+          $ref: '#/components/schemas/SchemaEndpointDto'
+        to:
+          $ref: '#/components/schemas/SchemaEndpointDto'
+        properties:
+          items:
+            $ref: '#/components/schemas/SchemaPropertyDto'
+          type: array
+      required:
+      - description
+      - from
+      - name
+      - to
+    SchemaScopeKeyDto:
+      example:
+        name: name
+        type: type
+        required: true
+        enum:
+        - enum
+        - enum
+      properties:
+        name:
+          minLength: 1
+          pattern: "^[a-z][A-Za-z0-9_]*$"
+          type: string
+        type:
+          minLength: 1
+          pattern: ^(string|int|double|bool|enum)$
+          type: string
+        required:
+          type: boolean
+        enum:
+          items:
+            type: string
+          type: array
+      required:
+      - name
+      - type
     EntityReadResponseDto:
       example:
         domain: domain

@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.09.28-142254
+API version: 2026.10.27-162222
 Contact: support@asserts.ai
 */
 
@@ -518,6 +518,125 @@ func (a *StackControllerAPIService) FetchDatasetExecute(r ApiFetchDatasetRequest
 	if r.xScopeOrgID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Scope-OrgID", r.xScopeOrgID, "")
 	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiForcePublicTsdbRequest struct {
+	ctx                context.Context
+	ApiService         *StackControllerAPIService
+	forcePublicTsdbDto *ForcePublicTsdbDto
+	xScopeOrgID        *string
+}
+
+func (r ApiForcePublicTsdbRequest) ForcePublicTsdbDto(forcePublicTsdbDto ForcePublicTsdbDto) ApiForcePublicTsdbRequest {
+	r.forcePublicTsdbDto = &forcePublicTsdbDto
+	return r
+}
+
+// Grafana Tenant/Stack ID
+func (r ApiForcePublicTsdbRequest) XScopeOrgID(xScopeOrgID string) ApiForcePublicTsdbRequest {
+	r.xScopeOrgID = &xScopeOrgID
+	return r
+}
+
+func (r ApiForcePublicTsdbRequest) Execute() (*StackStatusDto, *http.Response, error) {
+	return r.ApiService.ForcePublicTsdbExecute(r)
+}
+
+/*
+ForcePublicTsdb Method for ForcePublicTsdb
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiForcePublicTsdbRequest
+*/
+func (a *StackControllerAPIService) ForcePublicTsdb(ctx context.Context) ApiForcePublicTsdbRequest {
+	return ApiForcePublicTsdbRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return StackStatusDto
+func (a *StackControllerAPIService) ForcePublicTsdbExecute(r ApiForcePublicTsdbRequest) (*StackStatusDto, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *StackStatusDto
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "StackControllerAPIService.ForcePublicTsdb")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/asserts/api-server/v2/stack/force-public-tsdb"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.forcePublicTsdbDto == nil {
+		return localVarReturnValue, nil, reportError("forcePublicTsdbDto is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.xScopeOrgID != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Scope-OrgID", r.xScopeOrgID, "")
+	}
+	// body params
+	localVarPostBody = r.forcePublicTsdbDto
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

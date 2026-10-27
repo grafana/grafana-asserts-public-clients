@@ -7,7 +7,7 @@ info:
   description: Asserts Public API
   termsOfService: https://www.asserts.ai/terms-of-service
   title: "Asserts, Inc"
-  version: 2.70.2
+  version: 2.105.3
 servers:
 - description: Generated server url
   url: http://localhost:8030
