@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.09.28-142254
+API version: 2026.10.27-162222
 Contact: support@asserts.ai
 */
 
@@ -23,8 +23,8 @@ type DefaultHttpStatusCode struct {
 	Error                *bool `json:"error,omitempty"`
 	Is5xxServerError     *bool `json:"is5xxServerError,omitempty"`
 	Is3xxRedirection     *bool `json:"is3xxRedirection,omitempty"`
-	Is4xxClientError     *bool `json:"is4xxClientError,omitempty"`
 	Is2xxSuccessful      *bool `json:"is2xxSuccessful,omitempty"`
+	Is4xxClientError     *bool `json:"is4xxClientError,omitempty"`
 	Is1xxInformational   *bool `json:"is1xxInformational,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -144,38 +144,6 @@ func (o *DefaultHttpStatusCode) SetIs3xxRedirection(v bool) {
 	o.Is3xxRedirection = &v
 }
 
-// GetIs4xxClientError returns the Is4xxClientError field value if set, zero value otherwise.
-func (o *DefaultHttpStatusCode) GetIs4xxClientError() bool {
-	if o == nil || IsNil(o.Is4xxClientError) {
-		var ret bool
-		return ret
-	}
-	return *o.Is4xxClientError
-}
-
-// GetIs4xxClientErrorOk returns a tuple with the Is4xxClientError field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *DefaultHttpStatusCode) GetIs4xxClientErrorOk() (*bool, bool) {
-	if o == nil || IsNil(o.Is4xxClientError) {
-		return nil, false
-	}
-	return o.Is4xxClientError, true
-}
-
-// HasIs4xxClientError returns a boolean if a field has been set.
-func (o *DefaultHttpStatusCode) HasIs4xxClientError() bool {
-	if o != nil && !IsNil(o.Is4xxClientError) {
-		return true
-	}
-
-	return false
-}
-
-// SetIs4xxClientError gets a reference to the given bool and assigns it to the Is4xxClientError field.
-func (o *DefaultHttpStatusCode) SetIs4xxClientError(v bool) {
-	o.Is4xxClientError = &v
-}
-
 // GetIs2xxSuccessful returns the Is2xxSuccessful field value if set, zero value otherwise.
 func (o *DefaultHttpStatusCode) GetIs2xxSuccessful() bool {
 	if o == nil || IsNil(o.Is2xxSuccessful) {
@@ -206,6 +174,38 @@ func (o *DefaultHttpStatusCode) HasIs2xxSuccessful() bool {
 // SetIs2xxSuccessful gets a reference to the given bool and assigns it to the Is2xxSuccessful field.
 func (o *DefaultHttpStatusCode) SetIs2xxSuccessful(v bool) {
 	o.Is2xxSuccessful = &v
+}
+
+// GetIs4xxClientError returns the Is4xxClientError field value if set, zero value otherwise.
+func (o *DefaultHttpStatusCode) GetIs4xxClientError() bool {
+	if o == nil || IsNil(o.Is4xxClientError) {
+		var ret bool
+		return ret
+	}
+	return *o.Is4xxClientError
+}
+
+// GetIs4xxClientErrorOk returns a tuple with the Is4xxClientError field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DefaultHttpStatusCode) GetIs4xxClientErrorOk() (*bool, bool) {
+	if o == nil || IsNil(o.Is4xxClientError) {
+		return nil, false
+	}
+	return o.Is4xxClientError, true
+}
+
+// HasIs4xxClientError returns a boolean if a field has been set.
+func (o *DefaultHttpStatusCode) HasIs4xxClientError() bool {
+	if o != nil && !IsNil(o.Is4xxClientError) {
+		return true
+	}
+
+	return false
+}
+
+// SetIs4xxClientError gets a reference to the given bool and assigns it to the Is4xxClientError field.
+func (o *DefaultHttpStatusCode) SetIs4xxClientError(v bool) {
+	o.Is4xxClientError = &v
 }
 
 // GetIs1xxInformational returns the Is1xxInformational field value if set, zero value otherwise.
@@ -259,11 +259,11 @@ func (o DefaultHttpStatusCode) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Is3xxRedirection) {
 		toSerialize["is3xxRedirection"] = o.Is3xxRedirection
 	}
-	if !IsNil(o.Is4xxClientError) {
-		toSerialize["is4xxClientError"] = o.Is4xxClientError
-	}
 	if !IsNil(o.Is2xxSuccessful) {
 		toSerialize["is2xxSuccessful"] = o.Is2xxSuccessful
+	}
+	if !IsNil(o.Is4xxClientError) {
+		toSerialize["is4xxClientError"] = o.Is4xxClientError
 	}
 	if !IsNil(o.Is1xxInformational) {
 		toSerialize["is1xxInformational"] = o.Is1xxInformational
@@ -293,8 +293,8 @@ func (o *DefaultHttpStatusCode) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "error")
 		delete(additionalProperties, "is5xxServerError")
 		delete(additionalProperties, "is3xxRedirection")
-		delete(additionalProperties, "is4xxClientError")
 		delete(additionalProperties, "is2xxSuccessful")
+		delete(additionalProperties, "is4xxClientError")
 		delete(additionalProperties, "is1xxInformational")
 		o.AdditionalProperties = additionalProperties
 	}

@@ -7,7 +7,7 @@ info:
     name: Support
     url: "https://www.grafana.com"
     email: support@asserts.ai
-  version: 2.70.2
+  version: 2.105.3
 servers:
   - url: http://localhost:8030
     description: Generated server url
@@ -16,6 +16,8 @@ tags:
     description: Read Knowledge Graph entities by stable identity (type + name + scope)
   - name: Knowledge Graph Write API
     description: Write custom (API-origin) entities and relationships into the Knowledge Graph
+  - name: Knowledge Graph Schema API
+    description: Discover the effective declared schemas for a tenant
 paths:
   /apis/kg.grafana.com/v1alpha1/namespaces/{namespace}/relationships:
     post:
@@ -77,7 +79,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/ApiError"
         "403":
-          description: Namespace does not match the request tenant
+          description: "Tenant write flag is disabled, namespace does not match the request tenant"
           content:
             application/json:
               schema:
@@ -233,7 +235,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/ApiError"
         "403":
-          description: "Namespace does not match the request tenant, or edge is not API-origin"
+          description: "Tenant write flag is disabled, namespace does not match the request tenant, or edge is not API-origin"
           content:
             application/json:
               schema:
@@ -340,7 +342,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/ApiError"
         "403":
-          description: Namespace does not match the request tenant
+          description: "Tenant write flag is disabled, namespace does not match the request tenant"
           content:
             application/json:
               schema:
@@ -533,7 +535,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/ApiError"
         "403":
-          description: Namespace does not match the request tenant
+          description: "Tenant write flag is disabled, namespace does not match the request tenant"
           content:
             application/json:
               schema:
@@ -640,7 +642,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/ApiError"
         "403":
-          description: "Namespace does not match the request tenant, or target is not API-origin"
+          description: "Tenant write flag is disabled, namespace does not match the request tenant, or target is not API-origin"
           content:
             application/json:
               schema:
@@ -685,6 +687,60 @@ paths:
               schema:
                 $ref: "#/components/schemas/ApiError"
             application/x-yaml:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+  /apis/kg.grafana.com/v1alpha1/namespaces/{namespace}/schemas:
+    get:
+      tags:
+        - Knowledge Graph Schema API
+      summary: List effective declared schemas
+      description: "Returns installed system schemas for the authorized tenant namespace. By default, each domain includes only its highest-priority version and bundle details are omitted."
+      operationId: listSchemas
+      parameters:
+        - name: namespace
+          in: path
+          description: "Tenant namespace, formatted as stacks-<stackId>"
+          required: true
+          schema:
+            type: string
+        - name: expand
+          in: query
+          description: Include complete schema bundle contents
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: latest_only
+          in: query
+          description: Return only the highest-priority version of each domain
+          required: false
+          schema:
+            type: boolean
+            default: true
+        - $ref: "#/components/parameters/TenantId"
+      responses:
+        "200":
+          description: Schema collection
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/KgSchemaListDto"
+        "400":
+          description: "Missing tenant context, malformed namespace, or invalid query parameter"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+        "403":
+          description: Namespace does not match the request tenant
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+        "500":
+          description: Schema store read failed
+          content:
+            application/json:
               schema:
                 $ref: "#/components/schemas/ApiError"
   /apis/kg.grafana.com/v1alpha1/namespaces/{namespace}/entities/connected:
@@ -1008,6 +1064,215 @@ components:
           additionalProperties:
             $ref: "#/components/schemas/KgPropertyValue"
           description: "Properties stored on the entity: scalar values (string, boolean, int64, or double) or arrays of scalars."
+    KgSchemaDto:
+      type: object
+      properties:
+        domain:
+          $ref: "#/components/schemas/SchemaDomainDto"
+        imports:
+          type: array
+          items:
+            $ref: "#/components/schemas/SchemaImportDto"
+        entityTypes:
+          type: array
+          items:
+            $ref: "#/components/schemas/SchemaEntityTypeDto"
+        relationshipTypes:
+          type: array
+          items:
+            $ref: "#/components/schemas/SchemaRelationshipTypeDto"
+        relationshipTypeBindings:
+          type: array
+          items:
+            $ref: "#/components/schemas/SchemaBindingDto"
+      required:
+        - domain
+    KgSchemaListDto:
+      type: object
+      properties:
+        schemas:
+          type: array
+          items:
+            $ref: "#/components/schemas/KgSchemaDto"
+      required:
+        - schemas
+    SchemaBindingDto:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          pattern: "^[a-z][a-z0-9]*\\.[A-Z][A-Z0-9_]*$"
+        from:
+          $ref: "#/components/schemas/SchemaEndpointDto"
+        to:
+          $ref: "#/components/schemas/SchemaEndpointDto"
+      required:
+        - from
+        - name
+        - to
+    SchemaDomainDto:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          pattern: "^[a-z][a-z0-9]*$"
+        displayName:
+          type: string
+        version:
+          type: string
+          minLength: 1
+          pattern: "^v(?<major>[0-9]+)(?:(?<pre>alpha|beta)(?<preNum>[0-9]+))?$"
+      required:
+        - name
+        - version
+    SchemaEndpointDto:
+      type: object
+      properties:
+        types:
+          type: array
+          items:
+            type: string
+            pattern: "^([a-z][a-z0-9]*\\.)?[A-Z][A-Za-z0-9]*$"
+        cardinality:
+          type: string
+          pattern: ^(one|many)$
+      required:
+        - types
+    SchemaEntityTypeDto:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          pattern: "^[A-Z][A-Za-z0-9]*$"
+        description:
+          type: string
+          minLength: 1
+        retentionDays:
+          type: integer
+          format: int32
+        aliases:
+          type: array
+          items:
+            type: string
+            minLength: 1
+        label:
+          type: object
+          additionalProperties:
+            type: string
+        scopeKeys:
+          type: array
+          items:
+            $ref: "#/components/schemas/SchemaScopeKeyDto"
+        properties:
+          type: array
+          items:
+            $ref: "#/components/schemas/SchemaPropertyDto"
+      required:
+        - description
+        - name
+    SchemaImportDto:
+      type: object
+      properties:
+        domain:
+          type: string
+          minLength: 1
+          pattern: "^[a-z][a-z0-9]*$"
+        version:
+          type: string
+          minLength: 1
+          pattern: "^v(?<major>[0-9]+)(?:(?<pre>alpha|beta)(?<preNum>[0-9]+))?$"
+      required:
+        - domain
+        - version
+    SchemaPropertyDto:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          pattern: "^[a-z][A-Za-z0-9_]*$"
+        type:
+          type: string
+          minLength: 1
+          pattern: ^(string|int|double|bool|date|time|datetime|list|enum)$
+        elementType:
+          type: string
+          pattern: ^(string|int|double|bool|date|time|datetime)$
+        required:
+          type: boolean
+        enum:
+          type: array
+          items:
+            type: string
+      required:
+        - name
+        - type
+    SchemaRelationshipTypeDto:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          pattern: "^[A-Z][A-Z0-9_]*$"
+        description:
+          type: string
+          minLength: 1
+        retentionDays:
+          type: integer
+          format: int32
+        aliases:
+          type: array
+          items:
+            type: string
+            minLength: 1
+        label:
+          type: object
+          additionalProperties:
+            type: string
+        inverse:
+          type: string
+          pattern: "^[A-Z][A-Z0-9_]*$"
+        characteristics:
+          type: array
+          items:
+            type: string
+            pattern: ^(transitive|symmetric|functional|inverseFunctional)$
+        from:
+          $ref: "#/components/schemas/SchemaEndpointDto"
+        to:
+          $ref: "#/components/schemas/SchemaEndpointDto"
+        properties:
+          type: array
+          items:
+            $ref: "#/components/schemas/SchemaPropertyDto"
+      required:
+        - description
+        - from
+        - name
+        - to
+    SchemaScopeKeyDto:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          pattern: "^[a-z][A-Za-z0-9_]*$"
+        type:
+          type: string
+          minLength: 1
+          pattern: ^(string|int|double|bool|enum)$
+        required:
+          type: boolean
+        enum:
+          type: array
+          items:
+            type: string
+      required:
+        - name
+        - type
     EntityReadResponseDto:
       type: object
       properties:

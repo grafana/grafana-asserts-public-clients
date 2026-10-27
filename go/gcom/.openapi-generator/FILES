@@ -177,6 +177,7 @@ docs/EnvironmentDto.md
 docs/ExternalLoggingControllerAPI.md
 docs/ExternalLoggingRequestDto.md
 docs/ExternalLoggingResponseDto.md
+docs/ForcePublicTsdbDto.md
 docs/GraphAssertion.md
 docs/GraphAssertionSummary.md
 docs/GraphDisplayConfigControllerAPI.md
@@ -480,6 +481,7 @@ model_entity_types_dto.go
 model_environment_dto.go
 model_external_logging_request_dto.go
 model_external_logging_response_dto.go
+model_force_public_tsdb_dto.go
 model_graph_assertion.go
 model_graph_assertion_summary.go
 model_graph_display_config_dto.go

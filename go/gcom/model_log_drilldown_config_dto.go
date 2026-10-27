@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.09.28-142254
+API version: 2026.10.27-162222
 Contact: support@asserts.ai
 */
 
@@ -27,6 +27,7 @@ type LogDrilldownConfigDto struct {
 	DataSourceUid                   *string                 `json:"dataSourceUid,omitempty"`
 	ErrorLabel                      *string                 `json:"errorLabel,omitempty"`
 	EntityPropertyToLogLabelMapping map[string]string       `json:"entityPropertyToLogLabelMapping,omitempty"`
+	EntityPropertyToLogFieldMapping map[string]string       `json:"entityPropertyToLogFieldMapping,omitempty"`
 	FilterBySpanId                  *bool                   `json:"filterBySpanId,omitempty"`
 	FilterByTraceId                 *bool                   `json:"filterByTraceId,omitempty"`
 	ManagedBy                       *string                 `json:"managedBy,omitempty"`
@@ -276,6 +277,38 @@ func (o *LogDrilldownConfigDto) SetEntityPropertyToLogLabelMapping(v map[string]
 	o.EntityPropertyToLogLabelMapping = v
 }
 
+// GetEntityPropertyToLogFieldMapping returns the EntityPropertyToLogFieldMapping field value if set, zero value otherwise.
+func (o *LogDrilldownConfigDto) GetEntityPropertyToLogFieldMapping() map[string]string {
+	if o == nil || IsNil(o.EntityPropertyToLogFieldMapping) {
+		var ret map[string]string
+		return ret
+	}
+	return o.EntityPropertyToLogFieldMapping
+}
+
+// GetEntityPropertyToLogFieldMappingOk returns a tuple with the EntityPropertyToLogFieldMapping field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LogDrilldownConfigDto) GetEntityPropertyToLogFieldMappingOk() (map[string]string, bool) {
+	if o == nil || IsNil(o.EntityPropertyToLogFieldMapping) {
+		return map[string]string{}, false
+	}
+	return o.EntityPropertyToLogFieldMapping, true
+}
+
+// HasEntityPropertyToLogFieldMapping returns a boolean if a field has been set.
+func (o *LogDrilldownConfigDto) HasEntityPropertyToLogFieldMapping() bool {
+	if o != nil && !IsNil(o.EntityPropertyToLogFieldMapping) {
+		return true
+	}
+
+	return false
+}
+
+// SetEntityPropertyToLogFieldMapping gets a reference to the given map[string]string and assigns it to the EntityPropertyToLogFieldMapping field.
+func (o *LogDrilldownConfigDto) SetEntityPropertyToLogFieldMapping(v map[string]string) {
+	o.EntityPropertyToLogFieldMapping = v
+}
+
 // GetFilterBySpanId returns the FilterBySpanId field value if set, zero value otherwise.
 func (o *LogDrilldownConfigDto) GetFilterBySpanId() bool {
 	if o == nil || IsNil(o.FilterBySpanId) {
@@ -403,6 +436,9 @@ func (o LogDrilldownConfigDto) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.EntityPropertyToLogLabelMapping) {
 		toSerialize["entityPropertyToLogLabelMapping"] = o.EntityPropertyToLogLabelMapping
 	}
+	if !IsNil(o.EntityPropertyToLogFieldMapping) {
+		toSerialize["entityPropertyToLogFieldMapping"] = o.EntityPropertyToLogFieldMapping
+	}
 	if !IsNil(o.FilterBySpanId) {
 		toSerialize["filterBySpanId"] = o.FilterBySpanId
 	}
@@ -441,6 +477,7 @@ func (o *LogDrilldownConfigDto) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "dataSourceUid")
 		delete(additionalProperties, "errorLabel")
 		delete(additionalProperties, "entityPropertyToLogLabelMapping")
+		delete(additionalProperties, "entityPropertyToLogFieldMapping")
 		delete(additionalProperties, "filterBySpanId")
 		delete(additionalProperties, "filterByTraceId")
 		delete(additionalProperties, "managedBy")

@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.09.28-142254
+API version: 2026.10.27-162222
 Contact: support@asserts.ai
 */
 
@@ -1206,11 +1206,17 @@ type ApiPutPromRulesRequest struct {
 	ctx                context.Context
 	ApiService         *PromRulesConfigControllerAPIService
 	prometheusRulesDto *PrometheusRulesDto
+	skipPromQLEval     *bool
 	xScopeOrgID        *string
 }
 
 func (r ApiPutPromRulesRequest) PrometheusRulesDto(prometheusRulesDto PrometheusRulesDto) ApiPutPromRulesRequest {
 	r.prometheusRulesDto = &prometheusRulesDto
+	return r
+}
+
+func (r ApiPutPromRulesRequest) SkipPromQLEval(skipPromQLEval bool) ApiPutPromRulesRequest {
+	r.skipPromQLEval = &skipPromQLEval
 	return r
 }
 
@@ -1259,6 +1265,12 @@ func (a *PromRulesConfigControllerAPIService) PutPromRulesExecute(r ApiPutPromRu
 		return nil, reportError("prometheusRulesDto is required and must be specified")
 	}
 
+	if r.skipPromQLEval != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "skipPromQLEval", r.skipPromQLEval, "")
+	} else {
+		var defaultValue bool = false
+		r.skipPromQLEval = &defaultValue
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json", "application/x-yml", "application/x-yaml"}
 
@@ -1543,11 +1555,17 @@ type ApiValidatePromRulesRequest struct {
 	ctx                context.Context
 	ApiService         *PromRulesConfigControllerAPIService
 	prometheusRulesDto *PrometheusRulesDto
+	skipPromQLEval     *bool
 	xScopeOrgID        *string
 }
 
 func (r ApiValidatePromRulesRequest) PrometheusRulesDto(prometheusRulesDto PrometheusRulesDto) ApiValidatePromRulesRequest {
 	r.prometheusRulesDto = &prometheusRulesDto
+	return r
+}
+
+func (r ApiValidatePromRulesRequest) SkipPromQLEval(skipPromQLEval bool) ApiValidatePromRulesRequest {
+	r.skipPromQLEval = &skipPromQLEval
 	return r
 }
 
@@ -1564,7 +1582,7 @@ func (r ApiValidatePromRulesRequest) Execute() (*http.Response, error) {
 /*
 ValidatePromRules Validate Prometheus rules synchronously without persisting
 
-Runs the same synchronous validation as create/update against the rules in the request body but never persists them. Returns 200 if valid, 422 with field errors if invalid.
+Runs the same synchronous validation as create/update against the rules in the request body but never persists them. Returns 200 if valid, 422 with field errors if invalid. Set skipPromQLEval=true to skip executing each expression against the tenant's TSDB. The local PromQL parse and Asserts checks still run, so a rule that parses but is invalid is accepted and fails later at ruler evaluation.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiValidatePromRulesRequest
@@ -1598,6 +1616,12 @@ func (a *PromRulesConfigControllerAPIService) ValidatePromRulesExecute(r ApiVali
 		return nil, reportError("prometheusRulesDto is required and must be specified")
 	}
 
+	if r.skipPromQLEval != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "skipPromQLEval", r.skipPromQLEval, "")
+	} else {
+		var defaultValue bool = false
+		r.skipPromQLEval = &defaultValue
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json", "application/x-yml", "application/x-yaml"}
 

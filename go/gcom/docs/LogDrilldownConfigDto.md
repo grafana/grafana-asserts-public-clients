@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **DataSourceUid** | Pointer to **string** |  | [optional] 
 **ErrorLabel** | Pointer to **string** |  | [optional] 
 **EntityPropertyToLogLabelMapping** | Pointer to **map[string]string** |  | [optional] 
+**EntityPropertyToLogFieldMapping** | Pointer to **map[string]string** |  | [optional] 
 **FilterBySpanId** | Pointer to **bool** |  | [optional] 
 **FilterByTraceId** | Pointer to **bool** |  | [optional] 
 **ManagedBy** | Pointer to **string** |  | [optional] 
@@ -208,6 +209,31 @@ SetEntityPropertyToLogLabelMapping sets EntityPropertyToLogLabelMapping field to
 `func (o *LogDrilldownConfigDto) HasEntityPropertyToLogLabelMapping() bool`
 
 HasEntityPropertyToLogLabelMapping returns a boolean if a field has been set.
+
+### GetEntityPropertyToLogFieldMapping
+
+`func (o *LogDrilldownConfigDto) GetEntityPropertyToLogFieldMapping() map[string]string`
+
+GetEntityPropertyToLogFieldMapping returns the EntityPropertyToLogFieldMapping field if non-nil, zero value otherwise.
+
+### GetEntityPropertyToLogFieldMappingOk
+
+`func (o *LogDrilldownConfigDto) GetEntityPropertyToLogFieldMappingOk() (*map[string]string, bool)`
+
+GetEntityPropertyToLogFieldMappingOk returns a tuple with the EntityPropertyToLogFieldMapping field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEntityPropertyToLogFieldMapping
+
+`func (o *LogDrilldownConfigDto) SetEntityPropertyToLogFieldMapping(v map[string]string)`
+
+SetEntityPropertyToLogFieldMapping sets EntityPropertyToLogFieldMapping field to given value.
+
+### HasEntityPropertyToLogFieldMapping
+
+`func (o *LogDrilldownConfigDto) HasEntityPropertyToLogFieldMapping() bool`
+
+HasEntityPropertyToLogFieldMapping returns a boolean if a field has been set.
 
 ### GetFilterBySpanId
 

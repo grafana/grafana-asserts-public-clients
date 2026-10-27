@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.09.28-142254
+API version: 2026.10.27-162222
 Contact: support@asserts.ai
 */
 
@@ -39,6 +39,8 @@ type StackDetailDto struct {
 	DisabledTime               *time.Time        `json:"disabledTime,omitempty"`
 	Version                    *int32            `json:"version,omitempty"`
 	AllowLargeTenantOnboarding *bool             `json:"allowLargeTenantOnboarding,omitempty"`
+	ForcePublicTsdb            *bool             `json:"forcePublicTsdb,omitempty"`
+	ForcePublicTsdbReason      *string           `json:"forcePublicTsdbReason,omitempty"`
 	CurrentActiveSeries        *int32            `json:"currentActiveSeries,omitempty"`
 	StackDatasets              []StackDatasetDto `json:"stackDatasets,omitempty"`
 	AdditionalProperties       map[string]interface{}
@@ -639,6 +641,70 @@ func (o *StackDetailDto) SetAllowLargeTenantOnboarding(v bool) {
 	o.AllowLargeTenantOnboarding = &v
 }
 
+// GetForcePublicTsdb returns the ForcePublicTsdb field value if set, zero value otherwise.
+func (o *StackDetailDto) GetForcePublicTsdb() bool {
+	if o == nil || IsNil(o.ForcePublicTsdb) {
+		var ret bool
+		return ret
+	}
+	return *o.ForcePublicTsdb
+}
+
+// GetForcePublicTsdbOk returns a tuple with the ForcePublicTsdb field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *StackDetailDto) GetForcePublicTsdbOk() (*bool, bool) {
+	if o == nil || IsNil(o.ForcePublicTsdb) {
+		return nil, false
+	}
+	return o.ForcePublicTsdb, true
+}
+
+// HasForcePublicTsdb returns a boolean if a field has been set.
+func (o *StackDetailDto) HasForcePublicTsdb() bool {
+	if o != nil && !IsNil(o.ForcePublicTsdb) {
+		return true
+	}
+
+	return false
+}
+
+// SetForcePublicTsdb gets a reference to the given bool and assigns it to the ForcePublicTsdb field.
+func (o *StackDetailDto) SetForcePublicTsdb(v bool) {
+	o.ForcePublicTsdb = &v
+}
+
+// GetForcePublicTsdbReason returns the ForcePublicTsdbReason field value if set, zero value otherwise.
+func (o *StackDetailDto) GetForcePublicTsdbReason() string {
+	if o == nil || IsNil(o.ForcePublicTsdbReason) {
+		var ret string
+		return ret
+	}
+	return *o.ForcePublicTsdbReason
+}
+
+// GetForcePublicTsdbReasonOk returns a tuple with the ForcePublicTsdbReason field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *StackDetailDto) GetForcePublicTsdbReasonOk() (*string, bool) {
+	if o == nil || IsNil(o.ForcePublicTsdbReason) {
+		return nil, false
+	}
+	return o.ForcePublicTsdbReason, true
+}
+
+// HasForcePublicTsdbReason returns a boolean if a field has been set.
+func (o *StackDetailDto) HasForcePublicTsdbReason() bool {
+	if o != nil && !IsNil(o.ForcePublicTsdbReason) {
+		return true
+	}
+
+	return false
+}
+
+// SetForcePublicTsdbReason gets a reference to the given string and assigns it to the ForcePublicTsdbReason field.
+func (o *StackDetailDto) SetForcePublicTsdbReason(v string) {
+	o.ForcePublicTsdbReason = &v
+}
+
 // GetCurrentActiveSeries returns the CurrentActiveSeries field value if set, zero value otherwise.
 func (o *StackDetailDto) GetCurrentActiveSeries() int32 {
 	if o == nil || IsNil(o.CurrentActiveSeries) {
@@ -767,6 +833,12 @@ func (o StackDetailDto) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.AllowLargeTenantOnboarding) {
 		toSerialize["allowLargeTenantOnboarding"] = o.AllowLargeTenantOnboarding
 	}
+	if !IsNil(o.ForcePublicTsdb) {
+		toSerialize["forcePublicTsdb"] = o.ForcePublicTsdb
+	}
+	if !IsNil(o.ForcePublicTsdbReason) {
+		toSerialize["forcePublicTsdbReason"] = o.ForcePublicTsdbReason
+	}
 	if !IsNil(o.CurrentActiveSeries) {
 		toSerialize["currentActiveSeries"] = o.CurrentActiveSeries
 	}
@@ -813,6 +885,8 @@ func (o *StackDetailDto) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "disabledTime")
 		delete(additionalProperties, "version")
 		delete(additionalProperties, "allowLargeTenantOnboarding")
+		delete(additionalProperties, "forcePublicTsdb")
+		delete(additionalProperties, "forcePublicTsdbReason")
 		delete(additionalProperties, "currentActiveSeries")
 		delete(additionalProperties, "stackDatasets")
 		o.AdditionalProperties = additionalProperties
