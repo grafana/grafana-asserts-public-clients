@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.09.28-142254
+API version: 2026.11.02-151514
 Contact: support@asserts.ai
 */
 
@@ -41,7 +41,7 @@ var (
 	queryDescape    = strings.NewReplacer("%5B", "[", "%5D", "]")
 )
 
-// APIClient manages communication with the Asserts, Inc API v2026.09.28-142254
+// APIClient manages communication with the Asserts, Inc API v2026.11.02-151514
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration
@@ -80,6 +80,8 @@ type APIClient struct {
 	DrilldownConfigMigrationControllerAPI *DrilldownConfigMigrationControllerAPIService
 
 	EntityAssertionsControllerAPI *EntityAssertionsControllerAPIService
+
+	EntityAssertionsLookupControllerAPI *EntityAssertionsLookupControllerAPIService
 
 	EntityControllerAPI *EntityControllerAPIService
 
@@ -192,6 +194,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.DataSourcesConfigControllerAPI = (*DataSourcesConfigControllerAPIService)(&c.common)
 	c.DrilldownConfigMigrationControllerAPI = (*DrilldownConfigMigrationControllerAPIService)(&c.common)
 	c.EntityAssertionsControllerAPI = (*EntityAssertionsControllerAPIService)(&c.common)
+	c.EntityAssertionsLookupControllerAPI = (*EntityAssertionsLookupControllerAPIService)(&c.common)
 	c.EntityControllerAPI = (*EntityControllerAPIService)(&c.common)
 	c.EntityKpiControllerAPI = (*EntityKpiControllerAPIService)(&c.common)
 	c.EntityScopeControllerAPI = (*EntityScopeControllerAPIService)(&c.common)

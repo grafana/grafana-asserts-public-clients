@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**DisableV2Stack**](StackControllerAPI.md#DisableV2Stack) | **Post** /asserts/api-server/v2/stack/disable | 
 [**EnableV2Stack**](StackControllerAPI.md#EnableV2Stack) | **Post** /asserts/api-server/v2/stack/enable | 
 [**FetchDataset**](StackControllerAPI.md#FetchDataset) | **Get** /asserts/api-server/v2/stack/dataset/{dataset} | 
+[**ForcePublicTsdb**](StackControllerAPI.md#ForcePublicTsdb) | **Post** /asserts/api-server/v2/stack/force-public-tsdb | 
 [**GetDatasetVendors**](StackControllerAPI.md#GetDatasetVendors) | **Get** /asserts/api-server/v2/stack/dataset/{dataset}/vendors | 
 [**GetDatasets**](StackControllerAPI.md#GetDatasets) | **Get** /asserts/api-server/v2/stack/datasets | 
 [**GetStackDetail**](StackControllerAPI.md#GetStackDetail) | **Get** /asserts/api-server/v1/stack | 
@@ -341,6 +342,72 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ForcePublicTsdb
+
+> StackStatusDto ForcePublicTsdb(ctx).ForcePublicTsdbDto(forcePublicTsdbDto).XScopeOrgID(xScopeOrgID).Execute()
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/grafana/grafana-asserts-public-clients/go/gcom"
+)
+
+func main() {
+	forcePublicTsdbDto := *openapiclient.NewForcePublicTsdbDto() // ForcePublicTsdbDto | 
+	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.StackControllerAPI.ForcePublicTsdb(context.Background()).ForcePublicTsdbDto(forcePublicTsdbDto).XScopeOrgID(xScopeOrgID).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `StackControllerAPI.ForcePublicTsdb``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ForcePublicTsdb`: StackStatusDto
+	fmt.Fprintf(os.Stdout, "Response from `StackControllerAPI.ForcePublicTsdb`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiForcePublicTsdbRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **forcePublicTsdbDto** | [**ForcePublicTsdbDto**](ForcePublicTsdbDto.md) |  | 
+ **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
+
+### Return type
+
+[**StackStatusDto**](StackStatusDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

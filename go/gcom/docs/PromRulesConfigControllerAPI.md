@@ -764,7 +764,7 @@ No authorization required
 
 ## PutPromRules
 
-> PutPromRules(ctx).PrometheusRulesDto(prometheusRulesDto).XScopeOrgID(xScopeOrgID).Execute()
+> PutPromRules(ctx).PrometheusRulesDto(prometheusRulesDto).SkipPromQLEval(skipPromQLEval).XScopeOrgID(xScopeOrgID).Execute()
 
 
 
@@ -782,11 +782,12 @@ import (
 
 func main() {
 	prometheusRulesDto := *openapiclient.NewPrometheusRulesDto("Name_example", []openapiclient.PrometheusRuleGroupDto{*openapiclient.NewPrometheusRuleGroupDto("Name_example", []openapiclient.PrometheusRuleDto{*openapiclient.NewPrometheusRuleDto("probe_success == 0")})}) // PrometheusRulesDto | 
+	skipPromQLEval := true // bool |  (optional) (default to false)
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.PromRulesConfigControllerAPI.PutPromRules(context.Background()).PrometheusRulesDto(prometheusRulesDto).XScopeOrgID(xScopeOrgID).Execute()
+	r, err := apiClient.PromRulesConfigControllerAPI.PutPromRules(context.Background()).PrometheusRulesDto(prometheusRulesDto).SkipPromQLEval(skipPromQLEval).XScopeOrgID(xScopeOrgID).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PromRulesConfigControllerAPI.PutPromRules``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -806,6 +807,7 @@ Other parameters are passed through a pointer to a apiPutPromRulesRequest struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **prometheusRulesDto** | [**PrometheusRulesDto**](PrometheusRulesDto.md) |  | 
+ **skipPromQLEval** | **bool** |  | [default to false]
  **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
 
 ### Return type
@@ -964,7 +966,7 @@ No authorization required
 
 ## ValidatePromRules
 
-> ValidatePromRules(ctx).PrometheusRulesDto(prometheusRulesDto).XScopeOrgID(xScopeOrgID).Execute()
+> ValidatePromRules(ctx).PrometheusRulesDto(prometheusRulesDto).SkipPromQLEval(skipPromQLEval).XScopeOrgID(xScopeOrgID).Execute()
 
 Validate Prometheus rules synchronously without persisting
 
@@ -984,11 +986,12 @@ import (
 
 func main() {
 	prometheusRulesDto := *openapiclient.NewPrometheusRulesDto("Name_example", []openapiclient.PrometheusRuleGroupDto{*openapiclient.NewPrometheusRuleGroupDto("Name_example", []openapiclient.PrometheusRuleDto{*openapiclient.NewPrometheusRuleDto("probe_success == 0")})}) // PrometheusRulesDto | 
+	skipPromQLEval := true // bool |  (optional) (default to false)
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.PromRulesConfigControllerAPI.ValidatePromRules(context.Background()).PrometheusRulesDto(prometheusRulesDto).XScopeOrgID(xScopeOrgID).Execute()
+	r, err := apiClient.PromRulesConfigControllerAPI.ValidatePromRules(context.Background()).PrometheusRulesDto(prometheusRulesDto).SkipPromQLEval(skipPromQLEval).XScopeOrgID(xScopeOrgID).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PromRulesConfigControllerAPI.ValidatePromRules``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1008,6 +1011,7 @@ Other parameters are passed through a pointer to a apiValidatePromRulesRequest s
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **prometheusRulesDto** | [**PrometheusRulesDto**](PrometheusRulesDto.md) |  | 
+ **skipPromQLEval** | **bool** |  | [default to false]
  **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
 
 ### Return type
