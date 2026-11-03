@@ -7,7 +7,7 @@ info:
   description: Asserts Public API
   termsOfService: https://www.asserts.ai/terms-of-service
   title: "Asserts, Inc"
-  version: 2026.09.28-142254
+  version: 2026.11.02-151514
 servers:
 - description: Generated server url
   url: http://localhost:8030
@@ -487,6 +487,14 @@ paths:
     put:
       operationId: putPromRules
       parameters:
+      - explode: true
+        in: query
+        name: skipPromQLEval
+        required: false
+        schema:
+          default: false
+          type: boolean
+        style: form
       - $ref: '#/components/parameters/TenantId'
       requestBody:
         content:
@@ -788,6 +796,26 @@ paths:
           description: OK
       tags:
       - model-mapping-controller
+  /asserts/api-server/v2/stack/force-public-tsdb:
+    post:
+      operationId: forcePublicTsdb
+      parameters:
+      - $ref: '#/components/parameters/TenantId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ForcePublicTsdbDto'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StackStatusDto'
+          description: OK
+      tags:
+      - stack-controller
   /asserts/api-server/v2/stack/enable:
     post:
       operationId: enableV2Stack
@@ -2446,9 +2474,20 @@ paths:
     post:
       description: "Runs the same synchronous validation as create/update against\
         \ the rules in the request body but never persists them. Returns 200 if valid,\
-        \ 422 with field errors if invalid."
+        \ 422 with field errors if invalid. Set skipPromQLEval=true to skip executing\
+        \ each expression against the tenant's TSDB. The local PromQL parse and Asserts\
+        \ checks still run, so a rule that parses but is invalid is accepted and fails\
+        \ later at ruler evaluation."
       operationId: validatePromRules
       parameters:
+      - explode: true
+        in: query
+        name: skipPromQLEval
+        required: false
+        schema:
+          default: false
+          type: boolean
+        style: form
       - $ref: '#/components/parameters/TenantId'
       requestBody:
         content:
@@ -3348,6 +3387,26 @@ paths:
           description: OK
       tags:
       - entity-assertions-controller
+  /asserts/api-server/v1/assertions/entities:
+    post:
+      operationId: lookup
+      parameters:
+      - $ref: '#/components/parameters/TenantId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EntityAssertionsLookupRequestDto'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityAssertionsLookupResponseDto'
+          description: OK
+      tags:
+      - entity-assertions-lookup-controller
   /asserts/api-server/v1/assertion_scores:
     post:
       operationId: getAssertionScores
@@ -5620,7 +5679,6 @@ components:
       - 101 SWITCHING_PROTOCOLS
       - 102 PROCESSING
       - 103 EARLY_HINTS
-      - 103 CHECKPOINT
       - 200 OK
       - 201 CREATED
       - 202 ACCEPTED
@@ -5634,10 +5692,8 @@ components:
       - 300 MULTIPLE_CHOICES
       - 301 MOVED_PERMANENTLY
       - 302 FOUND
-      - 302 MOVED_TEMPORARILY
       - 303 SEE_OTHER
       - 304 NOT_MODIFIED
-      - 305 USE_PROXY
       - 307 TEMPORARY_REDIRECT
       - 308 PERMANENT_REDIRECT
       - 400 BAD_REQUEST
@@ -5653,17 +5709,15 @@ components:
       - 410 GONE
       - 411 LENGTH_REQUIRED
       - 412 PRECONDITION_FAILED
+      - 413 CONTENT_TOO_LARGE
       - 413 PAYLOAD_TOO_LARGE
-      - 413 REQUEST_ENTITY_TOO_LARGE
       - 414 URI_TOO_LONG
-      - 414 REQUEST_URI_TOO_LONG
       - 415 UNSUPPORTED_MEDIA_TYPE
       - 416 REQUESTED_RANGE_NOT_SATISFIABLE
       - 417 EXPECTATION_FAILED
       - 418 I_AM_A_TEAPOT
-      - 419 INSUFFICIENT_SPACE_ON_RESOURCE
-      - 420 METHOD_FAILURE
-      - 421 DESTINATION_LOCKED
+      - 421 MISDIRECTED_REQUEST
+      - 422 UNPROCESSABLE_CONTENT
       - 422 UNPROCESSABLE_ENTITY
       - 423 LOCKED
       - 424 FAILED_DEPENDENCY
@@ -5694,9 +5748,9 @@ components:
           type: boolean
         is3xxRedirection:
           type: boolean
-        is4xxClientError:
-          type: boolean
         is2xxSuccessful:
+          type: boolean
+        is4xxClientError:
           type: boolean
         is1xxInformational:
           type: boolean
@@ -6055,6 +6109,8 @@ components:
     LogDrilldownConfigDto:
       example:
         dataSourceUid: dataSourceUid
+        entityPropertyToLogFieldMapping:
+          key: entityPropertyToLogFieldMapping
         filterByTraceId: true
         managedBy: managedBy
         defaultConfig: true
@@ -6094,6 +6150,9 @@ components:
         entityPropertyToLogLabelMapping:
           additionalProperties:
             type: string
+        entityPropertyToLogFieldMapping:
+          additionalProperties:
+            type: string
         filterBySpanId:
           type: boolean
         filterByTraceId:
@@ -6104,6 +6163,8 @@ components:
       example:
         logDrilldownConfigs:
         - dataSourceUid: dataSourceUid
+          entityPropertyToLogFieldMapping:
+            key: entityPropertyToLogFieldMapping
           filterByTraceId: true
           managedBy: managedBy
           defaultConfig: true
@@ -6125,6 +6186,8 @@ components:
           errorLabel: errorLabel
           filterBySpanId: true
         - dataSourceUid: dataSourceUid
+          entityPropertyToLogFieldMapping:
+            key: entityPropertyToLogFieldMapping
           filterByTraceId: true
           managedBy: managedBy
           defaultConfig: true
@@ -7016,51 +7079,15 @@ components:
           type: array
       required:
       - name
-    DatasetsSanityChecksDto:
+    ForcePublicTsdbDto:
       example:
-        sanityChecks:
-          key:
-            stepResults:
-            - stepResults:
-              - troubleshoot: troubleshoot
-                warnings:
-                - warnings
-                - warnings
-                name: name
-                blockers:
-                - blockers
-                - blockers
-              - troubleshoot: troubleshoot
-                warnings:
-                - warnings
-                - warnings
-                name: name
-                blockers:
-                - blockers
-                - blockers
-              checkName: checkName
-            - stepResults:
-              - troubleshoot: troubleshoot
-                warnings:
-                - warnings
-                - warnings
-                name: name
-                blockers:
-                - blockers
-                - blockers
-              - troubleshoot: troubleshoot
-                warnings:
-                - warnings
-                - warnings
-                name: name
-                blockers:
-                - blockers
-                - blockers
-              checkName: checkName
+        reason: reason
+        enabled: true
       properties:
-        sanityChecks:
-          additionalProperties:
-            $ref: '#/components/schemas/DatasetSanityChecksDto'
+        enabled:
+          type: boolean
+        reason:
+          type: string
     MetricSanityCheckResult:
       example:
         stepResults:
@@ -7192,6 +7219,51 @@ components:
           type: boolean
         blockedReason:
           type: string
+    DatasetsSanityChecksDto:
+      example:
+        sanityChecks:
+          key:
+            stepResults:
+            - stepResults:
+              - troubleshoot: troubleshoot
+                warnings:
+                - warnings
+                - warnings
+                name: name
+                blockers:
+                - blockers
+                - blockers
+              - troubleshoot: troubleshoot
+                warnings:
+                - warnings
+                - warnings
+                name: name
+                blockers:
+                - blockers
+                - blockers
+              checkName: checkName
+            - stepResults:
+              - troubleshoot: troubleshoot
+                warnings:
+                - warnings
+                - warnings
+                name: name
+                blockers:
+                - blockers
+                - blockers
+              - troubleshoot: troubleshoot
+                warnings:
+                - warnings
+                - warnings
+                name: name
+                blockers:
+                - blockers
+                - blockers
+              checkName: checkName
+      properties:
+        sanityChecks:
+          additionalProperties:
+            $ref: '#/components/schemas/DatasetSanityChecksDto'
     EntityKeyDto:
       example:
         scope:
@@ -11652,6 +11724,176 @@ components:
           key: labels
         lowerBoundQuery: lowerBoundQuery
         upperBoundQuery: upperBoundQuery
+    EntityAssertionsLookupKeyDto:
+      example:
+        scope:
+          key: ""
+        domain: domain
+        name: name
+        type: type
+      properties:
+        type:
+          type: string
+        name:
+          type: string
+        scope:
+          additionalProperties: {}
+        domain:
+          type: string
+    EntityAssertionsLookupRequestDto:
+      example:
+        entityKeys:
+        - scope:
+            key: ""
+          domain: domain
+          name: name
+          type: type
+        - scope:
+            key: ""
+          domain: domain
+          name: name
+          type: type
+        includeConnected: true
+        startTime: 0
+        endTime: 6
+      properties:
+        startTime:
+          format: int64
+          type: integer
+        endTime:
+          format: int64
+          type: integer
+        entityKeys:
+          items:
+            $ref: '#/components/schemas/EntityAssertionsLookupKeyDto'
+          type: array
+        includeConnected:
+          type: boolean
+    EntityAssertionsLookupEntityDto:
+      example:
+        domain: domain
+        scope:
+          key: ""
+        name: name
+        assertion:
+          severity: severity
+          amend: true
+          assertions:
+          - severity: severity
+            entityType: entityType
+            assertionName: assertionName
+            category: category
+          - severity: severity
+            entityType: entityType
+            assertionName: assertionName
+            category: category
+        type: type
+        assertionsSupported: true
+        connectedAssertion:
+          severity: severity
+          amend: true
+          assertions:
+          - severity: severity
+            entityType: entityType
+            assertionName: assertionName
+            category: category
+          - severity: severity
+            entityType: entityType
+            assertionName: assertionName
+            category: category
+        invalidReason: invalidReason
+      properties:
+        domain:
+          type: string
+        type:
+          type: string
+        name:
+          type: string
+        scope:
+          additionalProperties: {}
+        assertionsSupported:
+          type: boolean
+        assertion:
+          $ref: '#/components/schemas/GraphAssertionSummary'
+        connectedAssertion:
+          $ref: '#/components/schemas/GraphAssertionSummary'
+        invalidReason:
+          type: string
+    EntityAssertionsLookupResponseDto:
+      example:
+        entities:
+        - domain: domain
+          scope:
+            key: ""
+          name: name
+          assertion:
+            severity: severity
+            amend: true
+            assertions:
+            - severity: severity
+              entityType: entityType
+              assertionName: assertionName
+              category: category
+            - severity: severity
+              entityType: entityType
+              assertionName: assertionName
+              category: category
+          type: type
+          assertionsSupported: true
+          connectedAssertion:
+            severity: severity
+            amend: true
+            assertions:
+            - severity: severity
+              entityType: entityType
+              assertionName: assertionName
+              category: category
+            - severity: severity
+              entityType: entityType
+              assertionName: assertionName
+              category: category
+          invalidReason: invalidReason
+        - domain: domain
+          scope:
+            key: ""
+          name: name
+          assertion:
+            severity: severity
+            amend: true
+            assertions:
+            - severity: severity
+              entityType: entityType
+              assertionName: assertionName
+              category: category
+            - severity: severity
+              entityType: entityType
+              assertionName: assertionName
+              category: category
+          type: type
+          assertionsSupported: true
+          connectedAssertion:
+            severity: severity
+            amend: true
+            assertions:
+            - severity: severity
+              entityType: entityType
+              assertionName: assertionName
+              category: category
+            - severity: severity
+              entityType: entityType
+              assertionName: assertionName
+              category: category
+          invalidReason: invalidReason
+        timeCriteria:
+          start: 1
+          end: 5
+      properties:
+        timeCriteria:
+          $ref: '#/components/schemas/TimeWindowDto'
+        entities:
+          items:
+            $ref: '#/components/schemas/EntityAssertionsLookupEntityDto'
+          type: array
     AssertionScoreRequestDto:
       example:
         hideAssertionsOlderThanNHours: 1
@@ -13444,11 +13686,13 @@ components:
     StackDetailDto:
       example:
         orgSlug: orgSlug
+        forcePublicTsdb: true
         lokiToken: lokiToken
         alertManagerConfigured: true
         currentActiveSeries: 5
         stackId: 0
         useGrafanaManagedAlerts: true
+        forcePublicTsdbReason: forcePublicTsdbReason
         version: 1
         stackDatasets:
         - disabledVendors:
@@ -13594,6 +13838,10 @@ components:
           type: integer
         allowLargeTenantOnboarding:
           type: boolean
+        forcePublicTsdb:
+          type: boolean
+        forcePublicTsdbReason:
+          type: string
         currentActiveSeries:
           format: int32
           type: integer

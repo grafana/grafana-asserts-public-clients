@@ -19,6 +19,7 @@ api_cypher_search_controller.go
 api_data_sources_config_controller.go
 api_drilldown_config_migration_controller.go
 api_entity_assertions_controller.go
+api_entity_assertions_lookup_controller.go
 api_entity_controller.go
 api_entity_kpi_controller.go
 api_entity_scope_controller.go
@@ -151,6 +152,11 @@ docs/EntityAssertionSummaryDto.md
 docs/EntityAssertionSummaryTimeLineDto.md
 docs/EntityAssertionsControllerAPI.md
 docs/EntityAssertionsGraphDto.md
+docs/EntityAssertionsLookupControllerAPI.md
+docs/EntityAssertionsLookupEntityDto.md
+docs/EntityAssertionsLookupKeyDto.md
+docs/EntityAssertionsLookupRequestDto.md
+docs/EntityAssertionsLookupResponseDto.md
 docs/EntityControllerAPI.md
 docs/EntityCountDto.md
 docs/EntityCountRequestDto.md
@@ -177,6 +183,7 @@ docs/EnvironmentDto.md
 docs/ExternalLoggingControllerAPI.md
 docs/ExternalLoggingRequestDto.md
 docs/ExternalLoggingResponseDto.md
+docs/ForcePublicTsdbDto.md
 docs/GraphAssertion.md
 docs/GraphAssertionSummary.md
 docs/GraphDisplayConfigControllerAPI.md
@@ -459,6 +466,10 @@ model_entity_assertion_summaries_dto.go
 model_entity_assertion_summary_dto.go
 model_entity_assertion_summary_time_line_dto.go
 model_entity_assertions_graph_dto.go
+model_entity_assertions_lookup_entity_dto.go
+model_entity_assertions_lookup_key_dto.go
+model_entity_assertions_lookup_request_dto.go
+model_entity_assertions_lookup_response_dto.go
 model_entity_count_dto.go
 model_entity_count_request_dto.go
 model_entity_display_config_dto.go
@@ -480,6 +491,7 @@ model_entity_types_dto.go
 model_environment_dto.go
 model_external_logging_request_dto.go
 model_external_logging_response_dto.go
+model_force_public_tsdb_dto.go
 model_graph_assertion.go
 model_graph_assertion_summary.go
 model_graph_display_config_dto.go
@@ -667,6 +679,7 @@ test/api_cypher_search_controller_test.go
 test/api_data_sources_config_controller_test.go
 test/api_drilldown_config_migration_controller_test.go
 test/api_entity_assertions_controller_test.go
+test/api_entity_assertions_lookup_controller_test.go
 test/api_entity_controller_test.go
 test/api_entity_kpi_controller_test.go
 test/api_entity_scope_controller_test.go
