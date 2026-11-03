@@ -7,7 +7,7 @@ info:
   description: Asserts Public API
   termsOfService: https://www.asserts.ai/terms-of-service
   title: "Asserts, Inc"
-  version: 2.110.1
+  version: 2.120.1
 servers:
 - description: Generated server url
   url: http://localhost:8030
@@ -204,7 +204,7 @@ paths:
         name: allowUndeclared
         required: false
         schema:
-          default: true
+          default: false
           type: boolean
         style: form
       - $ref: '#/components/parameters/TenantId'
@@ -340,7 +340,7 @@ paths:
         name: allowUndeclared
         required: false
         schema:
-          default: true
+          default: false
           type: boolean
         style: form
       - $ref: '#/components/parameters/TenantId'
@@ -664,7 +664,7 @@ paths:
         name: allowUndeclared
         required: false
         schema:
-          default: true
+          default: false
           type: boolean
         style: form
       - $ref: '#/components/parameters/TenantId'
