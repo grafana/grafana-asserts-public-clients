@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2.110.1
+API version: 2.121.6
 Contact: support@asserts.ai
 */
 
@@ -571,7 +571,7 @@ func (a *KnowledgeGraphWriteAPIAPIService) UpsertEntityExecute(r ApiUpsertEntity
 	if r.allowUndeclared != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "allowUndeclared", r.allowUndeclared, "")
 	} else {
-		var defaultValue bool = true
+		var defaultValue bool = false
 		r.allowUndeclared = &defaultValue
 	}
 	// to determine the Content-Type header
@@ -763,7 +763,7 @@ func (a *KnowledgeGraphWriteAPIAPIService) UpsertRelationshipExecute(r ApiUpsert
 	if r.allowUndeclared != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "allowUndeclared", r.allowUndeclared, "")
 	} else {
-		var defaultValue bool = true
+		var defaultValue bool = false
 		r.allowUndeclared = &defaultValue
 	}
 	// to determine the Content-Type header
@@ -966,7 +966,7 @@ func (a *KnowledgeGraphWriteAPIAPIService) WriteGraphExecute(r ApiWriteGraphRequ
 	if r.allowUndeclared != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "allowUndeclared", r.allowUndeclared, "")
 	} else {
-		var defaultValue bool = true
+		var defaultValue bool = false
 		r.allowUndeclared = &defaultValue
 	}
 	// to determine the Content-Type header

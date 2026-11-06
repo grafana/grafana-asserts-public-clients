@@ -201,7 +201,7 @@ import (
 func main() {
 	namespace := "namespace_example" // string | Tenant namespace, formatted as stacks-<stackId>; must match the request tenant
 	entityWriteRequestDto := *openapiclient.NewEntityWriteRequestDto("Domain_example", "Type_example", "Name_example", int64(-1)) // EntityWriteRequestDto | 
-	allowUndeclared := true // bool | Permit undeclared types, properties and scope keys. Declared constraints still apply. (optional) (default to true)
+	allowUndeclared := true // bool | Permit undeclared types, properties and scope keys. Declared constraints still apply. (optional) (default to false)
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -233,7 +233,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **entityWriteRequestDto** | [**EntityWriteRequestDto**](EntityWriteRequestDto.md) |  | 
- **allowUndeclared** | **bool** | Permit undeclared types, properties and scope keys. Declared constraints still apply. | [default to true]
+ **allowUndeclared** | **bool** | Permit undeclared types, properties and scope keys. Declared constraints still apply. | [default to false]
  **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
 
 ### Return type
@@ -277,7 +277,7 @@ import (
 func main() {
 	namespace := "namespace_example" // string | Tenant namespace, formatted as stacks-<stackId>
 	relationshipWriteRequestDto := *openapiclient.NewRelationshipWriteRequestDto("Domain_example", "Type_example", *openapiclient.NewEntityRefDto("Domain_example", "Type_example", "Name_example"), *openapiclient.NewEntityRefDto("Domain_example", "Type_example", "Name_example"), int64(-1)) // RelationshipWriteRequestDto | 
-	allowUndeclared := true // bool | Permit undeclared types, properties and scope keys. Declared constraints still apply. (optional) (default to true)
+	allowUndeclared := true // bool | Permit undeclared types, properties and scope keys. Declared constraints still apply. (optional) (default to false)
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -309,7 +309,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **relationshipWriteRequestDto** | [**RelationshipWriteRequestDto**](RelationshipWriteRequestDto.md) |  | 
- **allowUndeclared** | **bool** | Permit undeclared types, properties and scope keys. Declared constraints still apply. | [default to true]
+ **allowUndeclared** | **bool** | Permit undeclared types, properties and scope keys. Declared constraints still apply. | [default to false]
  **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
 
 ### Return type
@@ -353,7 +353,7 @@ import (
 func main() {
 	namespace := "namespace_example" // string | Tenant namespace, formatted as stacks-<stackId>
 	graphWriteRequestDto := *openapiclient.NewGraphWriteRequestDto() // GraphWriteRequestDto | 
-	allowUndeclared := true // bool | Permit undeclared types, properties and scope keys for the whole batch. Declared constraints still apply. (optional) (default to true)
+	allowUndeclared := true // bool | Permit undeclared types, properties and scope keys for the whole batch. Declared constraints still apply. (optional) (default to false)
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -385,7 +385,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **graphWriteRequestDto** | [**GraphWriteRequestDto**](GraphWriteRequestDto.md) |  | 
- **allowUndeclared** | **bool** | Permit undeclared types, properties and scope keys for the whole batch. Declared constraints still apply. | [default to true]
+ **allowUndeclared** | **bool** | Permit undeclared types, properties and scope keys for the whole batch. Declared constraints still apply. | [default to false]
  **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
 
 ### Return type
