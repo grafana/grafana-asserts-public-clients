@@ -7,7 +7,7 @@ info:
     name: Support
     url: "https://www.grafana.com"
     email: support@asserts.ai
-  version: 2.110.1
+  version: 2.133.1
 servers:
   - url: http://localhost:8030
     description: Generated server url
@@ -39,7 +39,7 @@ paths:
           required: false
           schema:
             type: boolean
-            default: true
+            default: false
         - $ref: "#/components/parameters/TenantId"
       requestBody:
         content:
@@ -164,7 +164,7 @@ paths:
           schema:
             type: string
             minLength: 1
-            pattern: "^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+            pattern: "^(?:tenant/[a-z][a-z0-9]*|[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)$"
         - name: from.type
           in: query
           required: true
@@ -184,7 +184,7 @@ paths:
           schema:
             type: string
             minLength: 1
-            pattern: "^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+            pattern: "^(?:tenant/[a-z][a-z0-9]*|[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)$"
         - name: to.type
           in: query
           required: true
@@ -198,6 +198,14 @@ paths:
           schema:
             type: string
             minLength: 1
+        - name: domain
+          in: query
+          description: Optional request domain. Ignored until owner-aware relationship matching is enabled.
+          required: false
+          schema:
+            type: string
+            description: Optional request domain. Ignored until owner-aware relationship matching is enabled.
+            pattern: "^(?:tenant/[a-z][a-z0-9]*|(?!kg$)(?!metrics$)[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)$"
         - name: from.scope
           in: query
           description: "Optional scope key/value pairs identifying the 'from' entity (from.scope[key]=value)."
@@ -302,7 +310,7 @@ paths:
           required: false
           schema:
             type: boolean
-            default: true
+            default: false
         - $ref: "#/components/parameters/TenantId"
       requestBody:
         content:
@@ -421,7 +429,7 @@ paths:
           required: false
           schema:
             type: string
-            pattern: "^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+            pattern: "^(?:tenant/[a-z][a-z0-9]*|[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)$"
         - name: scope
           in: query
           description: "Optional scope key/value pairs identifying the entity (scope[key]=value)."
@@ -483,7 +491,7 @@ paths:
           required: false
           schema:
             type: boolean
-            default: true
+            default: false
         - $ref: "#/components/parameters/TenantId"
       requestBody:
         content:
@@ -601,7 +609,7 @@ paths:
           schema:
             type: string
             minLength: 1
-            pattern: "^(?!kg$)(?!metrics$)[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+            pattern: "^(?:tenant/[a-z][a-z0-9]*|(?!kg$)(?!metrics$)[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)$"
         - name: type
           in: query
           required: true
@@ -694,7 +702,7 @@ paths:
       tags:
         - Knowledge Graph Schema API
       summary: List effective declared schemas
-      description: "Returns installed system schemas for the authorized tenant namespace. By default, each domain includes only its highest-priority version and bundle details are omitted."
+      description: "Returns the installed shared system schemas in schemas, and the authorized tenant's own schemas, under their canonical tenant/<name> domains, in tenantSchemas. By default, each domain includes only its highest-priority version and bundle details are omitted."
       operationId: listSchemas
       parameters:
         - name: namespace
@@ -775,7 +783,7 @@ paths:
           required: false
           schema:
             type: string
-            pattern: "^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+            pattern: "^(?:tenant/[a-z][a-z0-9]*|[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)$"
         - name: connected_type
           in: query
           description: Restrict results to connected entities of this type
@@ -850,7 +858,7 @@ components:
         domain:
           type: string
           minLength: 1
-          pattern: "^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+          pattern: "^(?:tenant/[a-z][a-z0-9]*|[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)$"
         type:
           type: string
           minLength: 1
@@ -871,8 +879,9 @@ components:
       properties:
         domain:
           type: string
+          description: "Request domain used to resolve the relationship type owner. The stored _domain is that owner, with the request domain used for undeclared types."
           minLength: 1
-          pattern: "^(?!kg$)(?!metrics$)[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+          pattern: "^(?:tenant/[a-z][a-z0-9]*|(?!kg$)(?!metrics$)[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)$"
         type:
           type: string
           minLength: 1
@@ -996,7 +1005,7 @@ components:
         domain:
           type: string
           minLength: 1
-          pattern: "^(?!kg$)(?!metrics$)[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+          pattern: "^(?:tenant/[a-z][a-z0-9]*|(?!kg$)(?!metrics$)[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)$"
         type:
           type: string
           minLength: 1
@@ -1092,10 +1101,17 @@ components:
       properties:
         schemas:
           type: array
+          description: Installed shared system schemas
+          items:
+            $ref: "#/components/schemas/KgSchemaDto"
+        tenantSchemas:
+          type: array
+          description: "The caller's own tenant schemas, under their canonical tenant/<name> domains. Empty when the tenant has none"
           items:
             $ref: "#/components/schemas/KgSchemaDto"
       required:
         - schemas
+        - tenantSchemas
     SchemaBindingDto:
       type: object
       properties:
@@ -1117,7 +1133,7 @@ components:
         name:
           type: string
           minLength: 1
-          pattern: "^[a-z][a-z0-9]*$"
+          pattern: "^(tenant/)?[a-z][a-z0-9]*$"
         displayName:
           type: string
         version:
@@ -1179,11 +1195,14 @@ components:
         domain:
           type: string
           minLength: 1
-          pattern: "^[a-z][a-z0-9]*$"
+          pattern: "^(tenant/)?[a-z][a-z0-9]*$"
         version:
           type: string
           minLength: 1
           pattern: "^v(?<major>[0-9]+)(?:(?<pre>alpha|beta)(?<preNum>[0-9]+))?$"
+        alias:
+          type: string
+          pattern: "^[a-z][a-z0-9]*$"
       required:
         - domain
         - version
