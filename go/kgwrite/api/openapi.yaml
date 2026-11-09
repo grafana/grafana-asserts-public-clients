@@ -7,7 +7,7 @@ info:
   description: Asserts Public API
   termsOfService: https://www.asserts.ai/terms-of-service
   title: "Asserts, Inc"
-  version: 2.110.1
+  version: 2.121.6
 servers:
 - description: Generated server url
   url: http://localhost:8030
@@ -204,7 +204,7 @@ paths:
         name: allowUndeclared
         required: false
         schema:
-          default: true
+          default: false
           type: boolean
         style: form
       - $ref: '#/components/parameters/TenantId'
@@ -340,7 +340,7 @@ paths:
         name: allowUndeclared
         required: false
         schema:
-          default: true
+          default: false
           type: boolean
         style: form
       - $ref: '#/components/parameters/TenantId'
@@ -664,7 +664,7 @@ paths:
         name: allowUndeclared
         required: false
         schema:
-          default: true
+          default: false
           type: boolean
         style: form
       - $ref: '#/components/parameters/TenantId'
@@ -1307,8 +1307,10 @@ components:
       example:
         imports:
         - domain: domain
+          alias: alias
           version: version
         - domain: domain
+          alias: alias
           version: version
         relationshipTypeBindings:
         - name: name
@@ -1511,8 +1513,10 @@ components:
         schemas:
         - imports:
           - domain: domain
+            alias: alias
             version: version
           - domain: domain
+            alias: alias
             version: version
           relationshipTypeBindings:
           - name: name
@@ -1691,8 +1695,10 @@ components:
               - enum
         - imports:
           - domain: domain
+            alias: alias
             version: version
           - domain: domain
+            alias: alias
             version: version
           relationshipTypeBindings:
           - name: name
@@ -2009,6 +2015,7 @@ components:
     SchemaImportDto:
       example:
         domain: domain
+        alias: alias
         version: version
       properties:
         domain:
@@ -2018,6 +2025,9 @@ components:
         version:
           minLength: 1
           pattern: "^v(?<major>[0-9]+)(?:(?<pre>alpha|beta)(?<preNum>[0-9]+))?$"
+          type: string
+        alias:
+          pattern: "^[a-z][a-z0-9]*$"
           type: string
       required:
       - domain
