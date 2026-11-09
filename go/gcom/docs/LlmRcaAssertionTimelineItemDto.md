@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **AssertionName** | Pointer to **string** |  | [optional] 
 **Category** | Pointer to **string** |  | [optional] 
 **AlertName** | Pointer to **string** |  | [optional] 
+**Onset** | Pointer to **int64** |  | [optional] 
 **HealthStates** | Pointer to [**[]LlmRcaAssertionStateDto**](LlmRcaAssertionStateDto.md) |  | [optional] 
 **Labels** | Pointer to **[]map[string]string** |  | [optional] 
 **NestedTimelines** | Pointer to [**[]LlmRcaAssertionTimelineItemDto**](LlmRcaAssertionTimelineItemDto.md) |  | [optional] 
@@ -104,6 +105,31 @@ SetAlertName sets AlertName field to given value.
 `func (o *LlmRcaAssertionTimelineItemDto) HasAlertName() bool`
 
 HasAlertName returns a boolean if a field has been set.
+
+### GetOnset
+
+`func (o *LlmRcaAssertionTimelineItemDto) GetOnset() int64`
+
+GetOnset returns the Onset field if non-nil, zero value otherwise.
+
+### GetOnsetOk
+
+`func (o *LlmRcaAssertionTimelineItemDto) GetOnsetOk() (*int64, bool)`
+
+GetOnsetOk returns a tuple with the Onset field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOnset
+
+`func (o *LlmRcaAssertionTimelineItemDto) SetOnset(v int64)`
+
+SetOnset sets Onset field to given value.
+
+### HasOnset
+
+`func (o *LlmRcaAssertionTimelineItemDto) HasOnset() bool`
+
+HasOnset returns a boolean if a field has been set.
 
 ### GetHealthStates
 

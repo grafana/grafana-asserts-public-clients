@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2.110.1
+API version: 2.133.1
 Contact: support@asserts.ai
 */
 
@@ -239,6 +239,7 @@ type ApiDeleteRelationshipRequest struct {
 	toDomain    *string
 	toType      *string
 	toName      *string
+	domain      *string
 	fromScope   *map[string]string
 	toScope     *map[string]string
 	xScopeOrgID *string
@@ -276,6 +277,12 @@ func (r ApiDeleteRelationshipRequest) ToType(toType string) ApiDeleteRelationshi
 
 func (r ApiDeleteRelationshipRequest) ToName(toName string) ApiDeleteRelationshipRequest {
 	r.toName = &toName
+	return r
+}
+
+// Optional request domain. Ignored until owner-aware relationship matching is enabled.
+func (r ApiDeleteRelationshipRequest) Domain(domain string) ApiDeleteRelationshipRequest {
+	r.domain = &domain
 	return r
 }
 
@@ -387,6 +394,9 @@ func (a *KnowledgeGraphWriteAPIAPIService) DeleteRelationshipExecute(r ApiDelete
 	parameterAddToHeaderOrQuery(localVarQueryParams, "to.domain", r.toDomain, "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "to.type", r.toType, "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "to.name", r.toName, "")
+	if r.domain != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "domain", r.domain, "")
+	}
 	if r.fromScope != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "from.scope", r.fromScope, "")
 	}
@@ -571,7 +581,7 @@ func (a *KnowledgeGraphWriteAPIAPIService) UpsertEntityExecute(r ApiUpsertEntity
 	if r.allowUndeclared != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "allowUndeclared", r.allowUndeclared, "")
 	} else {
-		var defaultValue bool = true
+		var defaultValue bool = false
 		r.allowUndeclared = &defaultValue
 	}
 	// to determine the Content-Type header
@@ -763,7 +773,7 @@ func (a *KnowledgeGraphWriteAPIAPIService) UpsertRelationshipExecute(r ApiUpsert
 	if r.allowUndeclared != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "allowUndeclared", r.allowUndeclared, "")
 	} else {
-		var defaultValue bool = true
+		var defaultValue bool = false
 		r.allowUndeclared = &defaultValue
 	}
 	// to determine the Content-Type header
@@ -966,7 +976,7 @@ func (a *KnowledgeGraphWriteAPIAPIService) WriteGraphExecute(r ApiWriteGraphRequ
 	if r.allowUndeclared != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "allowUndeclared", r.allowUndeclared, "")
 	} else {
-		var defaultValue bool = true
+		var defaultValue bool = false
 		r.allowUndeclared = &defaultValue
 	}
 	// to determine the Content-Type header

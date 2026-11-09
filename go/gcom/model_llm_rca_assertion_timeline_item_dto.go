@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.11.02-151514
+API version: 2026.11.09-121427
 Contact: support@asserts.ai
 */
 
@@ -23,6 +23,7 @@ type LlmRcaAssertionTimelineItemDto struct {
 	AssertionName        *string                          `json:"assertionName,omitempty"`
 	Category             *string                          `json:"category,omitempty"`
 	AlertName            *string                          `json:"alertName,omitempty"`
+	Onset                *int64                           `json:"onset,omitempty"`
 	HealthStates         []LlmRcaAssertionStateDto        `json:"healthStates,omitempty"`
 	Labels               []map[string]string              `json:"labels,omitempty"`
 	NestedTimelines      []LlmRcaAssertionTimelineItemDto `json:"nestedTimelines,omitempty"`
@@ -144,6 +145,38 @@ func (o *LlmRcaAssertionTimelineItemDto) SetAlertName(v string) {
 	o.AlertName = &v
 }
 
+// GetOnset returns the Onset field value if set, zero value otherwise.
+func (o *LlmRcaAssertionTimelineItemDto) GetOnset() int64 {
+	if o == nil || IsNil(o.Onset) {
+		var ret int64
+		return ret
+	}
+	return *o.Onset
+}
+
+// GetOnsetOk returns a tuple with the Onset field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LlmRcaAssertionTimelineItemDto) GetOnsetOk() (*int64, bool) {
+	if o == nil || IsNil(o.Onset) {
+		return nil, false
+	}
+	return o.Onset, true
+}
+
+// HasOnset returns a boolean if a field has been set.
+func (o *LlmRcaAssertionTimelineItemDto) HasOnset() bool {
+	if o != nil && !IsNil(o.Onset) {
+		return true
+	}
+
+	return false
+}
+
+// SetOnset gets a reference to the given int64 and assigns it to the Onset field.
+func (o *LlmRcaAssertionTimelineItemDto) SetOnset(v int64) {
+	o.Onset = &v
+}
+
 // GetHealthStates returns the HealthStates field value if set, zero value otherwise.
 func (o *LlmRcaAssertionTimelineItemDto) GetHealthStates() []LlmRcaAssertionStateDto {
 	if o == nil || IsNil(o.HealthStates) {
@@ -259,6 +292,9 @@ func (o LlmRcaAssertionTimelineItemDto) ToMap() (map[string]interface{}, error) 
 	if !IsNil(o.AlertName) {
 		toSerialize["alertName"] = o.AlertName
 	}
+	if !IsNil(o.Onset) {
+		toSerialize["onset"] = o.Onset
+	}
 	if !IsNil(o.HealthStates) {
 		toSerialize["healthStates"] = o.HealthStates
 	}
@@ -293,6 +329,7 @@ func (o *LlmRcaAssertionTimelineItemDto) UnmarshalJSON(data []byte) (err error) 
 		delete(additionalProperties, "assertionName")
 		delete(additionalProperties, "category")
 		delete(additionalProperties, "alertName")
+		delete(additionalProperties, "onset")
 		delete(additionalProperties, "healthStates")
 		delete(additionalProperties, "labels")
 		delete(additionalProperties, "nestedTimelines")

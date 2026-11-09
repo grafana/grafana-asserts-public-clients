@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.11.02-151514
+API version: 2026.11.09-121427
 Contact: support@asserts.ai
 */
 
@@ -20,6 +20,8 @@ var _ MappedNullable = &RelationRuleDto{}
 
 // RelationRuleDto Relationship rule definition between entities
 type RelationRuleDto struct {
+	// Domain that owns this relationship type. Omit to use the type's default: metrics for CONSUMES, CONTROLS, HOSTS, MONITORED_BY, PRODUCES, PROVIDES, ROUTES, RUNS_ON and USES; core for every other type. Owner stamping must be deployed before this field affects discovery. Owner-aware matching must be activated before different owners produce separate edges.
+	Domain *string `json:"domain,omitempty" validate:"regexp=^(?!kg$)[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"`
 	// Relation type (e.g., 'CALLS', 'HOSTS', 'ROUTES')
 	Type string `json:"type"`
 	// Source entity type
@@ -38,6 +40,8 @@ type _RelationRuleDto RelationRuleDto
 // will change when the set of required properties is changed
 func NewRelationRuleDto(type_ string, startEntityType string, endEntityType string, definedBy RelationRuleDtoDefinedBy) *RelationRuleDto {
 	this := RelationRuleDto{}
+	var domain string = ""
+	this.Domain = &domain
 	this.Type = type_
 	this.StartEntityType = startEntityType
 	this.EndEntityType = endEntityType
@@ -50,6 +54,8 @@ func NewRelationRuleDto(type_ string, startEntityType string, endEntityType stri
 // but it doesn't guarantee that properties required by API are set
 func NewRelationRuleDtoWithDefaults() *RelationRuleDto {
 	this := RelationRuleDto{}
+	var domain string = ""
+	this.Domain = &domain
 	var type_ string = ""
 	this.Type = type_
 	var startEntityType string = ""
@@ -57,6 +63,38 @@ func NewRelationRuleDtoWithDefaults() *RelationRuleDto {
 	var endEntityType string = ""
 	this.EndEntityType = endEntityType
 	return &this
+}
+
+// GetDomain returns the Domain field value if set, zero value otherwise.
+func (o *RelationRuleDto) GetDomain() string {
+	if o == nil || IsNil(o.Domain) {
+		var ret string
+		return ret
+	}
+	return *o.Domain
+}
+
+// GetDomainOk returns a tuple with the Domain field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RelationRuleDto) GetDomainOk() (*string, bool) {
+	if o == nil || IsNil(o.Domain) {
+		return nil, false
+	}
+	return o.Domain, true
+}
+
+// HasDomain returns a boolean if a field has been set.
+func (o *RelationRuleDto) HasDomain() bool {
+	if o != nil && !IsNil(o.Domain) {
+		return true
+	}
+
+	return false
+}
+
+// SetDomain gets a reference to the given string and assigns it to the Domain field.
+func (o *RelationRuleDto) SetDomain(v string) {
+	o.Domain = &v
 }
 
 // GetType returns the Type field value
@@ -165,6 +203,9 @@ func (o RelationRuleDto) MarshalJSON() ([]byte, error) {
 
 func (o RelationRuleDto) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Domain) {
+		toSerialize["domain"] = o.Domain
+	}
 	toSerialize["type"] = o.Type
 	toSerialize["startEntityType"] = o.StartEntityType
 	toSerialize["endEntityType"] = o.EndEntityType
@@ -199,6 +240,7 @@ func (o *RelationRuleDto) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "domain")
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "startEntityType")
 		delete(additionalProperties, "endEntityType")

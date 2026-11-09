@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2.110.1
+API version: 2.133.1
 Contact: support@asserts.ai
 */
 
@@ -20,7 +20,10 @@ var _ MappedNullable = &KgSchemaListDto{}
 
 // KgSchemaListDto struct for KgSchemaListDto
 type KgSchemaListDto struct {
-	Schemas              []KgSchemaDto `json:"schemas"`
+	// Installed shared system schemas
+	Schemas []KgSchemaDto `json:"schemas"`
+	// The caller's own tenant schemas, under their canonical tenant/<name> domains. Empty when the tenant has none
+	TenantSchemas        []KgSchemaDto `json:"tenantSchemas"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -30,9 +33,10 @@ type _KgSchemaListDto KgSchemaListDto
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewKgSchemaListDto(schemas []KgSchemaDto) *KgSchemaListDto {
+func NewKgSchemaListDto(schemas []KgSchemaDto, tenantSchemas []KgSchemaDto) *KgSchemaListDto {
 	this := KgSchemaListDto{}
 	this.Schemas = schemas
+	this.TenantSchemas = tenantSchemas
 	return &this
 }
 
@@ -68,6 +72,30 @@ func (o *KgSchemaListDto) SetSchemas(v []KgSchemaDto) {
 	o.Schemas = v
 }
 
+// GetTenantSchemas returns the TenantSchemas field value
+func (o *KgSchemaListDto) GetTenantSchemas() []KgSchemaDto {
+	if o == nil {
+		var ret []KgSchemaDto
+		return ret
+	}
+
+	return o.TenantSchemas
+}
+
+// GetTenantSchemasOk returns a tuple with the TenantSchemas field value
+// and a boolean to check if the value has been set.
+func (o *KgSchemaListDto) GetTenantSchemasOk() ([]KgSchemaDto, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.TenantSchemas, true
+}
+
+// SetTenantSchemas sets field value
+func (o *KgSchemaListDto) SetTenantSchemas(v []KgSchemaDto) {
+	o.TenantSchemas = v
+}
+
 func (o KgSchemaListDto) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -79,6 +107,7 @@ func (o KgSchemaListDto) MarshalJSON() ([]byte, error) {
 func (o KgSchemaListDto) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["schemas"] = o.Schemas
+	toSerialize["tenantSchemas"] = o.TenantSchemas
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -110,6 +139,7 @@ func (o *KgSchemaListDto) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "schemas")
+		delete(additionalProperties, "tenantSchemas")
 		o.AdditionalProperties = additionalProperties
 	}
 

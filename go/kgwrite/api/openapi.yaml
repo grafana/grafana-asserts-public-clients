@@ -7,7 +7,7 @@ info:
   description: Asserts Public API
   termsOfService: https://www.asserts.ai/terms-of-service
   title: "Asserts, Inc"
-  version: 2.110.1
+  version: 2.133.1
 servers:
 - description: Generated server url
   url: http://localhost:8030
@@ -51,7 +51,7 @@ paths:
         required: true
         schema:
           minLength: 1
-          pattern: "^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+          pattern: "^(?:tenant/[a-z][a-z0-9]*|[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)$"
           type: string
         style: form
       - explode: true
@@ -77,7 +77,7 @@ paths:
         required: true
         schema:
           minLength: 1
-          pattern: "^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+          pattern: "^(?:tenant/[a-z][a-z0-9]*|[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)$"
           type: string
         style: form
       - explode: true
@@ -95,6 +95,18 @@ paths:
         required: true
         schema:
           minLength: 1
+          type: string
+        style: form
+      - description: Optional request domain. Ignored until owner-aware relationship
+          matching is enabled.
+        explode: true
+        in: query
+        name: domain
+        required: false
+        schema:
+          description: Optional request domain. Ignored until owner-aware relationship
+            matching is enabled.
+          pattern: "^(?:tenant/[a-z][a-z0-9]*|(?!kg$)(?!metrics$)[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)$"
           type: string
         style: form
       - description: "Optional scope key/value pairs identifying the 'from' entity\
@@ -204,7 +216,7 @@ paths:
         name: allowUndeclared
         required: false
         schema:
-          default: true
+          default: false
           type: boolean
         style: form
       - $ref: '#/components/parameters/TenantId'
@@ -340,7 +352,7 @@ paths:
         name: allowUndeclared
         required: false
         schema:
-          default: true
+          default: false
           type: boolean
         style: form
       - $ref: '#/components/parameters/TenantId'
@@ -461,7 +473,7 @@ paths:
         required: true
         schema:
           minLength: 1
-          pattern: "^(?!kg$)(?!metrics$)[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+          pattern: "^(?:tenant/[a-z][a-z0-9]*|(?!kg$)(?!metrics$)[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)$"
           type: string
         style: form
       - explode: true
@@ -596,7 +608,7 @@ paths:
         name: domain
         required: false
         schema:
-          pattern: "^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+          pattern: "^(?:tenant/[a-z][a-z0-9]*|[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)$"
           type: string
         style: form
       - description: "Optional scope key/value pairs identifying the entity (scope[key]=value)."
@@ -664,7 +676,7 @@ paths:
         name: allowUndeclared
         required: false
         schema:
-          default: true
+          default: false
           type: boolean
         style: form
       - $ref: '#/components/parameters/TenantId'
@@ -773,9 +785,10 @@ paths:
       - Knowledge Graph Write API
   /apis/kg.grafana.com/v1alpha1/namespaces/{namespace}/schemas:
     get:
-      description: "Returns installed system schemas for the authorized tenant namespace.\
-        \ By default, each domain includes only its highest-priority version and bundle\
-        \ details are omitted."
+      description: "Returns the installed shared system schemas in schemas, and the\
+        \ authorized tenant's own schemas, under their canonical tenant/<name> domains,\
+        \ in tenantSchemas. By default, each domain includes only its highest-priority\
+        \ version and bundle details are omitted."
       operationId: listSchemas
       parameters:
       - description: "Tenant namespace, formatted as stacks-<stackId>"
@@ -873,7 +886,7 @@ paths:
         name: domain
         required: false
         schema:
-          pattern: "^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+          pattern: "^(?:tenant/[a-z][a-z0-9]*|[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)$"
           type: string
         style: form
       - description: Restrict results to connected entities of this type
@@ -973,7 +986,7 @@ components:
       properties:
         domain:
           minLength: 1
-          pattern: "^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+          pattern: "^(?:tenant/[a-z][a-z0-9]*|[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)$"
           type: string
         type:
           minLength: 1
@@ -1010,8 +1023,11 @@ components:
           key: KgPropertyValue
       properties:
         domain:
+          description: "Request domain used to resolve the relationship type owner.\
+            \ The stored _domain is that owner, with the request domain used for undeclared\
+            \ types."
           minLength: 1
-          pattern: "^(?!kg$)(?!metrics$)[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+          pattern: "^(?:tenant/[a-z][a-z0-9]*|(?!kg$)(?!metrics$)[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)$"
           type: string
         type:
           minLength: 1
@@ -1167,7 +1183,7 @@ components:
       properties:
         domain:
           minLength: 1
-          pattern: "^(?!kg$)(?!metrics$)[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+          pattern: "^(?:tenant/[a-z][a-z0-9]*|(?!kg$)(?!metrics$)[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)$"
           type: string
         type:
           minLength: 1
@@ -1307,8 +1323,10 @@ components:
       example:
         imports:
         - domain: domain
+          alias: alias
           version: version
         - domain: domain
+          alias: alias
           version: version
         relationshipTypeBindings:
         - name: name
@@ -1508,11 +1526,13 @@ components:
       - domain
     KgSchemaListDto:
       example:
-        schemas:
+        tenantSchemas:
         - imports:
           - domain: domain
+            alias: alias
             version: version
           - domain: domain
+            alias: alias
             version: version
           relationshipTypeBindings:
           - name: name
@@ -1691,8 +1711,375 @@ components:
               - enum
         - imports:
           - domain: domain
+            alias: alias
             version: version
           - domain: domain
+            alias: alias
+            version: version
+          relationshipTypeBindings:
+          - name: name
+            from:
+              types:
+              - types
+              - types
+              cardinality: cardinality
+            to:
+              types:
+              - types
+              - types
+              cardinality: cardinality
+          - name: name
+            from:
+              types:
+              - types
+              - types
+              cardinality: cardinality
+            to:
+              types:
+              - types
+              - types
+              cardinality: cardinality
+          domain:
+            displayName: displayName
+            name: name
+            version: version
+          entityTypes:
+          - aliases:
+            - aliases
+            - aliases
+            retentionDays: 0
+            name: name
+            description: description
+            label:
+              key: label
+            properties:
+            - name: name
+              type: type
+              elementType: elementType
+              required: true
+              enum:
+              - enum
+              - enum
+            - name: name
+              type: type
+              elementType: elementType
+              required: true
+              enum:
+              - enum
+              - enum
+            scopeKeys:
+            - name: name
+              type: type
+              required: true
+              enum:
+              - enum
+              - enum
+            - name: name
+              type: type
+              required: true
+              enum:
+              - enum
+              - enum
+          - aliases:
+            - aliases
+            - aliases
+            retentionDays: 0
+            name: name
+            description: description
+            label:
+              key: label
+            properties:
+            - name: name
+              type: type
+              elementType: elementType
+              required: true
+              enum:
+              - enum
+              - enum
+            - name: name
+              type: type
+              elementType: elementType
+              required: true
+              enum:
+              - enum
+              - enum
+            scopeKeys:
+            - name: name
+              type: type
+              required: true
+              enum:
+              - enum
+              - enum
+            - name: name
+              type: type
+              required: true
+              enum:
+              - enum
+              - enum
+          relationshipTypes:
+          - inverse: inverse
+            characteristics:
+            - characteristics
+            - characteristics
+            aliases:
+            - aliases
+            - aliases
+            retentionDays: 6
+            name: name
+            description: description
+            from:
+              types:
+              - types
+              - types
+              cardinality: cardinality
+            label:
+              key: label
+            to:
+              types:
+              - types
+              - types
+              cardinality: cardinality
+            properties:
+            - name: name
+              type: type
+              elementType: elementType
+              required: true
+              enum:
+              - enum
+              - enum
+            - name: name
+              type: type
+              elementType: elementType
+              required: true
+              enum:
+              - enum
+              - enum
+          - inverse: inverse
+            characteristics:
+            - characteristics
+            - characteristics
+            aliases:
+            - aliases
+            - aliases
+            retentionDays: 6
+            name: name
+            description: description
+            from:
+              types:
+              - types
+              - types
+              cardinality: cardinality
+            label:
+              key: label
+            to:
+              types:
+              - types
+              - types
+              cardinality: cardinality
+            properties:
+            - name: name
+              type: type
+              elementType: elementType
+              required: true
+              enum:
+              - enum
+              - enum
+            - name: name
+              type: type
+              elementType: elementType
+              required: true
+              enum:
+              - enum
+              - enum
+        schemas:
+        - imports:
+          - domain: domain
+            alias: alias
+            version: version
+          - domain: domain
+            alias: alias
+            version: version
+          relationshipTypeBindings:
+          - name: name
+            from:
+              types:
+              - types
+              - types
+              cardinality: cardinality
+            to:
+              types:
+              - types
+              - types
+              cardinality: cardinality
+          - name: name
+            from:
+              types:
+              - types
+              - types
+              cardinality: cardinality
+            to:
+              types:
+              - types
+              - types
+              cardinality: cardinality
+          domain:
+            displayName: displayName
+            name: name
+            version: version
+          entityTypes:
+          - aliases:
+            - aliases
+            - aliases
+            retentionDays: 0
+            name: name
+            description: description
+            label:
+              key: label
+            properties:
+            - name: name
+              type: type
+              elementType: elementType
+              required: true
+              enum:
+              - enum
+              - enum
+            - name: name
+              type: type
+              elementType: elementType
+              required: true
+              enum:
+              - enum
+              - enum
+            scopeKeys:
+            - name: name
+              type: type
+              required: true
+              enum:
+              - enum
+              - enum
+            - name: name
+              type: type
+              required: true
+              enum:
+              - enum
+              - enum
+          - aliases:
+            - aliases
+            - aliases
+            retentionDays: 0
+            name: name
+            description: description
+            label:
+              key: label
+            properties:
+            - name: name
+              type: type
+              elementType: elementType
+              required: true
+              enum:
+              - enum
+              - enum
+            - name: name
+              type: type
+              elementType: elementType
+              required: true
+              enum:
+              - enum
+              - enum
+            scopeKeys:
+            - name: name
+              type: type
+              required: true
+              enum:
+              - enum
+              - enum
+            - name: name
+              type: type
+              required: true
+              enum:
+              - enum
+              - enum
+          relationshipTypes:
+          - inverse: inverse
+            characteristics:
+            - characteristics
+            - characteristics
+            aliases:
+            - aliases
+            - aliases
+            retentionDays: 6
+            name: name
+            description: description
+            from:
+              types:
+              - types
+              - types
+              cardinality: cardinality
+            label:
+              key: label
+            to:
+              types:
+              - types
+              - types
+              cardinality: cardinality
+            properties:
+            - name: name
+              type: type
+              elementType: elementType
+              required: true
+              enum:
+              - enum
+              - enum
+            - name: name
+              type: type
+              elementType: elementType
+              required: true
+              enum:
+              - enum
+              - enum
+          - inverse: inverse
+            characteristics:
+            - characteristics
+            - characteristics
+            aliases:
+            - aliases
+            - aliases
+            retentionDays: 6
+            name: name
+            description: description
+            from:
+              types:
+              - types
+              - types
+              cardinality: cardinality
+            label:
+              key: label
+            to:
+              types:
+              - types
+              - types
+              cardinality: cardinality
+            properties:
+            - name: name
+              type: type
+              elementType: elementType
+              required: true
+              enum:
+              - enum
+              - enum
+            - name: name
+              type: type
+              elementType: elementType
+              required: true
+              enum:
+              - enum
+              - enum
+        - imports:
+          - domain: domain
+            alias: alias
+            version: version
+          - domain: domain
+            alias: alias
             version: version
           relationshipTypeBindings:
           - name: name
@@ -1871,11 +2258,19 @@ components:
               - enum
       properties:
         schemas:
+          description: Installed shared system schemas
+          items:
+            $ref: '#/components/schemas/KgSchemaDto'
+          type: array
+        tenantSchemas:
+          description: "The caller's own tenant schemas, under their canonical tenant/<name>\
+            \ domains. Empty when the tenant has none"
           items:
             $ref: '#/components/schemas/KgSchemaDto'
           type: array
       required:
       - schemas
+      - tenantSchemas
     SchemaBindingDto:
       example:
         name: name
@@ -1910,7 +2305,7 @@ components:
       properties:
         name:
           minLength: 1
-          pattern: "^[a-z][a-z0-9]*$"
+          pattern: "^(tenant/)?[a-z][a-z0-9]*$"
           type: string
         displayName:
           type: string
@@ -2009,15 +2404,19 @@ components:
     SchemaImportDto:
       example:
         domain: domain
+        alias: alias
         version: version
       properties:
         domain:
           minLength: 1
-          pattern: "^[a-z][a-z0-9]*$"
+          pattern: "^(tenant/)?[a-z][a-z0-9]*$"
           type: string
         version:
           minLength: 1
           pattern: "^v(?<major>[0-9]+)(?:(?<pre>alpha|beta)(?<preNum>[0-9]+))?$"
+          type: string
+        alias:
+          pattern: "^[a-z][a-z0-9]*$"
           type: string
       required:
       - domain

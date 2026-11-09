@@ -7,7 +7,7 @@ info:
   description: Asserts Public API
   termsOfService: https://www.asserts.ai/terms-of-service
   title: "Asserts, Inc"
-  version: 2.110.1
+  version: 2.133.1
 servers:
 - description: Generated server url
   url: http://localhost:8030
@@ -95,7 +95,7 @@ components:
       properties:
         name:
           minLength: 1
-          pattern: "^[a-z][a-z0-9]*$"
+          pattern: "^(tenant/)?[a-z][a-z0-9]*$"
           type: string
         displayName:
           type: string
@@ -314,15 +314,19 @@ components:
     SchemaImportDto:
       example:
         domain: domain
+        alias: alias
         version: version
       properties:
         domain:
           minLength: 1
-          pattern: "^[a-z][a-z0-9]*$"
+          pattern: "^(tenant/)?[a-z][a-z0-9]*$"
           type: string
         version:
           minLength: 1
           pattern: "^v(?<major>[0-9]+)(?:(?<pre>alpha|beta)(?<preNum>[0-9]+))?$"
+          type: string
+        alias:
+          pattern: "^[a-z][a-z0-9]*$"
           type: string
       required:
       - domain
@@ -466,8 +470,10 @@ components:
       example:
         imports:
         - domain: domain
+          alias: alias
           version: version
         - domain: domain
+          alias: alias
           version: version
         relationshipTypeBindings:
         - name: name

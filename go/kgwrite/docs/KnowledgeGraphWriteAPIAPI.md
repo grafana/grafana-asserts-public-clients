@@ -92,7 +92,7 @@ No authorization required
 
 ## DeleteRelationship
 
-> DeleteRelationship(ctx, namespace).Type_(type_).FromDomain(fromDomain).FromType(fromType).FromName(fromName).ToDomain(toDomain).ToType(toType).ToName(toName).FromScope(fromScope).ToScope(toScope).XScopeOrgID(xScopeOrgID).Execute()
+> DeleteRelationship(ctx, namespace).Type_(type_).FromDomain(fromDomain).FromType(fromType).FromName(fromName).ToDomain(toDomain).ToType(toType).ToName(toName).Domain(domain).FromScope(fromScope).ToScope(toScope).XScopeOrgID(xScopeOrgID).Execute()
 
 Delete a custom relationship
 
@@ -119,13 +119,14 @@ func main() {
 	toDomain := "toDomain_example" // string | 
 	toType := "toType_example" // string | 
 	toName := "toName_example" // string | 
+	domain := "domain_example" // string | Optional request domain. Ignored until owner-aware relationship matching is enabled. (optional)
 	fromScope := map[string]string{"key": map[string]string{"key": "Inner_example"}} // map[string]string | Optional scope key/value pairs identifying the 'from' entity (from.scope[key]=value). (optional)
 	toScope := map[string]string{"key": map[string]string{"key": "Inner_example"}} // map[string]string | Optional scope key/value pairs identifying the 'to' entity (to.scope[key]=value). (optional)
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.KnowledgeGraphWriteAPIAPI.DeleteRelationship(context.Background(), namespace).Type_(type_).FromDomain(fromDomain).FromType(fromType).FromName(fromName).ToDomain(toDomain).ToType(toType).ToName(toName).FromScope(fromScope).ToScope(toScope).XScopeOrgID(xScopeOrgID).Execute()
+	r, err := apiClient.KnowledgeGraphWriteAPIAPI.DeleteRelationship(context.Background(), namespace).Type_(type_).FromDomain(fromDomain).FromType(fromType).FromName(fromName).ToDomain(toDomain).ToType(toType).ToName(toName).Domain(domain).FromScope(fromScope).ToScope(toScope).XScopeOrgID(xScopeOrgID).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `KnowledgeGraphWriteAPIAPI.DeleteRelationship``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -156,6 +157,7 @@ Name | Type | Description  | Notes
  **toDomain** | **string** |  | 
  **toType** | **string** |  | 
  **toName** | **string** |  | 
+ **domain** | **string** | Optional request domain. Ignored until owner-aware relationship matching is enabled. | 
  **fromScope** | **map[string]map[string]string** | Optional scope key/value pairs identifying the &#39;from&#39; entity (from.scope[key]&#x3D;value). | 
  **toScope** | **map[string]map[string]string** | Optional scope key/value pairs identifying the &#39;to&#39; entity (to.scope[key]&#x3D;value). | 
  **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
@@ -201,7 +203,7 @@ import (
 func main() {
 	namespace := "namespace_example" // string | Tenant namespace, formatted as stacks-<stackId>; must match the request tenant
 	entityWriteRequestDto := *openapiclient.NewEntityWriteRequestDto("Domain_example", "Type_example", "Name_example", int64(-1)) // EntityWriteRequestDto | 
-	allowUndeclared := true // bool | Permit undeclared types, properties and scope keys. Declared constraints still apply. (optional) (default to true)
+	allowUndeclared := true // bool | Permit undeclared types, properties and scope keys. Declared constraints still apply. (optional) (default to false)
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -233,7 +235,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **entityWriteRequestDto** | [**EntityWriteRequestDto**](EntityWriteRequestDto.md) |  | 
- **allowUndeclared** | **bool** | Permit undeclared types, properties and scope keys. Declared constraints still apply. | [default to true]
+ **allowUndeclared** | **bool** | Permit undeclared types, properties and scope keys. Declared constraints still apply. | [default to false]
  **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
 
 ### Return type
@@ -277,7 +279,7 @@ import (
 func main() {
 	namespace := "namespace_example" // string | Tenant namespace, formatted as stacks-<stackId>
 	relationshipWriteRequestDto := *openapiclient.NewRelationshipWriteRequestDto("Domain_example", "Type_example", *openapiclient.NewEntityRefDto("Domain_example", "Type_example", "Name_example"), *openapiclient.NewEntityRefDto("Domain_example", "Type_example", "Name_example"), int64(-1)) // RelationshipWriteRequestDto | 
-	allowUndeclared := true // bool | Permit undeclared types, properties and scope keys. Declared constraints still apply. (optional) (default to true)
+	allowUndeclared := true // bool | Permit undeclared types, properties and scope keys. Declared constraints still apply. (optional) (default to false)
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -309,7 +311,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **relationshipWriteRequestDto** | [**RelationshipWriteRequestDto**](RelationshipWriteRequestDto.md) |  | 
- **allowUndeclared** | **bool** | Permit undeclared types, properties and scope keys. Declared constraints still apply. | [default to true]
+ **allowUndeclared** | **bool** | Permit undeclared types, properties and scope keys. Declared constraints still apply. | [default to false]
  **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
 
 ### Return type
@@ -353,7 +355,7 @@ import (
 func main() {
 	namespace := "namespace_example" // string | Tenant namespace, formatted as stacks-<stackId>
 	graphWriteRequestDto := *openapiclient.NewGraphWriteRequestDto() // GraphWriteRequestDto | 
-	allowUndeclared := true // bool | Permit undeclared types, properties and scope keys for the whole batch. Declared constraints still apply. (optional) (default to true)
+	allowUndeclared := true // bool | Permit undeclared types, properties and scope keys for the whole batch. Declared constraints still apply. (optional) (default to false)
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -385,7 +387,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **graphWriteRequestDto** | [**GraphWriteRequestDto**](GraphWriteRequestDto.md) |  | 
- **allowUndeclared** | **bool** | Permit undeclared types, properties and scope keys for the whole batch. Declared constraints still apply. | [default to true]
+ **allowUndeclared** | **bool** | Permit undeclared types, properties and scope keys for the whole batch. Declared constraints still apply. | [default to false]
  **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
 
 ### Return type

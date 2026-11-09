@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Domain** | **string** |  | 
+**Domain** | **string** | Request domain used to resolve the relationship type owner. The stored _domain is that owner, with the request domain used for undeclared types. | 
 **Type** | **string** |  | 
 **From** | [**EntityRefDto**](EntityRefDto.md) |  | 
 **To** | [**EntityRefDto**](EntityRefDto.md) |  | 

@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2.110.1
+API version: 2.133.1
 Contact: support@asserts.ai
 */
 
@@ -57,7 +57,7 @@ func (r ApiListSchemasRequest) Execute() (*KgSchemaListDto, *http.Response, erro
 /*
 ListSchemas List effective declared schemas
 
-Returns installed system schemas for the authorized tenant namespace. By default, each domain includes only its highest-priority version and bundle details are omitted.
+Returns the installed shared system schemas in schemas, and the authorized tenant's own schemas, under their canonical tenant/<name> domains, in tenantSchemas. By default, each domain includes only its highest-priority version and bundle details are omitted.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param namespace Tenant namespace, formatted as stacks-<stackId>
