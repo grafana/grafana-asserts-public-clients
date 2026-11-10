@@ -92,7 +92,7 @@ No authorization required
 
 ## DeleteRelationship
 
-> DeleteRelationship(ctx, namespace).Type_(type_).FromDomain(fromDomain).FromType(fromType).FromName(fromName).ToDomain(toDomain).ToType(toType).ToName(toName).FromScope(fromScope).ToScope(toScope).XScopeOrgID(xScopeOrgID).Execute()
+> DeleteRelationship(ctx, namespace).Type_(type_).FromDomain(fromDomain).FromType(fromType).FromName(fromName).ToDomain(toDomain).ToType(toType).ToName(toName).Domain(domain).FromScope(fromScope).ToScope(toScope).XScopeOrgID(xScopeOrgID).Execute()
 
 Delete a custom relationship
 
@@ -119,13 +119,14 @@ func main() {
 	toDomain := "toDomain_example" // string | 
 	toType := "toType_example" // string | 
 	toName := "toName_example" // string | 
+	domain := "domain_example" // string | Optional request domain. Ignored until owner-aware relationship matching is enabled. (optional)
 	fromScope := map[string]string{"key": map[string]string{"key": "Inner_example"}} // map[string]string | Optional scope key/value pairs identifying the 'from' entity (from.scope[key]=value). (optional)
 	toScope := map[string]string{"key": map[string]string{"key": "Inner_example"}} // map[string]string | Optional scope key/value pairs identifying the 'to' entity (to.scope[key]=value). (optional)
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.KnowledgeGraphWriteAPIAPI.DeleteRelationship(context.Background(), namespace).Type_(type_).FromDomain(fromDomain).FromType(fromType).FromName(fromName).ToDomain(toDomain).ToType(toType).ToName(toName).FromScope(fromScope).ToScope(toScope).XScopeOrgID(xScopeOrgID).Execute()
+	r, err := apiClient.KnowledgeGraphWriteAPIAPI.DeleteRelationship(context.Background(), namespace).Type_(type_).FromDomain(fromDomain).FromType(fromType).FromName(fromName).ToDomain(toDomain).ToType(toType).ToName(toName).Domain(domain).FromScope(fromScope).ToScope(toScope).XScopeOrgID(xScopeOrgID).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `KnowledgeGraphWriteAPIAPI.DeleteRelationship``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -156,6 +157,7 @@ Name | Type | Description  | Notes
  **toDomain** | **string** |  | 
  **toType** | **string** |  | 
  **toName** | **string** |  | 
+ **domain** | **string** | Optional request domain. Ignored until owner-aware relationship matching is enabled. | 
  **fromScope** | **map[string]map[string]string** | Optional scope key/value pairs identifying the &#39;from&#39; entity (from.scope[key]&#x3D;value). | 
  **toScope** | **map[string]map[string]string** | Optional scope key/value pairs identifying the &#39;to&#39; entity (to.scope[key]&#x3D;value). | 
  **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 

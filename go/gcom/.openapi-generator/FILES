@@ -349,9 +349,9 @@ docs/SloRollingWindowConfigDto.md
 docs/SloTargetDto.md
 docs/SloWindowConfigDto.md
 docs/StackControllerAPI.md
+docs/StackCredentialsDto.md
 docs/StackDatasetDto.md
 docs/StackDetailDto.md
-docs/StackDto.md
 docs/StackEnableDto.md
 docs/StackFilterDto.md
 docs/StackFilterGroupDto.md
@@ -628,9 +628,9 @@ model_slo_list_request_dto.go
 model_slo_rolling_window_config_dto.go
 model_slo_target_dto.go
 model_slo_window_config_dto.go
+model_stack_credentials_dto.go
 model_stack_dataset_dto.go
 model_stack_detail_dto.go
-model_stack_dto.go
 model_stack_enable_dto.go
 model_stack_filter_dto.go
 model_stack_filter_group_dto.go

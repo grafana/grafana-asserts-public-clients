@@ -7,7 +7,7 @@ info:
   description: Asserts Public API
   termsOfService: https://www.asserts.ai/terms-of-service
   title: "Asserts, Inc"
-  version: 2026.11.06-124643
+  version: 2026.11.10-094704
 servers:
 - description: Generated server url
   url: http://localhost:8030
@@ -32,7 +32,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/StackDto'
+              $ref: '#/components/schemas/StackCredentialsDto'
         required: true
       responses:
         "200":
@@ -3805,6 +3805,20 @@ paths:
           description: OK
       tags:
       - stack-controller
+  /asserts/api-server/v1/stack/credentials:
+    get:
+      operationId: getStackCredentials
+      parameters:
+      - $ref: '#/components/parameters/TenantId'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StackCredentialsDto'
+          description: OK
+      tags:
+      - stack-controller
   /asserts/api-server/v1/search/autocomplete/{index}:
     get:
       operationId: autoComplete
@@ -4956,7 +4970,7 @@ paths:
         name: domain
         required: false
         schema:
-          pattern: "^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+          pattern: "^(?:tenant/[a-z][a-z0-9]*|[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)$"
           type: string
         style: form
       - $ref: '#/components/parameters/TenantId'
@@ -5034,7 +5048,7 @@ paths:
         name: domain
         required: false
         schema:
-          pattern: "^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+          pattern: "^(?:tenant/[a-z][a-z0-9]*|[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)$"
           type: string
         style: form
       - description: Restrict results to connected entities of this type
@@ -5338,7 +5352,7 @@ components:
         type: string
       style: simple
   schemas:
-    StackDto:
+    StackCredentialsDto:
       example:
         pyroscopeToken: pyroscopeToken
         lokiToken: lokiToken
@@ -9497,8 +9511,8 @@ components:
     LlmRcaAssertionStateDto:
       example:
         severity: severity
-        start: 0
-        end: 6
+        start: 6
+        end: 1
       properties:
         start:
           format: int64
@@ -9518,32 +9532,34 @@ components:
         - alertName: alertName
           healthStates:
           - severity: severity
-            start: 0
-            end: 6
+            start: 6
+            end: 1
           - severity: severity
-            start: 0
-            end: 6
+            start: 6
+            end: 1
           assertionName: assertionName
           nestedTimelines:
           - null
           - null
           category: category
+          onset: 0
           labels:
           - key: labels
           - key: labels
         - alertName: alertName
           healthStates:
           - severity: severity
-            start: 0
-            end: 6
+            start: 6
+            end: 1
           - severity: severity
-            start: 0
-            end: 6
+            start: 6
+            end: 1
           assertionName: assertionName
           nestedTimelines:
           - null
           - null
           category: category
+          onset: 0
           labels:
           - key: labels
           - key: labels
@@ -9563,16 +9579,17 @@ components:
         alertName: alertName
         healthStates:
         - severity: severity
-          start: 0
-          end: 6
+          start: 6
+          end: 1
         - severity: severity
-          start: 0
-          end: 6
+          start: 6
+          end: 1
         assertionName: assertionName
         nestedTimelines:
         - null
         - null
         category: category
+        onset: 0
         labels:
         - key: labels
         - key: labels
@@ -9583,6 +9600,9 @@ components:
           type: string
         alertName:
           type: string
+        onset:
+          format: int64
+          type: integer
         healthStates:
           items:
             $ref: '#/components/schemas/LlmRcaAssertionStateDto'
@@ -9601,7 +9621,7 @@ components:
         scope:
           key: ""
         name: name
-        id: 1
+        id: 5
         type: type
         relations:
           key:
@@ -9681,7 +9701,7 @@ components:
         - scope:
             key: ""
           name: name
-          id: 1
+          id: 5
           type: type
           relations:
             key:
@@ -9698,7 +9718,7 @@ components:
         - scope:
             key: ""
           name: name
-          id: 1
+          id: 5
           type: type
           relations:
             key:
@@ -9721,32 +9741,34 @@ components:
           - alertName: alertName
             healthStates:
             - severity: severity
-              start: 0
-              end: 6
+              start: 6
+              end: 1
             - severity: severity
-              start: 0
-              end: 6
+              start: 6
+              end: 1
             assertionName: assertionName
             nestedTimelines:
             - null
             - null
             category: category
+            onset: 0
             labels:
             - key: labels
             - key: labels
           - alertName: alertName
             healthStates:
             - severity: severity
-              start: 0
-              end: 6
+              start: 6
+              end: 1
             - severity: severity
-              start: 0
-              end: 6
+              start: 6
+              end: 1
             assertionName: assertionName
             nestedTimelines:
             - null
             - null
             category: category
+            onset: 0
             labels:
             - key: labels
             - key: labels
@@ -9758,32 +9780,34 @@ components:
           - alertName: alertName
             healthStates:
             - severity: severity
-              start: 0
-              end: 6
+              start: 6
+              end: 1
             - severity: severity
-              start: 0
-              end: 6
+              start: 6
+              end: 1
             assertionName: assertionName
             nestedTimelines:
             - null
             - null
             category: category
+            onset: 0
             labels:
             - key: labels
             - key: labels
           - alertName: alertName
             healthStates:
             - severity: severity
-              start: 0
-              end: 6
+              start: 6
+              end: 1
             - severity: severity
-              start: 0
-              end: 6
+              start: 6
+              end: 1
             assertionName: assertionName
             nestedTimelines:
             - null
             - null
             category: category
+            onset: 0
             labels:
             - key: labels
             - key: labels
@@ -13687,7 +13711,6 @@ components:
       example:
         orgSlug: orgSlug
         forcePublicTsdb: true
-        lokiToken: lokiToken
         alertManagerConfigured: true
         currentActiveSeries: 5
         stackId: 0
@@ -13788,13 +13811,8 @@ components:
         orgId: 6
         enabled: true
         allowLargeTenantOnboarding: true
-        pyroscopeToken: pyroscopeToken
-        grafanaToken: grafanaToken
-        gcomToken: gcomToken
         disabledTime: 2000-01-23T04:56:07.000+00:00
         slug: slug
-        mimirToken: mimirToken
-        assertionDetectorToken: assertionDetectorToken
         graphInstanceCreated: true
         status: status
       properties:
@@ -13807,18 +13825,6 @@ components:
           format: int32
           type: integer
         orgSlug:
-          type: string
-        gcomToken:
-          type: string
-        mimirToken:
-          type: string
-        assertionDetectorToken:
-          type: string
-        grafanaToken:
-          type: string
-        lokiToken:
-          type: string
-        pyroscopeToken:
           type: string
         enabled:
           type: boolean
@@ -15106,6 +15112,7 @@ components:
         relations:
         - startEntityType: ""
           endEntityType: ""
+          domain: ""
           definedBy:
             startDomain: ""
             endDomain: ""
@@ -15120,6 +15127,7 @@ components:
           type: ""
         - startEntityType: ""
           endEntityType: ""
+          domain: ""
           definedBy:
             startDomain: ""
             endDomain: ""
@@ -15181,6 +15189,7 @@ components:
       example:
         startEntityType: ""
         endEntityType: ""
+        domain: ""
         definedBy:
           startDomain: ""
           endDomain: ""
@@ -15194,6 +15203,16 @@ components:
             key: endEntityMatchers
         type: ""
       properties:
+        domain:
+          default: ""
+          description: "Domain that owns this relationship type. Omit to use the type's\
+            \ default: metrics for CONSUMES, CONTROLS, HOSTS, MONITORED_BY, PRODUCES,\
+            \ PROVIDES, ROUTES, RUNS_ON and USES; core for every other type. Owner\
+            \ stamping must be deployed before this field affects discovery. Owner-aware\
+            \ matching must be activated before different owners produce separate\
+            \ edges."
+          pattern: "^(?!kg$)[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+          type: string
         type:
           default: ""
           description: "Relation type (e.g., 'CALLS', 'HOSTS', 'ROUTES')"
@@ -15395,6 +15414,7 @@ components:
           relations:
           - startEntityType: ""
             endEntityType: ""
+            domain: ""
             definedBy:
               startDomain: ""
               endDomain: ""
@@ -15409,6 +15429,7 @@ components:
             type: ""
           - startEntityType: ""
             endEntityType: ""
+            domain: ""
             definedBy:
               startDomain: ""
               endDomain: ""
@@ -15584,6 +15605,7 @@ components:
             relations:
             - startEntityType: ""
               endEntityType: ""
+              domain: ""
               definedBy:
                 startDomain: ""
                 endDomain: ""
@@ -15598,6 +15620,7 @@ components:
               type: ""
             - startEntityType: ""
               endEntityType: ""
+              domain: ""
               definedBy:
                 startDomain: ""
                 endDomain: ""
@@ -15745,6 +15768,7 @@ components:
             relations:
             - startEntityType: ""
               endEntityType: ""
+              domain: ""
               definedBy:
                 startDomain: ""
                 endDomain: ""
@@ -15759,6 +15783,7 @@ components:
               type: ""
             - startEntityType: ""
               endEntityType: ""
+              domain: ""
               definedBy:
                 startDomain: ""
                 endDomain: ""

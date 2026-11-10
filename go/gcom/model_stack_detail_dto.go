@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.11.06-124643
+API version: 2026.11.10-094704
 Contact: support@asserts.ai
 */
 
@@ -25,12 +25,6 @@ type StackDetailDto struct {
 	Slug                       *string           `json:"slug,omitempty"`
 	OrgId                      *int32            `json:"orgId,omitempty"`
 	OrgSlug                    *string           `json:"orgSlug,omitempty"`
-	GcomToken                  *string           `json:"gcomToken,omitempty"`
-	MimirToken                 *string           `json:"mimirToken,omitempty"`
-	AssertionDetectorToken     *string           `json:"assertionDetectorToken,omitempty"`
-	GrafanaToken               *string           `json:"grafanaToken,omitempty"`
-	LokiToken                  *string           `json:"lokiToken,omitempty"`
-	PyroscopeToken             *string           `json:"pyroscopeToken,omitempty"`
 	Enabled                    *bool             `json:"enabled,omitempty"`
 	AlertManagerConfigured     *bool             `json:"alertManagerConfigured,omitempty"`
 	GraphInstanceCreated       *bool             `json:"graphInstanceCreated,omitempty"`
@@ -191,198 +185,6 @@ func (o *StackDetailDto) HasOrgSlug() bool {
 // SetOrgSlug gets a reference to the given string and assigns it to the OrgSlug field.
 func (o *StackDetailDto) SetOrgSlug(v string) {
 	o.OrgSlug = &v
-}
-
-// GetGcomToken returns the GcomToken field value if set, zero value otherwise.
-func (o *StackDetailDto) GetGcomToken() string {
-	if o == nil || IsNil(o.GcomToken) {
-		var ret string
-		return ret
-	}
-	return *o.GcomToken
-}
-
-// GetGcomTokenOk returns a tuple with the GcomToken field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *StackDetailDto) GetGcomTokenOk() (*string, bool) {
-	if o == nil || IsNil(o.GcomToken) {
-		return nil, false
-	}
-	return o.GcomToken, true
-}
-
-// HasGcomToken returns a boolean if a field has been set.
-func (o *StackDetailDto) HasGcomToken() bool {
-	if o != nil && !IsNil(o.GcomToken) {
-		return true
-	}
-
-	return false
-}
-
-// SetGcomToken gets a reference to the given string and assigns it to the GcomToken field.
-func (o *StackDetailDto) SetGcomToken(v string) {
-	o.GcomToken = &v
-}
-
-// GetMimirToken returns the MimirToken field value if set, zero value otherwise.
-func (o *StackDetailDto) GetMimirToken() string {
-	if o == nil || IsNil(o.MimirToken) {
-		var ret string
-		return ret
-	}
-	return *o.MimirToken
-}
-
-// GetMimirTokenOk returns a tuple with the MimirToken field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *StackDetailDto) GetMimirTokenOk() (*string, bool) {
-	if o == nil || IsNil(o.MimirToken) {
-		return nil, false
-	}
-	return o.MimirToken, true
-}
-
-// HasMimirToken returns a boolean if a field has been set.
-func (o *StackDetailDto) HasMimirToken() bool {
-	if o != nil && !IsNil(o.MimirToken) {
-		return true
-	}
-
-	return false
-}
-
-// SetMimirToken gets a reference to the given string and assigns it to the MimirToken field.
-func (o *StackDetailDto) SetMimirToken(v string) {
-	o.MimirToken = &v
-}
-
-// GetAssertionDetectorToken returns the AssertionDetectorToken field value if set, zero value otherwise.
-func (o *StackDetailDto) GetAssertionDetectorToken() string {
-	if o == nil || IsNil(o.AssertionDetectorToken) {
-		var ret string
-		return ret
-	}
-	return *o.AssertionDetectorToken
-}
-
-// GetAssertionDetectorTokenOk returns a tuple with the AssertionDetectorToken field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *StackDetailDto) GetAssertionDetectorTokenOk() (*string, bool) {
-	if o == nil || IsNil(o.AssertionDetectorToken) {
-		return nil, false
-	}
-	return o.AssertionDetectorToken, true
-}
-
-// HasAssertionDetectorToken returns a boolean if a field has been set.
-func (o *StackDetailDto) HasAssertionDetectorToken() bool {
-	if o != nil && !IsNil(o.AssertionDetectorToken) {
-		return true
-	}
-
-	return false
-}
-
-// SetAssertionDetectorToken gets a reference to the given string and assigns it to the AssertionDetectorToken field.
-func (o *StackDetailDto) SetAssertionDetectorToken(v string) {
-	o.AssertionDetectorToken = &v
-}
-
-// GetGrafanaToken returns the GrafanaToken field value if set, zero value otherwise.
-func (o *StackDetailDto) GetGrafanaToken() string {
-	if o == nil || IsNil(o.GrafanaToken) {
-		var ret string
-		return ret
-	}
-	return *o.GrafanaToken
-}
-
-// GetGrafanaTokenOk returns a tuple with the GrafanaToken field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *StackDetailDto) GetGrafanaTokenOk() (*string, bool) {
-	if o == nil || IsNil(o.GrafanaToken) {
-		return nil, false
-	}
-	return o.GrafanaToken, true
-}
-
-// HasGrafanaToken returns a boolean if a field has been set.
-func (o *StackDetailDto) HasGrafanaToken() bool {
-	if o != nil && !IsNil(o.GrafanaToken) {
-		return true
-	}
-
-	return false
-}
-
-// SetGrafanaToken gets a reference to the given string and assigns it to the GrafanaToken field.
-func (o *StackDetailDto) SetGrafanaToken(v string) {
-	o.GrafanaToken = &v
-}
-
-// GetLokiToken returns the LokiToken field value if set, zero value otherwise.
-func (o *StackDetailDto) GetLokiToken() string {
-	if o == nil || IsNil(o.LokiToken) {
-		var ret string
-		return ret
-	}
-	return *o.LokiToken
-}
-
-// GetLokiTokenOk returns a tuple with the LokiToken field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *StackDetailDto) GetLokiTokenOk() (*string, bool) {
-	if o == nil || IsNil(o.LokiToken) {
-		return nil, false
-	}
-	return o.LokiToken, true
-}
-
-// HasLokiToken returns a boolean if a field has been set.
-func (o *StackDetailDto) HasLokiToken() bool {
-	if o != nil && !IsNil(o.LokiToken) {
-		return true
-	}
-
-	return false
-}
-
-// SetLokiToken gets a reference to the given string and assigns it to the LokiToken field.
-func (o *StackDetailDto) SetLokiToken(v string) {
-	o.LokiToken = &v
-}
-
-// GetPyroscopeToken returns the PyroscopeToken field value if set, zero value otherwise.
-func (o *StackDetailDto) GetPyroscopeToken() string {
-	if o == nil || IsNil(o.PyroscopeToken) {
-		var ret string
-		return ret
-	}
-	return *o.PyroscopeToken
-}
-
-// GetPyroscopeTokenOk returns a tuple with the PyroscopeToken field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *StackDetailDto) GetPyroscopeTokenOk() (*string, bool) {
-	if o == nil || IsNil(o.PyroscopeToken) {
-		return nil, false
-	}
-	return o.PyroscopeToken, true
-}
-
-// HasPyroscopeToken returns a boolean if a field has been set.
-func (o *StackDetailDto) HasPyroscopeToken() bool {
-	if o != nil && !IsNil(o.PyroscopeToken) {
-		return true
-	}
-
-	return false
-}
-
-// SetPyroscopeToken gets a reference to the given string and assigns it to the PyroscopeToken field.
-func (o *StackDetailDto) SetPyroscopeToken(v string) {
-	o.PyroscopeToken = &v
 }
 
 // GetEnabled returns the Enabled field value if set, zero value otherwise.
@@ -791,24 +593,6 @@ func (o StackDetailDto) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.OrgSlug) {
 		toSerialize["orgSlug"] = o.OrgSlug
 	}
-	if !IsNil(o.GcomToken) {
-		toSerialize["gcomToken"] = o.GcomToken
-	}
-	if !IsNil(o.MimirToken) {
-		toSerialize["mimirToken"] = o.MimirToken
-	}
-	if !IsNil(o.AssertionDetectorToken) {
-		toSerialize["assertionDetectorToken"] = o.AssertionDetectorToken
-	}
-	if !IsNil(o.GrafanaToken) {
-		toSerialize["grafanaToken"] = o.GrafanaToken
-	}
-	if !IsNil(o.LokiToken) {
-		toSerialize["lokiToken"] = o.LokiToken
-	}
-	if !IsNil(o.PyroscopeToken) {
-		toSerialize["pyroscopeToken"] = o.PyroscopeToken
-	}
 	if !IsNil(o.Enabled) {
 		toSerialize["enabled"] = o.Enabled
 	}
@@ -871,12 +655,6 @@ func (o *StackDetailDto) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "slug")
 		delete(additionalProperties, "orgId")
 		delete(additionalProperties, "orgSlug")
-		delete(additionalProperties, "gcomToken")
-		delete(additionalProperties, "mimirToken")
-		delete(additionalProperties, "assertionDetectorToken")
-		delete(additionalProperties, "grafanaToken")
-		delete(additionalProperties, "lokiToken")
-		delete(additionalProperties, "pyroscopeToken")
 		delete(additionalProperties, "enabled")
 		delete(additionalProperties, "alertManagerConfigured")
 		delete(additionalProperties, "graphInstanceCreated")

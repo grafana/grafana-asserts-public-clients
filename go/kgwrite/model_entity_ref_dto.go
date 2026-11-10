@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2.121.6
+API version: 2.133.1
 Contact: support@asserts.ai
 */
 
@@ -20,7 +20,7 @@ var _ MappedNullable = &EntityRefDto{}
 
 // EntityRefDto struct for EntityRefDto
 type EntityRefDto struct {
-	Domain               string            `json:"domain" validate:"regexp=^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"`
+	Domain               string            `json:"domain" validate:"regexp=^(?:tenant\\/[a-z][a-z0-9]*|[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)$"`
 	Type                 string            `json:"type" validate:"regexp=^[A-Za-z][A-Za-z0-9_]*$"`
 	Name                 string            `json:"name"`
 	Scope                map[string]string `json:"scope,omitempty"`
