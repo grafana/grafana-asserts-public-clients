@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.11.06-124643
+API version: 2026.11.10-094704
 Contact: support@asserts.ai
 */
 
@@ -15,11 +15,11 @@ import (
 	"encoding/json"
 )
 
-// checks if the StackDto type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &StackDto{}
+// checks if the StackCredentialsDto type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &StackCredentialsDto{}
 
-// StackDto struct for StackDto
-type StackDto struct {
+// StackCredentialsDto struct for StackCredentialsDto
+type StackCredentialsDto struct {
 	GcomToken              *string `json:"gcomToken,omitempty"`
 	MimirToken             *string `json:"mimirToken,omitempty"`
 	AssertionDetectorToken *string `json:"assertionDetectorToken,omitempty"`
@@ -29,27 +29,27 @@ type StackDto struct {
 	AdditionalProperties   map[string]interface{}
 }
 
-type _StackDto StackDto
+type _StackCredentialsDto StackCredentialsDto
 
-// NewStackDto instantiates a new StackDto object
+// NewStackCredentialsDto instantiates a new StackCredentialsDto object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewStackDto() *StackDto {
-	this := StackDto{}
+func NewStackCredentialsDto() *StackCredentialsDto {
+	this := StackCredentialsDto{}
 	return &this
 }
 
-// NewStackDtoWithDefaults instantiates a new StackDto object
+// NewStackCredentialsDtoWithDefaults instantiates a new StackCredentialsDto object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewStackDtoWithDefaults() *StackDto {
-	this := StackDto{}
+func NewStackCredentialsDtoWithDefaults() *StackCredentialsDto {
+	this := StackCredentialsDto{}
 	return &this
 }
 
 // GetGcomToken returns the GcomToken field value if set, zero value otherwise.
-func (o *StackDto) GetGcomToken() string {
+func (o *StackCredentialsDto) GetGcomToken() string {
 	if o == nil || IsNil(o.GcomToken) {
 		var ret string
 		return ret
@@ -59,7 +59,7 @@ func (o *StackDto) GetGcomToken() string {
 
 // GetGcomTokenOk returns a tuple with the GcomToken field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *StackDto) GetGcomTokenOk() (*string, bool) {
+func (o *StackCredentialsDto) GetGcomTokenOk() (*string, bool) {
 	if o == nil || IsNil(o.GcomToken) {
 		return nil, false
 	}
@@ -67,7 +67,7 @@ func (o *StackDto) GetGcomTokenOk() (*string, bool) {
 }
 
 // HasGcomToken returns a boolean if a field has been set.
-func (o *StackDto) HasGcomToken() bool {
+func (o *StackCredentialsDto) HasGcomToken() bool {
 	if o != nil && !IsNil(o.GcomToken) {
 		return true
 	}
@@ -76,12 +76,12 @@ func (o *StackDto) HasGcomToken() bool {
 }
 
 // SetGcomToken gets a reference to the given string and assigns it to the GcomToken field.
-func (o *StackDto) SetGcomToken(v string) {
+func (o *StackCredentialsDto) SetGcomToken(v string) {
 	o.GcomToken = &v
 }
 
 // GetMimirToken returns the MimirToken field value if set, zero value otherwise.
-func (o *StackDto) GetMimirToken() string {
+func (o *StackCredentialsDto) GetMimirToken() string {
 	if o == nil || IsNil(o.MimirToken) {
 		var ret string
 		return ret
@@ -91,7 +91,7 @@ func (o *StackDto) GetMimirToken() string {
 
 // GetMimirTokenOk returns a tuple with the MimirToken field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *StackDto) GetMimirTokenOk() (*string, bool) {
+func (o *StackCredentialsDto) GetMimirTokenOk() (*string, bool) {
 	if o == nil || IsNil(o.MimirToken) {
 		return nil, false
 	}
@@ -99,7 +99,7 @@ func (o *StackDto) GetMimirTokenOk() (*string, bool) {
 }
 
 // HasMimirToken returns a boolean if a field has been set.
-func (o *StackDto) HasMimirToken() bool {
+func (o *StackCredentialsDto) HasMimirToken() bool {
 	if o != nil && !IsNil(o.MimirToken) {
 		return true
 	}
@@ -108,12 +108,12 @@ func (o *StackDto) HasMimirToken() bool {
 }
 
 // SetMimirToken gets a reference to the given string and assigns it to the MimirToken field.
-func (o *StackDto) SetMimirToken(v string) {
+func (o *StackCredentialsDto) SetMimirToken(v string) {
 	o.MimirToken = &v
 }
 
 // GetAssertionDetectorToken returns the AssertionDetectorToken field value if set, zero value otherwise.
-func (o *StackDto) GetAssertionDetectorToken() string {
+func (o *StackCredentialsDto) GetAssertionDetectorToken() string {
 	if o == nil || IsNil(o.AssertionDetectorToken) {
 		var ret string
 		return ret
@@ -123,7 +123,7 @@ func (o *StackDto) GetAssertionDetectorToken() string {
 
 // GetAssertionDetectorTokenOk returns a tuple with the AssertionDetectorToken field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *StackDto) GetAssertionDetectorTokenOk() (*string, bool) {
+func (o *StackCredentialsDto) GetAssertionDetectorTokenOk() (*string, bool) {
 	if o == nil || IsNil(o.AssertionDetectorToken) {
 		return nil, false
 	}
@@ -131,7 +131,7 @@ func (o *StackDto) GetAssertionDetectorTokenOk() (*string, bool) {
 }
 
 // HasAssertionDetectorToken returns a boolean if a field has been set.
-func (o *StackDto) HasAssertionDetectorToken() bool {
+func (o *StackCredentialsDto) HasAssertionDetectorToken() bool {
 	if o != nil && !IsNil(o.AssertionDetectorToken) {
 		return true
 	}
@@ -140,12 +140,12 @@ func (o *StackDto) HasAssertionDetectorToken() bool {
 }
 
 // SetAssertionDetectorToken gets a reference to the given string and assigns it to the AssertionDetectorToken field.
-func (o *StackDto) SetAssertionDetectorToken(v string) {
+func (o *StackCredentialsDto) SetAssertionDetectorToken(v string) {
 	o.AssertionDetectorToken = &v
 }
 
 // GetGrafanaToken returns the GrafanaToken field value if set, zero value otherwise.
-func (o *StackDto) GetGrafanaToken() string {
+func (o *StackCredentialsDto) GetGrafanaToken() string {
 	if o == nil || IsNil(o.GrafanaToken) {
 		var ret string
 		return ret
@@ -155,7 +155,7 @@ func (o *StackDto) GetGrafanaToken() string {
 
 // GetGrafanaTokenOk returns a tuple with the GrafanaToken field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *StackDto) GetGrafanaTokenOk() (*string, bool) {
+func (o *StackCredentialsDto) GetGrafanaTokenOk() (*string, bool) {
 	if o == nil || IsNil(o.GrafanaToken) {
 		return nil, false
 	}
@@ -163,7 +163,7 @@ func (o *StackDto) GetGrafanaTokenOk() (*string, bool) {
 }
 
 // HasGrafanaToken returns a boolean if a field has been set.
-func (o *StackDto) HasGrafanaToken() bool {
+func (o *StackCredentialsDto) HasGrafanaToken() bool {
 	if o != nil && !IsNil(o.GrafanaToken) {
 		return true
 	}
@@ -172,12 +172,12 @@ func (o *StackDto) HasGrafanaToken() bool {
 }
 
 // SetGrafanaToken gets a reference to the given string and assigns it to the GrafanaToken field.
-func (o *StackDto) SetGrafanaToken(v string) {
+func (o *StackCredentialsDto) SetGrafanaToken(v string) {
 	o.GrafanaToken = &v
 }
 
 // GetLokiToken returns the LokiToken field value if set, zero value otherwise.
-func (o *StackDto) GetLokiToken() string {
+func (o *StackCredentialsDto) GetLokiToken() string {
 	if o == nil || IsNil(o.LokiToken) {
 		var ret string
 		return ret
@@ -187,7 +187,7 @@ func (o *StackDto) GetLokiToken() string {
 
 // GetLokiTokenOk returns a tuple with the LokiToken field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *StackDto) GetLokiTokenOk() (*string, bool) {
+func (o *StackCredentialsDto) GetLokiTokenOk() (*string, bool) {
 	if o == nil || IsNil(o.LokiToken) {
 		return nil, false
 	}
@@ -195,7 +195,7 @@ func (o *StackDto) GetLokiTokenOk() (*string, bool) {
 }
 
 // HasLokiToken returns a boolean if a field has been set.
-func (o *StackDto) HasLokiToken() bool {
+func (o *StackCredentialsDto) HasLokiToken() bool {
 	if o != nil && !IsNil(o.LokiToken) {
 		return true
 	}
@@ -204,12 +204,12 @@ func (o *StackDto) HasLokiToken() bool {
 }
 
 // SetLokiToken gets a reference to the given string and assigns it to the LokiToken field.
-func (o *StackDto) SetLokiToken(v string) {
+func (o *StackCredentialsDto) SetLokiToken(v string) {
 	o.LokiToken = &v
 }
 
 // GetPyroscopeToken returns the PyroscopeToken field value if set, zero value otherwise.
-func (o *StackDto) GetPyroscopeToken() string {
+func (o *StackCredentialsDto) GetPyroscopeToken() string {
 	if o == nil || IsNil(o.PyroscopeToken) {
 		var ret string
 		return ret
@@ -219,7 +219,7 @@ func (o *StackDto) GetPyroscopeToken() string {
 
 // GetPyroscopeTokenOk returns a tuple with the PyroscopeToken field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *StackDto) GetPyroscopeTokenOk() (*string, bool) {
+func (o *StackCredentialsDto) GetPyroscopeTokenOk() (*string, bool) {
 	if o == nil || IsNil(o.PyroscopeToken) {
 		return nil, false
 	}
@@ -227,7 +227,7 @@ func (o *StackDto) GetPyroscopeTokenOk() (*string, bool) {
 }
 
 // HasPyroscopeToken returns a boolean if a field has been set.
-func (o *StackDto) HasPyroscopeToken() bool {
+func (o *StackCredentialsDto) HasPyroscopeToken() bool {
 	if o != nil && !IsNil(o.PyroscopeToken) {
 		return true
 	}
@@ -236,11 +236,11 @@ func (o *StackDto) HasPyroscopeToken() bool {
 }
 
 // SetPyroscopeToken gets a reference to the given string and assigns it to the PyroscopeToken field.
-func (o *StackDto) SetPyroscopeToken(v string) {
+func (o *StackCredentialsDto) SetPyroscopeToken(v string) {
 	o.PyroscopeToken = &v
 }
 
-func (o StackDto) MarshalJSON() ([]byte, error) {
+func (o StackCredentialsDto) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -248,7 +248,7 @@ func (o StackDto) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o StackDto) ToMap() (map[string]interface{}, error) {
+func (o StackCredentialsDto) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.GcomToken) {
 		toSerialize["gcomToken"] = o.GcomToken
@@ -276,16 +276,16 @@ func (o StackDto) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-func (o *StackDto) UnmarshalJSON(data []byte) (err error) {
-	varStackDto := _StackDto{}
+func (o *StackCredentialsDto) UnmarshalJSON(data []byte) (err error) {
+	varStackCredentialsDto := _StackCredentialsDto{}
 
-	err = json.Unmarshal(data, &varStackDto)
+	err = json.Unmarshal(data, &varStackCredentialsDto)
 
 	if err != nil {
 		return err
 	}
 
-	*o = StackDto(varStackDto)
+	*o = StackCredentialsDto(varStackCredentialsDto)
 
 	additionalProperties := make(map[string]interface{})
 
@@ -302,38 +302,38 @@ func (o *StackDto) UnmarshalJSON(data []byte) (err error) {
 	return err
 }
 
-type NullableStackDto struct {
-	value *StackDto
+type NullableStackCredentialsDto struct {
+	value *StackCredentialsDto
 	isSet bool
 }
 
-func (v NullableStackDto) Get() *StackDto {
+func (v NullableStackCredentialsDto) Get() *StackCredentialsDto {
 	return v.value
 }
 
-func (v *NullableStackDto) Set(val *StackDto) {
+func (v *NullableStackCredentialsDto) Set(val *StackCredentialsDto) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableStackDto) IsSet() bool {
+func (v NullableStackCredentialsDto) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableStackDto) Unset() {
+func (v *NullableStackCredentialsDto) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableStackDto(val *StackDto) *NullableStackDto {
-	return &NullableStackDto{value: val, isSet: true}
+func NewNullableStackCredentialsDto(val *StackCredentialsDto) *NullableStackCredentialsDto {
+	return &NullableStackCredentialsDto{value: val, isSet: true}
 }
 
-func (v NullableStackDto) MarshalJSON() ([]byte, error) {
+func (v NullableStackCredentialsDto) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableStackDto) UnmarshalJSON(src []byte) error {
+func (v *NullableStackCredentialsDto) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

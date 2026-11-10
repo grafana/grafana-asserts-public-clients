@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2.121.6
+API version: 2.133.1
 Contact: support@asserts.ai
 */
 
@@ -20,7 +20,7 @@ var _ MappedNullable = &SchemaDomainDto{}
 
 // SchemaDomainDto struct for SchemaDomainDto
 type SchemaDomainDto struct {
-	Name                 string  `json:"name" validate:"regexp=^[a-z][a-z0-9]*$"`
+	Name                 string  `json:"name" validate:"regexp=^(tenant\\/)?[a-z][a-z0-9]*$"`
 	DisplayName          *string `json:"displayName,omitempty"`
 	Version              string  `json:"version" validate:"regexp=^v(?<major>[0-9]+)(?:(?<pre>alpha|beta)(?<preNum>[0-9]+))?$"`
 	AdditionalProperties map[string]interface{}

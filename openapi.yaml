@@ -7,7 +7,7 @@ info:
     name: Support
     url: "https://www.grafana.com"
     email: support@asserts.ai
-  version: 2026.11.06-124643
+  version: 2026.11.10-094704
 servers:
   - url: http://localhost:8030
     description: Generated server url
@@ -35,7 +35,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/StackDto"
+              $ref: "#/components/schemas/StackCredentialsDto"
         required: true
       responses:
         "200":
@@ -3854,6 +3854,21 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/StackEnableDto"
+  /asserts/api-server/v1/stack/credentials:
+    get:
+      tags:
+        - stack-controller
+      operationId: getStackCredentials
+      parameters:
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StackCredentialsDto"
   /asserts/api-server/v1/search/autocomplete/{index}:
     get:
       tags:
@@ -4939,7 +4954,7 @@ paths:
           required: false
           schema:
             type: string
-            pattern: "^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+            pattern: "^(?:tenant/[a-z][a-z0-9]*|[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)$"
         - in: header
           $ref: "#/components/parameters/TenantId"
       responses:
@@ -5006,7 +5021,7 @@ paths:
           required: false
           schema:
             type: string
-            pattern: "^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+            pattern: "^(?:tenant/[a-z][a-z0-9]*|[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)$"
         - name: connected_type
           in: query
           description: Restrict results to connected entities of this type
@@ -5275,7 +5290,7 @@ paths:
                 $ref: "#/components/schemas/ApiError"
 components:
   schemas:
-    StackDto:
+    StackCredentialsDto:
       type: object
       properties:
         gcomToken:
@@ -7159,6 +7174,9 @@ components:
           type: string
         alertName:
           type: string
+        onset:
+          type: integer
+          format: int64
         healthStates:
           type: array
           items:
@@ -8801,18 +8819,6 @@ components:
           format: int32
         orgSlug:
           type: string
-        gcomToken:
-          type: string
-        mimirToken:
-          type: string
-        assertionDetectorToken:
-          type: string
-        grafanaToken:
-          type: string
-        lokiToken:
-          type: string
-        pyroscopeToken:
-          type: string
         enabled:
           type: boolean
         alertManagerConfigured:
@@ -9374,6 +9380,11 @@ components:
       default: null
       description: Relationship rule definition between entities
       properties:
+        domain:
+          type: string
+          default: ""
+          description: "Domain that owns this relationship type. Omit to use the type's default: metrics for CONSUMES, CONTROLS, HOSTS, MONITORED_BY, PRODUCES, PROVIDES, ROUTES, RUNS_ON and USES; core for every other type. Owner stamping must be deployed before this field affects discovery. Owner-aware matching must be activated before different owners produce separate edges."
+          pattern: "^(?!kg$)[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
         type:
           type: string
           default: ""

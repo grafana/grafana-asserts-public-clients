@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.11.06-124643
+API version: 2026.11.10-094704
 Contact: support@asserts.ai
 */
 
@@ -894,6 +894,114 @@ func (a *StackControllerAPIService) GetDatasetsExecute(r ApiGetDatasetsRequest) 
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiGetStackCredentialsRequest struct {
+	ctx         context.Context
+	ApiService  *StackControllerAPIService
+	xScopeOrgID *string
+}
+
+// Grafana Tenant/Stack ID
+func (r ApiGetStackCredentialsRequest) XScopeOrgID(xScopeOrgID string) ApiGetStackCredentialsRequest {
+	r.xScopeOrgID = &xScopeOrgID
+	return r
+}
+
+func (r ApiGetStackCredentialsRequest) Execute() (*StackCredentialsDto, *http.Response, error) {
+	return r.ApiService.GetStackCredentialsExecute(r)
+}
+
+/*
+GetStackCredentials Method for GetStackCredentials
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetStackCredentialsRequest
+*/
+func (a *StackControllerAPIService) GetStackCredentials(ctx context.Context) ApiGetStackCredentialsRequest {
+	return ApiGetStackCredentialsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return StackCredentialsDto
+func (a *StackControllerAPIService) GetStackCredentialsExecute(r ApiGetStackCredentialsRequest) (*StackCredentialsDto, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *StackCredentialsDto
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "StackControllerAPIService.GetStackCredentials")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/asserts/api-server/v1/stack/credentials"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.xScopeOrgID != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Scope-OrgID", r.xScopeOrgID, "")
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiGetStackDetailRequest struct {
 	ctx         context.Context
 	ApiService  *StackControllerAPIService
@@ -1444,14 +1552,14 @@ func (a *StackControllerAPIService) PauseGraphWritesExecute(r ApiPauseGraphWrite
 }
 
 type ApiPutV2StackRequest struct {
-	ctx         context.Context
-	ApiService  *StackControllerAPIService
-	stackDto    *StackDto
-	xScopeOrgID *string
+	ctx                 context.Context
+	ApiService          *StackControllerAPIService
+	stackCredentialsDto *StackCredentialsDto
+	xScopeOrgID         *string
 }
 
-func (r ApiPutV2StackRequest) StackDto(stackDto StackDto) ApiPutV2StackRequest {
-	r.stackDto = &stackDto
+func (r ApiPutV2StackRequest) StackCredentialsDto(stackCredentialsDto StackCredentialsDto) ApiPutV2StackRequest {
+	r.stackCredentialsDto = &stackCredentialsDto
 	return r
 }
 
@@ -1496,8 +1604,8 @@ func (a *StackControllerAPIService) PutV2StackExecute(r ApiPutV2StackRequest) (*
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.stackDto == nil {
-		return nil, reportError("stackDto is required and must be specified")
+	if r.stackCredentialsDto == nil {
+		return nil, reportError("stackCredentialsDto is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1521,7 +1629,7 @@ func (a *StackControllerAPIService) PutV2StackExecute(r ApiPutV2StackRequest) (*
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Scope-OrgID", r.xScopeOrgID, "")
 	}
 	// body params
-	localVarPostBody = r.stackDto
+	localVarPostBody = r.stackCredentialsDto
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
