@@ -25,6 +25,9 @@ jobs:
       - uses: actions/setup-go@4a3601121dd01d1626a1e23e37211e3254c1c06c # v6.4.0
         with:
           go-version: 1.26
+      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+        with:
+          node-version: 22
 
       # Generation only — committing is done once, signed, in the step below.
       - name: Generate Client
@@ -56,6 +59,42 @@ jobs:
           spec-path: system-schema-openapi.yaml
           modify-spec-script: .github/workflows/modify-spec.sh
           commit-changes: "false"
+
+      - name: Generate JavaScript Client
+        uses: grafana/shared-workflows/actions/generate-openapi-clients@e52d64dea00d1a57596d19b9a7d74f75309e8d0a # JavaScript generation (shared-workflows#2299)
+        env:
+          REPO_NAME: ${{ github.event.repository.name }}
+        with:
+          language: javascript
+          package-name: gcom
+          spec-path: openapi.yaml
+          modify-spec-script: .github/workflows/modify-spec.sh
+          commit-changes: "false"
+
+      - name: Generate JavaScript KG Write Client
+        uses: grafana/shared-workflows/actions/generate-openapi-clients@e52d64dea00d1a57596d19b9a7d74f75309e8d0a # JavaScript generation (shared-workflows#2299)
+        env:
+          REPO_NAME: ${{ github.event.repository.name }}
+        with:
+          language: javascript
+          package-name: kgwrite
+          spec-path: kg-write-openapi.yaml
+          modify-spec-script: .github/workflows/modify-spec.sh
+          commit-changes: "false"
+
+      - name: Generate JavaScript System Schema Client
+        uses: grafana/shared-workflows/actions/generate-openapi-clients@e52d64dea00d1a57596d19b9a7d74f75309e8d0a # JavaScript generation (shared-workflows#2299)
+        env:
+          REPO_NAME: ${{ github.event.repository.name }}
+        with:
+          language: javascript
+          package-name: systemschema
+          spec-path: system-schema-openapi.yaml
+          modify-spec-script: .github/workflows/modify-spec.sh
+          commit-changes: "false"
+
+      - name: Test JavaScript clients
+        run: node --test tests/js/*.test.cjs
 
       # Commit via the GitHub API so the commit is signed/verified, satisfying
       # the "Signed Commits" ruleset (a plain git push of a bot commit is not).
