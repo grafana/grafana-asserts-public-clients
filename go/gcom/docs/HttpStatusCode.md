@@ -5,10 +5,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Error** | Pointer to **bool** |  | [optional] 
-**Is3xxRedirection** | Pointer to **bool** |  | [optional] 
 **Is5xxServerError** | Pointer to **bool** |  | [optional] 
-**Is4xxClientError** | Pointer to **bool** |  | [optional] 
+**Is3xxRedirection** | Pointer to **bool** |  | [optional] 
 **Is2xxSuccessful** | Pointer to **bool** |  | [optional] 
+**Is4xxClientError** | Pointer to **bool** |  | [optional] 
 **Is1xxInformational** | Pointer to **bool** |  | [optional] 
 
 ## Methods
@@ -55,31 +55,6 @@ SetError sets Error field to given value.
 
 HasError returns a boolean if a field has been set.
 
-### GetIs3xxRedirection
-
-`func (o *HttpStatusCode) GetIs3xxRedirection() bool`
-
-GetIs3xxRedirection returns the Is3xxRedirection field if non-nil, zero value otherwise.
-
-### GetIs3xxRedirectionOk
-
-`func (o *HttpStatusCode) GetIs3xxRedirectionOk() (*bool, bool)`
-
-GetIs3xxRedirectionOk returns a tuple with the Is3xxRedirection field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetIs3xxRedirection
-
-`func (o *HttpStatusCode) SetIs3xxRedirection(v bool)`
-
-SetIs3xxRedirection sets Is3xxRedirection field to given value.
-
-### HasIs3xxRedirection
-
-`func (o *HttpStatusCode) HasIs3xxRedirection() bool`
-
-HasIs3xxRedirection returns a boolean if a field has been set.
-
 ### GetIs5xxServerError
 
 `func (o *HttpStatusCode) GetIs5xxServerError() bool`
@@ -105,30 +80,30 @@ SetIs5xxServerError sets Is5xxServerError field to given value.
 
 HasIs5xxServerError returns a boolean if a field has been set.
 
-### GetIs4xxClientError
+### GetIs3xxRedirection
 
-`func (o *HttpStatusCode) GetIs4xxClientError() bool`
+`func (o *HttpStatusCode) GetIs3xxRedirection() bool`
 
-GetIs4xxClientError returns the Is4xxClientError field if non-nil, zero value otherwise.
+GetIs3xxRedirection returns the Is3xxRedirection field if non-nil, zero value otherwise.
 
-### GetIs4xxClientErrorOk
+### GetIs3xxRedirectionOk
 
-`func (o *HttpStatusCode) GetIs4xxClientErrorOk() (*bool, bool)`
+`func (o *HttpStatusCode) GetIs3xxRedirectionOk() (*bool, bool)`
 
-GetIs4xxClientErrorOk returns a tuple with the Is4xxClientError field if it's non-nil, zero value otherwise
+GetIs3xxRedirectionOk returns a tuple with the Is3xxRedirection field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetIs4xxClientError
+### SetIs3xxRedirection
 
-`func (o *HttpStatusCode) SetIs4xxClientError(v bool)`
+`func (o *HttpStatusCode) SetIs3xxRedirection(v bool)`
 
-SetIs4xxClientError sets Is4xxClientError field to given value.
+SetIs3xxRedirection sets Is3xxRedirection field to given value.
 
-### HasIs4xxClientError
+### HasIs3xxRedirection
 
-`func (o *HttpStatusCode) HasIs4xxClientError() bool`
+`func (o *HttpStatusCode) HasIs3xxRedirection() bool`
 
-HasIs4xxClientError returns a boolean if a field has been set.
+HasIs3xxRedirection returns a boolean if a field has been set.
 
 ### GetIs2xxSuccessful
 
@@ -154,6 +129,31 @@ SetIs2xxSuccessful sets Is2xxSuccessful field to given value.
 `func (o *HttpStatusCode) HasIs2xxSuccessful() bool`
 
 HasIs2xxSuccessful returns a boolean if a field has been set.
+
+### GetIs4xxClientError
+
+`func (o *HttpStatusCode) GetIs4xxClientError() bool`
+
+GetIs4xxClientError returns the Is4xxClientError field if non-nil, zero value otherwise.
+
+### GetIs4xxClientErrorOk
+
+`func (o *HttpStatusCode) GetIs4xxClientErrorOk() (*bool, bool)`
+
+GetIs4xxClientErrorOk returns a tuple with the Is4xxClientError field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIs4xxClientError
+
+`func (o *HttpStatusCode) SetIs4xxClientError(v bool)`
+
+SetIs4xxClientError sets Is4xxClientError field to given value.
+
+### HasIs4xxClientError
+
+`func (o *HttpStatusCode) HasIs4xxClientError() bool`
+
+HasIs4xxClientError returns a boolean if a field has been set.
 
 ### GetIs1xxInformational
 

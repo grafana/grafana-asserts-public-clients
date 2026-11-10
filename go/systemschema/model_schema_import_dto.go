@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2.53.4
+API version: 2.121.6
 Contact: support@asserts.ai
 */
 
@@ -20,8 +20,9 @@ var _ MappedNullable = &SchemaImportDto{}
 
 // SchemaImportDto struct for SchemaImportDto
 type SchemaImportDto struct {
-	Domain               string `json:"domain" validate:"regexp=^[a-z][a-z0-9]*$"`
-	Version              string `json:"version" validate:"regexp=^v(?<major>[0-9]+)(?:(?<pre>alpha|beta)(?<preNum>[0-9]+))?$"`
+	Domain               string  `json:"domain" validate:"regexp=^[a-z][a-z0-9]*$"`
+	Version              string  `json:"version" validate:"regexp=^v(?<major>[0-9]+)(?:(?<pre>alpha|beta)(?<preNum>[0-9]+))?$"`
+	Alias                *string `json:"alias,omitempty" validate:"regexp=^[a-z][a-z0-9]*$"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -94,6 +95,38 @@ func (o *SchemaImportDto) SetVersion(v string) {
 	o.Version = v
 }
 
+// GetAlias returns the Alias field value if set, zero value otherwise.
+func (o *SchemaImportDto) GetAlias() string {
+	if o == nil || IsNil(o.Alias) {
+		var ret string
+		return ret
+	}
+	return *o.Alias
+}
+
+// GetAliasOk returns a tuple with the Alias field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SchemaImportDto) GetAliasOk() (*string, bool) {
+	if o == nil || IsNil(o.Alias) {
+		return nil, false
+	}
+	return o.Alias, true
+}
+
+// HasAlias returns a boolean if a field has been set.
+func (o *SchemaImportDto) HasAlias() bool {
+	if o != nil && !IsNil(o.Alias) {
+		return true
+	}
+
+	return false
+}
+
+// SetAlias gets a reference to the given string and assigns it to the Alias field.
+func (o *SchemaImportDto) SetAlias(v string) {
+	o.Alias = &v
+}
+
 func (o SchemaImportDto) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -106,6 +139,9 @@ func (o SchemaImportDto) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["domain"] = o.Domain
 	toSerialize["version"] = o.Version
+	if !IsNil(o.Alias) {
+		toSerialize["alias"] = o.Alias
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -138,6 +174,7 @@ func (o *SchemaImportDto) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "domain")
 		delete(additionalProperties, "version")
+		delete(additionalProperties, "alias")
 		o.AdditionalProperties = additionalProperties
 	}
 

@@ -7,9 +7,9 @@ info:
     name: Support
     url: "https://www.grafana.com"
     email: support@asserts.ai
-  version: 2026.09.09-102835
+  version: 2026.11.06-124643
 servers:
-  - url: http://localhost:18031
+  - url: http://localhost:8030
     description: Generated server url
 tags:
   - name: Kubernetes Events
@@ -496,6 +496,12 @@ paths:
         - prom-rules-config-controller
       operationId: putPromRules
       parameters:
+        - name: skipPromQLEval
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: false
         - in: header
           $ref: "#/components/parameters/TenantId"
       requestBody:
@@ -786,6 +792,27 @@ paths:
       responses:
         "200":
           description: OK
+  /asserts/api-server/v2/stack/force-public-tsdb:
+    post:
+      tags:
+        - stack-controller
+      operationId: forcePublicTsdb
+      parameters:
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ForcePublicTsdbDto"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StackStatusDto"
   /asserts/api-server/v2/stack/enable:
     post:
       tags:
@@ -835,6 +862,7 @@ paths:
                     - otel
                     - hosto11y
                     - feo11y
+                    - dbo11y
                     - aws
                     - azure
                     - gcp
@@ -1679,6 +1707,26 @@ paths:
             application/x-yaml:
               schema:
                 $ref: "#/components/schemas/LlmRcaSummariesDto"
+  /asserts/api-server/v1/query/cypher:
+    post:
+      tags:
+        - cypher-query-controller
+      operationId: query
+      parameters:
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CypherQueryRequestDto"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CypherQueryResponseDto"
   /asserts/api-server/v1/patterns/search:
     post:
       tags:
@@ -2457,9 +2505,15 @@ paths:
       tags:
         - prom-rules-config-controller
       summary: Validate Prometheus rules synchronously without persisting
-      description: "Runs the same synchronous validation as create/update against the rules in the request body but never persists them. Returns 200 if valid, 422 with field errors if invalid."
+      description: "Runs the same synchronous validation as create/update against the rules in the request body but never persists them. Returns 200 if valid, 422 with field errors if invalid. Set skipPromQLEval=true to skip executing each expression against the tenant's TSDB. The local PromQL parse and Asserts checks still run, so a rule that parses but is invalid is accepted and fails later at ruler evaluation."
       operationId: validatePromRules
       parameters:
+        - name: skipPromQLEval
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: false
         - in: header
           $ref: "#/components/parameters/TenantId"
       requestBody:
@@ -3372,6 +3426,27 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/EntityAssertionDetailsDto"
+  /asserts/api-server/v1/assertions/entities:
+    post:
+      tags:
+        - entity-assertions-lookup-controller
+      operationId: lookup
+      parameters:
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EntityAssertionsLookupRequestDto"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EntityAssertionsLookupResponseDto"
   /asserts/api-server/v1/assertion_scores:
     post:
       tags:
@@ -3596,6 +3671,7 @@ paths:
               - otel
               - hosto11y
               - feo11y
+              - dbo11y
               - aws
               - azure
               - gcp
@@ -3626,6 +3702,7 @@ paths:
               - otel
               - hosto11y
               - feo11y
+              - dbo11y
               - aws
               - azure
               - gcp
@@ -3656,6 +3733,7 @@ paths:
               - otel
               - hosto11y
               - feo11y
+              - dbo11y
               - aws
               - azure
               - gcp
@@ -5223,6 +5301,7 @@ components:
             - otel
             - hosto11y
             - feo11y
+            - dbo11y
             - aws
             - azure
             - gcp
@@ -5320,6 +5399,12 @@ components:
         subErrors:
           type: array
           items:
+            discriminator:
+              propertyName: '@type'
+              mapping:
+                ApiSubError: "#/components/schemas/ApiSubError"
+                ApiQuerySyntaxError: "#/components/schemas/ApiQuerySyntaxError"
+                ApiValidationError: "#/components/schemas/ApiValidationError"
             oneOf:
               - $ref: "#/components/schemas/ApiSubError"
               - $ref: "#/components/schemas/ApiQuerySyntaxError"
@@ -5332,7 +5417,7 @@ components:
           type: string
     ApiQuerySyntaxError:
       allOf:
-        - $ref: "#/components/schemas/ApiSubError"
+        - $ref: "#/components/schemas/ApiSubErrorFields"
         - type: object
           properties:
             line:
@@ -5341,19 +5426,35 @@ components:
             column:
               type: integer
               format: int32
+        - type: object
+          properties:
+            '@type':
+              $ref: "#/components/schemas/ApiQuerySyntaxErrorType"
+          required:
+            - '@type'
     ApiSubError:
-      type: object
-      properties:
-        message:
-          type: string
+      allOf:
+        - $ref: "#/components/schemas/ApiSubErrorFields"
+        - type: object
+          properties:
+            '@type':
+              $ref: "#/components/schemas/ApiSubErrorType"
+          required:
+            - '@type'
     ApiValidationError:
       allOf:
-        - $ref: "#/components/schemas/ApiSubError"
+        - $ref: "#/components/schemas/ApiSubErrorFields"
         - type: object
           properties:
             field:
               type: string
             rejectedValue: {}
+        - type: object
+          properties:
+            '@type':
+              $ref: "#/components/schemas/ApiValidationErrorType"
+          required:
+            - '@type'
     DefaultHttpStatusCode:
       allOf:
         - $ref: "#/components/schemas/HttpStatusCode"
@@ -5365,7 +5466,6 @@ components:
         - 101 SWITCHING_PROTOCOLS
         - 102 PROCESSING
         - 103 EARLY_HINTS
-        - 103 CHECKPOINT
         - 200 OK
         - 201 CREATED
         - 202 ACCEPTED
@@ -5379,10 +5479,8 @@ components:
         - 300 MULTIPLE_CHOICES
         - 301 MOVED_PERMANENTLY
         - 302 FOUND
-        - 302 MOVED_TEMPORARILY
         - 303 SEE_OTHER
         - 304 NOT_MODIFIED
-        - 305 USE_PROXY
         - 307 TEMPORARY_REDIRECT
         - 308 PERMANENT_REDIRECT
         - 400 BAD_REQUEST
@@ -5398,17 +5496,15 @@ components:
         - 410 GONE
         - 411 LENGTH_REQUIRED
         - 412 PRECONDITION_FAILED
+        - 413 CONTENT_TOO_LARGE
         - 413 PAYLOAD_TOO_LARGE
-        - 413 REQUEST_ENTITY_TOO_LARGE
         - 414 URI_TOO_LONG
-        - 414 REQUEST_URI_TOO_LONG
         - 415 UNSUPPORTED_MEDIA_TYPE
         - 416 REQUESTED_RANGE_NOT_SATISFIABLE
         - 417 EXPECTATION_FAILED
         - 418 I_AM_A_TEAPOT
-        - 419 INSUFFICIENT_SPACE_ON_RESOURCE
-        - 420 METHOD_FAILURE
-        - 421 DESTINATION_LOCKED
+        - 421 MISDIRECTED_REQUEST
+        - 422 UNPROCESSABLE_CONTENT
         - 422 UNPROCESSABLE_ENTITY
         - 423 LOCKED
         - 424 FAILED_DEPENDENCY
@@ -5435,13 +5531,13 @@ components:
       properties:
         error:
           type: boolean
-        is3xxRedirection:
-          type: boolean
         is5xxServerError:
           type: boolean
-        is4xxClientError:
+        is3xxRedirection:
           type: boolean
         is2xxSuccessful:
+          type: boolean
+        is4xxClientError:
           type: boolean
         is1xxInformational:
           type: boolean
@@ -5603,6 +5699,10 @@ components:
         errorLabel:
           type: string
         entityPropertyToLogLabelMapping:
+          type: object
+          additionalProperties:
+            type: string
+        entityPropertyToLogFieldMapping:
           type: object
           additionalProperties:
             type: string
@@ -6036,13 +6136,13 @@ components:
             type: string
       required:
         - name
-    DatasetsSanityChecksDto:
+    ForcePublicTsdbDto:
       type: object
       properties:
-        sanityChecks:
-          type: object
-          additionalProperties:
-            $ref: "#/components/schemas/DatasetSanityChecksDto"
+        enabled:
+          type: boolean
+        reason:
+          type: string
     MetricSanityCheckResult:
       type: object
       properties:
@@ -6098,6 +6198,13 @@ components:
           type: boolean
         blockedReason:
           type: string
+    DatasetsSanityChecksDto:
+      type: object
+      properties:
+        sanityChecks:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/DatasetSanityChecksDto"
     EntityKeyDto:
       type: object
       properties:
@@ -7127,6 +7234,50 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/LlmRcaPatternDto"
+    CypherQueryRequestDto:
+      type: object
+      properties:
+        query:
+          type: string
+          maxLength: 8192
+          minLength: 0
+        start:
+          type: integer
+          format: int64
+        end:
+          type: integer
+          format: int64
+        parameters:
+          type: object
+          additionalProperties: {}
+      required:
+        - query
+    CypherQueryResponseDto:
+      type: object
+      properties:
+        columns:
+          type: array
+          items:
+            type: string
+        rows:
+          type: array
+          items:
+            type: array
+            items: {}
+        stats:
+          $ref: "#/components/schemas/CypherQueryStatsDto"
+    CypherQueryStatsDto:
+      type: object
+      properties:
+        rowCount:
+          type: integer
+          format: int32
+        columnCount:
+          type: integer
+          format: int32
+        elapsedMs:
+          type: integer
+          format: int64
     RcaPatternSearchRequestDto:
       type: object
       properties:
@@ -8180,6 +8331,62 @@ components:
                 $ref: "#/components/schemas/ThresholdValueMinMaxDto"
             fillZeros:
               type: boolean
+    EntityAssertionsLookupKeyDto:
+      type: object
+      properties:
+        type:
+          type: string
+        name:
+          type: string
+        scope:
+          type: object
+          additionalProperties: {}
+        domain:
+          type: string
+    EntityAssertionsLookupRequestDto:
+      type: object
+      properties:
+        startTime:
+          type: integer
+          format: int64
+        endTime:
+          type: integer
+          format: int64
+        entityKeys:
+          type: array
+          items:
+            $ref: "#/components/schemas/EntityAssertionsLookupKeyDto"
+        includeConnected:
+          type: boolean
+    EntityAssertionsLookupEntityDto:
+      type: object
+      properties:
+        domain:
+          type: string
+        type:
+          type: string
+        name:
+          type: string
+        scope:
+          type: object
+          additionalProperties: {}
+        assertionsSupported:
+          type: boolean
+        assertion:
+          $ref: "#/components/schemas/GraphAssertionSummary"
+        connectedAssertion:
+          $ref: "#/components/schemas/GraphAssertionSummary"
+        invalidReason:
+          type: string
+    EntityAssertionsLookupResponseDto:
+      type: object
+      properties:
+        timeCriteria:
+          $ref: "#/components/schemas/TimeWindowDto"
+        entities:
+          type: array
+          items:
+            $ref: "#/components/schemas/EntityAssertionsLookupEntityDto"
     AssertionScoreRequestDto:
       type: object
       properties:
@@ -8624,6 +8831,10 @@ components:
           format: int32
         allowLargeTenantOnboarding:
           type: boolean
+        forcePublicTsdb:
+          type: boolean
+        forcePublicTsdbReason:
+          type: string
         currentActiveSeries:
           type: integer
           format: int32
@@ -9375,6 +9586,23 @@ components:
         offset:
           type: integer
           format: int32
+    ApiSubErrorFields:
+      type: object
+      properties:
+        message:
+          type: string
+    ApiSubErrorType:
+      type: string
+      enum:
+        - ApiSubError
+    ApiQuerySyntaxErrorType:
+      type: string
+      enum:
+        - ApiQuerySyntaxError
+    ApiValidationErrorType:
+      type: string
+      enum:
+        - ApiValidationError
   parameters:
     TenantId:
       name: X-Scope-OrgID

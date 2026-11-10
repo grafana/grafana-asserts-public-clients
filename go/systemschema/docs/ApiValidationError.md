@@ -7,12 +7,13 @@ Name | Type | Description | Notes
 **Message** | Pointer to **string** |  | [optional] 
 **Field** | Pointer to **string** |  | [optional] 
 **RejectedValue** | Pointer to **interface{}** |  | [optional] 
+**Type** | [**ApiValidationErrorType**](ApiValidationErrorType.md) |  | 
 
 ## Methods
 
 ### NewApiValidationError
 
-`func NewApiValidationError() *ApiValidationError`
+`func NewApiValidationError(type_ ApiValidationErrorType, ) *ApiValidationError`
 
 NewApiValidationError instantiates a new ApiValidationError object
 This constructor will assign default values to properties that have it defined,
@@ -112,6 +113,26 @@ HasRejectedValue returns a boolean if a field has been set.
 `func (o *ApiValidationError) UnsetRejectedValue()`
 
 UnsetRejectedValue ensures that no value is present for RejectedValue, not even an explicit nil
+### GetType
+
+`func (o *ApiValidationError) GetType() ApiValidationErrorType`
+
+GetType returns the Type field if non-nil, zero value otherwise.
+
+### GetTypeOk
+
+`func (o *ApiValidationError) GetTypeOk() (*ApiValidationErrorType, bool)`
+
+GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetType
+
+`func (o *ApiValidationError) SetType(v ApiValidationErrorType)`
+
+SetType sets Type field to given value.
+
+
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -22,6 +22,8 @@ Name | Type | Description | Notes
 **DisabledTime** | Pointer to **time.Time** |  | [optional] 
 **Version** | Pointer to **int32** |  | [optional] 
 **AllowLargeTenantOnboarding** | Pointer to **bool** |  | [optional] 
+**ForcePublicTsdb** | Pointer to **bool** |  | [optional] 
+**ForcePublicTsdbReason** | Pointer to **string** |  | [optional] 
 **CurrentActiveSeries** | Pointer to **int32** |  | [optional] 
 **StackDatasets** | Pointer to [**[]StackDatasetDto**](StackDatasetDto.md) |  | [optional] 
 
@@ -493,6 +495,56 @@ SetAllowLargeTenantOnboarding sets AllowLargeTenantOnboarding field to given val
 `func (o *StackDetailDto) HasAllowLargeTenantOnboarding() bool`
 
 HasAllowLargeTenantOnboarding returns a boolean if a field has been set.
+
+### GetForcePublicTsdb
+
+`func (o *StackDetailDto) GetForcePublicTsdb() bool`
+
+GetForcePublicTsdb returns the ForcePublicTsdb field if non-nil, zero value otherwise.
+
+### GetForcePublicTsdbOk
+
+`func (o *StackDetailDto) GetForcePublicTsdbOk() (*bool, bool)`
+
+GetForcePublicTsdbOk returns a tuple with the ForcePublicTsdb field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetForcePublicTsdb
+
+`func (o *StackDetailDto) SetForcePublicTsdb(v bool)`
+
+SetForcePublicTsdb sets ForcePublicTsdb field to given value.
+
+### HasForcePublicTsdb
+
+`func (o *StackDetailDto) HasForcePublicTsdb() bool`
+
+HasForcePublicTsdb returns a boolean if a field has been set.
+
+### GetForcePublicTsdbReason
+
+`func (o *StackDetailDto) GetForcePublicTsdbReason() string`
+
+GetForcePublicTsdbReason returns the ForcePublicTsdbReason field if non-nil, zero value otherwise.
+
+### GetForcePublicTsdbReasonOk
+
+`func (o *StackDetailDto) GetForcePublicTsdbReasonOk() (*string, bool)`
+
+GetForcePublicTsdbReasonOk returns a tuple with the ForcePublicTsdbReason field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetForcePublicTsdbReason
+
+`func (o *StackDetailDto) SetForcePublicTsdbReason(v string)`
+
+SetForcePublicTsdbReason sets ForcePublicTsdbReason field to given value.
+
+### HasForcePublicTsdbReason
+
+`func (o *StackDetailDto) HasForcePublicTsdbReason() bool`
+
+HasForcePublicTsdbReason returns a boolean if a field has been set.
 
 ### GetCurrentActiveSeries
 

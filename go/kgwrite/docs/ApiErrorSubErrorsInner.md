@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Message** | Pointer to **string** |  | [optional] 
+**Type** | [**ApiValidationErrorType**](ApiValidationErrorType.md) |  | 
 **Line** | Pointer to **int32** |  | [optional] 
 **Column** | Pointer to **int32** |  | [optional] 
 **Field** | Pointer to **string** |  | [optional] 
@@ -14,7 +15,7 @@ Name | Type | Description | Notes
 
 ### NewApiErrorSubErrorsInner
 
-`func NewApiErrorSubErrorsInner() *ApiErrorSubErrorsInner`
+`func NewApiErrorSubErrorsInner(type_ ApiValidationErrorType, ) *ApiErrorSubErrorsInner`
 
 NewApiErrorSubErrorsInner instantiates a new ApiErrorSubErrorsInner object
 This constructor will assign default values to properties that have it defined,
@@ -53,6 +54,26 @@ SetMessage sets Message field to given value.
 `func (o *ApiErrorSubErrorsInner) HasMessage() bool`
 
 HasMessage returns a boolean if a field has been set.
+
+### GetType
+
+`func (o *ApiErrorSubErrorsInner) GetType() ApiValidationErrorType`
+
+GetType returns the Type field if non-nil, zero value otherwise.
+
+### GetTypeOk
+
+`func (o *ApiErrorSubErrorsInner) GetTypeOk() (*ApiValidationErrorType, bool)`
+
+GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetType
+
+`func (o *ApiErrorSubErrorsInner) SetType(v ApiValidationErrorType)`
+
+SetType sets Type field to given value.
+
 
 ### GetLine
 
