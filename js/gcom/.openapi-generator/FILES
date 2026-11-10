@@ -1,6 +1,5 @@
 .gitignore
 .npmignore
-.openapi-generator-ignore
 README.md
 package.json
 src/apis/AlertConfigurationApi.ts
@@ -14,10 +13,12 @@ src/apis/CustomDashConfigControllerApi.ts
 src/apis/CustomLabelRetentionApi.ts
 src/apis/CustomRcaPatternControllerApi.ts
 src/apis/CustomerMetricControllerApi.ts
+src/apis/CypherQueryControllerApi.ts
 src/apis/CypherSearchControllerApi.ts
 src/apis/DataSourcesConfigControllerApi.ts
 src/apis/DrilldownConfigMigrationControllerApi.ts
 src/apis/EntityAssertionsControllerApi.ts
+src/apis/EntityAssertionsLookupControllerApi.ts
 src/apis/EntityControllerApi.ts
 src/apis/EntityKpiControllerApi.ts
 src/apis/EntityScopeControllerApi.ts
@@ -61,5 +62,4 @@ src/apis/index.ts
 src/index.ts
 src/models/index.ts
 src/runtime.ts
-tsconfig.esm.json
 tsconfig.json

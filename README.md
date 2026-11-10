@@ -14,8 +14,10 @@ Both languages are generated from the same specs in the same release PR.
 
 The JavaScript packages use OpenAPI Generator's `typescript-fetch` generator.
 Each contains TypeScript source, a pinned compiler, and a lockfile. Builds produce
-CommonJS JavaScript and type declarations in `dist/`, which is ignored by Git.
-There are no runtime dependencies. Use Node.js 18+ or a browser with Fetch support.
+native ES modules and type declarations in `dist/`, which is ignored by Git.
+There are no runtime dependencies. Browser consumers need Fetch support. Node.js
+20.19+ and 22.12+ can also load these ESM packages with `require()`; validation
+uses Node.js 22 and 24.
 
 ## Using a JavaScript client
 
@@ -34,10 +36,10 @@ npm install /path/to/grafana-asserts-public-clients/js/kgwrite
 ```
 
 ```js
-const {
+import {
   Configuration,
   KnowledgeGraphReadAPIApi,
-} = require("grafana-asserts-public-clients-kgwrite");
+} from "grafana-asserts-public-clients-kgwrite";
 
 const api = new KnowledgeGraphReadAPIApi(
   new Configuration({
@@ -75,6 +77,9 @@ are placeholders; npm registry publishing is not part of this workflow.
 It builds the JavaScript packages, runs `node --test tests/js/*.test.cjs`, and
 commits both languages together through the existing signed-commit step. The
 Asserts release script opens the resulting PR.
+
+Grafana plugin Jest consumers must include these ESM packages in their
+`transformIgnorePatterns` exceptions, like other ESM dependencies.
 
 Change the specs or generator configuration and regenerate; do not edit generated
 files directly. To check existing JavaScript sources locally:

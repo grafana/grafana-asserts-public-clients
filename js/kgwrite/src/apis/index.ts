@@ -1,4 +1,5 @@
 /* tslint:disable */
 /* eslint-disable */
-export * from './KnowledgeGraphReadAPIApi';
-export * from './KnowledgeGraphWriteAPIApi';
+export * from './KnowledgeGraphReadAPIApi.js';
+export * from './KnowledgeGraphSchemaAPIApi.js';
+export * from './KnowledgeGraphWriteAPIApi.js';

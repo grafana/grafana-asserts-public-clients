@@ -61,7 +61,7 @@ jobs:
           commit-changes: "false"
 
       - name: Generate JavaScript Client
-        uses: grafana/shared-workflows/actions/generate-openapi-clients@f3f00a8f0a28e0cb3302993692cff74603a4c607 # JavaScript generation
+        uses: grafana/shared-workflows/actions/generate-openapi-clients@e52d64dea00d1a57596d19b9a7d74f75309e8d0a # JavaScript generation (shared-workflows#2299)
         env:
           REPO_NAME: ${{ github.event.repository.name }}
         with:
@@ -72,7 +72,7 @@ jobs:
           commit-changes: "false"
 
       - name: Generate JavaScript KG Write Client
-        uses: grafana/shared-workflows/actions/generate-openapi-clients@f3f00a8f0a28e0cb3302993692cff74603a4c607 # JavaScript generation
+        uses: grafana/shared-workflows/actions/generate-openapi-clients@e52d64dea00d1a57596d19b9a7d74f75309e8d0a # JavaScript generation (shared-workflows#2299)
         env:
           REPO_NAME: ${{ github.event.repository.name }}
         with:
@@ -83,7 +83,7 @@ jobs:
           commit-changes: "false"
 
       - name: Generate JavaScript System Schema Client
-        uses: grafana/shared-workflows/actions/generate-openapi-clients@f3f00a8f0a28e0cb3302993692cff74603a4c607 # JavaScript generation
+        uses: grafana/shared-workflows/actions/generate-openapi-clients@e52d64dea00d1a57596d19b9a7d74f75309e8d0a # JavaScript generation (shared-workflows#2299)
         env:
           REPO_NAME: ${{ github.event.repository.name }}
         with:

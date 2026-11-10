@@ -210,7 +210,7 @@ export type ApiErrorStatus = DefaultHttpStatusCode | HttpStatus;
  * 
  * @export
  */
-export type ApiErrorSubErrorsInner = ApiQuerySyntaxError | ApiSubError | ApiValidationError;
+export type ApiErrorSubErrorsInner = { type: 'ApiQuerySyntaxError' } & ApiQuerySyntaxError | { type: 'ApiSubError' } & ApiSubError | { type: 'ApiValidationError' } & ApiValidationError;
 /**
  * 
  * @export
@@ -235,7 +235,23 @@ export interface ApiQuerySyntaxError {
      * @memberof ApiQuerySyntaxError
      */
     column?: number;
+    /**
+     * 
+     * @type {ApiQuerySyntaxErrorType}
+     * @memberof ApiQuerySyntaxError
+     */
+    type: ApiQuerySyntaxErrorType;
 }
+
+/**
+ * 
+ * @export
+ */
+export const ApiQuerySyntaxErrorType = {
+    ApiQuerySyntaxError: 'ApiQuerySyntaxError'
+} as const;
+export type ApiQuerySyntaxErrorType = typeof ApiQuerySyntaxErrorType[keyof typeof ApiQuerySyntaxErrorType];
+
 /**
  * 
  * @export
@@ -248,7 +264,36 @@ export interface ApiSubError {
      * @memberof ApiSubError
      */
     message?: string;
+    /**
+     * 
+     * @type {ApiSubErrorType}
+     * @memberof ApiSubError
+     */
+    type: ApiSubErrorType;
 }
+/**
+ * 
+ * @export
+ * @interface ApiSubErrorFields
+ */
+export interface ApiSubErrorFields {
+    /**
+     * 
+     * @type {string}
+     * @memberof ApiSubErrorFields
+     */
+    message?: string;
+}
+
+/**
+ * 
+ * @export
+ */
+export const ApiSubErrorType = {
+    ApiSubError: 'ApiSubError'
+} as const;
+export type ApiSubErrorType = typeof ApiSubErrorType[keyof typeof ApiSubErrorType];
+
 /**
  * 
  * @export
@@ -273,7 +318,23 @@ export interface ApiValidationError {
      * @memberof ApiValidationError
      */
     rejectedValue?: any | null;
+    /**
+     * 
+     * @type {ApiValidationErrorType}
+     * @memberof ApiValidationError
+     */
+    type: ApiValidationErrorType;
 }
+
+/**
+ * 
+ * @export
+ */
+export const ApiValidationErrorType = {
+    ApiValidationError: 'ApiValidationError'
+} as const;
+export type ApiValidationErrorType = typeof ApiValidationErrorType[keyof typeof ApiValidationErrorType];
+
 /**
  * 
  * @export
@@ -1108,6 +1169,87 @@ export interface CustomerMetricResponseDto {
 /**
  * 
  * @export
+ * @interface CypherQueryRequestDto
+ */
+export interface CypherQueryRequestDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof CypherQueryRequestDto
+     */
+    query: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof CypherQueryRequestDto
+     */
+    start?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof CypherQueryRequestDto
+     */
+    end?: number;
+    /**
+     * 
+     * @type {{ [key: string]: any; }}
+     * @memberof CypherQueryRequestDto
+     */
+    parameters?: { [key: string]: any; };
+}
+/**
+ * 
+ * @export
+ * @interface CypherQueryResponseDto
+ */
+export interface CypherQueryResponseDto {
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof CypherQueryResponseDto
+     */
+    columns?: Array<string>;
+    /**
+     * 
+     * @type {Array<Array<any>>}
+     * @memberof CypherQueryResponseDto
+     */
+    rows?: Array<Array<any>>;
+    /**
+     * 
+     * @type {CypherQueryStatsDto}
+     * @memberof CypherQueryResponseDto
+     */
+    stats?: CypherQueryStatsDto;
+}
+/**
+ * 
+ * @export
+ * @interface CypherQueryStatsDto
+ */
+export interface CypherQueryStatsDto {
+    /**
+     * 
+     * @type {number}
+     * @memberof CypherQueryStatsDto
+     */
+    rowCount?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof CypherQueryStatsDto
+     */
+    columnCount?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof CypherQueryStatsDto
+     */
+    elapsedMs?: number;
+}
+/**
+ * 
+ * @export
  * @interface CypherSearchEdgeDto
  */
 export interface CypherSearchEdgeDto {
@@ -1490,25 +1632,25 @@ export interface DefaultHttpStatusCode {
      * @type {boolean}
      * @memberof DefaultHttpStatusCode
      */
-    is3xxRedirection?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof DefaultHttpStatusCode
-     */
     is5xxServerError?: boolean;
     /**
      * 
      * @type {boolean}
      * @memberof DefaultHttpStatusCode
      */
-    is4xxClientError?: boolean;
+    is3xxRedirection?: boolean;
     /**
      * 
      * @type {boolean}
      * @memberof DefaultHttpStatusCode
      */
     is2xxSuccessful?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof DefaultHttpStatusCode
+     */
+    is4xxClientError?: boolean;
     /**
      * 
      * @type {boolean}
@@ -1962,6 +2104,142 @@ export interface EntityAssertionsGraphDto {
      * @memberof EntityAssertionsGraphDto
      */
     data?: any | null;
+}
+/**
+ * 
+ * @export
+ * @interface EntityAssertionsLookupEntityDto
+ */
+export interface EntityAssertionsLookupEntityDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof EntityAssertionsLookupEntityDto
+     */
+    domain?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof EntityAssertionsLookupEntityDto
+     */
+    type?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof EntityAssertionsLookupEntityDto
+     */
+    name?: string;
+    /**
+     * 
+     * @type {{ [key: string]: any; }}
+     * @memberof EntityAssertionsLookupEntityDto
+     */
+    scope?: { [key: string]: any; };
+    /**
+     * 
+     * @type {boolean}
+     * @memberof EntityAssertionsLookupEntityDto
+     */
+    assertionsSupported?: boolean;
+    /**
+     * 
+     * @type {GraphAssertionSummary}
+     * @memberof EntityAssertionsLookupEntityDto
+     */
+    assertion?: GraphAssertionSummary;
+    /**
+     * 
+     * @type {GraphAssertionSummary}
+     * @memberof EntityAssertionsLookupEntityDto
+     */
+    connectedAssertion?: GraphAssertionSummary;
+    /**
+     * 
+     * @type {string}
+     * @memberof EntityAssertionsLookupEntityDto
+     */
+    invalidReason?: string;
+}
+/**
+ * 
+ * @export
+ * @interface EntityAssertionsLookupKeyDto
+ */
+export interface EntityAssertionsLookupKeyDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof EntityAssertionsLookupKeyDto
+     */
+    type?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof EntityAssertionsLookupKeyDto
+     */
+    name?: string;
+    /**
+     * 
+     * @type {{ [key: string]: any; }}
+     * @memberof EntityAssertionsLookupKeyDto
+     */
+    scope?: { [key: string]: any; };
+    /**
+     * 
+     * @type {string}
+     * @memberof EntityAssertionsLookupKeyDto
+     */
+    domain?: string;
+}
+/**
+ * 
+ * @export
+ * @interface EntityAssertionsLookupRequestDto
+ */
+export interface EntityAssertionsLookupRequestDto {
+    /**
+     * 
+     * @type {number}
+     * @memberof EntityAssertionsLookupRequestDto
+     */
+    startTime?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof EntityAssertionsLookupRequestDto
+     */
+    endTime?: number;
+    /**
+     * 
+     * @type {Array<EntityAssertionsLookupKeyDto>}
+     * @memberof EntityAssertionsLookupRequestDto
+     */
+    entityKeys?: Array<EntityAssertionsLookupKeyDto>;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof EntityAssertionsLookupRequestDto
+     */
+    includeConnected?: boolean;
+}
+/**
+ * 
+ * @export
+ * @interface EntityAssertionsLookupResponseDto
+ */
+export interface EntityAssertionsLookupResponseDto {
+    /**
+     * 
+     * @type {TimeWindowDto}
+     * @memberof EntityAssertionsLookupResponseDto
+     */
+    timeCriteria?: TimeWindowDto;
+    /**
+     * 
+     * @type {Array<EntityAssertionsLookupEntityDto>}
+     * @memberof EntityAssertionsLookupResponseDto
+     */
+    entities?: Array<EntityAssertionsLookupEntityDto>;
 }
 /**
  * 
@@ -2653,6 +2931,25 @@ export interface ExternalLoggingResponseDto {
 /**
  * 
  * @export
+ * @interface ForcePublicTsdbDto
+ */
+export interface ForcePublicTsdbDto {
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ForcePublicTsdbDto
+     */
+    enabled?: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof ForcePublicTsdbDto
+     */
+    reason?: string;
+}
+/**
+ * 
+ * @export
  * @interface GraphAssertion
  */
 export interface GraphAssertion {
@@ -2921,7 +3218,6 @@ export const HttpStatus = {
     _101SwitchingProtocols: '101 SWITCHING_PROTOCOLS',
     _102Processing: '102 PROCESSING',
     _103EarlyHints: '103 EARLY_HINTS',
-    _103Checkpoint: '103 CHECKPOINT',
     _200Ok: '200 OK',
     _201Created: '201 CREATED',
     _202Accepted: '202 ACCEPTED',
@@ -2935,10 +3231,8 @@ export const HttpStatus = {
     _300MultipleChoices: '300 MULTIPLE_CHOICES',
     _301MovedPermanently: '301 MOVED_PERMANENTLY',
     _302Found: '302 FOUND',
-    _302MovedTemporarily: '302 MOVED_TEMPORARILY',
     _303SeeOther: '303 SEE_OTHER',
     _304NotModified: '304 NOT_MODIFIED',
-    _305UseProxy: '305 USE_PROXY',
     _307TemporaryRedirect: '307 TEMPORARY_REDIRECT',
     _308PermanentRedirect: '308 PERMANENT_REDIRECT',
     _400BadRequest: '400 BAD_REQUEST',
@@ -2954,17 +3248,15 @@ export const HttpStatus = {
     _410Gone: '410 GONE',
     _411LengthRequired: '411 LENGTH_REQUIRED',
     _412PreconditionFailed: '412 PRECONDITION_FAILED',
+    _413ContentTooLarge: '413 CONTENT_TOO_LARGE',
     _413PayloadTooLarge: '413 PAYLOAD_TOO_LARGE',
-    _413RequestEntityTooLarge: '413 REQUEST_ENTITY_TOO_LARGE',
     _414UriTooLong: '414 URI_TOO_LONG',
-    _414RequestUriTooLong: '414 REQUEST_URI_TOO_LONG',
     _415UnsupportedMediaType: '415 UNSUPPORTED_MEDIA_TYPE',
     _416RequestedRangeNotSatisfiable: '416 REQUESTED_RANGE_NOT_SATISFIABLE',
     _417ExpectationFailed: '417 EXPECTATION_FAILED',
     _418IAmATeapot: '418 I_AM_A_TEAPOT',
-    _419InsufficientSpaceOnResource: '419 INSUFFICIENT_SPACE_ON_RESOURCE',
-    _420MethodFailure: '420 METHOD_FAILURE',
-    _421DestinationLocked: '421 DESTINATION_LOCKED',
+    _421MisdirectedRequest: '421 MISDIRECTED_REQUEST',
+    _422UnprocessableContent: '422 UNPROCESSABLE_CONTENT',
     _422UnprocessableEntity: '422 UNPROCESSABLE_ENTITY',
     _423Locked: '423 LOCKED',
     _424FailedDependency: '424 FAILED_DEPENDENCY',
@@ -3006,25 +3298,25 @@ export interface HttpStatusCode {
      * @type {boolean}
      * @memberof HttpStatusCode
      */
-    is3xxRedirection?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof HttpStatusCode
-     */
     is5xxServerError?: boolean;
     /**
      * 
      * @type {boolean}
      * @memberof HttpStatusCode
      */
-    is4xxClientError?: boolean;
+    is3xxRedirection?: boolean;
     /**
      * 
      * @type {boolean}
      * @memberof HttpStatusCode
      */
     is2xxSuccessful?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof HttpStatusCode
+     */
+    is4xxClientError?: boolean;
     /**
      * 
      * @type {boolean}
@@ -4294,6 +4586,12 @@ export interface LogDrilldownConfigDto {
      * @memberof LogDrilldownConfigDto
      */
     entityPropertyToLogLabelMapping?: { [key: string]: string; };
+    /**
+     * 
+     * @type {{ [key: string]: string; }}
+     * @memberof LogDrilldownConfigDto
+     */
+    entityPropertyToLogFieldMapping?: { [key: string]: string; };
     /**
      * 
      * @type {boolean}
@@ -7284,6 +7582,7 @@ export const StackDatasetDtoDatasetTypeEnum = {
     Otel: 'otel',
     Hosto11y: 'hosto11y',
     Feo11y: 'feo11y',
+    Dbo11y: 'dbo11y',
     Aws: 'aws',
     Azure: 'azure',
     Gcp: 'gcp',
@@ -7405,6 +7704,18 @@ export interface StackDetailDto {
      * @memberof StackDetailDto
      */
     allowLargeTenantOnboarding?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof StackDetailDto
+     */
+    forcePublicTsdb?: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof StackDetailDto
+     */
+    forcePublicTsdbReason?: string;
     /**
      * 
      * @type {number}

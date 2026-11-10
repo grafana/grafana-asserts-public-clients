@@ -66,7 +66,7 @@ export interface ApiError {
  * 
  * @export
  */
-export type ApiErrorSubErrorsInner = ApiQuerySyntaxError | ApiSubError | ApiValidationError;
+export type ApiErrorSubErrorsInner = { type: 'ApiQuerySyntaxError' } & ApiQuerySyntaxError | { type: 'ApiSubError' } & ApiSubError | { type: 'ApiValidationError' } & ApiValidationError;
 /**
  * 
  * @export
@@ -91,7 +91,23 @@ export interface ApiQuerySyntaxError {
      * @memberof ApiQuerySyntaxError
      */
     column?: number;
+    /**
+     * 
+     * @type {ApiQuerySyntaxErrorType}
+     * @memberof ApiQuerySyntaxError
+     */
+    type: ApiQuerySyntaxErrorType;
 }
+
+/**
+ * 
+ * @export
+ */
+export const ApiQuerySyntaxErrorType = {
+    ApiQuerySyntaxError: 'ApiQuerySyntaxError'
+} as const;
+export type ApiQuerySyntaxErrorType = typeof ApiQuerySyntaxErrorType[keyof typeof ApiQuerySyntaxErrorType];
+
 /**
  * 
  * @export
@@ -104,7 +120,36 @@ export interface ApiSubError {
      * @memberof ApiSubError
      */
     message?: string;
+    /**
+     * 
+     * @type {ApiSubErrorType}
+     * @memberof ApiSubError
+     */
+    type: ApiSubErrorType;
 }
+/**
+ * 
+ * @export
+ * @interface ApiSubErrorFields
+ */
+export interface ApiSubErrorFields {
+    /**
+     * 
+     * @type {string}
+     * @memberof ApiSubErrorFields
+     */
+    message?: string;
+}
+
+/**
+ * 
+ * @export
+ */
+export const ApiSubErrorType = {
+    ApiSubError: 'ApiSubError'
+} as const;
+export type ApiSubErrorType = typeof ApiSubErrorType[keyof typeof ApiSubErrorType];
+
 /**
  * 
  * @export
@@ -129,7 +174,23 @@ export interface ApiValidationError {
      * @memberof ApiValidationError
      */
     rejectedValue?: any | null;
+    /**
+     * 
+     * @type {ApiValidationErrorType}
+     * @memberof ApiValidationError
+     */
+    type: ApiValidationErrorType;
 }
+
+/**
+ * 
+ * @export
+ */
+export const ApiValidationErrorType = {
+    ApiValidationError: 'ApiValidationError'
+} as const;
+export type ApiValidationErrorType = typeof ApiValidationErrorType[keyof typeof ApiValidationErrorType];
+
 /**
  * 
  * @export
@@ -266,6 +327,12 @@ export interface SchemaImportDto {
      * @memberof SchemaImportDto
      */
     version: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SchemaImportDto
+     */
+    alias?: string;
 }
 /**
  * 

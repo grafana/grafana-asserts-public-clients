@@ -66,7 +66,7 @@ export interface ApiError {
  * 
  * @export
  */
-export type ApiErrorSubErrorsInner = ApiQuerySyntaxError | ApiSubError | ApiValidationError;
+export type ApiErrorSubErrorsInner = { type: 'ApiQuerySyntaxError' } & ApiQuerySyntaxError | { type: 'ApiSubError' } & ApiSubError | { type: 'ApiValidationError' } & ApiValidationError;
 /**
  * 
  * @export
@@ -91,7 +91,23 @@ export interface ApiQuerySyntaxError {
      * @memberof ApiQuerySyntaxError
      */
     column?: number;
+    /**
+     * 
+     * @type {ApiQuerySyntaxErrorType}
+     * @memberof ApiQuerySyntaxError
+     */
+    type: ApiQuerySyntaxErrorType;
 }
+
+/**
+ * 
+ * @export
+ */
+export const ApiQuerySyntaxErrorType = {
+    ApiQuerySyntaxError: 'ApiQuerySyntaxError'
+} as const;
+export type ApiQuerySyntaxErrorType = typeof ApiQuerySyntaxErrorType[keyof typeof ApiQuerySyntaxErrorType];
+
 /**
  * 
  * @export
@@ -104,7 +120,36 @@ export interface ApiSubError {
      * @memberof ApiSubError
      */
     message?: string;
+    /**
+     * 
+     * @type {ApiSubErrorType}
+     * @memberof ApiSubError
+     */
+    type: ApiSubErrorType;
 }
+/**
+ * 
+ * @export
+ * @interface ApiSubErrorFields
+ */
+export interface ApiSubErrorFields {
+    /**
+     * 
+     * @type {string}
+     * @memberof ApiSubErrorFields
+     */
+    message?: string;
+}
+
+/**
+ * 
+ * @export
+ */
+export const ApiSubErrorType = {
+    ApiSubError: 'ApiSubError'
+} as const;
+export type ApiSubErrorType = typeof ApiSubErrorType[keyof typeof ApiSubErrorType];
+
 /**
  * 
  * @export
@@ -129,7 +174,23 @@ export interface ApiValidationError {
      * @memberof ApiValidationError
      */
     rejectedValue?: any | null;
+    /**
+     * 
+     * @type {ApiValidationErrorType}
+     * @memberof ApiValidationError
+     */
+    type: ApiValidationErrorType;
 }
+
+/**
+ * 
+ * @export
+ */
+export const ApiValidationErrorType = {
+    ApiValidationError: 'ApiValidationError'
+} as const;
+export type ApiValidationErrorType = typeof ApiValidationErrorType[keyof typeof ApiValidationErrorType];
+
 /**
  * 
  * @export
@@ -368,6 +429,56 @@ export type KgPropertyValue = Array<KgPropertyScalar> | boolean | number | strin
 /**
  * 
  * @export
+ * @interface KgSchemaDto
+ */
+export interface KgSchemaDto {
+    /**
+     * 
+     * @type {SchemaDomainDto}
+     * @memberof KgSchemaDto
+     */
+    domain: SchemaDomainDto;
+    /**
+     * 
+     * @type {Array<SchemaImportDto>}
+     * @memberof KgSchemaDto
+     */
+    imports?: Array<SchemaImportDto>;
+    /**
+     * 
+     * @type {Array<SchemaEntityTypeDto>}
+     * @memberof KgSchemaDto
+     */
+    entityTypes?: Array<SchemaEntityTypeDto>;
+    /**
+     * 
+     * @type {Array<SchemaRelationshipTypeDto>}
+     * @memberof KgSchemaDto
+     */
+    relationshipTypes?: Array<SchemaRelationshipTypeDto>;
+    /**
+     * 
+     * @type {Array<SchemaBindingDto>}
+     * @memberof KgSchemaDto
+     */
+    relationshipTypeBindings?: Array<SchemaBindingDto>;
+}
+/**
+ * 
+ * @export
+ * @interface KgSchemaListDto
+ */
+export interface KgSchemaListDto {
+    /**
+     * 
+     * @type {Array<KgSchemaDto>}
+     * @memberof KgSchemaListDto
+     */
+    schemas: Array<KgSchemaDto>;
+}
+/**
+ * 
+ * @export
  * @interface RelationshipWriteRequestDto
  */
 export interface RelationshipWriteRequestDto {
@@ -444,4 +555,282 @@ export interface RelationshipWriteResponseDto {
      * @memberof RelationshipWriteResponseDto
      */
     properties?: { [key: string]: KgPropertyValue; };
+}
+/**
+ * 
+ * @export
+ * @interface SchemaBindingDto
+ */
+export interface SchemaBindingDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof SchemaBindingDto
+     */
+    name: string;
+    /**
+     * 
+     * @type {SchemaEndpointDto}
+     * @memberof SchemaBindingDto
+     */
+    from: SchemaEndpointDto;
+    /**
+     * 
+     * @type {SchemaEndpointDto}
+     * @memberof SchemaBindingDto
+     */
+    to: SchemaEndpointDto;
+}
+/**
+ * 
+ * @export
+ * @interface SchemaDomainDto
+ */
+export interface SchemaDomainDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof SchemaDomainDto
+     */
+    name: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SchemaDomainDto
+     */
+    displayName?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SchemaDomainDto
+     */
+    version: string;
+}
+/**
+ * 
+ * @export
+ * @interface SchemaEndpointDto
+ */
+export interface SchemaEndpointDto {
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof SchemaEndpointDto
+     */
+    types: Array<string>;
+    /**
+     * 
+     * @type {string}
+     * @memberof SchemaEndpointDto
+     */
+    cardinality?: string;
+}
+/**
+ * 
+ * @export
+ * @interface SchemaEntityTypeDto
+ */
+export interface SchemaEntityTypeDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof SchemaEntityTypeDto
+     */
+    name: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SchemaEntityTypeDto
+     */
+    description: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SchemaEntityTypeDto
+     */
+    retentionDays?: number;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof SchemaEntityTypeDto
+     */
+    aliases?: Array<string>;
+    /**
+     * 
+     * @type {{ [key: string]: string; }}
+     * @memberof SchemaEntityTypeDto
+     */
+    label?: { [key: string]: string; };
+    /**
+     * 
+     * @type {Array<SchemaScopeKeyDto>}
+     * @memberof SchemaEntityTypeDto
+     */
+    scopeKeys?: Array<SchemaScopeKeyDto>;
+    /**
+     * 
+     * @type {Array<SchemaPropertyDto>}
+     * @memberof SchemaEntityTypeDto
+     */
+    properties?: Array<SchemaPropertyDto>;
+}
+/**
+ * 
+ * @export
+ * @interface SchemaImportDto
+ */
+export interface SchemaImportDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof SchemaImportDto
+     */
+    domain: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SchemaImportDto
+     */
+    version: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SchemaImportDto
+     */
+    alias?: string;
+}
+/**
+ * 
+ * @export
+ * @interface SchemaPropertyDto
+ */
+export interface SchemaPropertyDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof SchemaPropertyDto
+     */
+    name: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SchemaPropertyDto
+     */
+    type: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SchemaPropertyDto
+     */
+    elementType?: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof SchemaPropertyDto
+     */
+    required?: boolean;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof SchemaPropertyDto
+     */
+    _enum?: Array<string>;
+}
+/**
+ * 
+ * @export
+ * @interface SchemaRelationshipTypeDto
+ */
+export interface SchemaRelationshipTypeDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof SchemaRelationshipTypeDto
+     */
+    name: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SchemaRelationshipTypeDto
+     */
+    description: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SchemaRelationshipTypeDto
+     */
+    retentionDays?: number;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof SchemaRelationshipTypeDto
+     */
+    aliases?: Array<string>;
+    /**
+     * 
+     * @type {{ [key: string]: string; }}
+     * @memberof SchemaRelationshipTypeDto
+     */
+    label?: { [key: string]: string; };
+    /**
+     * 
+     * @type {string}
+     * @memberof SchemaRelationshipTypeDto
+     */
+    inverse?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof SchemaRelationshipTypeDto
+     */
+    characteristics?: Array<string>;
+    /**
+     * 
+     * @type {SchemaEndpointDto}
+     * @memberof SchemaRelationshipTypeDto
+     */
+    from: SchemaEndpointDto;
+    /**
+     * 
+     * @type {SchemaEndpointDto}
+     * @memberof SchemaRelationshipTypeDto
+     */
+    to: SchemaEndpointDto;
+    /**
+     * 
+     * @type {Array<SchemaPropertyDto>}
+     * @memberof SchemaRelationshipTypeDto
+     */
+    properties?: Array<SchemaPropertyDto>;
+}
+/**
+ * 
+ * @export
+ * @interface SchemaScopeKeyDto
+ */
+export interface SchemaScopeKeyDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof SchemaScopeKeyDto
+     */
+    name: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SchemaScopeKeyDto
+     */
+    type: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof SchemaScopeKeyDto
+     */
+    required?: boolean;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof SchemaScopeKeyDto
+     */
+    _enum?: Array<string>;
 }

@@ -133,3 +133,10 @@ test("delete accepts an empty 204 response", async () => {
     undefined,
   );
 });
+
+test("generated packages support native ESM imports", async () => {
+  for (const name of ["gcom", "kgwrite", "systemschema"]) {
+    const client = await import(`../../js/${name}/dist/index.js`);
+    assert.equal(typeof client.Configuration, "function");
+  }
+});
