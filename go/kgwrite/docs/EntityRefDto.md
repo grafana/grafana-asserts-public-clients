@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Domain** | **string** |  | 
 **Type** | **string** |  | 
 **Name** | **string** |  | 
-**Scope** | Pointer to **map[string]string** |  | [optional] 
+**Scope** | Pointer to **map[string]string** | Scope keys and values of the referenced entity. Relationship writes reject an endpoint scope with more keys than the server limit with 422; the limit is &#x60;kg-write.scope.max-keys&#x60;, 8 by default. | [optional] 
 
 ## Methods
 

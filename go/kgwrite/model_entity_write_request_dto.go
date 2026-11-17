@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2.121.6
+API version: 2.157.1
 Contact: support@asserts.ai
 */
 
@@ -20,10 +20,11 @@ var _ MappedNullable = &EntityWriteRequestDto{}
 
 // EntityWriteRequestDto struct for EntityWriteRequestDto
 type EntityWriteRequestDto struct {
-	Domain string            `json:"domain" validate:"regexp=^(?!kg$)(?!metrics$)[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"`
-	Type   string            `json:"type" validate:"regexp=^[A-Za-z][A-Za-z0-9_]*$"`
-	Name   string            `json:"name"`
-	Scope  map[string]string `json:"scope,omitempty"`
+	Domain string `json:"domain" validate:"regexp=^(?:tenant\\/[a-z][a-z0-9]*|(?!kg$)(?!metrics$)[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)$"`
+	Type   string `json:"type" validate:"regexp=^[A-Za-z][A-Za-z0-9_]*$"`
+	Name   string `json:"name"`
+	// Scope keys and values that, with the type, name and domain, identify the entity. A scope with more keys than the server limit is rejected with 422; the limit is `kg-write.scope.max-keys`, 8 by default.
+	Scope map[string]string `json:"scope,omitempty"`
 	// Custom properties to store on the entity. Values must be scalars (string, boolean, or number) or arrays of scalars; nested objects, nested arrays, and null values are rejected. Integral numbers are stored as 64-bit signed integers and floating-point numbers as IEEE-754 doubles.
 	Properties map[string]KgPropertyValue `json:"properties,omitempty"`
 	// Time-to-live in seconds. Positive values expire the entity after that many seconds, 0 expires it immediately, and negative values mean no expiry.

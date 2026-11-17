@@ -290,7 +290,7 @@ export interface EntityRefDto {
      */
     name: string;
     /**
-     * 
+     * Scope keys and values of the referenced entity. Relationship writes reject an endpoint scope with more keys than the server limit with 422; the limit is `kg-write.scope.max-keys`, 8 by default.
      * @type {{ [key: string]: string; }}
      * @memberof EntityRefDto
      */
@@ -321,7 +321,7 @@ export interface EntityWriteRequestDto {
      */
     name: string;
     /**
-     * 
+     * Scope keys and values that, with the type, name and domain, identify the entity. A scope with more keys than the server limit is rejected with 422; the limit is `kg-write.scope.max-keys`, 8 by default.
      * @type {{ [key: string]: string; }}
      * @memberof EntityWriteRequestDto
      */
@@ -470,11 +470,17 @@ export interface KgSchemaDto {
  */
 export interface KgSchemaListDto {
     /**
-     * 
+     * Installed shared system schemas
      * @type {Array<KgSchemaDto>}
      * @memberof KgSchemaListDto
      */
     schemas: Array<KgSchemaDto>;
+    /**
+     * The caller's own tenant schemas, under their canonical tenant/<name> domains. Empty when the tenant has none
+     * @type {Array<KgSchemaDto>}
+     * @memberof KgSchemaListDto
+     */
+    tenantSchemas: Array<KgSchemaDto>;
 }
 /**
  * 
@@ -483,7 +489,7 @@ export interface KgSchemaListDto {
  */
 export interface RelationshipWriteRequestDto {
     /**
-     * 
+     * Request domain used to resolve the relationship type owner. The stored _domain is that owner, with the request domain used for undeclared types.
      * @type {string}
      * @memberof RelationshipWriteRequestDto
      */

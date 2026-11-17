@@ -12,6 +12,7 @@ Method | HTTP request | Description
 [**ForcePublicTsdb**](StackControllerAPI.md#ForcePublicTsdb) | **Post** /asserts/api-server/v2/stack/force-public-tsdb | 
 [**GetDatasetVendors**](StackControllerAPI.md#GetDatasetVendors) | **Get** /asserts/api-server/v2/stack/dataset/{dataset}/vendors | 
 [**GetDatasets**](StackControllerAPI.md#GetDatasets) | **Get** /asserts/api-server/v2/stack/datasets | 
+[**GetStackCredentials**](StackControllerAPI.md#GetStackCredentials) | **Get** /asserts/api-server/v1/stack/credentials | 
 [**GetStackDetail**](StackControllerAPI.md#GetStackDetail) | **Get** /asserts/api-server/v1/stack | 
 [**GetStackEnable**](StackControllerAPI.md#GetStackEnable) | **Get** /asserts/api-server/v1/stack/enable | 
 [**GetStackUpdateBucket**](StackControllerAPI.md#GetStackUpdateBucket) | **Get** /asserts/api-server/v1/stack/update-bucket | 
@@ -549,6 +550,70 @@ No authorization required
 [[Back to README]](../README.md)
 
 
+## GetStackCredentials
+
+> StackCredentialsDto GetStackCredentials(ctx).XScopeOrgID(xScopeOrgID).Execute()
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/grafana/grafana-asserts-public-clients/go/gcom"
+)
+
+func main() {
+	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.StackControllerAPI.GetStackCredentials(context.Background()).XScopeOrgID(xScopeOrgID).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `StackControllerAPI.GetStackCredentials``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetStackCredentials`: StackCredentialsDto
+	fmt.Fprintf(os.Stdout, "Response from `StackControllerAPI.GetStackCredentials`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetStackCredentialsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
+
+### Return type
+
+[**StackCredentialsDto**](StackCredentialsDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetStackDetail
 
 > StackDetailDto GetStackDetail(ctx).XScopeOrgID(xScopeOrgID).Execute()
@@ -873,7 +938,7 @@ No authorization required
 
 ## PutV2Stack
 
-> PutV2Stack(ctx).StackDto(stackDto).XScopeOrgID(xScopeOrgID).Execute()
+> PutV2Stack(ctx).StackCredentialsDto(stackCredentialsDto).XScopeOrgID(xScopeOrgID).Execute()
 
 
 
@@ -890,12 +955,12 @@ import (
 )
 
 func main() {
-	stackDto := *openapiclient.NewStackDto() // StackDto | 
+	stackCredentialsDto := *openapiclient.NewStackCredentialsDto() // StackCredentialsDto | 
 	xScopeOrgID := "2944" // string | Grafana Tenant/Stack ID (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.StackControllerAPI.PutV2Stack(context.Background()).StackDto(stackDto).XScopeOrgID(xScopeOrgID).Execute()
+	r, err := apiClient.StackControllerAPI.PutV2Stack(context.Background()).StackCredentialsDto(stackCredentialsDto).XScopeOrgID(xScopeOrgID).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `StackControllerAPI.PutV2Stack``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -914,7 +979,7 @@ Other parameters are passed through a pointer to a apiPutV2StackRequest struct v
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **stackDto** | [**StackDto**](StackDto.md) |  | 
+ **stackCredentialsDto** | [**StackCredentialsDto**](StackCredentialsDto.md) |  | 
  **xScopeOrgID** | **string** | Grafana Tenant/Stack ID | 
 
 ### Return type

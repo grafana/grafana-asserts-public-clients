@@ -26,6 +26,7 @@ src/apis/EntityTypeControllerApi.ts
 src/apis/ExternalLoggingControllerApi.ts
 src/apis/GraphDisplayConfigControllerApi.ts
 src/apis/IncidentControllerApi.ts
+src/apis/KgQueryControllerApi.ts
 src/apis/KgSizingConfigControllerApi.ts
 src/apis/KnowledgeGraphReadAPIApi.ts
 src/apis/KpiDisplayConfigControllerApi.ts
