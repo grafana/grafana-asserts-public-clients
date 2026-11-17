@@ -7,7 +7,7 @@ info:
     name: Support
     url: "https://www.grafana.com"
     email: support@asserts.ai
-  version: 2.121.6
+  version: 2.157.1
 servers:
   - url: http://localhost:8030
     description: Generated server url
@@ -24,7 +24,7 @@ paths:
       tags:
         - Knowledge Graph Write API
       summary: Create or update a custom relationship
-      description: Upserts an API-origin edge between two existing entities; both endpoints must already exist.
+      description: Upserts an edge between two existing entities; both endpoints must already exist. Existing targets may be overwritten regardless of origin; the write applies API origin and the requested TTL.
       operationId: upsertRelationship
       parameters:
         - name: namespace
@@ -103,7 +103,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/ApiError"
         "409":
-          description: "Edge already exists with a non-API origin, or graph writes are paused for a graph migration"
+          description: "Graph writes are paused for a migration, or the graph is missing and enableGraphForAll is off (KG_NOT_PROVISIONED)"
           content:
             application/json:
               schema:
@@ -164,7 +164,7 @@ paths:
           schema:
             type: string
             minLength: 1
-            pattern: "^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+            pattern: "^(?:tenant/[a-z][a-z0-9]*|[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)$"
         - name: from.type
           in: query
           required: true
@@ -184,7 +184,7 @@ paths:
           schema:
             type: string
             minLength: 1
-            pattern: "^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+            pattern: "^(?:tenant/[a-z][a-z0-9]*|[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)$"
         - name: to.type
           in: query
           required: true
@@ -198,6 +198,14 @@ paths:
           schema:
             type: string
             minLength: 1
+        - name: domain
+          in: query
+          description: Optional request domain. Ignored until owner-aware relationship matching is enabled.
+          required: false
+          schema:
+            type: string
+            description: Optional request domain. Ignored until owner-aware relationship matching is enabled.
+            pattern: "^(?:tenant/[a-z][a-z0-9]*|(?!kg$)(?!metrics$)[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)$"
         - name: from.scope
           in: query
           description: "Optional scope key/value pairs identifying the 'from' entity (from.scope[key]=value)."
@@ -259,7 +267,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/ApiError"
         "409":
-          description: Graph writes are paused for a graph migration
+          description: "Graph writes are paused for a migration, or the graph is missing and enableGraphForAll is off (KG_NOT_PROVISIONED)"
           content:
             application/json:
               schema:
@@ -287,7 +295,7 @@ paths:
       tags:
         - Knowledge Graph Write API
       summary: Write a batch of custom entities and relationships
-      description: "Upserts the request's entities first, then its relationships, as ONE atomic write: the entity and relationship data all commit together or not at all, and the server never splits a request internally. (Auto-registering a not-yet-seen entity type and its indexes runs before that atomic write and is idempotent, so it may persist even if the write then fails — retrying is safe.) A request may contain at most kg-write.batch.max-items total items (default 500); callers with larger loads send multiple requests, each independently atomic, and the upserts are idempotent so retrying a failed request is safe. No stub entities are created for unresolved relationship endpoints. The returned counts are the accepted (submitted) item counts, not a created-vs-updated breakdown."
+      description: "Upserts the request's entities first, then its relationships, as ONE atomic write: the entity and relationship data all commit together or not at all, and the server never splits a request internally. (Auto-registering a not-yet-seen entity type and its indexes runs before that atomic write and is idempotent, so it may persist even if the write then fails — retrying is safe.) A request may contain at most kg-write.batch.max-items total items (default 500); callers with larger loads send multiple requests, each independently atomic, and the upserts are idempotent so retrying a failed request is safe. No stub entities are created for unresolved relationship endpoints. The returned counts are the accepted (submitted) item counts, not a created-vs-updated breakdown. Existing targets may be overwritten regardless of origin; writes apply API origin and the requested TTL."
       operationId: writeGraph
       parameters:
         - name: namespace
@@ -354,7 +362,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/ApiError"
         "409":
-          description: "Entity or relationship ownership conflict (an entity identity exists in the telemetry domain, or a target entity or relationship is not API-owned), or graph writes are paused for a graph migration — nothing written"
+          description: "Graph writes are paused for a migration, or the graph is missing and enableGraphForAll is off (KG_NOT_PROVISIONED) — nothing written"
           content:
             application/json:
               schema:
@@ -421,7 +429,7 @@ paths:
           required: false
           schema:
             type: string
-            pattern: "^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+            pattern: "^(?:tenant/[a-z][a-z0-9]*|[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)$"
         - name: scope
           in: query
           description: "Optional scope key/value pairs identifying the entity (scope[key]=value)."
@@ -468,7 +476,7 @@ paths:
       tags:
         - Knowledge Graph Write API
       summary: Create or update a custom entity
-      description: "Upserts an API-origin entity identified by (type, name, scope): 201 on create, 200 on update."
+      description: "Upserts an entity identified by (domain, type, name, scope): 201 on create, 200 on update. Existing targets may be overwritten regardless of origin; the write applies API origin and the requested TTL."
       operationId: upsertEntity
       parameters:
         - name: namespace
@@ -547,7 +555,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/ApiError"
         "409":
-          description: "Target already exists with a non-API origin, or graph writes are paused for a graph migration"
+          description: "Graph writes are paused for a migration, or the graph is missing and enableGraphForAll is off (KG_NOT_PROVISIONED)"
           content:
             application/json:
               schema:
@@ -601,7 +609,7 @@ paths:
           schema:
             type: string
             minLength: 1
-            pattern: "^(?!kg$)(?!metrics$)[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+            pattern: "^(?:tenant/[a-z][a-z0-9]*|(?!kg$)(?!metrics$)[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)$"
         - name: type
           in: query
           required: true
@@ -666,7 +674,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/ApiError"
         "409":
-          description: Graph writes are paused for a graph migration
+          description: "Graph writes are paused for a migration, or the graph is missing and enableGraphForAll is off (KG_NOT_PROVISIONED)"
           content:
             application/json:
               schema:
@@ -694,7 +702,7 @@ paths:
       tags:
         - Knowledge Graph Schema API
       summary: List effective declared schemas
-      description: "Returns installed system schemas for the authorized tenant namespace. By default, each domain includes only its highest-priority version and bundle details are omitted."
+      description: "Returns the installed shared system schemas in schemas, and the authorized tenant's own schemas, under their canonical tenant/<name> domains, in tenantSchemas. By default, each domain includes only its highest-priority version and bundle details are omitted."
       operationId: listSchemas
       parameters:
         - name: namespace
@@ -775,7 +783,7 @@ paths:
           required: false
           schema:
             type: string
-            pattern: "^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+            pattern: "^(?:tenant/[a-z][a-z0-9]*|[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)$"
         - name: connected_type
           in: query
           description: Restrict results to connected entities of this type
@@ -850,7 +858,7 @@ components:
         domain:
           type: string
           minLength: 1
-          pattern: "^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+          pattern: "^(?:tenant/[a-z][a-z0-9]*|[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)$"
         type:
           type: string
           minLength: 1
@@ -862,6 +870,7 @@ components:
           type: object
           additionalProperties:
             type: string
+          description: "Scope keys and values of the referenced entity. Relationship writes reject an endpoint scope with more keys than the server limit with 422; the limit is `kg-write.scope.max-keys`, 8 by default."
       required:
         - domain
         - name
@@ -871,8 +880,9 @@ components:
       properties:
         domain:
           type: string
+          description: "Request domain used to resolve the relationship type owner. The stored _domain is that owner, with the request domain used for undeclared types."
           minLength: 1
-          pattern: "^(?!kg$)(?!metrics$)[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+          pattern: "^(?:tenant/[a-z][a-z0-9]*|(?!kg$)(?!metrics$)[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)$"
         type:
           type: string
           minLength: 1
@@ -996,7 +1006,7 @@ components:
         domain:
           type: string
           minLength: 1
-          pattern: "^(?!kg$)(?!metrics$)[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+          pattern: "^(?:tenant/[a-z][a-z0-9]*|(?!kg$)(?!metrics$)[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)$"
         type:
           type: string
           minLength: 1
@@ -1008,6 +1018,7 @@ components:
           type: object
           additionalProperties:
             type: string
+          description: "Scope keys and values that, with the type, name and domain, identify the entity. A scope with more keys than the server limit is rejected with 422; the limit is `kg-write.scope.max-keys`, 8 by default."
         properties:
           type: object
           additionalProperties:
@@ -1092,10 +1103,17 @@ components:
       properties:
         schemas:
           type: array
+          description: Installed shared system schemas
+          items:
+            $ref: "#/components/schemas/KgSchemaDto"
+        tenantSchemas:
+          type: array
+          description: "The caller's own tenant schemas, under their canonical tenant/<name> domains. Empty when the tenant has none"
           items:
             $ref: "#/components/schemas/KgSchemaDto"
       required:
         - schemas
+        - tenantSchemas
     SchemaBindingDto:
       type: object
       properties:
@@ -1117,7 +1135,7 @@ components:
         name:
           type: string
           minLength: 1
-          pattern: "^[a-z][a-z0-9]*$"
+          pattern: "^(tenant/)?[a-z][a-z0-9]*$"
         displayName:
           type: string
         version:
@@ -1179,7 +1197,7 @@ components:
         domain:
           type: string
           minLength: 1
-          pattern: "^[a-z][a-z0-9]*$"
+          pattern: "^(tenant/)?[a-z][a-z0-9]*$"
         version:
           type: string
           minLength: 1
