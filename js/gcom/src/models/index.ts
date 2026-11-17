@@ -2662,6 +2662,37 @@ export interface EntityReadResponseDto {
     connectedTypes?: Array<string>;
 }
 /**
+ * 
+ * @export
+ * @interface EntityRefDto
+ */
+export interface EntityRefDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof EntityRefDto
+     */
+    domain: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof EntityRefDto
+     */
+    type: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof EntityRefDto
+     */
+    name: string;
+    /**
+     * Scope keys and values of the referenced entity. Relationship writes reject an endpoint scope with more keys than the server limit with 422; the limit is `kg-write.scope.max-keys`, 8 by default.
+     * @type {{ [key: string]: string; }}
+     * @memberof EntityRefDto
+     */
+    scope?: { [key: string]: string; };
+}
+/**
  * Entity type rule definition
  * @export
  * @interface EntityRuleDto
@@ -3745,6 +3776,237 @@ export interface KGScope {
     scope?: GraphEntityScope;
 }
 /**
+ * AND: every child must match.
+ * @export
+ * @interface KgFilterAllDto
+ */
+export interface KgFilterAllDto {
+    [key: string]: any | any;
+    /**
+     * 
+     * @type {Array<KgFilterDto>}
+     * @memberof KgFilterAllDto
+     */
+    all: Array<KgFilterDto>;
+}
+/**
+ * OR: at least one child must match.
+ * @export
+ * @interface KgFilterAnyDto
+ */
+export interface KgFilterAnyDto {
+    [key: string]: any | any;
+    /**
+     * 
+     * @type {Array<KgFilterDto>}
+     * @memberof KgFilterAnyDto
+     */
+    any: Array<KgFilterDto>;
+}
+/**
+ * @type KgFilterDto
+ * Exactly one filter form: a comparison, all (AND), any (OR), or not. Combine forms by nesting. Operator-specific operand rules are validated server-side.
+ * @export
+ */
+export type KgFilterDto = KgFilterAllDto | KgFilterAnyDto | KgFilterLeafDto | KgFilterNotDto;
+/**
+ * A comparison against one property.
+ * @export
+ * @interface KgFilterLeafDto
+ */
+export interface KgFilterLeafDto {
+    [key: string]: any | any;
+    /**
+     * 
+     * @type {string}
+     * @memberof KgFilterLeafDto
+     */
+    prop: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof KgFilterLeafDto
+     */
+    op: KgFilterLeafDtoOpEnum;
+    /**
+     * 
+     * @type {any}
+     * @memberof KgFilterLeafDto
+     */
+    value?: any | null;
+    /**
+     * Use case-insensitive string comparison. Valid only with string operands on EQ, NEQ, IN, CONTAINS, STARTS_WITH, or ENDS_WITH.
+     * @type {boolean}
+     * @memberof KgFilterLeafDto
+     */
+    caseInsensitive?: boolean;
+}
+
+
+/**
+ * @export
+ */
+export const KgFilterLeafDtoOpEnum = {
+    Eq: 'EQ',
+    Neq: 'NEQ',
+    In: 'IN',
+    Contains: 'CONTAINS',
+    StartsWith: 'STARTS_WITH',
+    EndsWith: 'ENDS_WITH',
+    Exists: 'EXISTS',
+    NotExists: 'NOT_EXISTS',
+    Gt: 'GT',
+    Gte: 'GTE',
+    Lt: 'LT',
+    Lte: 'LTE'
+} as const;
+export type KgFilterLeafDtoOpEnum = typeof KgFilterLeafDtoOpEnum[keyof typeof KgFilterLeafDtoOpEnum];
+
+/**
+ * Negation of one child. Entities missing the property still do not match; OR in NOT_EXISTS to include them.
+ * @export
+ * @interface KgFilterNotDto
+ */
+export interface KgFilterNotDto {
+    [key: string]: any | any;
+    /**
+     * 
+     * @type {KgFilterDto}
+     * @memberof KgFilterNotDto
+     */
+    not: KgFilterDto;
+}
+/**
+ * 
+ * @export
+ * @interface KgQueryEntityDto
+ */
+export interface KgQueryEntityDto {
+    /**
+     * 
+     * @type {EntityRefDto}
+     * @memberof KgQueryEntityDto
+     */
+    ref?: EntityRefDto;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof KgQueryEntityDto
+     */
+    anchor?: boolean;
+    /**
+     * 
+     * @type {{ [key: string]: any; }}
+     * @memberof KgQueryEntityDto
+     */
+    properties?: { [key: string]: any; };
+}
+/**
+ * 
+ * @export
+ * @interface KgQueryRequestDto
+ */
+export interface KgQueryRequestDto {
+    /**
+     * 
+     * @type {KgSelectDto}
+     * @memberof KgQueryRequestDto
+     */
+    select: KgSelectDto;
+    /**
+     * 
+     * @type {KgTimeCriteriaDto}
+     * @memberof KgQueryRequestDto
+     */
+    timeCriteria?: KgTimeCriteriaDto;
+    /**
+     * Maximum entities to return. Omitted means min(300, configured maximum). The default maximum is 2000; a tenant ceiling also applies.
+     * @type {number}
+     * @memberof KgQueryRequestDto
+     */
+    limit?: number;
+    /**
+     * Rows of the ordered match to skip before the window: offset=300, limit=300 is the second page. Omitted means 0. Ordering is the server-fixed identity order, so the same offset means the same window on replay. Page until the response's truncated is false. Entities identical on every ordering key have no defined relative order across a page boundary.
+     * @type {number}
+     * @memberof KgQueryRequestDto
+     */
+    offset?: number;
+    /**
+     * Validate and compile the request without executing it against the graph.
+     * @type {boolean}
+     * @memberof KgQueryRequestDto
+     */
+    validateOnly?: boolean;
+}
+/**
+ * 
+ * @export
+ * @interface KgQueryResponseDto
+ */
+export interface KgQueryResponseDto {
+    /**
+     * 
+     * @type {Array<KgQueryEntityDto>}
+     * @memberof KgQueryResponseDto
+     */
+    entities?: Array<KgQueryEntityDto>;
+    /**
+     * 
+     * @type {number}
+     * @memberof KgQueryResponseDto
+     */
+    total?: number;
+    /**
+     * True while more matches exist BEYOND the returned window (offset + returned < total) — page-aware, so "page until truncated is false" terminates. Describes the primary selector's match set only, never edges or expansion fan-out.
+     * @type {boolean}
+     * @memberof KgQueryResponseDto
+     */
+    truncated?: boolean;
+    /**
+     * 
+     * @type {PaginationDto}
+     * @memberof KgQueryResponseDto
+     */
+    pagination?: PaginationDto;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof KgQueryResponseDto
+     */
+    groupableProperties?: Array<string>;
+    /**
+     * 
+     * @type {KgTimeWindowDto}
+     * @memberof KgQueryResponseDto
+     */
+    appliedTimeCriteria?: KgTimeWindowDto;
+}
+/**
+ * 
+ * @export
+ * @interface KgSelectDto
+ */
+export interface KgSelectDto {
+    /**
+     * Entity types to match within every selected domain: a string or a list of strings. Omit for any type (heterogeneous result). Multiple types return one result over exactly those types, each entity carrying its own type in its ref.
+     * @type {Array<string>}
+     * @memberof KgSelectDto
+     */
+    type?: Array<string>;
+    /**
+     * Domains to search. Omit for the default telemetry domain ('metrics'). Multiple domains are returned in one heterogeneous result; each entity's ref carries the domain it came from. The retired literal 'kg' is rejected. Use 'metrics' explicitly or omit this field for telemetry entities.
+     * @type {Array<string>}
+     * @memberof KgSelectDto
+     */
+    domain?: Array<string>;
+    /**
+     * 
+     * @type {KgFilterDto}
+     * @memberof KgSelectDto
+     */
+    where?: KgFilterDto;
+}
+/**
  * 
  * @export
  * @interface KgSizingDenominatorDto
@@ -3836,6 +4098,44 @@ export interface KgSizingLevelDto {
      * @memberof KgSizingLevelDto
      */
     footprintQuery?: string;
+}
+/**
+ * 
+ * @export
+ * @interface KgTimeCriteriaDto
+ */
+export interface KgTimeCriteriaDto {
+    /**
+     * Window start, epoch millis inclusive. Required when end is supplied.
+     * @type {number}
+     * @memberof KgTimeCriteriaDto
+     */
+    start?: number;
+    /**
+     * Window end, epoch millis inclusive. Defaults to now when start is supplied.
+     * @type {number}
+     * @memberof KgTimeCriteriaDto
+     */
+    end?: number;
+}
+/**
+ * 
+ * @export
+ * @interface KgTimeWindowDto
+ */
+export interface KgTimeWindowDto {
+    /**
+     * 
+     * @type {number}
+     * @memberof KgTimeWindowDto
+     */
+    start?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof KgTimeWindowDto
+     */
+    end?: number;
 }
 /**
  * 
@@ -4134,6 +4434,12 @@ export interface LlmRcaAssertionTimelineItemDto {
      * @memberof LlmRcaAssertionTimelineItemDto
      */
     alertName?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof LlmRcaAssertionTimelineItemDto
+     */
+    onset?: number;
     /**
      * 
      * @type {Array<LlmRcaAssertionStateDto>}
@@ -5548,6 +5854,37 @@ export interface OccurrenceSliConfigDto extends SliConfigDto {
 /**
  * 
  * @export
+ * @interface PaginationDto
+ */
+export interface PaginationDto {
+    /**
+     * 
+     * @type {number}
+     * @memberof PaginationDto
+     */
+    total?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof PaginationDto
+     */
+    offset?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof PaginationDto
+     */
+    limit?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof PaginationDto
+     */
+    nextOffset?: number;
+}
+/**
+ * 
+ * @export
  * @interface PatternDto
  */
 export interface PatternDto {
@@ -6146,6 +6483,12 @@ export interface RcaPatternSearchResponseDto {
  * @interface RelationRuleDto
  */
 export interface RelationRuleDto {
+    /**
+     * Domain that owns this relationship type. Omit to use the type's default: metrics for CONSUMES, CONTROLS, HOSTS, MONITORED_BY, PRODUCES, PROVIDES, ROUTES, RUNS_ON and USES; core for every other type. Owner stamping must be deployed before this field affects discovery. Owner-aware matching must be activated before different owners produce separate edges.
+     * @type {string}
+     * @memberof RelationRuleDto
+     */
+    domain?: string;
     /**
      * Relation type (e.g., 'CALLS', 'HOSTS', 'ROUTES')
      * @type {string}
@@ -7549,6 +7892,49 @@ export interface SloWindowConfigDto {
 /**
  * 
  * @export
+ * @interface StackCredentialsDto
+ */
+export interface StackCredentialsDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof StackCredentialsDto
+     */
+    gcomToken?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof StackCredentialsDto
+     */
+    mimirToken?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof StackCredentialsDto
+     */
+    assertionDetectorToken?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof StackCredentialsDto
+     */
+    grafanaToken?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof StackCredentialsDto
+     */
+    lokiToken?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof StackCredentialsDto
+     */
+    pyroscopeToken?: string;
+}
+/**
+ * 
+ * @export
  * @interface StackDatasetDto
  */
 export interface StackDatasetDto {
@@ -7622,42 +8008,6 @@ export interface StackDetailDto {
     orgSlug?: string;
     /**
      * 
-     * @type {string}
-     * @memberof StackDetailDto
-     */
-    gcomToken?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof StackDetailDto
-     */
-    mimirToken?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof StackDetailDto
-     */
-    assertionDetectorToken?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof StackDetailDto
-     */
-    grafanaToken?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof StackDetailDto
-     */
-    lokiToken?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof StackDetailDto
-     */
-    pyroscopeToken?: string;
-    /**
-     * 
      * @type {boolean}
      * @memberof StackDetailDto
      */
@@ -7728,49 +8078,6 @@ export interface StackDetailDto {
      * @memberof StackDetailDto
      */
     stackDatasets?: Array<StackDatasetDto>;
-}
-/**
- * 
- * @export
- * @interface StackDto
- */
-export interface StackDto {
-    /**
-     * 
-     * @type {string}
-     * @memberof StackDto
-     */
-    gcomToken?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof StackDto
-     */
-    mimirToken?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof StackDto
-     */
-    assertionDetectorToken?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof StackDto
-     */
-    grafanaToken?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof StackDto
-     */
-    lokiToken?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof StackDto
-     */
-    pyroscopeToken?: string;
 }
 /**
  * 
@@ -7931,6 +8238,12 @@ export interface StackStatusDto {
      * @memberof StackStatusDto
      */
     blockedReason?: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof StackStatusDto
+     */
+    kgWriteApiEnabled?: boolean;
 }
 /**
  * 

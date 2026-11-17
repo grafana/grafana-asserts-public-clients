@@ -24,6 +24,7 @@ export * from './EntityTypeControllerApi.js';
 export * from './ExternalLoggingControllerApi.js';
 export * from './GraphDisplayConfigControllerApi.js';
 export * from './IncidentControllerApi.js';
+export * from './KgQueryControllerApi.js';
 export * from './KgSizingConfigControllerApi.js';
 export * from './KnowledgeGraphReadAPIApi.js';
 export * from './KpiDisplayConfigControllerApi.js';

@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **OtelNative** | Pointer to **bool** |  | [optional] 
 **BlockedOnManualIntervention** | Pointer to **bool** |  | [optional] 
 **BlockedReason** | Pointer to **string** |  | [optional] 
+**KgWriteApiEnabled** | Pointer to **bool** |  | [optional] 
 
 ## Methods
 
@@ -309,6 +310,31 @@ SetBlockedReason sets BlockedReason field to given value.
 `func (o *StackStatusDto) HasBlockedReason() bool`
 
 HasBlockedReason returns a boolean if a field has been set.
+
+### GetKgWriteApiEnabled
+
+`func (o *StackStatusDto) GetKgWriteApiEnabled() bool`
+
+GetKgWriteApiEnabled returns the KgWriteApiEnabled field if non-nil, zero value otherwise.
+
+### GetKgWriteApiEnabledOk
+
+`func (o *StackStatusDto) GetKgWriteApiEnabledOk() (*bool, bool)`
+
+GetKgWriteApiEnabledOk returns a tuple with the KgWriteApiEnabled field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetKgWriteApiEnabled
+
+`func (o *StackStatusDto) SetKgWriteApiEnabled(v bool)`
+
+SetKgWriteApiEnabled sets KgWriteApiEnabled field to given value.
+
+### HasKgWriteApiEnabled
+
+`func (o *StackStatusDto) HasKgWriteApiEnabled() bool`
+
+HasKgWriteApiEnabled returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
