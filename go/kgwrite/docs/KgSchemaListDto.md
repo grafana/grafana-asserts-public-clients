@@ -4,13 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Schemas** | [**[]KgSchemaDto**](KgSchemaDto.md) |  | 
+**Schemas** | [**[]KgSchemaDto**](KgSchemaDto.md) | Installed shared system schemas | 
+**TenantSchemas** | [**[]KgSchemaDto**](KgSchemaDto.md) | The caller&#39;s own tenant schemas, under their canonical tenant/&lt;name&gt; domains. Empty when the tenant has none | 
 
 ## Methods
 
 ### NewKgSchemaListDto
 
-`func NewKgSchemaListDto(schemas []KgSchemaDto, ) *KgSchemaListDto`
+`func NewKgSchemaListDto(schemas []KgSchemaDto, tenantSchemas []KgSchemaDto, ) *KgSchemaListDto`
 
 NewKgSchemaListDto instantiates a new KgSchemaListDto object
 This constructor will assign default values to properties that have it defined,
@@ -43,6 +44,26 @@ and a boolean to check if the value has been set.
 `func (o *KgSchemaListDto) SetSchemas(v []KgSchemaDto)`
 
 SetSchemas sets Schemas field to given value.
+
+
+### GetTenantSchemas
+
+`func (o *KgSchemaListDto) GetTenantSchemas() []KgSchemaDto`
+
+GetTenantSchemas returns the TenantSchemas field if non-nil, zero value otherwise.
+
+### GetTenantSchemasOk
+
+`func (o *KgSchemaListDto) GetTenantSchemasOk() (*[]KgSchemaDto, bool)`
+
+GetTenantSchemasOk returns a tuple with the TenantSchemas field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTenantSchemas
+
+`func (o *KgSchemaListDto) SetTenantSchemas(v []KgSchemaDto)`
+
+SetTenantSchemas sets TenantSchemas field to given value.
 
 
 

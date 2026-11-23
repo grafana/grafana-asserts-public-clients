@@ -7,7 +7,7 @@ info:
   description: Asserts Public API
   termsOfService: https://www.asserts.ai/terms-of-service
   title: "Asserts, Inc"
-  version: 2.121.6
+  version: 2.167.0
 servers:
 - description: Generated server url
   url: http://localhost:8030
@@ -51,7 +51,7 @@ paths:
         required: true
         schema:
           minLength: 1
-          pattern: "^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+          pattern: "^(?:tenant/[a-z][a-z0-9]*|[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)$"
           type: string
         style: form
       - explode: true
@@ -77,7 +77,7 @@ paths:
         required: true
         schema:
           minLength: 1
-          pattern: "^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+          pattern: "^(?:tenant/[a-z][a-z0-9]*|[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)$"
           type: string
         style: form
       - explode: true
@@ -95,6 +95,18 @@ paths:
         required: true
         schema:
           minLength: 1
+          type: string
+        style: form
+      - description: Optional request domain. Ignored until owner-aware relationship
+          matching is enabled.
+        explode: true
+        in: query
+        name: domain
+        required: false
+        schema:
+          description: Optional request domain. Ignored until owner-aware relationship
+            matching is enabled.
+          pattern: "^(?:tenant/[a-z][a-z0-9]*|(?!kg$)(?!metrics$)[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)$"
           type: string
         style: form
       - description: "Optional scope key/value pairs identifying the 'from' entity\
@@ -168,7 +180,8 @@ paths:
             application/x-yaml:
               schema:
                 $ref: '#/components/schemas/ApiError'
-          description: Graph writes are paused for a graph migration
+          description: "Graph writes are paused for a migration, or the graph is missing\
+            \ and enableGraphForAll is off (KG_NOT_PROVISIONED)"
         "422":
           content:
             application/json:
@@ -185,8 +198,9 @@ paths:
       tags:
       - Knowledge Graph Write API
     post:
-      description: Upserts an API-origin edge between two existing entities; both
-        endpoints must already exist.
+      description: Upserts an edge between two existing entities; both endpoints must
+        already exist. Existing targets may be overwritten regardless of origin; the
+        write applies API origin and the requested TTL.
       operationId: upsertRelationship
       parameters:
       - description: "Tenant namespace, formatted as stacks-<stackId>"
@@ -281,8 +295,8 @@ paths:
             application/x-yaml:
               schema:
                 $ref: '#/components/schemas/ApiError'
-          description: "Edge already exists with a non-API origin, or graph writes\
-            \ are paused for a graph migration"
+          description: "Graph writes are paused for a migration, or the graph is missing\
+            \ and enableGraphForAll is off (KG_NOT_PROVISIONED)"
         "422":
           content:
             application/json:
@@ -322,7 +336,8 @@ paths:
         \ atomic, and the upserts are idempotent so retrying a failed request is safe.\
         \ No stub entities are created for unresolved relationship endpoints. The\
         \ returned counts are the accepted (submitted) item counts, not a created-vs-updated\
-        \ breakdown."
+        \ breakdown. Existing targets may be overwritten regardless of origin; writes\
+        \ apply API origin and the requested TTL."
       operationId: writeGraph
       parameters:
       - description: "Tenant namespace, formatted as stacks-<stackId>"
@@ -405,10 +420,8 @@ paths:
             application/x-yaml:
               schema:
                 $ref: '#/components/schemas/ApiError'
-          description: "Entity or relationship ownership conflict (an entity identity\
-            \ exists in the telemetry domain, or a target entity or relationship is\
-            \ not API-owned), or graph writes are paused for a graph migration — nothing\
-            \ written"
+          description: "Graph writes are paused for a migration, or the graph is missing\
+            \ and enableGraphForAll is off (KG_NOT_PROVISIONED) — nothing written"
         "422":
           content:
             application/json:
@@ -461,7 +474,7 @@ paths:
         required: true
         schema:
           minLength: 1
-          pattern: "^(?!kg$)(?!metrics$)[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+          pattern: "^(?:tenant/[a-z][a-z0-9]*|(?!kg$)(?!metrics$)[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)$"
           type: string
         style: form
       - explode: true
@@ -543,7 +556,8 @@ paths:
             application/x-yaml:
               schema:
                 $ref: '#/components/schemas/ApiError'
-          description: Graph writes are paused for a graph migration
+          description: "Graph writes are paused for a migration, or the graph is missing\
+            \ and enableGraphForAll is off (KG_NOT_PROVISIONED)"
         "422":
           content:
             application/json:
@@ -596,7 +610,7 @@ paths:
         name: domain
         required: false
         schema:
-          pattern: "^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+          pattern: "^(?:tenant/[a-z][a-z0-9]*|[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)$"
           type: string
         style: form
       - description: "Optional scope key/value pairs identifying the entity (scope[key]=value)."
@@ -644,8 +658,9 @@ paths:
       tags:
       - Knowledge Graph Read API
     post:
-      description: "Upserts an API-origin entity identified by (type, name, scope):\
-        \ 201 on create, 200 on update."
+      description: "Upserts an entity identified by (domain, type, name, scope): 201\
+        \ on create, 200 on update. Existing targets may be overwritten regardless\
+        \ of origin; the write applies API origin and the requested TTL."
       operationId: upsertEntity
       parameters:
       - description: "Tenant namespace, formatted as stacks-<stackId>; must match\
@@ -741,8 +756,8 @@ paths:
             application/x-yaml:
               schema:
                 $ref: '#/components/schemas/ApiError'
-          description: "Target already exists with a non-API origin, or graph writes\
-            \ are paused for a graph migration"
+          description: "Graph writes are paused for a migration, or the graph is missing\
+            \ and enableGraphForAll is off (KG_NOT_PROVISIONED)"
         "422":
           content:
             application/json:
@@ -773,9 +788,10 @@ paths:
       - Knowledge Graph Write API
   /apis/kg.grafana.com/v1alpha1/namespaces/{namespace}/schemas:
     get:
-      description: "Returns installed system schemas for the authorized tenant namespace.\
-        \ By default, each domain includes only its highest-priority version and bundle\
-        \ details are omitted."
+      description: "Returns the installed shared system schemas in schemas, and the\
+        \ authorized tenant's own schemas, under their canonical tenant/<name> domains,\
+        \ in tenantSchemas. By default, each domain includes only its highest-priority\
+        \ version and bundle details are omitted."
       operationId: listSchemas
       parameters:
       - description: "Tenant namespace, formatted as stacks-<stackId>"
@@ -873,7 +889,7 @@ paths:
         name: domain
         required: false
         schema:
-          pattern: "^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+          pattern: "^(?:tenant/[a-z][a-z0-9]*|[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)$"
           type: string
         style: form
       - description: Restrict results to connected entities of this type
@@ -973,7 +989,7 @@ components:
       properties:
         domain:
           minLength: 1
-          pattern: "^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+          pattern: "^(?:tenant/[a-z][a-z0-9]*|[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)$"
           type: string
         type:
           minLength: 1
@@ -985,6 +1001,9 @@ components:
         scope:
           additionalProperties:
             type: string
+          description: "Scope keys and values of the referenced entity. Relationship\
+            \ writes reject an endpoint scope with more keys than the server limit\
+            \ with 422; the limit is `kg-write.scope.max-keys`, 8 by default."
       required:
       - domain
       - name
@@ -1010,8 +1029,11 @@ components:
           key: KgPropertyValue
       properties:
         domain:
+          description: "Request domain used to resolve the relationship type owner.\
+            \ The stored _domain is that owner, with the request domain used for undeclared\
+            \ types."
           minLength: 1
-          pattern: "^(?!kg$)(?!metrics$)[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+          pattern: "^(?:tenant/[a-z][a-z0-9]*|(?!kg$)(?!metrics$)[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)$"
           type: string
         type:
           minLength: 1
@@ -1167,7 +1189,7 @@ components:
       properties:
         domain:
           minLength: 1
-          pattern: "^(?!kg$)(?!metrics$)[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+          pattern: "^(?:tenant/[a-z][a-z0-9]*|(?!kg$)(?!metrics$)[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)$"
           type: string
         type:
           minLength: 1
@@ -1179,6 +1201,9 @@ components:
         scope:
           additionalProperties:
             type: string
+          description: "Scope keys and values that, with the type, name and domain,\
+            \ identify the entity. A scope with more keys than the server limit is\
+            \ rejected with 422; the limit is `kg-write.scope.max-keys`, 8 by default."
         properties:
           additionalProperties:
             $ref: '#/components/schemas/KgPropertyValue'
@@ -1510,6 +1535,371 @@ components:
       - domain
     KgSchemaListDto:
       example:
+        tenantSchemas:
+        - imports:
+          - domain: domain
+            alias: alias
+            version: version
+          - domain: domain
+            alias: alias
+            version: version
+          relationshipTypeBindings:
+          - name: name
+            from:
+              types:
+              - types
+              - types
+              cardinality: cardinality
+            to:
+              types:
+              - types
+              - types
+              cardinality: cardinality
+          - name: name
+            from:
+              types:
+              - types
+              - types
+              cardinality: cardinality
+            to:
+              types:
+              - types
+              - types
+              cardinality: cardinality
+          domain:
+            displayName: displayName
+            name: name
+            version: version
+          entityTypes:
+          - aliases:
+            - aliases
+            - aliases
+            retentionDays: 0
+            name: name
+            description: description
+            label:
+              key: label
+            properties:
+            - name: name
+              type: type
+              elementType: elementType
+              required: true
+              enum:
+              - enum
+              - enum
+            - name: name
+              type: type
+              elementType: elementType
+              required: true
+              enum:
+              - enum
+              - enum
+            scopeKeys:
+            - name: name
+              type: type
+              required: true
+              enum:
+              - enum
+              - enum
+            - name: name
+              type: type
+              required: true
+              enum:
+              - enum
+              - enum
+          - aliases:
+            - aliases
+            - aliases
+            retentionDays: 0
+            name: name
+            description: description
+            label:
+              key: label
+            properties:
+            - name: name
+              type: type
+              elementType: elementType
+              required: true
+              enum:
+              - enum
+              - enum
+            - name: name
+              type: type
+              elementType: elementType
+              required: true
+              enum:
+              - enum
+              - enum
+            scopeKeys:
+            - name: name
+              type: type
+              required: true
+              enum:
+              - enum
+              - enum
+            - name: name
+              type: type
+              required: true
+              enum:
+              - enum
+              - enum
+          relationshipTypes:
+          - inverse: inverse
+            characteristics:
+            - characteristics
+            - characteristics
+            aliases:
+            - aliases
+            - aliases
+            retentionDays: 6
+            name: name
+            description: description
+            from:
+              types:
+              - types
+              - types
+              cardinality: cardinality
+            label:
+              key: label
+            to:
+              types:
+              - types
+              - types
+              cardinality: cardinality
+            properties:
+            - name: name
+              type: type
+              elementType: elementType
+              required: true
+              enum:
+              - enum
+              - enum
+            - name: name
+              type: type
+              elementType: elementType
+              required: true
+              enum:
+              - enum
+              - enum
+          - inverse: inverse
+            characteristics:
+            - characteristics
+            - characteristics
+            aliases:
+            - aliases
+            - aliases
+            retentionDays: 6
+            name: name
+            description: description
+            from:
+              types:
+              - types
+              - types
+              cardinality: cardinality
+            label:
+              key: label
+            to:
+              types:
+              - types
+              - types
+              cardinality: cardinality
+            properties:
+            - name: name
+              type: type
+              elementType: elementType
+              required: true
+              enum:
+              - enum
+              - enum
+            - name: name
+              type: type
+              elementType: elementType
+              required: true
+              enum:
+              - enum
+              - enum
+        - imports:
+          - domain: domain
+            alias: alias
+            version: version
+          - domain: domain
+            alias: alias
+            version: version
+          relationshipTypeBindings:
+          - name: name
+            from:
+              types:
+              - types
+              - types
+              cardinality: cardinality
+            to:
+              types:
+              - types
+              - types
+              cardinality: cardinality
+          - name: name
+            from:
+              types:
+              - types
+              - types
+              cardinality: cardinality
+            to:
+              types:
+              - types
+              - types
+              cardinality: cardinality
+          domain:
+            displayName: displayName
+            name: name
+            version: version
+          entityTypes:
+          - aliases:
+            - aliases
+            - aliases
+            retentionDays: 0
+            name: name
+            description: description
+            label:
+              key: label
+            properties:
+            - name: name
+              type: type
+              elementType: elementType
+              required: true
+              enum:
+              - enum
+              - enum
+            - name: name
+              type: type
+              elementType: elementType
+              required: true
+              enum:
+              - enum
+              - enum
+            scopeKeys:
+            - name: name
+              type: type
+              required: true
+              enum:
+              - enum
+              - enum
+            - name: name
+              type: type
+              required: true
+              enum:
+              - enum
+              - enum
+          - aliases:
+            - aliases
+            - aliases
+            retentionDays: 0
+            name: name
+            description: description
+            label:
+              key: label
+            properties:
+            - name: name
+              type: type
+              elementType: elementType
+              required: true
+              enum:
+              - enum
+              - enum
+            - name: name
+              type: type
+              elementType: elementType
+              required: true
+              enum:
+              - enum
+              - enum
+            scopeKeys:
+            - name: name
+              type: type
+              required: true
+              enum:
+              - enum
+              - enum
+            - name: name
+              type: type
+              required: true
+              enum:
+              - enum
+              - enum
+          relationshipTypes:
+          - inverse: inverse
+            characteristics:
+            - characteristics
+            - characteristics
+            aliases:
+            - aliases
+            - aliases
+            retentionDays: 6
+            name: name
+            description: description
+            from:
+              types:
+              - types
+              - types
+              cardinality: cardinality
+            label:
+              key: label
+            to:
+              types:
+              - types
+              - types
+              cardinality: cardinality
+            properties:
+            - name: name
+              type: type
+              elementType: elementType
+              required: true
+              enum:
+              - enum
+              - enum
+            - name: name
+              type: type
+              elementType: elementType
+              required: true
+              enum:
+              - enum
+              - enum
+          - inverse: inverse
+            characteristics:
+            - characteristics
+            - characteristics
+            aliases:
+            - aliases
+            - aliases
+            retentionDays: 6
+            name: name
+            description: description
+            from:
+              types:
+              - types
+              - types
+              cardinality: cardinality
+            label:
+              key: label
+            to:
+              types:
+              - types
+              - types
+              cardinality: cardinality
+            properties:
+            - name: name
+              type: type
+              elementType: elementType
+              required: true
+              enum:
+              - enum
+              - enum
+            - name: name
+              type: type
+              elementType: elementType
+              required: true
+              enum:
+              - enum
+              - enum
         schemas:
         - imports:
           - domain: domain
@@ -1877,11 +2267,19 @@ components:
               - enum
       properties:
         schemas:
+          description: Installed shared system schemas
+          items:
+            $ref: '#/components/schemas/KgSchemaDto'
+          type: array
+        tenantSchemas:
+          description: "The caller's own tenant schemas, under their canonical tenant/<name>\
+            \ domains. Empty when the tenant has none"
           items:
             $ref: '#/components/schemas/KgSchemaDto'
           type: array
       required:
       - schemas
+      - tenantSchemas
     SchemaBindingDto:
       example:
         name: name
@@ -1916,7 +2314,7 @@ components:
       properties:
         name:
           minLength: 1
-          pattern: "^[a-z][a-z0-9]*$"
+          pattern: "^(tenant/)?[a-z][a-z0-9]*$"
           type: string
         displayName:
           type: string
@@ -2020,7 +2418,7 @@ components:
       properties:
         domain:
           minLength: 1
-          pattern: "^[a-z][a-z0-9]*$"
+          pattern: "^(tenant/)?[a-z][a-z0-9]*$"
           type: string
         version:
           minLength: 1

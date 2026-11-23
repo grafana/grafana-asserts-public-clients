@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.11.06-124643
+API version: 2026.11.23-181941
 Contact: support@asserts.ai
 */
 
@@ -28,7 +28,8 @@ type DefinedByMetricsDto struct {
 	// Label matchers for start entity
 	StartEntityMatchers map[string]string `json:"startEntityMatchers,omitempty"`
 	// Label matchers for end entity
-	EndEntityMatchers    map[string]string `json:"endEntityMatchers,omitempty"`
+	EndEntityMatchers    map[string]string         `json:"endEntityMatchers,omitempty"`
+	Source               DefinedByMetricsDtoSource `json:"source"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -38,7 +39,7 @@ type _DefinedByMetricsDto DefinedByMetricsDto
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDefinedByMetricsDto(pattern string, source string) *DefinedByMetricsDto {
+func NewDefinedByMetricsDto(pattern string, source DefinedByMetricsDtoSource) *DefinedByMetricsDto {
 	this := DefinedByMetricsDto{}
 	var startDomain string = ""
 	this.StartDomain = &startDomain
@@ -147,6 +148,30 @@ func (o *DefinedByMetricsDto) SetEndEntityMatchers(v map[string]string) {
 	o.EndEntityMatchers = v
 }
 
+// GetSource returns the Source field value
+func (o *DefinedByMetricsDto) GetSource() DefinedByMetricsDtoSource {
+	if o == nil {
+		var ret DefinedByMetricsDtoSource
+		return ret
+	}
+
+	return o.Source
+}
+
+// GetSourceOk returns a tuple with the Source field value
+// and a boolean to check if the value has been set.
+func (o *DefinedByMetricsDto) GetSourceOk() (*DefinedByMetricsDtoSource, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Source, true
+}
+
+// SetSource sets field value
+func (o *DefinedByMetricsDto) SetSource(v DefinedByMetricsDtoSource) {
+	o.Source = v
+}
+
 func (o DefinedByMetricsDto) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -172,6 +197,7 @@ func (o DefinedByMetricsDto) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.EndEntityMatchers) {
 		toSerialize["endEntityMatchers"] = o.EndEntityMatchers
 	}
+	toSerialize["source"] = o.Source
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -195,7 +221,8 @@ func (o *DefinedByMetricsDto) UnmarshalJSON(data []byte) (err error) {
 		// Label matchers for start entity
 		StartEntityMatchers map[string]string `json:"startEntityMatchers,omitempty"`
 		// Label matchers for end entity
-		EndEntityMatchers map[string]string `json:"endEntityMatchers,omitempty"`
+		EndEntityMatchers map[string]string         `json:"endEntityMatchers,omitempty"`
+		Source            DefinedByMetricsDtoSource `json:"source"`
 	}
 
 	varDefinedByMetricsDtoWithoutEmbeddedStruct := DefinedByMetricsDtoWithoutEmbeddedStruct{}
@@ -206,6 +233,7 @@ func (o *DefinedByMetricsDto) UnmarshalJSON(data []byte) (err error) {
 		varDefinedByMetricsDto.Pattern = varDefinedByMetricsDtoWithoutEmbeddedStruct.Pattern
 		varDefinedByMetricsDto.StartEntityMatchers = varDefinedByMetricsDtoWithoutEmbeddedStruct.StartEntityMatchers
 		varDefinedByMetricsDto.EndEntityMatchers = varDefinedByMetricsDtoWithoutEmbeddedStruct.EndEntityMatchers
+		varDefinedByMetricsDto.Source = varDefinedByMetricsDtoWithoutEmbeddedStruct.Source
 		*o = DefinedByMetricsDto(varDefinedByMetricsDto)
 	} else {
 		return err
@@ -226,6 +254,7 @@ func (o *DefinedByMetricsDto) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "pattern")
 		delete(additionalProperties, "startEntityMatchers")
 		delete(additionalProperties, "endEntityMatchers")
+		delete(additionalProperties, "source")
 
 		// remove fields from embedded structs
 		reflectDefinedByDto := reflect.ValueOf(o.DefinedByDto)

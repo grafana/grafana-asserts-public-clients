@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Domain** | Pointer to **string** | Domain that owns this relationship type. Omit to use the type&#39;s default: metrics for CONSUMES, CONTROLS, HOSTS, MONITORED_BY, PRODUCES, PROVIDES, ROUTES, RUNS_ON and USES; core for every other type. Owner stamping must be deployed before this field affects discovery. Owner-aware matching must be activated before different owners produce separate edges. | [optional] [default to ""]
 **Type** | **string** | Relation type (e.g., &#39;CALLS&#39;, &#39;HOSTS&#39;, &#39;ROUTES&#39;) | [default to ""]
 **StartEntityType** | **string** | Source entity type | [default to ""]
 **EndEntityType** | **string** | Target entity type | [default to ""]
@@ -27,6 +28,31 @@ will change when the set of required properties is changed
 NewRelationRuleDtoWithDefaults instantiates a new RelationRuleDto object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetDomain
+
+`func (o *RelationRuleDto) GetDomain() string`
+
+GetDomain returns the Domain field if non-nil, zero value otherwise.
+
+### GetDomainOk
+
+`func (o *RelationRuleDto) GetDomainOk() (*string, bool)`
+
+GetDomainOk returns a tuple with the Domain field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDomain
+
+`func (o *RelationRuleDto) SetDomain(v string)`
+
+SetDomain sets Domain field to given value.
+
+### HasDomain
+
+`func (o *RelationRuleDto) HasDomain() bool`
+
+HasDomain returns a boolean if a field has been set.
 
 ### GetType
 

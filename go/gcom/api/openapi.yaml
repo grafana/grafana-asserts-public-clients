@@ -7,7 +7,7 @@ info:
   description: Asserts Public API
   termsOfService: https://www.asserts.ai/terms-of-service
   title: "Asserts, Inc"
-  version: 2026.11.06-124643
+  version: 2026.11.23-181941
 servers:
 - description: Generated server url
   url: http://localhost:8030
@@ -32,7 +32,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/StackDto'
+              $ref: '#/components/schemas/StackCredentialsDto'
         required: true
       responses:
         "200":
@@ -3572,6 +3572,33 @@ paths:
           description: OK
       tags:
       - entity-assertions-controller
+  /apis/kg.grafana.com/v1alpha1/namespaces/{namespace}/query:
+    post:
+      operationId: query_1
+      parameters:
+      - explode: false
+        in: path
+        name: namespace
+        required: true
+        schema:
+          type: string
+        style: simple
+      - $ref: '#/components/parameters/TenantId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KgQueryRequestDto'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KgQueryResponseDto'
+          description: OK
+      tags:
+      - kg-query-controller
   /asserts/api-server/v5/prometheus/rules:
     get:
       operationId: getAllRules
@@ -3802,6 +3829,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/StackEnableDto'
+          description: OK
+      tags:
+      - stack-controller
+  /asserts/api-server/v1/stack/credentials:
+    get:
+      operationId: getStackCredentials
+      parameters:
+      - $ref: '#/components/parameters/TenantId'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StackCredentialsDto'
           description: OK
       tags:
       - stack-controller
@@ -4956,7 +4997,7 @@ paths:
         name: domain
         required: false
         schema:
-          pattern: "^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+          pattern: "^(?:tenant/[a-z][a-z0-9]*|[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)$"
           type: string
         style: form
       - $ref: '#/components/parameters/TenantId'
@@ -5034,7 +5075,7 @@ paths:
         name: domain
         required: false
         schema:
-          pattern: "^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+          pattern: "^(?:tenant/[a-z][a-z0-9]*|[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)$"
           type: string
         style: form
       - description: Restrict results to connected entities of this type
@@ -5338,7 +5379,7 @@ components:
         type: string
       style: simple
   schemas:
-    StackDto:
+    StackCredentialsDto:
       example:
         pyroscopeToken: pyroscopeToken
         lokiToken: lokiToken
@@ -7192,6 +7233,7 @@ components:
         enabled: true
         status: status
         graphInstanceCreated: true
+        kgWriteApiEnabled: true
       properties:
         status:
           type: string
@@ -7219,6 +7261,8 @@ components:
           type: boolean
         blockedReason:
           type: string
+        kgWriteApiEnabled:
+          type: boolean
     DatasetsSanityChecksDto:
       example:
         sanityChecks:
@@ -9497,8 +9541,8 @@ components:
     LlmRcaAssertionStateDto:
       example:
         severity: severity
-        start: 0
-        end: 6
+        start: 6
+        end: 1
       properties:
         start:
           format: int64
@@ -9518,32 +9562,34 @@ components:
         - alertName: alertName
           healthStates:
           - severity: severity
-            start: 0
-            end: 6
+            start: 6
+            end: 1
           - severity: severity
-            start: 0
-            end: 6
+            start: 6
+            end: 1
           assertionName: assertionName
           nestedTimelines:
           - null
           - null
           category: category
+          onset: 0
           labels:
           - key: labels
           - key: labels
         - alertName: alertName
           healthStates:
           - severity: severity
-            start: 0
-            end: 6
+            start: 6
+            end: 1
           - severity: severity
-            start: 0
-            end: 6
+            start: 6
+            end: 1
           assertionName: assertionName
           nestedTimelines:
           - null
           - null
           category: category
+          onset: 0
           labels:
           - key: labels
           - key: labels
@@ -9563,16 +9609,17 @@ components:
         alertName: alertName
         healthStates:
         - severity: severity
-          start: 0
-          end: 6
+          start: 6
+          end: 1
         - severity: severity
-          start: 0
-          end: 6
+          start: 6
+          end: 1
         assertionName: assertionName
         nestedTimelines:
         - null
         - null
         category: category
+        onset: 0
         labels:
         - key: labels
         - key: labels
@@ -9583,6 +9630,9 @@ components:
           type: string
         alertName:
           type: string
+        onset:
+          format: int64
+          type: integer
         healthStates:
           items:
             $ref: '#/components/schemas/LlmRcaAssertionStateDto'
@@ -9601,7 +9651,7 @@ components:
         scope:
           key: ""
         name: name
-        id: 1
+        id: 5
         type: type
         relations:
           key:
@@ -9681,7 +9731,7 @@ components:
         - scope:
             key: ""
           name: name
-          id: 1
+          id: 5
           type: type
           relations:
             key:
@@ -9698,7 +9748,7 @@ components:
         - scope:
             key: ""
           name: name
-          id: 1
+          id: 5
           type: type
           relations:
             key:
@@ -9721,32 +9771,34 @@ components:
           - alertName: alertName
             healthStates:
             - severity: severity
-              start: 0
-              end: 6
+              start: 6
+              end: 1
             - severity: severity
-              start: 0
-              end: 6
+              start: 6
+              end: 1
             assertionName: assertionName
             nestedTimelines:
             - null
             - null
             category: category
+            onset: 0
             labels:
             - key: labels
             - key: labels
           - alertName: alertName
             healthStates:
             - severity: severity
-              start: 0
-              end: 6
+              start: 6
+              end: 1
             - severity: severity
-              start: 0
-              end: 6
+              start: 6
+              end: 1
             assertionName: assertionName
             nestedTimelines:
             - null
             - null
             category: category
+            onset: 0
             labels:
             - key: labels
             - key: labels
@@ -9758,32 +9810,34 @@ components:
           - alertName: alertName
             healthStates:
             - severity: severity
-              start: 0
-              end: 6
+              start: 6
+              end: 1
             - severity: severity
-              start: 0
-              end: 6
+              start: 6
+              end: 1
             assertionName: assertionName
             nestedTimelines:
             - null
             - null
             category: category
+            onset: 0
             labels:
             - key: labels
             - key: labels
           - alertName: alertName
             healthStates:
             - severity: severity
-              start: 0
-              end: 6
+              start: 6
+              end: 1
             - severity: severity
-              start: 0
-              end: 6
+              start: 6
+              end: 1
             assertionName: assertionName
             nestedTimelines:
             - null
             - null
             category: category
+            onset: 0
             labels:
             - key: labels
             - key: labels
@@ -12400,6 +12454,309 @@ components:
         totalCount:
           format: int32
           type: integer
+    KgFilterAllDto:
+      additionalProperties: {}
+      description: "AND: every child must match."
+      properties:
+        all:
+          items:
+            $ref: '#/components/schemas/KgFilterDto'
+          minItems: 1
+      required:
+      - all
+    KgFilterAnyDto:
+      additionalProperties: {}
+      description: "OR: at least one child must match."
+      properties:
+        any:
+          items:
+            $ref: '#/components/schemas/KgFilterDto'
+          minItems: 1
+      required:
+      - any
+    KgFilterDto:
+      description: "Exactly one filter form: a comparison, all (AND), any (OR), or\
+        \ not. Combine forms by nesting. Operator-specific operand rules are validated\
+        \ server-side."
+      oneOf:
+      - $ref: '#/components/schemas/KgFilterLeafDto'
+      - $ref: '#/components/schemas/KgFilterAllDto'
+      - $ref: '#/components/schemas/KgFilterAnyDto'
+      - $ref: '#/components/schemas/KgFilterNotDto'
+    KgFilterLeafDto:
+      additionalProperties: {}
+      description: A comparison against one property.
+      example:
+        op: EQ
+        prop: prop
+        caseInsensitive: false
+        value: ""
+      properties:
+        prop:
+          pattern: "^[A-Za-z][A-Za-z0-9_]*$"
+        op:
+          enum:
+          - EQ
+          - NEQ
+          - IN
+          - CONTAINS
+          - STARTS_WITH
+          - ENDS_WITH
+          - EXISTS
+          - NOT_EXISTS
+          - GT
+          - GTE
+          - LT
+          - LTE
+        value: {}
+        caseInsensitive:
+          default: false
+          description: "Use case-insensitive string comparison. Valid only with string\
+            \ operands on EQ, NEQ, IN, CONTAINS, STARTS_WITH, or ENDS_WITH."
+      required:
+      - op
+      - prop
+    KgFilterNotDto:
+      additionalProperties: {}
+      description: Negation of one child. Entities missing the property still do not
+        match; OR in NOT_EXISTS to include them.
+      properties:
+        not:
+          $ref: '#/components/schemas/KgFilterDto'
+      required:
+      - not
+    KgQueryRequestDto:
+      example:
+        validateOnly: false
+        select:
+          domain:
+          - domain
+          - domain
+          where:
+            op: EQ
+            prop: prop
+            caseInsensitive: false
+            value: ""
+          type:
+          - type
+          - type
+        offset: 0
+        limit: 1
+        timeCriteria:
+          start: 0
+          end: 6
+      properties:
+        select:
+          $ref: '#/components/schemas/KgSelectDto'
+        timeCriteria:
+          $ref: '#/components/schemas/KgTimeCriteriaDto'
+        limit:
+          description: "Maximum entities to return. Omitted means min(300, configured\
+            \ maximum). The default maximum is 2000; a tenant ceiling also applies."
+          format: int32
+          minimum: 1
+          type: integer
+        offset:
+          description: "Rows of the ordered match to skip before the window: offset=300,\
+            \ limit=300 is the second page. Omitted means 0. Ordering is the server-fixed\
+            \ identity order, so the same offset means the same window on replay.\
+            \ Page until the response's truncated is false. Entities identical on\
+            \ every ordering key have no defined relative order across a page boundary."
+          format: int32
+          minimum: 0
+          type: integer
+        validateOnly:
+          default: false
+          description: Validate and compile the request without executing it against
+            the graph.
+          type: boolean
+      required:
+      - select
+    KgSelectDto:
+      example:
+        domain:
+        - domain
+        - domain
+        where:
+          op: EQ
+          prop: prop
+          caseInsensitive: false
+          value: ""
+        type:
+        - type
+        - type
+      properties:
+        type:
+          description: "Entity types to match within every selected domain: a string\
+            \ or a list of strings. Omit for any type (heterogeneous result). Multiple\
+            \ types return one result over exactly those types, each entity carrying\
+            \ its own type in its ref."
+          items:
+            minLength: 1
+            pattern: "^[A-Za-z][A-Za-z0-9_]*$"
+            type: string
+          type: array
+        domain:
+          description: Domains to search. Omit for the default telemetry domain ('metrics').
+            Multiple domains are returned in one heterogeneous result; each entity's
+            ref carries the domain it came from. The retired literal 'kg' is rejected.
+            Use 'metrics' explicitly or omit this field for telemetry entities.
+          items:
+            minLength: 1
+            pattern: "^(?:tenant/[a-z][a-z0-9]*|[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)$"
+            type: string
+          type: array
+        where:
+          $ref: '#/components/schemas/KgFilterDto'
+    KgTimeCriteriaDto:
+      example:
+        start: 0
+        end: 6
+      properties:
+        start:
+          description: "Window start, epoch millis inclusive. Required when end is\
+            \ supplied."
+          format: int64
+          type: integer
+        end:
+          description: "Window end, epoch millis inclusive. Defaults to now when start\
+            \ is supplied."
+          format: int64
+          type: integer
+    EntityRefDto:
+      example:
+        domain: domain
+        scope:
+          key: scope
+        name: name
+        type: type
+      properties:
+        domain:
+          minLength: 1
+          pattern: "^(?:tenant/[a-z][a-z0-9]*|[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)$"
+          type: string
+        type:
+          minLength: 1
+          pattern: "^[A-Za-z][A-Za-z0-9_]*$"
+          type: string
+        name:
+          minLength: 1
+          type: string
+        scope:
+          additionalProperties:
+            type: string
+          description: "Scope keys and values of the referenced entity. Relationship\
+            \ writes reject an endpoint scope with more keys than the server limit\
+            \ with 422; the limit is `kg-write.scope.max-keys`, 8 by default."
+      required:
+      - domain
+      - name
+      - type
+    KgQueryEntityDto:
+      example:
+        ref:
+          domain: domain
+          scope:
+            key: scope
+          name: name
+          type: type
+        anchor: true
+        properties:
+          key: ""
+      properties:
+        ref:
+          $ref: '#/components/schemas/EntityRefDto'
+        anchor:
+          type: boolean
+        properties:
+          additionalProperties: {}
+    KgQueryResponseDto:
+      example:
+        total: 0
+        appliedTimeCriteria:
+          start: 1
+          end: 5
+        pagination:
+          total: 6
+          offset: 1
+          limit: 5
+          nextOffset: 5
+        entities:
+        - ref:
+            domain: domain
+            scope:
+              key: scope
+            name: name
+            type: type
+          anchor: true
+          properties:
+            key: ""
+        - ref:
+            domain: domain
+            scope:
+              key: scope
+            name: name
+            type: type
+          anchor: true
+          properties:
+            key: ""
+        truncated: false
+        groupableProperties:
+        - groupableProperties
+        - groupableProperties
+      properties:
+        entities:
+          items:
+            $ref: '#/components/schemas/KgQueryEntityDto'
+          type: array
+        total:
+          format: int64
+          type: integer
+        truncated:
+          default: false
+          description: "True while more matches exist BEYOND the returned window (offset\
+            \ + returned < total) — page-aware, so \"page until truncated is false\"\
+            \ terminates. Describes the primary selector's match set only, never edges\
+            \ or expansion fan-out."
+          type: boolean
+        pagination:
+          $ref: '#/components/schemas/PaginationDto'
+        groupableProperties:
+          items:
+            type: string
+          type: array
+        appliedTimeCriteria:
+          $ref: '#/components/schemas/KgTimeWindowDto'
+    KgTimeWindowDto:
+      example:
+        start: 1
+        end: 5
+      properties:
+        start:
+          format: int64
+          type: integer
+        end:
+          format: int64
+          type: integer
+    PaginationDto:
+      example:
+        total: 6
+        offset: 1
+        limit: 5
+        nextOffset: 5
+      properties:
+        total:
+          format: int64
+          type: integer
+        offset:
+          format: int32
+          type: integer
+        limit:
+          format: int32
+          type: integer
+        nextOffset:
+          format: int32
+          type: integer
     AllRulesDto:
       example:
         all:
@@ -13687,7 +14044,6 @@ components:
       example:
         orgSlug: orgSlug
         forcePublicTsdb: true
-        lokiToken: lokiToken
         alertManagerConfigured: true
         currentActiveSeries: 5
         stackId: 0
@@ -13788,13 +14144,8 @@ components:
         orgId: 6
         enabled: true
         allowLargeTenantOnboarding: true
-        pyroscopeToken: pyroscopeToken
-        grafanaToken: grafanaToken
-        gcomToken: gcomToken
         disabledTime: 2000-01-23T04:56:07.000+00:00
         slug: slug
-        mimirToken: mimirToken
-        assertionDetectorToken: assertionDetectorToken
         graphInstanceCreated: true
         status: status
       properties:
@@ -13807,18 +14158,6 @@ components:
           format: int32
           type: integer
         orgSlug:
-          type: string
-        gcomToken:
-          type: string
-        mimirToken:
-          type: string
-        assertionDetectorToken:
-          type: string
-        grafanaToken:
-          type: string
-        lokiToken:
-          type: string
-        pyroscopeToken:
           type: string
         enabled:
           type: boolean
@@ -14833,6 +15172,11 @@ components:
             additionalProperties:
               type: string
             description: Label matchers for end entity
+      - properties:
+          source:
+            $ref: '#/components/schemas/DefinedByMetricsDtoSource'
+        required:
+        - source
       description: Metrics-based relation definition
       example:
         startDomain: ""
@@ -14842,7 +15186,7 @@ components:
           key: ""
         startEntityMatchers:
           key: startEntityMatchers
-        source: source
+        source: METRICS
         endEntityMatchers:
           key: endEntityMatchers
       required:
@@ -14861,6 +15205,11 @@ components:
             items:
               type: string
             type: array
+      - properties:
+          source:
+            $ref: '#/components/schemas/DefinedByPropertyMatchDtoSource'
+        required:
+        - source
       description: Property-match based relation definition
     EntityRuleDto:
       description: Entity type rule definition
@@ -15106,6 +15455,7 @@ components:
         relations:
         - startEntityType: ""
           endEntityType: ""
+          domain: ""
           definedBy:
             startDomain: ""
             endDomain: ""
@@ -15114,12 +15464,13 @@ components:
               key: ""
             startEntityMatchers:
               key: startEntityMatchers
-            source: source
+            source: METRICS
             endEntityMatchers:
               key: endEntityMatchers
           type: ""
         - startEntityType: ""
           endEntityType: ""
+          domain: ""
           definedBy:
             startDomain: ""
             endDomain: ""
@@ -15128,7 +15479,7 @@ components:
               key: ""
             startEntityMatchers:
               key: startEntityMatchers
-            source: source
+            source: METRICS
             endEntityMatchers:
               key: endEntityMatchers
           type: ""
@@ -15181,6 +15532,7 @@ components:
       example:
         startEntityType: ""
         endEntityType: ""
+        domain: ""
         definedBy:
           startDomain: ""
           endDomain: ""
@@ -15189,11 +15541,21 @@ components:
             key: ""
           startEntityMatchers:
             key: startEntityMatchers
-          source: source
+          source: METRICS
           endEntityMatchers:
             key: endEntityMatchers
         type: ""
       properties:
+        domain:
+          default: ""
+          description: "Domain that owns this relationship type. Omit to use the type's\
+            \ default: metrics for CONSUMES, CONTROLS, HOSTS, MONITORED_BY, PRODUCES,\
+            \ PROVIDES, ROUTES, RUNS_ON and USES; core for every other type. Owner\
+            \ stamping must be deployed before this field affects discovery. Owner-aware\
+            \ matching must be activated before different owners produce separate\
+            \ edges."
+          pattern: "^(?!kg$)[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+          type: string
         type:
           default: ""
           description: "Relation type (e.g., 'CALLS', 'HOSTS', 'ROUTES')"
@@ -15395,6 +15757,7 @@ components:
           relations:
           - startEntityType: ""
             endEntityType: ""
+            domain: ""
             definedBy:
               startDomain: ""
               endDomain: ""
@@ -15403,12 +15766,13 @@ components:
                 key: ""
               startEntityMatchers:
                 key: startEntityMatchers
-              source: source
+              source: METRICS
               endEntityMatchers:
                 key: endEntityMatchers
             type: ""
           - startEntityType: ""
             endEntityType: ""
+            domain: ""
             definedBy:
               startDomain: ""
               endDomain: ""
@@ -15417,7 +15781,7 @@ components:
                 key: ""
               startEntityMatchers:
                 key: startEntityMatchers
-              source: source
+              source: METRICS
               endEntityMatchers:
                 key: endEntityMatchers
             type: ""
@@ -15584,6 +15948,7 @@ components:
             relations:
             - startEntityType: ""
               endEntityType: ""
+              domain: ""
               definedBy:
                 startDomain: ""
                 endDomain: ""
@@ -15592,12 +15957,13 @@ components:
                   key: ""
                 startEntityMatchers:
                   key: startEntityMatchers
-                source: source
+                source: METRICS
                 endEntityMatchers:
                   key: endEntityMatchers
               type: ""
             - startEntityType: ""
               endEntityType: ""
+              domain: ""
               definedBy:
                 startDomain: ""
                 endDomain: ""
@@ -15606,7 +15972,7 @@ components:
                   key: ""
                 startEntityMatchers:
                   key: startEntityMatchers
-                source: source
+                source: METRICS
                 endEntityMatchers:
                   key: endEntityMatchers
               type: ""
@@ -15745,6 +16111,7 @@ components:
             relations:
             - startEntityType: ""
               endEntityType: ""
+              domain: ""
               definedBy:
                 startDomain: ""
                 endDomain: ""
@@ -15753,12 +16120,13 @@ components:
                   key: ""
                 startEntityMatchers:
                   key: startEntityMatchers
-                source: source
+                source: METRICS
                 endEntityMatchers:
                   key: endEntityMatchers
               type: ""
             - startEntityType: ""
               endEntityType: ""
+              domain: ""
               definedBy:
                 startDomain: ""
                 endDomain: ""
@@ -15767,7 +16135,7 @@ components:
                   key: ""
                 startEntityMatchers:
                   key: startEntityMatchers
-                source: source
+                source: METRICS
                 endEntityMatchers:
                   key: endEntityMatchers
               type: ""
@@ -16185,6 +16553,14 @@ components:
       enum:
       - ApiValidationError
       type: string
+    DefinedByMetricsDtoSource:
+      enum:
+      - METRICS
+      type: string
+    DefinedByPropertyMatchDtoSource:
+      enum:
+      - PROPERTY_MATCH
+      type: string
     ApiError_status:
       oneOf:
       - $ref: '#/components/schemas/DefaultHttpStatusCode'
@@ -16234,6 +16610,11 @@ components:
         empty: {}
     RelationRuleDto_definedBy:
       description: "Relation definition (polymorphic: METRICS or PROPERTY_MATCH)"
+      discriminator:
+        mapping:
+          METRICS: '#/components/schemas/DefinedByMetricsDto'
+          PROPERTY_MATCH: '#/components/schemas/DefinedByPropertyMatchDto'
+        propertyName: source
       oneOf:
       - $ref: '#/components/schemas/DefinedByMetricsDto'
       - $ref: '#/components/schemas/DefinedByPropertyMatchDto'

@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.11.06-124643
+API version: 2026.11.23-181941
 Contact: support@asserts.ai
 */
 
@@ -26,7 +26,8 @@ type DefinedByPropertyMatchDto struct {
 	// Properties from start entity to match
 	StartEntityProperties []string `json:"startEntityProperties,omitempty"`
 	// Properties from end entity to match
-	EndEntityProperties  []string `json:"endEntityProperties,omitempty"`
+	EndEntityProperties  []string                        `json:"endEntityProperties,omitempty"`
+	Source               DefinedByPropertyMatchDtoSource `json:"source"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -36,7 +37,7 @@ type _DefinedByPropertyMatchDto DefinedByPropertyMatchDto
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDefinedByPropertyMatchDto(source string) *DefinedByPropertyMatchDto {
+func NewDefinedByPropertyMatchDto(source DefinedByPropertyMatchDtoSource) *DefinedByPropertyMatchDto {
 	this := DefinedByPropertyMatchDto{}
 	var startDomain string = ""
 	this.StartDomain = &startDomain
@@ -118,6 +119,30 @@ func (o *DefinedByPropertyMatchDto) SetEndEntityProperties(v []string) {
 	o.EndEntityProperties = v
 }
 
+// GetSource returns the Source field value
+func (o *DefinedByPropertyMatchDto) GetSource() DefinedByPropertyMatchDtoSource {
+	if o == nil {
+		var ret DefinedByPropertyMatchDtoSource
+		return ret
+	}
+
+	return o.Source
+}
+
+// GetSourceOk returns a tuple with the Source field value
+// and a boolean to check if the value has been set.
+func (o *DefinedByPropertyMatchDto) GetSourceOk() (*DefinedByPropertyMatchDtoSource, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Source, true
+}
+
+// SetSource sets field value
+func (o *DefinedByPropertyMatchDto) SetSource(v DefinedByPropertyMatchDtoSource) {
+	o.Source = v
+}
+
 func (o DefinedByPropertyMatchDto) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -142,6 +167,7 @@ func (o DefinedByPropertyMatchDto) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.EndEntityProperties) {
 		toSerialize["endEntityProperties"] = o.EndEntityProperties
 	}
+	toSerialize["source"] = o.Source
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -163,7 +189,8 @@ func (o *DefinedByPropertyMatchDto) UnmarshalJSON(data []byte) (err error) {
 		// Properties from start entity to match
 		StartEntityProperties []string `json:"startEntityProperties,omitempty"`
 		// Properties from end entity to match
-		EndEntityProperties []string `json:"endEntityProperties,omitempty"`
+		EndEntityProperties []string                        `json:"endEntityProperties,omitempty"`
+		Source              DefinedByPropertyMatchDtoSource `json:"source"`
 	}
 
 	varDefinedByPropertyMatchDtoWithoutEmbeddedStruct := DefinedByPropertyMatchDtoWithoutEmbeddedStruct{}
@@ -173,6 +200,7 @@ func (o *DefinedByPropertyMatchDto) UnmarshalJSON(data []byte) (err error) {
 		varDefinedByPropertyMatchDto := _DefinedByPropertyMatchDto{}
 		varDefinedByPropertyMatchDto.StartEntityProperties = varDefinedByPropertyMatchDtoWithoutEmbeddedStruct.StartEntityProperties
 		varDefinedByPropertyMatchDto.EndEntityProperties = varDefinedByPropertyMatchDtoWithoutEmbeddedStruct.EndEntityProperties
+		varDefinedByPropertyMatchDto.Source = varDefinedByPropertyMatchDtoWithoutEmbeddedStruct.Source
 		*o = DefinedByPropertyMatchDto(varDefinedByPropertyMatchDto)
 	} else {
 		return err
@@ -192,6 +220,7 @@ func (o *DefinedByPropertyMatchDto) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "startEntityProperties")
 		delete(additionalProperties, "endEntityProperties")
+		delete(additionalProperties, "source")
 
 		// remove fields from embedded structs
 		reflectDefinedByDto := reflect.ValueOf(o.DefinedByDto)

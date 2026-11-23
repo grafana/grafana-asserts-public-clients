@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Domain** | **string** |  | 
 **Type** | **string** |  | 
 **Name** | **string** |  | 
-**Scope** | Pointer to **map[string]string** |  | [optional] 
+**Scope** | Pointer to **map[string]string** | Scope keys and values that, with the type, name and domain, identify the entity. A scope with more keys than the server limit is rejected with 422; the limit is &#x60;kg-write.scope.max-keys&#x60;, 8 by default. | [optional] 
 **Properties** | Pointer to [**map[string]KgPropertyValue**](KgPropertyValue.md) | Custom properties to store on the entity. Values must be scalars (string, boolean, or number) or arrays of scalars; nested objects, nested arrays, and null values are rejected. Integral numbers are stored as 64-bit signed integers and floating-point numbers as IEEE-754 doubles. | [optional] 
 **TtlSeconds** | **int64** | Time-to-live in seconds. Positive values expire the entity after that many seconds, 0 expires it immediately, and negative values mean no expiry. | 
 
