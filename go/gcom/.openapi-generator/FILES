@@ -137,7 +137,9 @@ docs/DatasetsSanityChecksDto.md
 docs/DefaultHttpStatusCode.md
 docs/DefinedByDto.md
 docs/DefinedByMetricsDto.md
+docs/DefinedByMetricsDtoSource.md
 docs/DefinedByPropertyMatchDto.md
+docs/DefinedByPropertyMatchDtoSource.md
 docs/DisabledAlertConfigDto.md
 docs/DisabledAlertConfigsDto.md
 docs/DisabledRulesDto.md
@@ -467,7 +469,9 @@ model_datasets_sanity_checks_dto.go
 model_default_http_status_code.go
 model_defined_by_dto.go
 model_defined_by_metrics_dto.go
+model_defined_by_metrics_dto_source.go
 model_defined_by_property_match_dto.go
+model_defined_by_property_match_dto_source.go
 model_disabled_alert_config_dto.go
 model_disabled_alert_configs_dto.go
 model_disabled_rules_dto.go

@@ -7,12 +7,13 @@ Name | Type | Description | Notes
 **Pattern** | **string** | PromQL pattern to match metrics | [default to ""]
 **StartEntityMatchers** | Pointer to **map[string]string** | Label matchers for start entity | [optional] 
 **EndEntityMatchers** | Pointer to **map[string]string** | Label matchers for end entity | [optional] 
+**Source** | [**DefinedByMetricsDtoSource**](DefinedByMetricsDtoSource.md) |  | 
 
 ## Methods
 
 ### NewDefinedByMetricsDto
 
-`func NewDefinedByMetricsDto(pattern string, ) *DefinedByMetricsDto`
+`func NewDefinedByMetricsDto(pattern string, source DefinedByMetricsDtoSource, ) *DefinedByMetricsDto`
 
 NewDefinedByMetricsDto instantiates a new DefinedByMetricsDto object
 This constructor will assign default values to properties that have it defined,
@@ -96,6 +97,26 @@ SetEndEntityMatchers sets EndEntityMatchers field to given value.
 `func (o *DefinedByMetricsDto) HasEndEntityMatchers() bool`
 
 HasEndEntityMatchers returns a boolean if a field has been set.
+
+### GetSource
+
+`func (o *DefinedByMetricsDto) GetSource() DefinedByMetricsDtoSource`
+
+GetSource returns the Source field if non-nil, zero value otherwise.
+
+### GetSourceOk
+
+`func (o *DefinedByMetricsDto) GetSourceOk() (*DefinedByMetricsDtoSource, bool)`
+
+GetSourceOk returns a tuple with the Source field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSource
+
+`func (o *DefinedByMetricsDto) SetSource(v DefinedByMetricsDtoSource)`
+
+SetSource sets Source field to given value.
+
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -6,12 +6,13 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **StartEntityProperties** | Pointer to **[]string** | Properties from start entity to match | [optional] 
 **EndEntityProperties** | Pointer to **[]string** | Properties from end entity to match | [optional] 
+**Source** | [**DefinedByPropertyMatchDtoSource**](DefinedByPropertyMatchDtoSource.md) |  | 
 
 ## Methods
 
 ### NewDefinedByPropertyMatchDto
 
-`func NewDefinedByPropertyMatchDto() *DefinedByPropertyMatchDto`
+`func NewDefinedByPropertyMatchDto(source DefinedByPropertyMatchDtoSource, ) *DefinedByPropertyMatchDto`
 
 NewDefinedByPropertyMatchDto instantiates a new DefinedByPropertyMatchDto object
 This constructor will assign default values to properties that have it defined,
@@ -75,6 +76,26 @@ SetEndEntityProperties sets EndEntityProperties field to given value.
 `func (o *DefinedByPropertyMatchDto) HasEndEntityProperties() bool`
 
 HasEndEntityProperties returns a boolean if a field has been set.
+
+### GetSource
+
+`func (o *DefinedByPropertyMatchDto) GetSource() DefinedByPropertyMatchDtoSource`
+
+GetSource returns the Source field if non-nil, zero value otherwise.
+
+### GetSourceOk
+
+`func (o *DefinedByPropertyMatchDto) GetSourceOk() (*DefinedByPropertyMatchDtoSource, bool)`
+
+GetSourceOk returns a tuple with the Source field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSource
+
+`func (o *DefinedByPropertyMatchDto) SetSource(v DefinedByPropertyMatchDtoSource)`
+
+SetSource sets Source field to given value.
+
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

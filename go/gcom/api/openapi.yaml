@@ -7,7 +7,7 @@ info:
   description: Asserts Public API
   termsOfService: https://www.asserts.ai/terms-of-service
   title: "Asserts, Inc"
-  version: 2026.11.17-134232
+  version: 2026.11.23-214302
 servers:
 - description: Generated server url
   url: http://localhost:8030
@@ -15172,6 +15172,11 @@ components:
             additionalProperties:
               type: string
             description: Label matchers for end entity
+      - properties:
+          source:
+            $ref: '#/components/schemas/DefinedByMetricsDtoSource'
+        required:
+        - source
       description: Metrics-based relation definition
       example:
         startDomain: ""
@@ -15181,7 +15186,7 @@ components:
           key: ""
         startEntityMatchers:
           key: startEntityMatchers
-        source: source
+        source: METRICS
         endEntityMatchers:
           key: endEntityMatchers
       required:
@@ -15200,6 +15205,11 @@ components:
             items:
               type: string
             type: array
+      - properties:
+          source:
+            $ref: '#/components/schemas/DefinedByPropertyMatchDtoSource'
+        required:
+        - source
       description: Property-match based relation definition
     EntityRuleDto:
       description: Entity type rule definition
@@ -15454,7 +15464,7 @@ components:
               key: ""
             startEntityMatchers:
               key: startEntityMatchers
-            source: source
+            source: METRICS
             endEntityMatchers:
               key: endEntityMatchers
           type: ""
@@ -15469,7 +15479,7 @@ components:
               key: ""
             startEntityMatchers:
               key: startEntityMatchers
-            source: source
+            source: METRICS
             endEntityMatchers:
               key: endEntityMatchers
           type: ""
@@ -15531,7 +15541,7 @@ components:
             key: ""
           startEntityMatchers:
             key: startEntityMatchers
-          source: source
+          source: METRICS
           endEntityMatchers:
             key: endEntityMatchers
         type: ""
@@ -15756,7 +15766,7 @@ components:
                 key: ""
               startEntityMatchers:
                 key: startEntityMatchers
-              source: source
+              source: METRICS
               endEntityMatchers:
                 key: endEntityMatchers
             type: ""
@@ -15771,7 +15781,7 @@ components:
                 key: ""
               startEntityMatchers:
                 key: startEntityMatchers
-              source: source
+              source: METRICS
               endEntityMatchers:
                 key: endEntityMatchers
             type: ""
@@ -15947,7 +15957,7 @@ components:
                   key: ""
                 startEntityMatchers:
                   key: startEntityMatchers
-                source: source
+                source: METRICS
                 endEntityMatchers:
                   key: endEntityMatchers
               type: ""
@@ -15962,7 +15972,7 @@ components:
                   key: ""
                 startEntityMatchers:
                   key: startEntityMatchers
-                source: source
+                source: METRICS
                 endEntityMatchers:
                   key: endEntityMatchers
               type: ""
@@ -16110,7 +16120,7 @@ components:
                   key: ""
                 startEntityMatchers:
                   key: startEntityMatchers
-                source: source
+                source: METRICS
                 endEntityMatchers:
                   key: endEntityMatchers
               type: ""
@@ -16125,7 +16135,7 @@ components:
                   key: ""
                 startEntityMatchers:
                   key: startEntityMatchers
-                source: source
+                source: METRICS
                 endEntityMatchers:
                   key: endEntityMatchers
               type: ""
@@ -16543,6 +16553,14 @@ components:
       enum:
       - ApiValidationError
       type: string
+    DefinedByMetricsDtoSource:
+      enum:
+      - METRICS
+      type: string
+    DefinedByPropertyMatchDtoSource:
+      enum:
+      - PROPERTY_MATCH
+      type: string
     ApiError_status:
       oneOf:
       - $ref: '#/components/schemas/DefaultHttpStatusCode'
@@ -16592,6 +16610,11 @@ components:
         empty: {}
     RelationRuleDto_definedBy:
       description: "Relation definition (polymorphic: METRICS or PROPERTY_MATCH)"
+      discriminator:
+        mapping:
+          METRICS: '#/components/schemas/DefinedByMetricsDto'
+          PROPERTY_MATCH: '#/components/schemas/DefinedByPropertyMatchDto'
+        propertyName: source
       oneOf:
       - $ref: '#/components/schemas/DefinedByMetricsDto'
       - $ref: '#/components/schemas/DefinedByPropertyMatchDto'
