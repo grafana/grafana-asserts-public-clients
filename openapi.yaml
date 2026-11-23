@@ -7,7 +7,7 @@ info:
     name: Support
     url: "https://www.grafana.com"
     email: support@asserts.ai
-  version: 2026.11.06-124643
+  version: 2026.11.23-181941
 servers:
   - url: http://localhost:8030
     description: Generated server url
@@ -35,7 +35,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/StackDto"
+              $ref: "#/components/schemas/StackCredentialsDto"
         required: true
       responses:
         "200":
@@ -3618,6 +3618,32 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AffectedEntityDetailsDto"
+  /apis/kg.grafana.com/v1alpha1/namespaces/{namespace}/query:
+    post:
+      tags:
+        - kg-query-controller
+      operationId: query_1
+      parameters:
+        - name: namespace
+          in: path
+          required: true
+          schema:
+            type: string
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/KgQueryRequestDto"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/KgQueryResponseDto"
   /asserts/api-server/v5/prometheus/rules:
     get:
       tags:
@@ -3854,6 +3880,21 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/StackEnableDto"
+  /asserts/api-server/v1/stack/credentials:
+    get:
+      tags:
+        - stack-controller
+      operationId: getStackCredentials
+      parameters:
+        - in: header
+          $ref: "#/components/parameters/TenantId"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StackCredentialsDto"
   /asserts/api-server/v1/search/autocomplete/{index}:
     get:
       tags:
@@ -4939,7 +4980,7 @@ paths:
           required: false
           schema:
             type: string
-            pattern: "^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+            pattern: "^(?:tenant/[a-z][a-z0-9]*|[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)$"
         - in: header
           $ref: "#/components/parameters/TenantId"
       responses:
@@ -5006,7 +5047,7 @@ paths:
           required: false
           schema:
             type: string
-            pattern: "^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+            pattern: "^(?:tenant/[a-z][a-z0-9]*|[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)$"
         - name: connected_type
           in: query
           description: Restrict results to connected entities of this type
@@ -5275,7 +5316,7 @@ paths:
                 $ref: "#/components/schemas/ApiError"
 components:
   schemas:
-    StackDto:
+    StackCredentialsDto:
       type: object
       properties:
         gcomToken:
@@ -6198,6 +6239,8 @@ components:
           type: boolean
         blockedReason:
           type: string
+        kgWriteApiEnabled:
+          type: boolean
     DatasetsSanityChecksDto:
       type: object
       properties:
@@ -7159,6 +7202,9 @@ components:
           type: string
         alertName:
           type: string
+        onset:
+          type: integer
+          format: int64
         healthStates:
           type: array
           items:
@@ -8591,6 +8637,214 @@ components:
         totalCount:
           type: integer
           format: int32
+    KgFilterAllDto:
+      type: object
+      additionalProperties: false
+      default: null
+      description: "AND: every child must match."
+      properties:
+        all:
+          type: array
+          items:
+            $ref: "#/components/schemas/KgFilterDto"
+          minItems: 1
+      required:
+        - all
+    KgFilterAnyDto:
+      type: object
+      additionalProperties: false
+      default: null
+      description: "OR: at least one child must match."
+      properties:
+        any:
+          type: array
+          items:
+            $ref: "#/components/schemas/KgFilterDto"
+          minItems: 1
+      required:
+        - any
+    KgFilterDto:
+      default: null
+      description: "Exactly one filter form: a comparison, all (AND), any (OR), or not. Combine forms by nesting. Operator-specific operand rules are validated server-side."
+      oneOf:
+        - $ref: "#/components/schemas/KgFilterLeafDto"
+        - $ref: "#/components/schemas/KgFilterAllDto"
+        - $ref: "#/components/schemas/KgFilterAnyDto"
+        - $ref: "#/components/schemas/KgFilterNotDto"
+    KgFilterLeafDto:
+      type: object
+      additionalProperties: false
+      default: null
+      description: A comparison against one property.
+      properties:
+        prop:
+          type: string
+          pattern: "^[A-Za-z][A-Za-z0-9_]*$"
+        op:
+          type: string
+          enum:
+            - EQ
+            - NEQ
+            - IN
+            - CONTAINS
+            - STARTS_WITH
+            - ENDS_WITH
+            - EXISTS
+            - NOT_EXISTS
+            - GT
+            - GTE
+            - LT
+            - LTE
+        value: {}
+        caseInsensitive:
+          type: boolean
+          default: false
+          description: "Use case-insensitive string comparison. Valid only with string operands on EQ, NEQ, IN, CONTAINS, STARTS_WITH, or ENDS_WITH."
+      required:
+        - op
+        - prop
+    KgFilterNotDto:
+      type: object
+      additionalProperties: false
+      default: null
+      description: Negation of one child. Entities missing the property still do not match; OR in NOT_EXISTS to include them.
+      properties:
+        not:
+          $ref: "#/components/schemas/KgFilterDto"
+      required:
+        - not
+    KgQueryRequestDto:
+      type: object
+      properties:
+        select:
+          $ref: "#/components/schemas/KgSelectDto"
+        timeCriteria:
+          $ref: "#/components/schemas/KgTimeCriteriaDto"
+        limit:
+          type: integer
+          format: int32
+          description: "Maximum entities to return. Omitted means min(300, configured maximum). The default maximum is 2000; a tenant ceiling also applies."
+          minimum: 1
+        offset:
+          type: integer
+          format: int32
+          description: "Rows of the ordered match to skip before the window: offset=300, limit=300 is the second page. Omitted means 0. Ordering is the server-fixed identity order, so the same offset means the same window on replay. Page until the response's truncated is false. Entities identical on every ordering key have no defined relative order across a page boundary."
+          minimum: 0
+        validateOnly:
+          type: boolean
+          default: false
+          description: Validate and compile the request without executing it against the graph.
+      required:
+        - select
+    KgSelectDto:
+      type: object
+      properties:
+        type:
+          type: array
+          description: "Entity types to match within every selected domain: a string or a list of strings. Omit for any type (heterogeneous result). Multiple types return one result over exactly those types, each entity carrying its own type in its ref."
+          items:
+            type: string
+            minLength: 1
+            pattern: "^[A-Za-z][A-Za-z0-9_]*$"
+        domain:
+          type: array
+          description: Domains to search. Omit for the default telemetry domain ('metrics'). Multiple domains are returned in one heterogeneous result; each entity's ref carries the domain it came from. The retired literal 'kg' is rejected. Use 'metrics' explicitly or omit this field for telemetry entities.
+          items:
+            type: string
+            minLength: 1
+            pattern: "^(?:tenant/[a-z][a-z0-9]*|[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)$"
+        where:
+          $ref: "#/components/schemas/KgFilterDto"
+    KgTimeCriteriaDto:
+      type: object
+      properties:
+        start:
+          type: integer
+          format: int64
+          description: "Window start, epoch millis inclusive. Required when end is supplied."
+        end:
+          type: integer
+          format: int64
+          description: "Window end, epoch millis inclusive. Defaults to now when start is supplied."
+    EntityRefDto:
+      type: object
+      properties:
+        domain:
+          type: string
+          minLength: 1
+          pattern: "^(?:tenant/[a-z][a-z0-9]*|[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)$"
+        type:
+          type: string
+          minLength: 1
+          pattern: "^[A-Za-z][A-Za-z0-9_]*$"
+        name:
+          type: string
+          minLength: 1
+        scope:
+          type: object
+          additionalProperties:
+            type: string
+          description: "Scope keys and values of the referenced entity. Relationship writes reject an endpoint scope with more keys than the server limit with 422; the limit is `kg-write.scope.max-keys`, 8 by default."
+      required:
+        - domain
+        - name
+        - type
+    KgQueryEntityDto:
+      type: object
+      properties:
+        ref:
+          $ref: "#/components/schemas/EntityRefDto"
+        anchor:
+          type: boolean
+        properties:
+          type: object
+          additionalProperties: {}
+    KgQueryResponseDto:
+      type: object
+      properties:
+        entities:
+          type: array
+          items:
+            $ref: "#/components/schemas/KgQueryEntityDto"
+        total:
+          type: integer
+          format: int64
+        truncated:
+          type: boolean
+          default: false
+          description: "True while more matches exist BEYOND the returned window (offset + returned < total) — page-aware, so \"page until truncated is false\" terminates. Describes the primary selector's match set only, never edges or expansion fan-out."
+        pagination:
+          $ref: "#/components/schemas/PaginationDto"
+        groupableProperties:
+          type: array
+          items:
+            type: string
+        appliedTimeCriteria:
+          $ref: "#/components/schemas/KgTimeWindowDto"
+    KgTimeWindowDto:
+      type: object
+      properties:
+        start:
+          type: integer
+          format: int64
+        end:
+          type: integer
+          format: int64
+    PaginationDto:
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int64
+        offset:
+          type: integer
+          format: int32
+        limit:
+          type: integer
+          format: int32
+        nextOffset:
+          type: integer
+          format: int32
     AllRulesDto:
       type: object
       properties:
@@ -8800,18 +9054,6 @@ components:
           type: integer
           format: int32
         orgSlug:
-          type: string
-        gcomToken:
-          type: string
-        mimirToken:
-          type: string
-        assertionDetectorToken:
-          type: string
-        grafanaToken:
-          type: string
-        lokiToken:
-          type: string
-        pyroscopeToken:
           type: string
         enabled:
           type: boolean
@@ -9253,6 +9495,12 @@ components:
               additionalProperties:
                 type: string
               description: Label matchers for end entity
+        - type: object
+          properties:
+            source:
+              $ref: "#/components/schemas/DefinedByMetricsDtoSource"
+          required:
+            - source
       description: Metrics-based relation definition
       required:
         - pattern
@@ -9271,6 +9519,12 @@ components:
               description: Properties from end entity to match
               items:
                 type: string
+        - type: object
+          properties:
+            source:
+              $ref: "#/components/schemas/DefinedByPropertyMatchDtoSource"
+          required:
+            - source
       description: Property-match based relation definition
     EntityRuleDto:
       type: object
@@ -9374,6 +9628,11 @@ components:
       default: null
       description: Relationship rule definition between entities
       properties:
+        domain:
+          type: string
+          default: ""
+          description: "Domain that owns this relationship type. Omit to use the type's default: metrics for CONSUMES, CONTROLS, HOSTS, MONITORED_BY, PRODUCES, PROVIDES, ROUTES, RUNS_ON and USES; core for every other type. Owner stamping must be deployed before this field affects discovery. Owner-aware matching must be activated before different owners produce separate edges."
+          pattern: "^(?!kg$)[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
         type:
           type: string
           default: ""
@@ -9388,6 +9647,11 @@ components:
           description: Target entity type
         definedBy:
           description: "Relation definition (polymorphic: METRICS or PROPERTY_MATCH)"
+          discriminator:
+            propertyName: source
+            mapping:
+              METRICS: "#/components/schemas/DefinedByMetricsDto"
+              PROPERTY_MATCH: "#/components/schemas/DefinedByPropertyMatchDto"
           oneOf:
             - $ref: "#/components/schemas/DefinedByMetricsDto"
             - $ref: "#/components/schemas/DefinedByPropertyMatchDto"
@@ -9603,6 +9867,14 @@ components:
       type: string
       enum:
         - ApiValidationError
+    DefinedByMetricsDtoSource:
+      type: string
+      enum:
+        - METRICS
+    DefinedByPropertyMatchDtoSource:
+      type: string
+      enum:
+        - PROPERTY_MATCH
   parameters:
     TenantId:
       name: X-Scope-OrgID
