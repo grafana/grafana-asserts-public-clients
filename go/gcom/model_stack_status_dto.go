@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2026.11.06-124643
+API version: 2026.11.17-134232
 Contact: support@asserts.ai
 */
 
@@ -32,6 +32,7 @@ type StackStatusDto struct {
 	OtelNative                  *bool                     `json:"otelNative,omitempty"`
 	BlockedOnManualIntervention *bool                     `json:"blockedOnManualIntervention,omitempty"`
 	BlockedReason               *string                   `json:"blockedReason,omitempty"`
+	KgWriteApiEnabled           *bool                     `json:"kgWriteApiEnabled,omitempty"`
 	AdditionalProperties        map[string]interface{}
 }
 
@@ -406,6 +407,38 @@ func (o *StackStatusDto) SetBlockedReason(v string) {
 	o.BlockedReason = &v
 }
 
+// GetKgWriteApiEnabled returns the KgWriteApiEnabled field value if set, zero value otherwise.
+func (o *StackStatusDto) GetKgWriteApiEnabled() bool {
+	if o == nil || IsNil(o.KgWriteApiEnabled) {
+		var ret bool
+		return ret
+	}
+	return *o.KgWriteApiEnabled
+}
+
+// GetKgWriteApiEnabledOk returns a tuple with the KgWriteApiEnabled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *StackStatusDto) GetKgWriteApiEnabledOk() (*bool, bool) {
+	if o == nil || IsNil(o.KgWriteApiEnabled) {
+		return nil, false
+	}
+	return o.KgWriteApiEnabled, true
+}
+
+// HasKgWriteApiEnabled returns a boolean if a field has been set.
+func (o *StackStatusDto) HasKgWriteApiEnabled() bool {
+	if o != nil && !IsNil(o.KgWriteApiEnabled) {
+		return true
+	}
+
+	return false
+}
+
+// SetKgWriteApiEnabled gets a reference to the given bool and assigns it to the KgWriteApiEnabled field.
+func (o *StackStatusDto) SetKgWriteApiEnabled(v bool) {
+	o.KgWriteApiEnabled = &v
+}
+
 func (o StackStatusDto) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -449,6 +482,9 @@ func (o StackStatusDto) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.BlockedReason) {
 		toSerialize["blockedReason"] = o.BlockedReason
 	}
+	if !IsNil(o.KgWriteApiEnabled) {
+		toSerialize["kgWriteApiEnabled"] = o.KgWriteApiEnabled
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -482,6 +518,7 @@ func (o *StackStatusDto) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "otelNative")
 		delete(additionalProperties, "blockedOnManualIntervention")
 		delete(additionalProperties, "blockedReason")
+		delete(additionalProperties, "kgWriteApiEnabled")
 		o.AdditionalProperties = additionalProperties
 	}
 

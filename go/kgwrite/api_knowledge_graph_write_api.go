@@ -3,7 +3,7 @@ Asserts, Inc
 
 Asserts Public API
 
-API version: 2.121.6
+API version: 2.157.1
 Contact: support@asserts.ai
 */
 
@@ -239,6 +239,7 @@ type ApiDeleteRelationshipRequest struct {
 	toDomain    *string
 	toType      *string
 	toName      *string
+	domain      *string
 	fromScope   *map[string]string
 	toScope     *map[string]string
 	xScopeOrgID *string
@@ -276,6 +277,12 @@ func (r ApiDeleteRelationshipRequest) ToType(toType string) ApiDeleteRelationshi
 
 func (r ApiDeleteRelationshipRequest) ToName(toName string) ApiDeleteRelationshipRequest {
 	r.toName = &toName
+	return r
+}
+
+// Optional request domain. Ignored until owner-aware relationship matching is enabled.
+func (r ApiDeleteRelationshipRequest) Domain(domain string) ApiDeleteRelationshipRequest {
+	r.domain = &domain
 	return r
 }
 
@@ -387,6 +394,9 @@ func (a *KnowledgeGraphWriteAPIAPIService) DeleteRelationshipExecute(r ApiDelete
 	parameterAddToHeaderOrQuery(localVarQueryParams, "to.domain", r.toDomain, "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "to.type", r.toType, "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "to.name", r.toName, "")
+	if r.domain != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "domain", r.domain, "")
+	}
 	if r.fromScope != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "from.scope", r.fromScope, "")
 	}
@@ -528,7 +538,7 @@ func (r ApiUpsertEntityRequest) Execute() (*EntityWriteResponseDto, *http.Respon
 /*
 UpsertEntity Create or update a custom entity
 
-Upserts an API-origin entity identified by (type, name, scope): 201 on create, 200 on update.
+Upserts an entity identified by (domain, type, name, scope): 201 on create, 200 on update. Existing targets may be overwritten regardless of origin; the write applies API origin and the requested TTL.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param namespace Tenant namespace, formatted as stacks-<stackId>; must match the request tenant
@@ -720,7 +730,7 @@ func (r ApiUpsertRelationshipRequest) Execute() (*RelationshipWriteResponseDto, 
 /*
 UpsertRelationship Create or update a custom relationship
 
-Upserts an API-origin edge between two existing entities; both endpoints must already exist.
+Upserts an edge between two existing entities; both endpoints must already exist. Existing targets may be overwritten regardless of origin; the write applies API origin and the requested TTL.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param namespace Tenant namespace, formatted as stacks-<stackId>
@@ -923,7 +933,7 @@ func (r ApiWriteGraphRequest) Execute() (*GraphWriteResponseDto, *http.Response,
 /*
 WriteGraph Write a batch of custom entities and relationships
 
-Upserts the request's entities first, then its relationships, as ONE atomic write: the entity and relationship data all commit together or not at all, and the server never splits a request internally. (Auto-registering a not-yet-seen entity type and its indexes runs before that atomic write and is idempotent, so it may persist even if the write then fails — retrying is safe.) A request may contain at most kg-write.batch.max-items total items (default 500); callers with larger loads send multiple requests, each independently atomic, and the upserts are idempotent so retrying a failed request is safe. No stub entities are created for unresolved relationship endpoints. The returned counts are the accepted (submitted) item counts, not a created-vs-updated breakdown.
+Upserts the request's entities first, then its relationships, as ONE atomic write: the entity and relationship data all commit together or not at all, and the server never splits a request internally. (Auto-registering a not-yet-seen entity type and its indexes runs before that atomic write and is idempotent, so it may persist even if the write then fails — retrying is safe.) A request may contain at most kg-write.batch.max-items total items (default 500); callers with larger loads send multiple requests, each independently atomic, and the upserts are idempotent so retrying a failed request is safe. No stub entities are created for unresolved relationship endpoints. The returned counts are the accepted (submitted) item counts, not a created-vs-updated breakdown. Existing targets may be overwritten regardless of origin; writes apply API origin and the requested TTL.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param namespace Tenant namespace, formatted as stacks-<stackId>
