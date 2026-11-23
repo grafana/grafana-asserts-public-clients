@@ -1713,7 +1713,23 @@ export interface DefinedByMetricsDto extends DefinedByDto {
      * @memberof DefinedByMetricsDto
      */
     endEntityMatchers?: { [key: string]: string; };
+    /**
+     * 
+     * @type {DefinedByMetricsDtoSource}
+     * @memberof DefinedByMetricsDto
+     */
+    source: DefinedByMetricsDtoSource;
 }
+
+/**
+ * 
+ * @export
+ */
+export const DefinedByMetricsDtoSource = {
+    Metrics: 'METRICS'
+} as const;
+export type DefinedByMetricsDtoSource = typeof DefinedByMetricsDtoSource[keyof typeof DefinedByMetricsDtoSource];
+
 /**
  * Property-match based relation definition
  * @export
@@ -1732,7 +1748,23 @@ export interface DefinedByPropertyMatchDto extends DefinedByDto {
      * @memberof DefinedByPropertyMatchDto
      */
     endEntityProperties?: Array<string>;
+    /**
+     * 
+     * @type {DefinedByPropertyMatchDtoSource}
+     * @memberof DefinedByPropertyMatchDto
+     */
+    source: DefinedByPropertyMatchDtoSource;
 }
+
+/**
+ * 
+ * @export
+ */
+export const DefinedByPropertyMatchDtoSource = {
+    PropertyMatch: 'PROPERTY_MATCH'
+} as const;
+export type DefinedByPropertyMatchDtoSource = typeof DefinedByPropertyMatchDtoSource[keyof typeof DefinedByPropertyMatchDtoSource];
+
 /**
  * 
  * @export
@@ -6519,7 +6551,7 @@ export interface RelationRuleDto {
  * Relation definition (polymorphic: METRICS or PROPERTY_MATCH)
  * @export
  */
-export type RelationRuleDtoDefinedBy = DefinedByMetricsDto | DefinedByPropertyMatchDto;
+export type RelationRuleDtoDefinedBy = { source: 'METRICS' } & DefinedByMetricsDto | { source: 'PROPERTY_MATCH' } & DefinedByPropertyMatchDto;
 /**
  * 
  * @export

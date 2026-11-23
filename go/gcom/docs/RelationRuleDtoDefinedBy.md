@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **StaticProperties** | Pointer to **map[string]interface{}** | Static properties to attach to the relation | [optional] 
 **StartDomain** | Pointer to **string** | KG domain the start entity must be in. Omit to address the default telemetry domain — omitting the field is the only spelling for it, so the reserved telemetry domain values are rejected here rather than treated as the default. Set this to bind entities written through the KG Write API, which can never live in the default domain. Required when the endpoint type is declared only by a published kg schema and not by any entity rule, since without it the rule would be accepted and then match nothing. PROPERTY_MATCH only — rejected on a METRICS relation. | [optional] [default to ""]
 **EndDomain** | Pointer to **string** | KG domain the end entity must be in. Same semantics as startDomain. | [optional] [default to ""]
-**Source** | **string** |  | 
+**Source** | [**DefinedByPropertyMatchDtoSource**](DefinedByPropertyMatchDtoSource.md) |  | 
 **StartEntityProperties** | Pointer to **[]string** | Properties from start entity to match | [optional] 
 **EndEntityProperties** | Pointer to **[]string** | Properties from end entity to match | [optional] 
 
@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 
 ### NewRelationRuleDtoDefinedBy
 
-`func NewRelationRuleDtoDefinedBy(source string, ) *RelationRuleDtoDefinedBy`
+`func NewRelationRuleDtoDefinedBy(source DefinedByPropertyMatchDtoSource, ) *RelationRuleDtoDefinedBy`
 
 NewRelationRuleDtoDefinedBy instantiates a new RelationRuleDtoDefinedBy object
 This constructor will assign default values to properties that have it defined,
@@ -107,20 +107,20 @@ HasEndDomain returns a boolean if a field has been set.
 
 ### GetSource
 
-`func (o *RelationRuleDtoDefinedBy) GetSource() string`
+`func (o *RelationRuleDtoDefinedBy) GetSource() DefinedByPropertyMatchDtoSource`
 
 GetSource returns the Source field if non-nil, zero value otherwise.
 
 ### GetSourceOk
 
-`func (o *RelationRuleDtoDefinedBy) GetSourceOk() (*string, bool)`
+`func (o *RelationRuleDtoDefinedBy) GetSourceOk() (*DefinedByPropertyMatchDtoSource, bool)`
 
 GetSourceOk returns a tuple with the Source field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSource
 
-`func (o *RelationRuleDtoDefinedBy) SetSource(v string)`
+`func (o *RelationRuleDtoDefinedBy) SetSource(v DefinedByPropertyMatchDtoSource)`
 
 SetSource sets Source field to given value.
 

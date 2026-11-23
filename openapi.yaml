@@ -7,7 +7,7 @@ info:
     name: Support
     url: "https://www.grafana.com"
     email: support@asserts.ai
-  version: 2026.11.17-134232
+  version: 2026.11.23-214302
 servers:
   - url: http://localhost:8030
     description: Generated server url
@@ -9495,6 +9495,12 @@ components:
               additionalProperties:
                 type: string
               description: Label matchers for end entity
+        - type: object
+          properties:
+            source:
+              $ref: "#/components/schemas/DefinedByMetricsDtoSource"
+          required:
+            - source
       description: Metrics-based relation definition
       required:
         - pattern
@@ -9513,6 +9519,12 @@ components:
               description: Properties from end entity to match
               items:
                 type: string
+        - type: object
+          properties:
+            source:
+              $ref: "#/components/schemas/DefinedByPropertyMatchDtoSource"
+          required:
+            - source
       description: Property-match based relation definition
     EntityRuleDto:
       type: object
@@ -9635,6 +9647,11 @@ components:
           description: Target entity type
         definedBy:
           description: "Relation definition (polymorphic: METRICS or PROPERTY_MATCH)"
+          discriminator:
+            propertyName: source
+            mapping:
+              METRICS: "#/components/schemas/DefinedByMetricsDto"
+              PROPERTY_MATCH: "#/components/schemas/DefinedByPropertyMatchDto"
           oneOf:
             - $ref: "#/components/schemas/DefinedByMetricsDto"
             - $ref: "#/components/schemas/DefinedByPropertyMatchDto"
@@ -9850,6 +9867,14 @@ components:
       type: string
       enum:
         - ApiValidationError
+    DefinedByMetricsDtoSource:
+      type: string
+      enum:
+        - METRICS
+    DefinedByPropertyMatchDtoSource:
+      type: string
+      enum:
+        - PROPERTY_MATCH
   parameters:
     TenantId:
       name: X-Scope-OrgID
